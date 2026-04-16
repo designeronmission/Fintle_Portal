@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Professional Invoice Suite</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f9;
+            min-height: 100vh;
+            padding: 28px 32px;
+        }
+
+        /* premium container */
+        .invoice-premium {
+            max-width: 1440px;
+            margin: 0 auto;
+            display: flex;
+            gap: 28px;
+        }
+
+        /* ========= SIDEBAR - Premium Glass ========= */
+        .sidebar-premium {
+            width: 280px;
+            background: linear-gradient(145deg, #0f2b3d 0%, #0a1e2c 100%);
+            border-radius: 32px;
+            flex-shrink: 0;
+            padding: 32px 20px;
+            backdrop-filter: blur(2px);
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.25);
+            transition: all 0.2s;
+        }
+        .logo-premium {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 48px;
+            padding: 0 12px;
+        }
+        .logo-icon {
+            background: rgba(255,255,255,0.12);
+            width: 44px;
+            height: 44px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .logo-icon i {
+            font-size: 26px;
+            color: #60a5fa;
+        }
+        .logo-premium span {
+            font-weight: 700;
+            font-size: 24px;
+            letter-spacing: -0.3px;
+            color: white;
+        }
+        .nav-premium {
+            list-style: none;
+        }
+        .nav-premium li {
+            margin-bottom: 8px;
+        }
+        .nav-premium a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 12px 18px;
+            border-radius: 20px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav-premium a:hover, .nav-premium .active a {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+        .nav-premium i {
+            width: 24px;
+            font-size: 1.2rem;
+        }
+
+        /* ========= MAIN CARD ========= */
+        .main-invoice-card {
+            flex: 1;
+            background: #ffffff;
+            border-radius: 36px;
+            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        /* header with subtle gradient */
+        .invoice-header-premium {
+            padding: 28px 36px;
+            background: white;
+            border-bottom: 1px solid #eef2f8;
+        }
+        .header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .title-section h1 {
+            font-size: 28px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1e3a5f, #2c7da0);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+        .status-badge {
+            background: #ecfdf5;
+            padding: 8px 20px;
+            border-radius: 60px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #0b5e42;
+        }
+
+        /* 3 column info cards (luxe) */
+        .info-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            padding: 28px 36px 12px 36px;
+        }
+        .luxury-card {
+            background: #ffffff;
+            border: 1px solid #edf2f7;
+            border-radius: 28px;
+            padding: 22px 24px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+        }
+        .card-header-lux {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .card-header-lux h4 {
+            font-size: 15px;
+            font-weight: 700;
+            color: #2c3e66;
+            letter-spacing: 0.3px;
+        }
+        .btn-ghost {
+            background: transparent;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 5px 14px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #4361ee;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .btn-ghost:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+        .customer-name-large {
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f2b3d;
+            margin-bottom: 14px;
+        }
+        .detail-line {
+            font-size: 13px;
+            color: #5b6e8c;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .info-row-mini {
+            background: #f8fafd;
+            border-radius: 18px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .info-row-mini span:first-child {
+            font-weight: 500;
+            color: #475569;
+        }
+        .info-row-mini span:last-child {
+            font-weight: 700;
+            color: #0f2b3d;
+        }
+        .btn-dashed-premium {
+            width: 100%;
+            background: transparent;
+            border: 1px dashed #cbd5e1;
+            border-radius: 40px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-weight: 500;
+            color: #2c7da0;
+            cursor: pointer;
+            margin-top: 12px;
+        }
+
+        /* Items section */
+        .items-premium {
+            padding: 20px 36px 10px 36px;
+        }
+        .table-wrapper {
+            border-radius: 28px;
+            border: 1px solid #ecf3fa;
+            overflow-x: auto;
+            background: white;
+        }
+        .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 800px;
+        }
+        .invoice-table th {
+            text-align: left;
+            padding: 18px 20px;
+            background: #fbfdff;
+            font-weight: 700;
+            font-size: 13px;
+            color: #2c3e66;
+            border-bottom: 1px solid #eef2f8;
+        }
+        .invoice-table td {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f0f4fa;
+            vertical-align: middle;
+        }
+        .modern-input, .modern-select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            background: white;
+            transition: 0.2s;
+        }
+        .modern-input:focus, .modern-select:focus {
+            outline: none;
+            border-color: #2c7da0;
+            box-shadow: 0 0 0 3px rgba(44,125,160,0.1);
+        }
+        .delete-icon {
+            background: #fff5f5;
+            border: none;
+            border-radius: 40px;
+            width: 34px;
+            height: 34px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #e53e3e;
+        }
+        .delete-icon:hover {
+            background: #fee2e2;
+        }
+        .btn-add-line {
+            background: #f1f5f9;
+            border: 1px dashed #cbd5e1;
+            border-radius: 60px;
+            padding: 10px 24px;
+            font-weight: 600;
+            font-size: 13px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            margin-top: 18px;
+        }
+
+        /* Bottom dual layout */
+        .bottom-dual-premium {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 28px;
+            padding: 10px 36px 24px 36px;
+        }
+        .notes-premium {
+            background: #fafcff;
+            border: 1px solid #edf2f8;
+            border-radius: 28px;
+            padding: 22px;
+        }
+        .notes-premium textarea {
+            width: 100%;
+            border: none;
+            background: transparent;
+            font-family: 'Inter', sans-serif;
+            font-size: 14px;
+            resize: vertical;
+        }
+        .notes-premium textarea:focus {
+            outline: none;
+        }
+        .summary-premium {
+            background: #f8fafd;
+            border-radius: 28px;
+            padding: 22px;
+        }
+        .summary-row-flex {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 14px;
+        }
+        .summary-grand {
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 2px solid #e2e8f0;
+            font-weight: 800;
+            font-size: 20px;
+            color: #0f2b3d;
+        }
+        .shipping-field {
+            width: 110px;
+            text-align: right;
+            padding: 6px 12px;
+            border-radius: 40px;
+            border: 1px solid #e2e8f0;
+        }
+
+        /* Action footer */
+        .action-footer-premium {
+            padding: 20px 36px 32px 36px;
+            display: flex;
+            justify-content: flex-end;
+            gap: 18px;
+            border-top: 1px solid #eef2f8;
+        }
+        .btn-secondary-outline {
+            background: white;
+            border: 1px solid #cbd5e1;
+            border-radius: 48px;
+            padding: 12px 32px;
+            font-weight: 600;
+            color: #2d3e5f;
+        }
+        .btn-primary-solid {
+            background: #0f2b3d;
+            border: none;
+            border-radius: 48px;
+            padding: 12px 36px;
+            font-weight: 700;
+            color: white;
+            transition: 0.2s;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .btn-primary-solid:hover {
+            background: #1e4a6e;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 1150px) {
+            body { padding: 16px; }
+            .info-cards-grid { grid-template-columns: 1fr; }
+            .bottom-dual-premium { grid-template-columns: 1fr; }
+            .sidebar-premium { width: 100px; overflow: hidden; padding: 20px 12px; }
+            .sidebar-premium .logo-premium span { display: none; }
+            .nav-premium a span { display: none; }
+            .nav-premium a i { margin: 0 auto; }
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-premium">
+    <!-- Sidebar elegant -->
+    <aside class="sidebar-premium">
+        <div class="logo-premium">
+            <div class="logo-icon"><i class="fas fa-file-invoice"></i></div>
+            <span>Fintle</span>
+        </div>
+        <ul class="nav-premium">
+            <li class="active"><a href="#"><i class="fas fa-chart-pie"></i> <span>Dashboard</span></a></li>
+            <li><a href="#"><i class="fas fa-cube"></i> <span>Items</span></a></li>
+            <li><a href="#"><i class="fas fa-truck-fast"></i> <span>Purchase</span></a></li>
+            <li><a href="#"><i class="fas fa-chart-line"></i> <span>Sales</span></a></li>
+            <li><a href="#"><i class="fas fa-sliders-h"></i> <span>Settings</span></a></li>
+        </ul>
+    </aside>
+
+    <!-- Main Invoice Workspace -->
+    <div class="main-invoice-card">
+        <div class="invoice-header-premium">
+            <div class="header-flex">
+                <div class="title-section">
+                    <h1><i class="fas fa-receipt me-2"></i> Create New Invoice</h1>
+                    <p style="color: #6c86a3; font-size: 14px; margin-top: 6px;">Professional billing, smart tax calculation</p>
+                </div>
+                <div class="status-badge"><i class="far fa-clock me-1"></i> Draft - In Progress</div>
+            </div>
+        </div>
+
+        <!-- Info Cards: Billing, Shipping, Invoice Details -->
+        <div class="info-cards-grid">
+            <!-- Billing To -->
+            <div class="luxury-card">
+                <div class="card-header-lux">
+                    <h4><i class="fas fa-building me-2"></i> Billing To</h4>
+                    <button class="btn-ghost" id="changePartyPremium"><i class="fas fa-pen"></i> Change</button>
+                </div>
+                <div class="customer-name-large" id="billingNamePremium">Brighton Ventures</div>
+                <div class="detail-line"><i class="fas fa-phone-alt"></i> <span id="billingPhonePremium">+1 (555) 782-3400</span></div>
+                <div class="detail-line"><i class="fas fa-map-pin"></i> <span id="billingAddressPremium">4517 Washington Ave, Manchester, KY 39495</span></div>
+            </div>
+            <!-- Shipping To -->
+            <div class="luxury-card">
+                <div class="card-header-lux">
+                    <h4><i class="fas fa-truck"></i> Shipping To</h4>
+                    <button class="btn-ghost" id="changeShippingPremium"><i class="fas fa-edit"></i> Edit</button>
+                </div>
+                <div class="customer-name-large" id="shippingNamePremium">Brighton Ventures</div>
+                <div class="detail-line"><i class="fas fa-phone-alt"></i> <span id="shippingPhonePremium">+1 (555) 782-3400</span></div>
+                <div class="detail-line"><i class="fas fa-location-dot"></i> <span id="shippingAddressPremium">4517 Washington Ave, Manchester, KY 39495</span></div>
+            </div>
+            <!-- Invoice Meta -->
+            <div class="luxury-card">
+                <div class="info-row-mini"><span>Invoice Ref</span><span id="invRefPremium">INV-2026-0415</span></div>
+                <div class="info-row-mini"><span>Issue Date</span><span id="issueDatePremium">2026-04-15</span></div>
+                <button class="btn-dashed-premium" id="showDueDateBtn"><i class="far fa-calendar-plus"></i> Set Due Date</button>
+                <div id="dueDatePremiumContainer" style="margin-top: 12px; display: none;" class="info-row-mini"><span>Due Date</span><span id="dueDatePremiumValue">2026-05-15</span></div>
+                <div class="info-row-mini mt-2"><span>Currency</span><span id="currencyLabel">USD ($)</span></div>
+            </div>
+        </div>
+
+        <!-- Items Table Premium -->
+        <div class="items-premium">
+            <div class="table-wrapper">
+                <table class="invoice-table" id="invoiceTablePremium">
+                    <thead>
+                        <tr><th>Item / Service</th><th>Price</th><th>Qty</th><th>Unit</th><th>Tax (%)</th><th>Amount</th><th></th></tr>
+                    </thead>
+                    <tbody id="itemsTablePremiumBody"></tbody>
+                </table>
+            </div>
+            <div style="display: flex; justify-content: flex-end;">
+                <button class="btn-add-line" id="addItemPremiumBtn"><i class="fas fa-plus-circle"></i> Add line item</button>
+            </div>
+        </div>
+
+        <!-- Notes & Summary Premium -->
+        <div class="bottom-dual-premium">
+            <div class="notes-premium">
+                <label style="font-weight: 600; font-size: 14px; color:#2c3e66;"><i class="fas fa-pen-fancy"></i> Notes / Terms</label>
+                <textarea rows="3" id="invoiceNotesPremium" placeholder="Payment terms: Due within 15 days. Thank you for your business."></textarea>
+                <div class="mt-2"><small style="color:#7f8fa4;"><i class="fas fa-info-circle"></i> These notes will appear on the invoice</small></div>
+            </div>
+            <div class="summary-premium">
+                <div class="summary-row-flex"><span>Subtotal</span><span id="subtotalPremium">$0.00</span></div>
+                <div class="summary-row-flex"><span>Shipping charge</span><input type="number" id="shippingPremiumInput" class="shipping-field" value="0" step="any" placeholder="0.00"></div>
+                <div class="summary-row-flex"><span>Tax total</span><span id="taxTotalPremium">$0.00</span></div>
+                <div class="summary-row-flex summary-grand"><span>Net Total</span><span id="netTotalPremium">$0.00</span></div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-footer-premium">
+            <button class="btn-secondary-outline" id="recordPaymentPremiumBtn"><i class="fas fa-credit-card me-2"></i> Save & Record Payment</button>
+            <button class="btn-primary-solid" id="saveContinuePremiumBtn"><i class="fas fa-save me-2"></i> Save & Continue</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Professional Invoice Engine
+    let currentCurrencySymbol = '$';
+    function formatMoney(amount) { return currentCurrencySymbol + ' ' + amount.toFixed(2); }
+
+    // Helper for recalc totals and row amounts
+    function recalcAll() {
+        let rows = document.querySelectorAll('#itemsTablePremiumBody .premium-row');
+        let subtotal = 0, totalTax = 0;
+        rows.forEach(row => {
+            let price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+            let qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+            let taxRate = parseFloat(row.querySelector('.item-tax')?.value) || 0;
+            let amount = price * qty;
+            let taxAmount = amount * (taxRate / 100);
+            subtotal += amount;
+            totalTax += taxAmount;
+            let rowAmountSpan = row.querySelector('.row-amount-span');
+            if (rowAmountSpan) rowAmountSpan.innerText = formatMoney(amount + taxAmount);
+        });
+        let shipping = parseFloat(document.getElementById('shippingPremiumInput')?.value) || 0;
+        let net = subtotal + totalTax + shipping;
+        document.getElementById('subtotalPremium').innerText = formatMoney(subtotal);
+        document.getElementById('taxTotalPremium').innerText = formatMoney(totalTax);
+        document.getElementById('netTotalPremium').innerText = formatMoney(net);
+    }
+
+    function attachRowEvents(row) {
+        let inputs = row.querySelectorAll('input');
+        inputs.forEach(inp => inp.addEventListener('input', () => recalcAll()));
+        let delBtn = row.querySelector('.delete-premium');
+        if (delBtn) delBtn.addEventListener('click', () => { row.remove(); recalcAll(); });
+    }
+
+    function createPremiumRow(desc = '', price = '', qty = '1', unit = '', tax = '0') {
+        let tr = document.createElement('tr');
+        tr.className = 'premium-row';
+        tr.innerHTML = `
+            <td><input type="text" class="modern-input item-desc" value="${escapeHtml(desc)}" placeholder="Enter product / service"></td>
+            <td><input type="number" step="any" class="modern-input item-price" value="${price}" placeholder="0.00"></td>
+            <td><input type="number" step="any" class="modern-input item-qty" value="${qty}" placeholder="1"></td>
+            <td><input type="text" class="modern-input item-unit" value="${escapeHtml(unit)}" placeholder="pcs"></td>
+            <td><input type="number" step="any" class="modern-input item-tax" value="${tax}" placeholder="0"></td>
+            <td class="fw-bold row-amount-span">${formatMoney(0)}</td>
+            <td><button class="delete-icon delete-premium"><i class="fas fa-trash-alt"></i></button></td>
+        `;
+        attachRowEvents(tr);
+        return tr;
+    }
+
+    function escapeHtml(str) { if(!str) return ''; return str.replace(/[&<>]/g, function(m){ if(m === '&') return '&amp;'; if(m === '<') return '&lt;'; if(m === '>') return '&gt;'; return m;}); }
+
+    function loadSampleRowsPremium() {
+        let tbody = document.getElementById('itemsTablePremiumBody');
+        tbody.innerHTML = '';
+        let samples = [
+            { desc: 'Professional SEO Optimization', price: '450', qty: '1', unit: 'Project', tax: '18' },
+            { desc: 'Cloud Hosting (Annual Plan)', price: '299', qty: '2', unit: 'Units', tax: '10' },
+            { desc: 'UI/UX Design Sprint', price: '1200', qty: '1', unit: 'Workshop', tax: '18' }
+        ];
+        samples.forEach(s => {
+            let row = createPremiumRow(s.desc, s.price, s.qty, s.unit, s.tax);
+            tbody.appendChild(row);
+        });
+        recalcAll();
+    }
+
+    // Get current invoice data
+    function getInvoiceDataPremium() {
+        let items = [];
+        document.querySelectorAll('#itemsTablePremiumBody .premium-row').forEach(row => {
+            items.push({
+                description: row.querySelector('.item-desc')?.value || '',
+                price: parseFloat(row.querySelector('.item-price')?.value) || 0,
+                quantity: parseFloat(row.querySelector('.item-qty')?.value) || 0,
+                unit: row.querySelector('.item-unit')?.value || '',
+                taxRate: parseFloat(row.querySelector('.item-tax')?.value) || 0,
+            });
+        });
+        let subtotal = items.reduce((s,i) => s + (i.price*i.quantity),0);
+        let taxTotal = items.reduce((s,i) => s + (i.price*i.quantity)*(i.taxRate/100),0);
+        let shipping = parseFloat(document.getElementById('shippingPremiumInput')?.value) || 0;
+        return {
+            customer: document.getElementById('billingNamePremium')?.innerText,
+            invoiceReference: document.getElementById('invRefPremium')?.innerText,
+            issueDate: document.getElementById('issueDatePremium')?.innerText,
+            dueDate: document.getElementById('dueDatePremiumValue')?.innerText || 'Not set',
+            notes: document.getElementById('invoiceNotesPremium')?.value,
+            lineItems: items,
+            subtotal, taxTotal, shippingCharge: shipping,
+            netTotal: subtotal + taxTotal + shipping
+        };
+    }
+
+    // Toast elegant
+    function showToastPremium(msg, type = 'success') {
+        let toastDiv = document.createElement('div');
+        toastDiv.className = 'position-fixed bottom-0 end-0 p-3';
+        toastDiv.style.zIndex = '9999';
+        toastDiv.innerHTML = `<div style="background:${type === 'success' ? '#0f2b3d' : '#2c7da0'}; color:white; border-radius:60px; padding:12px 24px; box-shadow:0 8px 20px rgba(0,0,0,0.1);"><i class="fas ${type === 'success' ? 'fa-check-circle' : 'fa-info-circle'} me-2"></i>${msg}</div>`;
+        document.body.appendChild(toastDiv);
+        setTimeout(() => toastDiv.remove(), 2800);
+    }
+
+    // Event Handlers
+    function handleSaveContinue() {
+        let data = getInvoiceDataPremium();
+        if(data.lineItems.length === 0) { showToastPremium('Please add at least one line item', 'info'); return; }
+        if(!data.customer || data.customer === '') { showToastPremium('Customer information required', 'info'); return; }
+        localStorage.setItem('fintle_invoice_pro', JSON.stringify(data));
+        showToastPremium(`✅ Invoice ${data.invoiceReference} saved as draft.`);
+        console.log('[SAVE]', data);
+    }
+
+    function handleRecordPayment() {
+        let data = getInvoiceDataPremium();
+        if(data.lineItems.length === 0) { showToastPremium('Add items before recording payment', 'info'); return; }
+        let confirmMsg = `Record payment for ${data.customer}? Net total: ${formatMoney(data.netTotal)}. Mark as paid?`;
+        if(confirm(confirmMsg)) {
+            showToastPremium(`💰 Payment recorded for ${data.invoiceReference} - ${formatMoney(data.netTotal)}`, 'success');
+            localStorage.setItem('payment_record_premium', JSON.stringify({...data, paidAt: new Date()}));
+        }
+    }
+
+    // UI Interactions
+    document.getElementById('changePartyPremium')?.addEventListener('click', () => {
+        let newName = prompt('Customer name:', document.getElementById('billingNamePremium').innerText);
+        if(newName) {
+            document.getElementById('billingNamePremium').innerText = newName;
+            document.getElementById('shippingNamePremium').innerText = newName;
+        }
+        let newPhone = prompt('Phone:', document.getElementById('billingPhonePremium').innerText);
+        if(newPhone) { document.getElementById('billingPhonePremium').innerText = newPhone; document.getElementById('shippingPhonePremium').innerText = newPhone; }
+        let newAddr = prompt('Billing Address:', document.getElementById('billingAddressPremium').innerText);
+        if(newAddr) { document.getElementById('billingAddressPremium').innerText = newAddr; document.getElementById('shippingAddressPremium').innerText = newAddr; }
+    });
+    document.getElementById('changeShippingPremium')?.addEventListener('click', () => {
+        let newShipAddr = prompt('Shipping address:', document.getElementById('shippingAddressPremium').innerText);
+        if(newShipAddr) document.getElementById('shippingAddressPremium').innerText = newShipAddr;
+    });
+    document.getElementById('showDueDateBtn')?.addEventListener('click', () => {
+        let container = document.getElementById('dueDatePremiumContainer');
+        if(container.style.display === 'none' || container.style.display === '') {
+            container.style.display = 'flex';
+            let today = new Date(); today.setDate(today.getDate() + 30);
+            document.getElementById('dueDatePremiumValue').innerText = today.toISOString().slice(0,10);
+        } else {
+            let newDue = prompt('Update due date (YYYY-MM-DD):', document.getElementById('dueDatePremiumValue').innerText);
+            if(newDue && /^\d{4}-\d{2}-\d{2}$/.test(newDue)) document.getElementById('dueDatePremiumValue').innerText = newDue;
+        }
+    });
+    document.getElementById('addItemPremiumBtn')?.addEventListener('click', () => {
+        let tbody = document.getElementById('itemsTablePremiumBody');
+        let newRow = createPremiumRow('Additional service', '0', '1', 'hour', '0');
+        tbody.appendChild(newRow);
+        recalcAll();
+        showToastPremium('New line added', 'info');
+    });
+    document.getElementById('shippingPremiumInput')?.addEventListener('input', () => recalcAll());
+    document.getElementById('saveContinuePremiumBtn')?.addEventListener('click', handleSaveContinue);
+    document.getElementById('recordPaymentPremiumBtn')?.addEventListener('click', handleRecordPayment);
+
+    // set initial invoice reference and issue date
+    let todayDate = new Date().toISOString().slice(0,10);
+    document.getElementById('issueDatePremium').innerText = todayDate;
+    document.getElementById('invRefPremium').innerText = 'INV-' + new Date().getFullYear() + '-' + Math.floor(Math.random()*900+100);
+    document.getElementById('dueDatePremiumContainer').style.display = 'none';
+    loadSampleRowsPremium();
+    document.getElementById('currencyLabel').innerText = 'USD ($)';
+    currentCurrencySymbol = '$';
+</script>
+</body>
+</html>

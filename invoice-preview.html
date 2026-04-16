@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Tax Invoice Preview</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: #f5f7fc;
+            padding: 30px 24px;
+        }
+
+        .invoice-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+        }
+
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 26px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border: none;
+            background: white;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .btn-action-primary {
+            background: #1e293b;
+            color: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-action-primary:hover {
+            background: #0f172a;
+            transform: translateY(-1px);
+        }
+
+        .btn-action-outline {
+            border: 1px solid #cbd5e1;
+            background: white;
+            color: #334155;
+        }
+
+        .btn-action-outline:hover {
+            background: #f8fafc;
+            border-color: #94a3b8;
+        }
+
+        /* Main Invoice Container - exact same design language */
+        .invoice-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            position: relative;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.12);
+            border-radius: 4px;
+        }
+
+        .invoice-title {
+            font-size: 16px;
+            font-weight: 700;
+            text-align: center;
+            padding-top: 32px;
+            letter-spacing: 1px;
+            color: #1e293b;
+        }
+
+        .invoice-content {
+            position: relative;
+            padding: 0 24px 32px 24px;
+        }
+
+        /* Logo placeholders same as original */
+        .logo-placeholder {
+            position: absolute;
+            width: 156px;
+            height: 58px;
+            background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+            border: 1px dashed #4f46e5;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            color: #4f46e5;
+            top: 52px;
+        }
+
+        .logo-left {
+            left: 32px;
+        }
+
+        .logo-right {
+            right: 32px;
+        }
+
+        .main-border {
+            position: absolute;
+            left: 16px;
+            top: 36px;
+            width: calc(100% - 32px);
+            height: calc(100% - 56px);
+            border: 1px solid #e2e8f0;
+            pointer-events: none;
+        }
+
+        /* Section Header - Bill To | Invoice Details */
+        .section-header {
+            position: absolute;
+            left: 32px;
+            right: 32px;
+            top: 174px;
+            height: 40px;
+            background: linear-gradient(135deg, #eef2ff, #e2e8f0);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 18px;
+            border-radius: 6px 6px 0 0;
+        }
+
+        .bill-to, .invoice-details-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        /* Info row (customer + invoice details) */
+        .info-row {
+            position: absolute;
+            left: 32px;
+            right: 32px;
+            top: 222px;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 18px;
+        }
+
+        .customer-details {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .customer-name {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 6px;
+            color: #0f172a;
+        }
+
+        .customer-address {
+            font-size: 12px;
+            font-weight: 400;
+            color: #475569;
+            margin-top: 4px;
+            line-height: 1.4;
+        }
+
+        .invoice-info {
+            text-align: right;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .invoice-info div {
+            margin-bottom: 8px;
+            color: #334155;
+        }
+
+        /* Table Header - exact same grid */
+        .table-header {
+            position: absolute;
+            left: 33px;
+            right: 33px;
+            top: 288px;
+            height: 42px;
+            background: linear-gradient(135deg, #eef2ff, #e2e8f0);
+            display: grid;
+            grid-template-columns: 55px 1fr 120px 100px 120px 135px;
+            align-items: center;
+            font-size: 12px;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            border-bottom: none;
+            color: #1e293b;
+        }
+
+        .col-num { padding-left: 12px; }
+        .col-item { padding-left: 12px; border-left: 1px solid #e2e8f0; }
+        .col-hsn { padding-left: 12px; border-left: 1px solid #e2e8f0; }
+        .col-qty { padding-left: 12px; border-left: 1px solid #e2e8f0; }
+        .col-price { padding-left: 12px; border-left: 1px solid #e2e8f0; }
+        .col-amount { padding-left: 12px; border-left: 1px solid #e2e8f0; text-align: right; padding-right: 18px; }
+
+        /* Table Body */
+        .table-body {
+            position: absolute;
+            left: 33px;
+            right: 33px;
+            top: 330px;
+            min-height: 140px;
+            border-left: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 55px 1fr 120px 100px 120px 135px;
+            border-bottom: 1px solid #eef2f6;
+            font-size: 12px;
+        }
+
+        .table-row > div {
+            padding: 12px 8px;
+            border-left: 1px solid #eef2f6;
+        }
+
+        .table-row > div:first-child {
+            border-left: none;
+        }
+
+        .row-num {
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .row-amount {
+            text-align: right;
+            padding-right: 18px !important;
+            font-weight: 600;
+        }
+
+        /* Total Row */
+        .total-row {
+            position: absolute;
+            left: 33px;
+            right: 33px;
+            top: auto;
+            bottom: 210px;
+            height: 42px;
+            display: grid;
+            grid-template-columns: 55px 1fr 120px 100px 120px 135px;
+            align-items: center;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            font-size: 14px;
+            font-weight: 800;
+            background: #fefce8;
+        }
+
+        .total-label {
+            grid-column: 2;
+            padding-left: 12px;
+            font-weight: 800;
+        }
+
+        .total-amount {
+            grid-column: 6;
+            text-align: right;
+            padding-right: 18px;
+            font-weight: 800;
+        }
+
+        /* Amounts Section (Right side) */
+        .amounts-section {
+            position: absolute;
+            right: 33px;
+            bottom: 132px;
+            width: 370px;
+        }
+
+        .amounts-header {
+            height: 40px;
+            background: linear-gradient(135deg, #eef2ff, #e2e8f0);
+            display: flex;
+            align-items: center;
+            padding-left: 20px;
+            font-size: 14px;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            border-bottom: none;
+        }
+
+        .amounts-body {
+            border-left: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            background: white;
+        }
+
+        .amount-row {
+            height: 40px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 13px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+
+        .balance-row {
+            height: 44px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            font-size: 15px;
+            font-weight: 800;
+            border: 1px solid #e2e8f0;
+            border-top: none;
+            background: #fef9e3;
+        }
+
+        /* Tax Details (Left side) */
+        .tax-details {
+            position: absolute;
+            left: 33px;
+            bottom: 132px;
+            width: 330px;
+        }
+
+        .tax-header {
+            height: 40px;
+            background: linear-gradient(135deg, #eef2ff, #e2e8f0);
+            display: flex;
+            align-items: center;
+            padding-left: 18px;
+            font-size: 13px;
+            font-weight: 700;
+            border: 1px solid #e2e8f0;
+            border-bottom: none;
+        }
+
+        .tax-body {
+            border-left: 1px solid #e2e8f0;
+            border-right: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px 16px;
+            background: white;
+        }
+
+        .tax-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            font-size: 12px;
+            border-bottom: 1px dashed #eef2ff;
+        }
+
+        .tax-row:last-child {
+            border-bottom: none;
+        }
+
+        /* Signature Section */
+        .signature-section {
+            position: absolute;
+            right: 33px;
+            bottom: 24px;
+            width: 370px;
+            height: 95px;
+            background: #f8fafc;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding-bottom: 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+        }
+
+        .signature-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        /* Payment Status Badge */
+        .payment-status {
+            position: absolute;
+            left: 33px;
+            bottom: 24px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 20px;
+            border-radius: 40px;
+            font-size: 12px;
+            font-weight: 700;
+            z-index: 2;
+        }
+
+        .status-paid {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .status-unpaid {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .status-partial {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        /* Print styles */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .action-buttons {
+                display: none;
+            }
+            .invoice-container {
+                box-shadow: none;
+                margin: 0;
+            }
+            .main-border {
+                border-color: #ccc;
+            }
+            .payment-status {
+                print-color-adjust: exact;
+                -webkit-print-color-adjust: exact;
+            }
+        }
+
+        /* Responsive fix */
+        @media (max-width: 1000px) {
+            .invoice-content {
+                transform: scale(0.98);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="invoice-wrapper">
+    <div class="action-buttons no-print">
+        <button class="btn-action btn-action-outline" onclick="window.close()">← Close</button>
+        <button class="btn-action btn-action-outline" onclick="window.print()">🖨️ Print / PDF</button>
+        <button class="btn-action btn-action-primary" id="finalizeBtn">✓ Finalize Invoice</button>
+    </div>
+    <div class="invoice-container">
+        <h1 class="invoice-title">Tax Invoice</h1>
+        <div class="invoice-content">
+            <div class="logo-placeholder logo-left">FINTLE</div>
+            <div class="logo-placeholder logo-right">GSTIN: 29AAACF1234D1Z</div>
+            <div class="main-border"></div>
+            
+            <!-- Section Header -->
+            <div class="section-header">
+                <div class="bill-to">Bill To</div>
+                <div class="invoice-details-title">Invoice Details</div>
+            </div>
+            
+            <!-- Customer & Invoice Info -->
+            <div class="info-row">
+                <div class="customer-details">
+                    <div class="customer-name" id="customerName">Loading...</div>
+                    <div class="customer-address" id="customerAddress"></div>
+                    <div class="customer-address" id="customerGST"></div>
+                </div>
+                <div class="invoice-info">
+                    <div>Invoice No: <span id="invoiceNo">---</span></div>
+                    <div>Date: <span id="invoiceDate">---</span></div>
+                    <div>Due Date: <span id="dueDate">---</span></div>
+                    <div>PO Ref: <span id="poRef">---</span></div>
+                </div>
+            </div>
+
+            <!-- Items Table Header -->
+            <div class="table-header">
+                <div class="col-num">#</div>
+                <div class="col-item">Item Name</div>
+                <div class="col-hsn">HSN/SAC</div>
+                <div class="col-qty">Quantity</div>
+                <div class="col-price">Price/Unit</div>
+                <div class="col-amount">Amount</div>
+            </div>
+
+            <!-- Dynamic Table Body -->
+            <div class="table-body" id="tableBody">
+                <div class="table-row">
+                    <div class="row-num">1</div>
+                    <div>Sample Item</div>
+                    <div>998411</div>
+                    <div>1</div>
+                    <div>₹1,000.00</div>
+                    <div class="row-amount">₹1,000.00</div>
+                </div>
+            </div>
+
+            <!-- Total Row -->
+            <div class="total-row">
+                <div class="total-label">Total</div>
+                <div class="total-amount" id="totalAmount">₹0.00</div>
+            </div>
+
+            <!-- Tax Breakdown Section (Left) -->
+            <div class="tax-details">
+                <div class="tax-header">Tax Breakdown (CGST + SGST)</div>
+                <div class="tax-body" id="taxBreakdown">
+                    <div class="tax-row"><span>No tax items</span><span>₹0.00</span></div>
+                </div>
+            </div>
+
+            <!-- Amounts Section (Right) -->
+            <div class="amounts-section">
+                <div class="amounts-header">Amounts</div>
+                <div class="amounts-body">
+                    <div class="amount-row"><span>Subtotal</span><span id="subtotalAmount">₹0.00</span></div>
+                    <div class="amount-row"><span>Total Tax (GST)</span><span id="taxAmount">₹0.00</span></div>
+                    <div class="amount-row"><span>Shipping</span><span id="shippingAmount">₹0.00</span></div>
+                </div>
+                <div class="balance-row"><span>Grand Total</span><span id="grandTotal">₹0.00</span></div>
+            </div>
+
+            <!-- Payment Details Section (Second Amounts box below) -->
+            <div class="amounts-section" style="bottom: 24px; width: 370px;">
+                <div class="amounts-header">Payment Details</div>
+                <div class="amounts-body">
+                    <div class="amount-row"><span>Amount Received</span><span id="amountReceived">₹0.00</span></div>
+                    <div class="amount-row"><span>Payment Method</span><span id="paymentMethod">-</span></div>
+                </div>
+                <div class="balance-row" style="background: #fef3c7;"><span>Balance Due</span><span id="balanceDue">₹0.00</span></div>
+            </div>
+
+            <!-- Payment Status Badge -->
+            <div class="payment-status" id="paymentStatusBadge"><span>●</span> Loading...</div>
+
+            <!-- Signature Section -->
+            <div class="signature-section">
+                <div class="signature-label">Authorized Signatory</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let invoiceData = null;
+    
+    function getCurrencySymbol(currency) { 
+        const symbols = { USD: '$', EUR: '€', INR: '₹', GBP: '£' }; 
+        return symbols[currency] || '₹'; 
+    }
+    
+    function formatMoney(amount, currency) { 
+        return `${getCurrencySymbol(currency)} ${amount.toFixed(2)}`; 
+    }
+    
+    function escapeHtml(str) { 
+        if (!str) return '';
+        return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); 
+    }
+
+    function loadInvoiceData() {
+        const savedData = localStorage.getItem('fintle_invoice_preview');
+        if (savedData) { 
+            invoiceData = JSON.parse(savedData); 
+        } else { 
+            // Default comprehensive invoice matching original structure
+            invoiceData = { 
+                invoiceRef: "INV-2404-001", 
+                customerName: "ABC Enterprises Pvt Ltd", 
+                customerAddress: "456, Brigade Road, Koramangala, Bangalore - 560034", 
+                customerGST: "29AAACA1234B1Z", 
+                issueDate: "2026-04-15", 
+                dueDate: "2026-05-15", 
+                poReference: "PO-2024-0012", 
+                currency: "INR", 
+                notes: "Thank you for your business", 
+                items: [ 
+                    { description: "Web Development Services", price: 2500, quantity: 1, unit: "Project", taxRate: 18, hsn: "998411" }, 
+                    { description: "Cloud Hosting", price: 480, quantity: 1, unit: "Year", taxRate: 5, hsn: "998312" }, 
+                    { description: "UI/UX Consultation", price: 850, quantity: 2, unit: "Hours", taxRate: 12, hsn: "998413" } 
+                ], 
+                subtotal: 4680, 
+                totalTax: 674, 
+                shippingCharge: 50, 
+                netTotal: 5404, 
+                paymentMethod: "Bank Transfer", 
+                isPaid: false, 
+                amountReceived: 0 
+            }; 
+        }
+        renderInvoice();
+    }
+
+    function renderInvoice() {
+        if (!invoiceData) return;
+        const currency = invoiceData.currency || 'INR';
+        
+        // Basic details
+        document.getElementById('customerName').innerHTML = escapeHtml(invoiceData.customerName) || 'N/A';
+        document.getElementById('customerAddress').innerHTML = escapeHtml(invoiceData.customerAddress) || 'N/A';
+        document.getElementById('customerGST').innerHTML = invoiceData.customerGST ? `GSTIN: ${escapeHtml(invoiceData.customerGST)}` : '';
+        document.getElementById('invoiceNo').innerHTML = escapeHtml(invoiceData.invoiceRef) || 'INV-001';
+        document.getElementById('invoiceDate').innerHTML = invoiceData.issueDate || 'N/A';
+        document.getElementById('dueDate').innerHTML = invoiceData.dueDate || 'N/A';
+        document.getElementById('poRef').innerHTML = invoiceData.poReference || 'N/A';
+
+        // Calculate finances
+        let subtotal = 0, totalTax = 0;
+        const items = invoiceData.items || [];
+        const itemRows = [];
+        
+        items.forEach(item => {
+            const itemTotal = item.price * item.quantity;
+            const taxAmount = itemTotal * (item.taxRate || 0) / 100;
+            const finalAmount = itemTotal + taxAmount;
+            subtotal += itemTotal;
+            totalTax += taxAmount;
+            itemRows.push({ ...item, itemTotal, taxAmount, finalAmount });
+        });
+        
+        const shipping = invoiceData.shippingCharge || 0;
+        const netTotal = subtotal + totalTax + shipping;
+        const amountReceived = invoiceData.amountReceived || 0;
+        const balanceDue = Math.max(0, netTotal - amountReceived);
+        
+        // Render table body
+        const tableBody = document.getElementById('tableBody');
+        if (itemRows.length > 0) {
+            tableBody.innerHTML = itemRows.map((item, idx) => {
+                const itemDesc = escapeHtml(item.description);
+                const unitText = escapeHtml(item.unit || 'pcs');
+                const hsnVal = escapeHtml(item.hsn || '998411');
+                const qtyVal = item.quantity;
+                const priceFormatted = formatMoney(item.price, currency);
+                const amountFormatted = formatMoney(item.finalAmount, currency);
+                return `<div class="table-row">
+                            <div class="row-num">${idx + 1}</div>
+                            <div><strong>${itemDesc}</strong><br><small style="font-size: 10px; color: #666;">${unitText}</small></div>
+                            <div>${hsnVal}</div>
+                            <div>${qtyVal}</div>
+                            <div>${priceFormatted}</div>
+                            <div class="row-amount">${amountFormatted}</div>
+                        </div>`;
+            }).join('');
+        } else {
+            tableBody.innerHTML = '<div class="table-row"><div colspan="6" style="padding: 20px; text-align: center;">No items</div></div>';
+        }
+        
+        // Update totals
+        document.getElementById('totalAmount').innerHTML = formatMoney(netTotal, currency);
+        document.getElementById('subtotalAmount').innerHTML = formatMoney(subtotal, currency);
+        document.getElementById('taxAmount').innerHTML = formatMoney(totalTax, currency);
+        document.getElementById('shippingAmount').innerHTML = formatMoney(shipping, currency);
+        document.getElementById('grandTotal').innerHTML = formatMoney(netTotal, currency);
+        document.getElementById('amountReceived').innerHTML = formatMoney(amountReceived, currency);
+        document.getElementById('paymentMethod').innerHTML = invoiceData.paymentMethod || 'Not specified';
+        document.getElementById('balanceDue').innerHTML = formatMoney(balanceDue, currency);
+        
+        // Tax breakdown: CGST + SGST grouped by rate
+        const taxMap = new Map();
+        items.forEach(item => {
+            const rate = item.taxRate || 0;
+            if (rate > 0) {
+                const taxableAmount = item.price * item.quantity;
+                const taxAmountItem = (taxableAmount * rate) / 100;
+                const cgst = taxAmountItem / 2;
+                const sgst = taxAmountItem / 2;
+                if (!taxMap.has(rate)) taxMap.set(rate, { cgst: 0, sgst: 0 });
+                const existing = taxMap.get(rate);
+                existing.cgst += cgst;
+                existing.sgst += sgst;
+            }
+        });
+        
+        const taxBreakdownDiv = document.getElementById('taxBreakdown');
+        if (taxMap.size > 0) {
+            let taxHtml = '<div class="tax-row" style="font-weight: 700; border-bottom: 1px solid #ddd; margin-bottom: 6px;"><span>Tax Component</span><span>Amount</span></div>';
+            for (let [rate, values] of taxMap) {
+                const halfRate = (rate / 2).toFixed(2);
+                taxHtml += `<div class="tax-row"><span>CGST @ ${halfRate}%</span><span>${formatMoney(values.cgst, currency)}</span></div>`;
+                taxHtml += `<div class="tax-row"><span>SGST @ ${halfRate}%</span><span>${formatMoney(values.sgst, currency)}</span></div>`;
+            }
+            taxBreakdownDiv.innerHTML = taxHtml;
+        } else {
+            taxBreakdownDiv.innerHTML = '<div class="tax-row"><span>No tax applicable</span><span>₹0.00</span></div>';
+        }
+        
+        // Payment status badge styling
+        const statusBadge = document.getElementById('paymentStatusBadge');
+        if (balanceDue <= 0.01) {
+            statusBadge.className = 'payment-status status-paid';
+            statusBadge.innerHTML = '✓ Paid in Full';
+        } else if (amountReceived > 0 && amountReceived < netTotal) {
+            statusBadge.className = 'payment-status status-partial';
+            statusBadge.innerHTML = `⚠️ Partially Paid (${formatMoney(amountReceived, currency)} received)`;
+        } else {
+            statusBadge.className = 'payment-status status-unpaid';
+            statusBadge.innerHTML = '● Due / Unpaid';
+        }
+    }
+    
+    // Finalize Invoice Action
+    document.getElementById('finalizeBtn')?.addEventListener('click', () => {
+        if (invoiceData) {
+            invoiceData.finalized = true;
+            localStorage.setItem('fintle_invoice_finalized', JSON.stringify(invoiceData));
+            alert(`✅ Invoice ${invoiceData.invoiceRef} finalized!`);
+            const btn = document.getElementById('finalizeBtn');
+            btn.innerHTML = '✓ Finalized';
+            setTimeout(() => { btn.innerHTML = '✓ Finalize Invoice'; }, 1500);
+        } else {
+            alert('No invoice data to finalize');
+        }
+    });
+    
+    // Storage event listener for cross-tab updates
+    document.addEventListener('DOMContentLoaded', loadInvoiceData);
+    window.addEventListener('storage', (e) => {
+        if (e.key === 'fintle_invoice_preview') {
+            loadInvoiceData();
+        }
+    });
+</script>
+</body>
+</html>

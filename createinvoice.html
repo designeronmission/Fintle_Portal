@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Smart Invoice & Customer Manager</title>
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Select2 for better dropdowns -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <style>
+        * { font-family: 'Inter', sans-serif; }
+        body { background: #f0f2f8; }
+        .card-premium { background: white; border-radius: 28px; border: none; box-shadow: 0 20px 35px -12px rgba(0,0,0,0.08); overflow: hidden; margin-bottom: 24px; }
+        .card-header-custom { background: #fafcff; border-bottom: 1px solid #eef2f6; padding: 1.2rem 1.8rem; font-weight: 700; font-size: 1.1rem; }
+        .btn-primary-custom { background: linear-gradient(95deg, #1e2f6e, #26387d); border: none; border-radius: 40px; padding: 0.5rem 1.8rem; font-weight: 600; color: white; transition: 0.2s; }
+        .btn-primary-custom:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(38,56,125,0.3); }
+        .btn-outline-custom { border-radius: 40px; border: 1.5px solid #cbd5e1; background: white; padding: 0.5rem 1.5rem; font-weight: 500; }
+        .form-modern { border-radius: 16px; border: 1px solid #e2e8f0; padding: 0.7rem 1rem; transition: 0.2s; }
+        .form-modern:focus { border-color: #26387d; box-shadow: 0 0 0 3px rgba(38,56,125,0.1); outline: none; }
+        .section-title { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 800; color: #4a5568; margin-bottom: 1rem; }
+        .dynamic-table { width: 100%; border-collapse: collapse; }
+        .dynamic-table th { background: #f8fafc; font-size: 0.7rem; padding: 0.8rem; font-weight: 700; }
+        .dynamic-table td { padding: 0.6rem; border-bottom: 1px solid #edf2f7; vertical-align: middle; }
+        .add-row-btn { background: #f1f5f9; border: 1px dashed #94a3b8; border-radius: 40px; padding: 0.4rem 1.2rem; font-size: 0.75rem; font-weight: 600; margin-top: 8px; }
+        .badge-customer { background: #eef2ff; color: #1e2f6e; border-radius: 40px; padding: 0.3rem 1rem; font-size: 0.7rem; }
+        .toast-notify { position: fixed; bottom: 25px; right: 25px; background: #1e293b; color: white; border-radius: 50px; padding: 12px 24px; z-index: 1200; display: flex; align-items: center; gap: 10px; font-weight: 500; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .modal-content-custom { border-radius: 32px; border: none; }
+        .invoice-summary-card { background: #f9fbfe; border-radius: 24px; padding: 1.2rem; }
+        .summary-line { display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px dashed #e2e8f0; }
+        @media (max-width: 768px) { .container-fluid { padding: 0 12px; } }
+    </style>
+</head>
+<body>
+
+<div class="container py-3 py-md-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-11 col-xl-10">
+            <!-- Header -->
+            <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
+                <div>
+                    <h2 class="fw-bold mb-0"><i class="fas fa-file-invoice-dollar text-primary me-2"></i>Create Invoice</h2>
+                    <p class="text-muted">Generate professional invoice in seconds</p>
+                </div>
+                <div class="mt-2 mt-sm-0">
+                    <span class="badge bg-light text-dark px-3 py-2 rounded-5"><i class="far fa-clock me-1"></i> Draft Mode</span>
+                </div>
+            </div>
+
+            <!-- Main Invoice Card -->
+            <div class="card-premium">
+                <div class="card-header-custom d-flex justify-content-between align-items-center flex-wrap">
+                    <span><i class="fas fa-receipt me-2 text-primary"></i> Invoice Details</span>
+                    <span class="text-muted small">#INV-{{Date.now().toString().slice(-6)}}</span>
+                </div>
+                <div class="p-4 p-lg-5">
+                    <!-- Customer Section with select + add new -->
+                    <div class="row mb-5">
+                        <div class="col-md-7">
+                            <label class="fw-semibold mb-2"><i class="fas fa-user-circle me-1 text-primary"></i> Customer *</label>
+                            <div class="d-flex gap-3 flex-wrap">
+                                <select id="customerSelect" class="form-select form-modern w-auto flex-grow-1" style="max-width: 280px;">
+                                    <option value="">-- Select Customer --</option>
+                                    <!-- dynamic from localStorage -->
+                                </select>
+                                <button class="btn btn-outline-custom" id="openCustomerModalBtn"><i class="fas fa-plus-circle me-1"></i> Add New</button>
+                            </div>
+                            <div class="mt-2" id="selectedCustomerInfo"></div>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="bg-light rounded-4 p-3">
+                                <div class="small text-secondary mb-1">Quick Stats</div>
+                                <div class="fw-semibold"><i class="fas fa-chart-line me-1"></i> Total Due: <span id="customerDuePreview">$0.00</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Invoice Meta Row -->
+                    <div class="row g-4 mb-5">
+                        <div class="col-md-4">
+                            <label class="fw-semibold mb-2">Currency *</label>
+                            <select id="currencySelect" class="form-select form-modern">
+                                <option value="USD">$ - US Dollar (USD)</option>
+                                <option value="EUR">€ - Euro (EUR)</option>
+                                <option value="GBP">£ - British Pound (GBP)</option>
+                                <option value="INR">₹ - Indian Rupee (INR)</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold mb-2">Invoice Reference *</label>
+                            <input type="text" class="form-control form-modern" id="invoiceRef" placeholder="INV-2026-001" value="INV-001">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold mb-2">Tax Type</label>
+                            <select id="taxType" class="form-select form-modern">
+                                <option value="GST">GST (5-28%)</option>
+                                <option value="VAT">VAT (Standard)</option>
+                                <option value="No Tax">No Tax</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold mb-2">Issue date *</label>
+                            <input type="date" class="form-control form-modern" id="issueDate" value="2026-04-13">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold mb-2">Due date *</label>
+                            <input type="date" class="form-control form-modern" id="dueDate" value="2026-05-13">
+                        </div>
+                        <div class="col-md-4">
+                            <label class="fw-semibold mb-2">Description</label>
+                            <input type="text" class="form-control form-modern" id="invoiceDesc" placeholder="Optional note">
+                        </div>
+                    </div>
+
+                    <!-- Items Table (Dynamic) -->
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <label class="fw-bold"><i class="fas fa-list-ul me-2 text-primary"></i> Line Items</label>
+                            <button type="button" id="addItemRowBtn" class="btn btn-sm btn-outline-primary rounded-5 px-3"><i class="fas fa-plus me-1"></i> Add Item</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="dynamic-table" id="itemsTable">
+                                <thead>
+                                    <tr><th>Item</th><th>Price ({{currencySymbol}})</th><th>Qty</th><th>Unit</th><th>Tax rate (%)</th><th>Amount</th><th></th></tr>
+                                </thead>
+                                <tbody id="invoiceItemsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Totals & Actions -->
+                    <div class="row g-4 mt-2">
+                        <div class="col-lg-5">
+                            <div class="bg-light rounded-4 p-3">
+                                <div class="fw-semibold mb-2">Shipping Charge</div>
+                                <input type="number" id="shippingCharge" class="form-control form-modern" value="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="col-lg-7">
+                            <div class="invoice-summary-card">
+                                <div class="summary-line"><span>Sub Total</span><span id="subTotalSpan">0.00</span></div>
+                                <div class="summary-line"><span>Shipping Charge</span><span id="shippingSpan">0.00</span></div>
+                                <div class="summary-line"><span>Tax (Total)</span><span id="taxTotalSpan">0.00</span></div>
+                                <div class="summary-line fw-bold fs-5"><span>Net Total</span><span id="netTotalSpan">0.00</span></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Buttons -->
+                    <div class="d-flex flex-wrap justify-content-end gap-3 mt-5 pt-3">
+                        <button class="btn btn-light rounded-5 px-4" id="cancelBtn"><i class="fas fa-times me-1"></i> Cancel</button>
+                        <button class="btn btn-primary-custom" id="saveContinueBtn"><i class="fas fa-save me-2"></i> Save & Continue</button>
+                        <button class="btn btn-primary-custom" id="saveRecordPaymentBtn" style="background: #0f2b3d;"><i class="fas fa-credit-card me-2"></i> Save & Record Payment</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ==================== MODAL: ADD CUSTOMER (full specs) ==================== -->
+<div class="modal fade" id="customerModal" data-bs-backdrop="static" tabindex="-1">
+    <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content modal-content-custom">
+            <div class="modal-header border-0 pb-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold"><i class="fas fa-user-plus text-primary me-2"></i>Add Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body p-4">
+                <!-- Basic Information -->
+                <h6 class="section-title mt-2">Basic Information</h6>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6"><label class="form-label fw-semibold">Name *</label><input type="text" id="custFirstName" class="form-control form-modern" placeholder="First Name"></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Last Name</label><input type="text" id="custLastName" class="form-control form-modern" placeholder="Last Name"></div>
+                    <div class="col-md-4"><label class="form-label">Country</label><select id="custCountry" class="form-select form-modern"><option value="US">United States (US)</option><option value="IN">India (IN)</option><option value="UK">United Kingdom</option></select></div>
+                    <div class="col-md-4"><label class="form-label">Currency</label><select id="custCurrency" class="form-select form-modern"><option value="USD">$ USD</option><option value="INR">₹ INR</option><option value="EUR">€ EUR</option></select></div>
+                    <div class="col-md-4"><label class="form-label">Phone Number</label><input type="text" id="custPhone" class="form-control form-modern" placeholder="+1 555 1234"></div>
+                    <div class="col-md-6"><label class="form-label">Email address</label><input type="email" id="custEmail" class="form-control form-modern" placeholder="customer@example.com"></div>
+                </div>
+                <!-- Billing Address -->
+                <h6 class="section-title">Billing Address</h6>
+                <div class="row g-3 mb-4">
+                    <div class="col-md-3"><label>Address via</label><select id="billAddressType" class="form-select form-modern"><option value="Manual">Manual</option><option value="Google Maps API">Google Map API (demo)</option></select></div>
+                    <div class="col-md-3"><label>State</label><input type="text" id="billState" class="form-control form-modern"></div>
+                    <div class="col-md-3"><label>City</label><input type="text" id="billCity" class="form-control form-modern"></div>
+                    <div class="col-md-3"><label>Zip Code</label><input type="text" id="billZip" class="form-control form-modern"></div>
+                </div>
+                <!-- Shipping Address with same as billing toggle -->
+                <div class="d-flex justify-content-between align-items-center mt-2"><h6 class="section-title mb-0">Shipping Address</h6><div class="form-check"><input class="form-check-input" type="checkbox" id="sameAsBillingCheck"><label class="form-check-label small">Same as billing address</label></div></div>
+                <div id="shippingFieldsContainer" class="row g-3 mb-4 mt-2">
+                    <div class="col-md-3"><label>Address via</label><select id="shipAddressType" class="form-select form-modern"><option value="Manual">Manual</option></select></div>
+                    <div class="col-md-3"><label>State</label><input type="text" id="shipState" class="form-control form-modern"></div>
+                    <div class="col-md-3"><label>City</label><input type="text" id="shipCity" class="form-control form-modern"></div>
+                    <div class="col-md-3"><label>Zip Code</label><input type="text" id="shipZip" class="form-control form-modern"></div>
+                </div>
+                <!-- Contact Information (Dynamic Table) -->
+                <h6 class="section-title mt-2">Contact Information <button type="button" id="addContactRowBtn" class="btn btn-sm btn-link p-0 ms-2"><i class="fas fa-plus-circle text-primary"></i> add details</button></h6>
+                <table class="dynamic-table" id="contactTable" style="width:100%">
+                    <thead><tr><th>Name</th><th>Phone</th><th>E-mail</th><th>Address</th><th></th></tr></thead>
+                    <tbody id="contactTableBody"><tr><td><input type="text" class="form-control form-control-sm"></td><td><input type="text" class="form-control form-control-sm"></td><td><input type="email" class="form-control form-control-sm"></td><td><input type="text" class="form-control form-control-sm"></td><td></td></tr></tbody>
+                </table>
+                <!-- Bank Information (Dynamic) -->
+                <h6 class="section-title mt-4">Bank Information <button type="button" id="addBankRowBtn" class="btn btn-sm btn-link p-0 ms-2"><i class="fas fa-plus-circle text-primary"></i> add bank account</button></h6>
+                <table class="dynamic-table" id="bankTable" style="width:100%">
+                    <thead><tr><th>Beneficiary Name</th><th>Bank Name</th><th>Account Number</th><th>Re-enter Account Number</th><th>IFSC</th><th></th></tr></thead>
+                    <tbody id="bankTableBody"><tr><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td></td></tr></tbody>
+                </table>
+            </div>
+            <div class="modal-footer border-0 pt-0 pb-4 px-4">
+                <button type="button" class="btn btn-light rounded-5" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="saveCustomerBtn" class="btn btn-primary-custom px-5">Save Customer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+<script>
+    // Global customers array & helpers
+    let customers = [];
+    function loadCustomersFromStorage() {
+        const stored = localStorage.getItem('fintle_customers');
+        if(stored) customers = JSON.parse(stored);
+        else {
+            customers = [
+                { id: 1, name: "John Doe", email: "john@example.com", phone: "+1 555 1111", currency: "USD", billing: "New York", shipping: "New York" },
+                { id: 2, name: "Sarah Johnson", email: "sarah@example.com", phone: "+44 777 2222", currency: "GBP", billing: "London", shipping: "London" }
+            ];
+            saveCustomers();
+        }
+        renderCustomerSelect();
+    }
+    function saveCustomers() { localStorage.setItem('fintle_customers', JSON.stringify(customers)); }
+    function renderCustomerSelect() {
+        const select = document.getElementById('customerSelect');
+        select.innerHTML = '<option value="">-- Select Customer --</option>';
+        customers.forEach(c => { select.innerHTML += `<option value="${c.id}">${c.name} (${c.email || c.phone})</option>`; });
+    }
+    loadCustomersFromStorage();
+
+    // Helper to show toast
+    function showToast(msg, isError = false) {
+        let toastDiv = document.getElementById('globalToast');
+        if(!toastDiv){ toastDiv = document.createElement('div'); toastDiv.id='globalToast'; toastDiv.className='toast-notify'; document.body.appendChild(toastDiv); }
+        toastDiv.innerHTML = `<i class="fas ${isError ? 'fa-exclamation-triangle' : 'fa-check-circle'}"></i> ${msg}`;
+        toastDiv.style.display = 'flex';
+        setTimeout(() => { toastDiv.style.display = 'none'; }, 2500);
+    }
+
+    // ---- MODAL LOGIC: dynamic contact / bank rows ----
+    document.getElementById('addContactRowBtn')?.addEventListener('click', () => {
+        const tbody = document.getElementById('contactTableBody');
+        const newRow = tbody.insertRow();
+        newRow.innerHTML = `<td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><button class="btn btn-sm text-danger removeRowBtn"><i class="fas fa-trash"></i></button></td>`;
+        newRow.querySelector('.removeRowBtn')?.addEventListener('click', () => newRow.remove());
+    });
+    document.getElementById('addBankRowBtn')?.addEventListener('click', () => {
+        const tbody = document.getElementById('bankTableBody');
+        const newRow = tbody.insertRow();
+        newRow.innerHTML = `<td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><input class="form-control form-control-sm"></td><td><button class="btn btn-sm text-danger removeRowBtn"><i class="fas fa-trash"></i></button></td>`;
+        newRow.querySelector('.removeRowBtn')?.addEventListener('click', () => newRow.remove());
+    });
+    document.getElementById('sameAsBillingCheck')?.addEventListener('change', (e) => {
+        const shippingDiv = document.getElementById('shippingFieldsContainer');
+        if(e.target.checked) {
+            shippingDiv.style.opacity = '0.5';
+            document.getElementById('shipState').disabled = true; document.getElementById('shipCity').disabled = true; document.getElementById('shipZip').disabled = true;
+        } else { 
+            shippingDiv.style.opacity = '1';
+            document.getElementById('shipState').disabled = false; document.getElementById('shipCity').disabled = false; document.getElementById('shipZip').disabled = false;
+        }
+    });
+    // Save Customer Modal
+    const saveCustomerModalBtn = document.getElementById('saveCustomerBtn');
+    const customerModal = new bootstrap.Modal(document.getElementById('customerModal'));
+    saveCustomerModalBtn?.addEventListener('click', () => {
+        const firstName = document.getElementById('custFirstName').value.trim();
+        const lastName = document.getElementById('custLastName').value.trim();
+        const fullName = firstName + " " + lastName;
+        if(!firstName) { showToast("Customer Name is required", true); return; }
+        const newId = Date.now();
+        const newCustomer = {
+            id: newId, name: fullName, email: document.getElementById('custEmail').value, phone: document.getElementById('custPhone').value,
+            currency: document.getElementById('custCurrency').value, billing: `${document.getElementById('billCity').value}, ${document.getElementById('billState').value}`,
+            shipping: `${document.getElementById('shipCity').value || document.getElementById('billCity').value}`
+        };
+        customers.push(newCustomer);
+        saveCustomers();
+        renderCustomerSelect();
+        document.getElementById('customerSelect').value = newId;
+        showToast(`Customer ${fullName} added successfully!`);
+        customerModal.hide();
+        // reset modal fields optionally
+    });
+    document.getElementById('openCustomerModalBtn')?.addEventListener('click', () => customerModal.show());
+
+    // --- Invoice Items Logic ---
+    let invoiceItems = [];
+    let currencySymbol = '$';
+    function updateCurrencySymbol() { const curr = document.getElementById('currencySelect').value; if(curr === 'USD') currencySymbol = '$'; else if(curr === 'EUR') currencySymbol = '€'; else if(curr === 'GBP') currencySymbol = '£'; else currencySymbol = '₹'; document.querySelectorAll('.currency-preview').forEach(el => el.innerText = currencySymbol); }
+    document.getElementById('currencySelect').addEventListener('change', updateCurrencySymbol);
+    
+    function renderInvoiceItems() {
+        const tbody = document.getElementById('invoiceItemsBody');
+        tbody.innerHTML = '';
+        invoiceItems.forEach((item, idx) => {
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                <td><input type="text" class="form-control form-control-sm item-name" value="${item.name}" placeholder="Item name"></td>
+                <td><input type="number" step="any" class="form-control form-control-sm item-price" value="${item.price}"></td>
+                <td><input type="number" step="any" class="form-control form-control-sm item-qty" value="${item.qty}"></td>
+                <td><input type="text" class="form-control form-control-sm item-unit" value="${item.unit}" placeholder="unit"></td>
+                <td><input type="number" step="any" class="form-control form-control-sm item-tax" value="${item.taxRate}"></td>
+                <td class="item-amount-cell">${currencySymbol} ${item.amount.toFixed(2)}</td>
+                <td><button class="btn btn-sm text-danger remove-item-btn" data-idx="${idx}"><i class="fas fa-trash-alt"></i></button></td>
+            `;
+            const nameInp = row.querySelector('.item-name'); nameInp.addEventListener('change', (e) => { invoiceItems[idx].name = e.target.value; recalcTotals(); });
+            const priceInp = row.querySelector('.item-price'); priceInp.addEventListener('input', (e) => { invoiceItems[idx].price = parseFloat(e.target.value) || 0; recalcTotals(); });
+            const qtyInp = row.querySelector('.item-qty'); qtyInp.addEventListener('input', (e) => { invoiceItems[idx].qty = parseFloat(e.target.value) || 0; recalcTotals(); });
+            const unitInp = row.querySelector('.item-unit'); unitInp.addEventListener('change', (e) => { invoiceItems[idx].unit = e.target.value; });
+            const taxInp = row.querySelector('.item-tax'); taxInp.addEventListener('input', (e) => { invoiceItems[idx].taxRate = parseFloat(e.target.value) || 0; recalcTotals(); });
+            row.querySelector('.remove-item-btn').addEventListener('click', () => { invoiceItems.splice(idx,1); renderInvoiceItems(); recalcTotals(); });
+        });
+        recalcTotals();
+    }
+    function recalcTotals() {
+        let subTotal = 0;
+        invoiceItems.forEach(item => {
+            const price = item.price || 0; const qty = item.qty || 1; const tax = item.taxRate || 0;
+            const gross = price * qty;
+            const taxAmount = gross * (tax/100);
+            const totalLine = gross + taxAmount;
+            item.amount = totalLine;
+            subTotal += gross;
+        });
+        let totalTaxCalc = invoiceItems.reduce((sum, it) => sum + ((it.price*it.qty) * (it.taxRate/100)), 0);
+        let shipping = parseFloat(document.getElementById('shippingCharge').value) || 0;
+        let netTotal = subTotal + totalTaxCalc + shipping;
+        document.getElementById('subTotalSpan').innerText = `${currencySymbol} ${subTotal.toFixed(2)}`;
+        document.getElementById('taxTotalSpan').innerText = `${currencySymbol} ${totalTaxCalc.toFixed(2)}`;
+        document.getElementById('shippingSpan').innerText = `${currencySymbol} ${shipping.toFixed(2)}`;
+        document.getElementById('netTotalSpan').innerHTML = `${currencySymbol} ${netTotal.toFixed(2)}`;
+        // update each row amount display
+        document.querySelectorAll('#invoiceItemsBody tr').forEach((row, idx) => {
+            if(invoiceItems[idx]) row.querySelector('.item-amount-cell').innerText = `${currencySymbol} ${invoiceItems[idx].amount.toFixed(2)}`;
+        });
+    }
+    document.getElementById('addItemRowBtn')?.addEventListener('click', () => {
+        invoiceItems.push({ name: 'New Item', price: 0, qty: 1, unit: 'pc', taxRate: 0, amount: 0 });
+        renderInvoiceItems();
+    });
+    document.getElementById('shippingCharge')?.addEventListener('input', recalcTotals);
+    // default items
+    invoiceItems.push({ name: 'Consultation', price: 150, qty: 1, unit: 'hr', taxRate: 5, amount: 157.5 });
+    renderInvoiceItems();
+    updateCurrencySymbol();
+
+    // Save Invoice actions
+    function getSelectedCustomer() { const id = document.getElementById('customerSelect').value; return customers.find(c => c.id == id); }
+    function saveInvoiceLogic(isRecordPayment = false) {
+        const customer = getSelectedCustomer();
+        if(!customer) { showToast("Please select a customer", true); return; }
+        if(invoiceItems.length === 0) { showToast("Add at least one item", true); return; }
+        const invoiceData = {
+            id: Date.now(), customer: customer, ref: document.getElementById('invoiceRef').value, issueDate: document.getElementById('issueDate').value,
+            dueDate: document.getElementById('dueDate').value, items: invoiceItems, shipping: parseFloat(document.getElementById('shippingCharge').value),
+            netTotal: document.getElementById('netTotalSpan').innerText, currency: document.getElementById('currencySelect').value
+        };
+        localStorage.setItem('lastInvoice', JSON.stringify(invoiceData));
+        showToast(`Invoice saved! ${isRecordPayment ? 'Redirect to payment...' : 'Continue editing'}`);
+        if(isRecordPayment) { setTimeout(() => { alert("Proceed to payment recording screen (demo)"); }, 500); }
+        else { showToast("Invoice draft stored"); }
+    }
+    document.getElementById('saveContinueBtn')?.addEventListener('click', () => saveInvoiceLogic(false));
+    document.getElementById('saveRecordPaymentBtn')?.addEventListener('click', () => saveInvoiceLogic(true));
+    document.getElementById('cancelBtn')?.addEventListener('click', () => { if(confirm("Clear form?")) window.location.reload(); });
+    // Update customer info preview
+    document.getElementById('customerSelect')?.addEventListener('change', (e) => {
+        const cust = customers.find(c => c.id == e.target.value);
+        if(cust) document.getElementById('selectedCustomerInfo').innerHTML = `<div class="badge-customer d-inline-flex"><i class="fas fa-check-circle me-1"></i> ${cust.name} | ${cust.email || cust.phone}</div>`;
+        else document.getElementById('selectedCustomerInfo').innerHTML = '';
+    });
+    // set default issue date today
+    document.getElementById('issueDate').valueAsDate = new Date();
+    let due = new Date(); due.setDate(due.getDate() + 15); document.getElementById('dueDate').valueAsDate = due;
+</script>
+<div id="globalToast" class="toast-notify" style="display:none;"></div>
+</body>
+</html>
