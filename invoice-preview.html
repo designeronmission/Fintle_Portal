@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,158 +10,204 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
-<style>
-     :root {
-            --brand-blue: #eef2f8; /* Soft Professional Blue */
-            --border-color: #cbd5e1;
-            --text-main: #334155;
-            --text-muted: #64748b;
-        }
-     .invoice-container {
-           background: #fff;
-    max-width: 1200px;
-    margin: 0px auto;
-    border: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
+  <style>
+    :root {
+      --brand-blue: #eef2f8;
+      /* Soft Professional Blue */
+      --border-color: #cbd5e1;
+      --text-main: #334155;
+      --text-muted: #64748b;
+    }
 
-        /* Header Elements */
-        .logo-box {
-            border: 1px dashed var(--border-color);
-            width: 150px;
-            height: 60px;
-            background-color: #f8fafc;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
+    .invoice-container {
+      background: #fff;
+      max-width: 1200px;
+      margin: 0px auto;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
 
-        .invoice-title {
-            font-weight: 700;
-            font-size: 22px;
-            letter-spacing: 0.5px;
-            color: #1e293b;
-        }
+    /* Header Elements */
+    .logo-box {
+      border: 1px dashed var(--border-color);
+      width: 150px;
+      height: 60px;
+      background-color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
 
-        /* Section Bars */
-        .section-bar {
-            background-color: var(--brand-blue);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-            padding: 8px 20px;
-            font-weight: 600;
-            font-size: 13px;
-            text-transform: uppercase;
-        }
+    .invoice-title {
+      font-weight: 700;
+      font-size: 22px;
+      letter-spacing: 0.5px;
+      color: #1e293b;
+    }
 
-        /* Professional Table Styling */
-        .table {
-            margin-bottom: 0;
-            border-color: var(--border-color);
-        }
+    /* Section Bars */
+    .section-bar {
+      background-color: var(--brand-blue);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 8px 20px;
+      font-weight: 600;
+      font-size: 13px;
+      text-transform: uppercase;
+    }
 
-        .table thead th {
-            background-color: var(--brand-blue);
-            font-weight: 600;
-            font-size: 12px;
-            color: #475569;
-            text-transform: uppercase;
-            padding: 12px 10px;
-            border-bottom: 1px solid var(--border-color);
-            vertical-align: middle;
-        }
+    /* Professional Table Styling */
+    .table {
+      margin-bottom: 0;
+      border-color: var(--border-color);
+    }
 
-        .table tbody td {
-            padding: 15px 10px;
-            font-size: 14px;
-            vertical-align: top;
-            border-right: 1px solid var(--border-color);
-        }
+    .table thead th {
+      background-color: var(--brand-blue);
+      font-weight: 600;
+      font-size: 12px;
+      color: #475569;
+      text-transform: uppercase;
+      padding: 12px 10px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
 
-        .table tbody td:last-child { border-right: none; }
+    .table tbody td {
+      padding: 15px 10px;
+      font-size: 14px;
+      vertical-align: top;
+      border-right: 1px solid var(--border-color);
+    }
 
-        /* Column Widths */
-        .col-idx { width: 5%; text-align: center; }
-        .col-desc { width: 35%; }
-        .col-price { width: 15%; text-align: right; }
-        .col-qty { width: 10%; text-align: center; }
-        .col-unit { width: 10%; text-align: center; }
-        .col-tax { width: 10%; text-align: center; }
-        .col-amt { width: 15%; text-align: right; font-weight: 600; }
+    .table tbody td:last-child {
+      border-right: none;
+    }
 
-        .empty-area { height: 300px; }
+    /* Column Widths */
+    .col-idx {
+      width: 5%;
+      text-align: center;
+    }
 
-        /* Summary & Signatory Section */
-        .footer-flex {
-            margin-top: auto;
-            display: flex;
-            border-top: 1px solid var(--border-color);
-        }
+    .col-desc {
+      width: 35%;
+    }
 
-        .summary-wrapper {
-            width: 400px;
-            margin-left: auto;
-            border-left: 1px solid var(--border-color);
-        }
+    .col-price {
+      width: 15%;
+      text-align: right;
+    }
 
-        .summary-header {
-            background-color: var(--brand-blue);
-            padding: 12px 20px;
-            font-weight: 700;
-            border-bottom: 1px solid var(--border-color);
-        }
+    .col-qty {
+      width: 10%;
+      text-align: center;
+    }
 
-        .summary-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 10px 20px;
-            border-bottom: 1px solid #f1f5f9;
-        }
+    .col-unit {
+      width: 10%;
+      text-align: center;
+    }
 
-        .balance-due {
-            background-color: #f8fafc;
-            padding: 12px 20px;
-            font-weight: 700;
-            color: #0f172a;
-        }
+    .col-tax {
+      width: 10%;
+      text-align: center;
+    }
 
-        .signatory-box {
-            background-color: var(--brand-blue);
-            height: 160px;
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            align-items: center;
-            padding-bottom: 30px;
-            border-top: 1px solid var(--border-color);
-        }
+    .col-amt {
+      width: 15%;
+      text-align: right;
+      font-weight: 600;
+    }
 
-        .sign-line {
-            width: 60%;
-            border-top: 1px dashed #94a3b8;
-            margin-bottom: 10px;
-        }
+    .empty-area {
+      height: 300px;
+    }
 
-        .no-print-btn {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 999;
-        }
+    /* Summary & Signatory Section */
+    .footer-flex {
+      margin-top: auto;
+      display: flex;
+      border-top: 1px solid var(--border-color);
+    }
 
-        @media print {
-            body { background: white; padding: 0; }
-            .invoice-container { margin: 0; border: none; width: 100%; box-shadow: none; }
-            .no-print-btn { display: none; }
-        }
-</style>
+    .summary-wrapper {
+      width: 400px;
+      margin-left: auto;
+      border-left: 1px solid var(--border-color);
+    }
+
+    .summary-header {
+      background-color: var(--brand-blue);
+      padding: 12px 20px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .balance-due {
+      background-color: #f8fafc;
+      padding: 12px 20px;
+      font-weight: 700;
+      color: #0f172a;
+    }
+
+    .signatory-box {
+      background-color: var(--brand-blue);
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 30px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .sign-line {
+      width: 60%;
+      border-top: 1px dashed #94a3b8;
+      margin-bottom: 10px;
+    }
+
+    .no-print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .invoice-container {
+        margin: 0;
+        border: none;
+        width: 100%;
+        box-shadow: none;
+      }
+
+      .no-print-btn {
+        display: none;
+      }
+    }
+  </style>
 </head>
+
 <body>
-<div id="main-wrapper">
+  <div id="main-wrapper">
     <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <!-- ---------------------------------- -->
@@ -249,10 +296,10 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                   <a class="sidebar-link" href="customer.html">
-                                            <span class="icon-small"></span>
-                                            Customer
-                                        </a>
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span>
+                      Customer
+                    </a>
                   </li>
                   <li class="sidebar-item">
                     <a class="sidebar-link" href="../main/frontend-aboutpage.html">
@@ -293,8 +340,8 @@
     </aside>
     <!--  Sidebar End -->
 
-  <div class="page-wrapper">
-     <!--  Header Start -->
+    <div class="page-wrapper">
+      <!--  Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -314,8 +361,9 @@
               <!-- Create Sales Invoice Button with Hover Mega Menu -->
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd">
-                     <button class="btn bg-primary-subtle text-primary dropdown-toggle" onclick="location.href='create-invoice.html'"
-                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    onclick="location.href='create-invoice.html'"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
                     <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
                     Create Sales Invoice
                   </button>
@@ -1164,119 +1212,138 @@
       </header>
       <!--  Header End -->
 
-    <div class="body-wrapper">
-      <div class="container-fluid p-4">
-        <div class="row">
-          <div class="col-12">
+      <div class="body-wrapper">
+        <div class="container-fluid p-4">
+          <div class="row">
+            <div class="col-12">
 
-            <div class="invoice-container">
-    <div class="d-flex justify-content-between align-items-center p-4">
-        <div class="logo-box">COMPANY LOGO</div>
-        <div class="invoice-title">TAX INVOICE</div>
-        <div class="logo-box">QR / AUTH</div>
-    </div>
-
-    <div class="row m-0">
-        <div class="col-8 section-bar">Bill To</div>
-        <div class="col-4 section-bar border-start">Invoice Details</div>
-    </div>
-
-    <div class="row m-0 border-bottom">
-        <div class="col-8 p-4">
-            <h5 class="fw-bold mb-1">Guru</h5>
-            <p class="text-muted small mb-0">
-                123 Business Avenue, Suite 500<br>
-                Bangalore, Karnataka 560001
-            </p>
-        </div>
-        <div class="col-4 p-4 border-start">
-            <table class="w-100 small">
-                <tr>
-                    <td class="text-muted pb-1">Invoice No:</td>
-                    <td class="text-end fw-bold pb-1">3</td>
-                </tr>
-                <tr>
-                    <td class="text-muted">Date:</td>
-                    <td class="text-end fw-bold">05.08.2025</td>
-                </tr>
-            </table>
-        </div>
-    </div>
-
-    <table class="table border-bottom">
-        <thead>
-            <tr>
-                <th class="col-idx">#</th>
-                <th class="col-desc text-start">Item / Description</th>
-                <th class="col-price">Price</th>
-                <th class="col-qty">Qty</th>
-                <th class="col-unit">Unit</th>
-                <th class="col-tax">Tax Rate</th>
-                <th class="col-amt">Amount</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td class="text-center text-muted">1</td>
-                <td>
-                    <div class="fw-bold">UI/UX Design Services</div>
-                    <div class="text-muted small">Standard design sprint for mobile application...</div>
-                </td>
-                <td class="text-end">₹50,000.00</td>
-                <td class="text-center">1</td>
-                <td class="text-center text-muted">PCS</td>
-                <td class="text-center">18%</td>
-                <td class="text-end">₹50,000.00</td>
-            </tr>
-            <tr class="empty-area">
-                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-            </tr>
-            <tr class="table-light fw-bold">
-                <td colspan="6" class="text-end py-2">Total</td>
-                <td class="text-end py-2">₹50,000.00</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <div class="footer-flex">
-        <div class="p-4 small text-muted align-self-end">
-            * All disputes subject to local jurisdiction.
-        </div>
-
-        <div class="summary-wrapper">
-            <div class="summary-header">Amounts</div>
-            <div class="summary-body">
-                <div class="summary-item">
-                    <span class="text-muted">Total</span>
-                    <span class="fw-bold">₹50,000.00</span>
+              <div class="invoice-container">
+                <div class="d-flex justify-content-between align-items-center p-4">
+                  <div class="logo-box">COMPANY LOGO</div>
+                  <div class="invoice-title">TAX INVOICE</div>
+                  <div class="logo-box">QR / AUTH</div>
                 </div>
-                <div class="summary-item">
-                    <span class="text-muted">Received</span>
-                    <span>₹0.00</span>
-                </div>
-                <div class="balance-due d-flex justify-content-between">
-                    <span>Balance</span>
-                    <span>₹50,000.00</span>
-                </div>
-                <div class="signatory-box">
-                    <div class="sign-line"></div>
-                    <div class="small fw-bold text-uppercase">Authorized Signatory</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-          </div>
 
-                       <div class="row mt-4"><div class="col-12"><div class="d-flex justify-content-end gap-3"><button class="btn btn-rounded btn-info px-4 rounded-pill" onclick="window.print()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 7h-1V2H6v5H5c-1.65 0-3 1.35-3 3v7c0 1.1.9 2 2 2h2v3h12v-3h2c1.1 0 2-.9 2-2v-7c0-1.65-1.35-3-3-3M8 4h8v3H8zm8 16H8v-4h8zm4-3h-2v-3H6v3H4v-7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1z" /><path fill="currentColor" d="M14 11h4v1h-4z"/></svg> Print Invoice</button>
-                        
-                        <button class="btn btn-primary px-4 rounded-pill" id="recordPaymentBtn"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M5.5 15.5c1.07 0 2.02-.5 2.67-1.26l6.87 3.87c-.01.13-.04.26-.04.39c0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5s-1.57-3.5-3.5-3.5c-1.07 0-2.02.5-2.67 1.26l-6.87-3.87c.01-.13.04-.26.04-.39s-.02-.26-.04-.39l6.87-3.87C16.47 8.5 17.42 9 18.5 9C20.43 9 22 7.43 22 5.5S20.43 2 18.5 2S15 3.57 15 5.5c0 .13.02.26.04.39L8.17 9.76A3.48 3.48 0 0 0 5.5 8.5C3.57 8.5 2 10.07 2 12s1.57 3.5 3.5 3.5m13 1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5m0-13c.83 0 1.5.67 1.5 1.5S19.33 7 18.5 7S17 6.33 17 5.5S17.67 4 18.5 4m-13 6.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S4 12.83 4 12s.67-1.5 1.5-1.5"/></svg> Share Invoice</button></div></div></div>
+                <div class="row m-0">
+                  <div class="col-8 section-bar">Bill To</div>
+                  <div class="col-4 section-bar border-start">Invoice Details</div>
+                </div>
+
+                <div class="row m-0 border-bottom">
+                  <div class="col-8 p-4">
+                    <h5 class="fw-bold mb-1">Guru</h5>
+                    <p class="text-muted small mb-0">
+                      123 Business Avenue, Suite 500<br>
+                      Bangalore, Karnataka 560001
+                    </p>
+                  </div>
+                  <div class="col-4 p-4 border-start">
+                    <table class="w-100 small">
+                      <tr>
+                        <td class="text-muted pb-1">Invoice No:</td>
+                        <td class="text-end fw-bold pb-1">3</td>
+                      </tr>
+                      <tr>
+                        <td class="text-muted">Date:</td>
+                        <td class="text-end fw-bold">05.08.2025</td>
+                      </tr>
+                    </table>
+                  </div>
+                </div>
+
+                <table class="table border-bottom">
+                  <thead>
+                    <tr>
+                      <th class="col-idx">#</th>
+                      <th class="col-desc text-start">Item / Description</th>
+                      <th class="col-price">Price</th>
+                      <th class="col-qty">Qty</th>
+                      <th class="col-unit">Unit</th>
+                      <th class="col-tax">Tax Rate</th>
+                      <th class="col-amt">Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="text-center text-muted">1</td>
+                      <td>
+                        <div class="fw-bold">UI/UX Design Services</div>
+                        <div class="text-muted small">Standard design sprint for mobile application...</div>
+                      </td>
+                      <td class="text-end">₹50,000.00</td>
+                      <td class="text-center">1</td>
+                      <td class="text-center text-muted">Project</td>
+                      <td class="text-center">18%</td>
+                      <td class="text-end">₹50,000.00</td>
+                    </tr>
+                    <tr class="empty-area">
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                    </tr>
+                    <tr class="table-light fw-bold">
+                      <td colspan="6" class="text-end py-2">Total</td>
+                      <td class="text-end py-2">₹50,000.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+
+                <div class="footer-flex">
+                  <div class="p-4 small text-muted align-self-end">
+                    * All disputes subject to local jurisdiction.
+                  </div>
+
+                  <div class="summary-wrapper">
+                    <div class="summary-header">Amounts</div>
+                    <div class="summary-body">
+                      <div class="summary-item">
+                        <span class="text-muted">Total</span>
+                        <span class="fw-bold">₹50,000.00</span>
+                      </div>
+                      <div class="summary-item">
+                        <span class="text-muted">Received</span>
+                        <span>₹0.00</span>
+                      </div>
+                      <div class="balance-due d-flex justify-content-between">
+                        <span>Balance</span>
+                        <span>₹50,000.00</span>
+                      </div>
+                      <div class="signatory-box">
+                        <div class="sign-line"></div>
+                        <div class="small fw-bold text-uppercase">Authorized Signatory</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-12">
+                <div class="d-flex justify-content-end gap-3"><button class="btn btn-rounded btn-info px-4 rounded-pill"
+                    onclick="window.print()"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                      viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M19 7h-1V2H6v5H5c-1.65 0-3 1.35-3 3v7c0 1.1.9 2 2 2h2v3h12v-3h2c1.1 0 2-.9 2-2v-7c0-1.65-1.35-3-3-3M8 4h8v3H8zm8 16H8v-4h8zm4-3h-2v-3H6v3H4v-7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1z" />
+                      <path fill="currentColor" d="M14 11h4v1h-4z" />
+                    </svg> Print Invoice</button>
+                  <button class="btn btn-primary px-4 rounded-pill" id="recordPaymentBtn"><svg
+                      xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                      <path fill="currentColor"
+                        d="M5.5 15.5c1.07 0 2.02-.5 2.67-1.26l6.87 3.87c-.01.13-.04.26-.04.39c0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5s-1.57-3.5-3.5-3.5c-1.07 0-2.02.5-2.67 1.26l-6.87-3.87c.01-.13.04-.26.04-.39s-.02-.26-.04-.39l6.87-3.87C16.47 8.5 17.42 9 18.5 9C20.43 9 22 7.43 22 5.5S20.43 2 18.5 2S15 3.57 15 5.5c0 .13.02.26.04.39L8.17 9.76A3.48 3.48 0 0 0 5.5 8.5C3.57 8.5 2 10.07 2 12s1.57 3.5 3.5 3.5m13 1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5m0-13c.83 0 1.5.67 1.5 1.5S19.33 7 18.5 7S17 6.33 17 5.5S17.67 4 18.5 4m-13 6.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S4 12.83 4 12s.67-1.5 1.5-1.5" />
+                    </svg> Share Invoice</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+  </div>
 
 
 
@@ -1306,4 +1373,5 @@
   <script src="assets/libs/js/index.global.min.js"></script>
 
 </body>
+
 </html>

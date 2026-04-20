@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -18,6 +19,7 @@
       border: 1px solid rgba(35, 53, 120, 0.12);
       transition: all 0.3s ease;
     }
+
     .summary-row {
       display: flex;
       justify-content: space-between;
@@ -25,18 +27,24 @@
       padding: 14px 0;
       border-bottom: 1px solid #e9edf2;
     }
-    .summary-row:last-of-type { border-bottom: none; }
+
+    .summary-row:last-of-type {
+      border-bottom: none;
+    }
+
     .summary-label {
       font-size: 0.85rem;
       font-weight: 600;
       color: #475569;
       letter-spacing: 0.3px;
     }
+
     .summary-value {
       font-size: 1rem;
       font-weight: 700;
       color: #1e293b;
     }
+
     .summary-total {
       background: linear-gradient(135deg, #233578 0%, #35448d 100%);
       border-radius: 10px;
@@ -45,11 +53,13 @@
       color: white;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
     .summary-total .summary-value {
       color: white;
       font-size: 1.8rem;
       font-weight: 800;
     }
+
     .tax-accordion-btn {
       width: 100%;
       text-align: left;
@@ -65,7 +75,11 @@
       justify-content: space-between;
       align-items: center;
     }
-    .tax-accordion-btn:hover { background: #e2e8f0; }
+
+    .tax-accordion-btn:hover {
+      background: #e2e8f0;
+    }
+
     .payment-section {
       background: #f9fafb;
       border-radius: 6px;
@@ -73,17 +87,20 @@
       padding: 16px;
       margin: 12px 0;
     }
+
     .switch {
       position: relative;
       display: inline-block;
       width: 48px;
       height: 24px;
     }
+
     .switch input {
       opacity: 0;
       width: 0;
       height: 0;
     }
+
     .slider {
       position: absolute;
       cursor: pointer;
@@ -95,6 +112,7 @@
       transition: 0.3s;
       border-radius: 24px;
     }
+
     .slider:before {
       position: absolute;
       content: "";
@@ -106,8 +124,15 @@
       transition: 0.3s;
       border-radius: 50%;
     }
-    input:checked + .slider { background-color: #10b981; }
-    input:checked + .slider:before { transform: translateX(24px); }
+
+    input:checked+.slider {
+      background-color: #10b981;
+    }
+
+    input:checked+.slider:before {
+      transform: translateX(24px);
+    }
+
     .btn-add {
       background: none;
       color: #233578;
@@ -120,14 +145,22 @@
       border-radius: 2px;
       transition: all 0.2s;
     }
-    .btn-add:hover { background: #eef2ff; }
-    .modal-item-search { position: relative; }
+
+    .btn-add:hover {
+      background: #eef2ff;
+    }
+
+    .modal-item-search {
+      position: relative;
+    }
+
     .modal-item-search .form-control {
       border-radius: 12px;
       padding-left: 2.5rem;
       background-color: #ffffff;
       border: 1px solid #e2e8f0;
     }
+
     .modal-item-search iconify-icon {
       position: absolute;
       left: 14px;
@@ -136,6 +169,7 @@
       color: #94a3b8;
       font-size: 1.2rem;
     }
+
     .item-category-tabs {
       display: flex;
       gap: 12px;
@@ -144,6 +178,7 @@
       padding-bottom: 8px;
       margin-bottom: 18px;
     }
+
     .category-chip {
       background: #f1f5f9;
       padding: 6px 16px;
@@ -154,25 +189,30 @@
       transition: all 0.2s;
       color: #334155;
     }
+
     .category-chip.active {
       background: #233578;
       color: white;
     }
+
     .item-table-modal {
       width: 100%;
       font-size: 0.85rem;
     }
+
     .item-table-modal th {
       background-color: #f8fafc;
       padding: 12px 8px;
       font-weight: 600;
       border-bottom: 1px solid #e2e8f0;
     }
+
     .item-table-modal td {
       padding: 12px 8px;
       vertical-align: middle;
       border-bottom: 1px solid #eef2f6;
     }
+
     .quantity-control-wrapper {
       display: flex;
       align-items: center;
@@ -183,6 +223,7 @@
       padding: 4px 8px;
       width: fit-content;
     }
+
     .qty-btn {
       background: #f1f5f9;
       border: none;
@@ -198,10 +239,12 @@
       transition: all 0.2s;
       color: #233578;
     }
+
     .qty-btn:hover {
       background: #233578;
       color: white;
     }
+
     .qty-value {
       width: 45px;
       text-align: center;
@@ -212,6 +255,7 @@
       padding: 0;
       margin: 0;
     }
+
     .btn-add-item {
       background: #233578;
       color: white;
@@ -223,16 +267,22 @@
       transition: 0.2s;
       white-space: nowrap;
     }
-    .btn-add-item:hover { background: #0f1f4a; }
+
+    .btn-add-item:hover {
+      background: #0f1f4a;
+    }
+
     .modal-content {
       border-radius: 24px;
       border: none;
       box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
     }
+
     .modal-header {
       border-bottom: 1px solid #edf2f7;
       padding: 1rem 1.5rem;
     }
+
     .selected-count {
       background: linear-gradient(135deg, #233578 0%, #35448d 100%);
       color: white;
@@ -246,11 +296,13 @@
       align-items: center;
       gap: 8px;
     }
+
     .customer-input-group {
       display: flex;
       gap: 12px;
       align-items: center;
     }
+
     .customer-input-group select {
       flex: 1;
       border-radius: 12px;
@@ -259,6 +311,7 @@
       font-size: 0.9rem;
       background: white;
     }
+
     .btn-icon-add {
       background: #233578;
       color: white;
@@ -274,10 +327,12 @@
       height: 42px;
       transition: all 0.2s;
     }
+
     .btn-icon-add:hover {
       background: #0f1f4a;
       transform: translateY(-1px);
     }
+
     .scanner-badge {
       background: #f1f5f9;
       color: #233578;
@@ -292,11 +347,13 @@
       gap: 6px;
       border: 1px solid #e2e8f0;
     }
+
     .scanner-badge:hover {
       background: #233578;
       color: white;
       border-color: #233578;
     }
+
     .barcode-container {
       background: #f8fafc;
       border-radius: 16px;
@@ -304,24 +361,85 @@
       margin-bottom: 16px;
       border: 1px solid #e2e8f0;
     }
+
     /* Customer Modal Styles - Restored */
-    .customer-modal .modal-content { border-radius: 10px; }
-    .customer-modal .modal-header { background: white; color: black; border-bottom: none; }
-    .step-indicator { display: flex; justify-content: space-between; margin-bottom: 30px; position: relative; }
-    .step-circle { width: 40px; height: 40px; background: #e2e8f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 8px; font-weight: bold; transition: all 0.3s; }
-    .step-item.active .step-circle { background: #233578; color: white; box-shadow: 0 4px 10px rgba(35,53,120,0.3); }
-    .step-item.completed .step-circle { background: #10b981; color: white; }
-    .form-step { display: none; animation: fadeIn 0.3s ease; }
-    .form-step.active-step { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateX(10px); } to { opacity: 1; transform: translateX(0); } }
+    .customer-modal .modal-content {
+      border-radius: 10px;
+    }
+
+    .customer-modal .modal-header {
+      background: white;
+      color: black;
+      border-bottom: none;
+    }
+
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      background: #e2e8f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-weight: bold;
+      transition: all 0.3s;
+    }
+
+    .step-item.active .step-circle {
+      background: #233578;
+      color: white;
+      box-shadow: 0 4px 10px rgba(35, 53, 120, 0.3);
+    }
+
+    .step-item.completed .step-circle {
+      background: #10b981;
+      color: white;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .form-step.active-step {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
     @media (max-width: 768px) {
-      .customer-input-group { flex-direction: column; align-items: stretch; }
-      .btn-icon-add { justify-content: center; }
+      .customer-input-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-icon-add {
+        justify-content: center;
+      }
     }
   </style>
 </head>
+
 <body>
-<div id="main-wrapper">
+  <div id="main-wrapper">
     <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <!-- ---------------------------------- -->
@@ -410,10 +528,10 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                   <a class="sidebar-link" href="customer.html">
-                                            <span class="icon-small"></span>
-                                            Customer
-                                        </a>
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span>
+                      Customer
+                    </a>
                   </li>
                   <li class="sidebar-item">
                     <a class="sidebar-link" href="../main/frontend-aboutpage.html">
@@ -454,8 +572,8 @@
     </aside>
     <!--  Sidebar End -->
 
-  <div class="page-wrapper">
-     <!--  Header Start -->
+    <div class="page-wrapper">
+      <!--  Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -475,8 +593,9 @@
               <!-- Create Sales Invoice Button with Hover Mega Menu -->
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd">
-                     <button class="btn bg-primary-subtle text-primary dropdown-toggle" onclick="location.href='create-invoice.html'"
-                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    onclick="location.href='create-invoice.html'"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
                     <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
                     Create Sales Invoice
                   </button>
@@ -1325,136 +1444,222 @@
       </header>
       <!--  Header End -->
 
-    <div class="body-wrapper">
-      <div class="container-fluid p-4">
-        <div class="card card-body py-3">
-          <div class="row align-items-center">
-            <div class="col-12">
-              <div class="d-sm-flex align-items-center justify-space-between">
-                <h4 class="mb-4 mb-sm-0 card-title">Create Invoice</h4>
-                <nav aria-label="breadcrumb" class="ms-auto">
-                  <ol class="breadcrumb">
-                    <button type="button" class="btn bg-danger-subtle text-danger fw-semibold px-4 rounded-pill">INV-2012001</button>
-                  </ol>
-                </nav>
+      <div class="body-wrapper">
+        <div class="container-fluid p-4">
+          <div class="card card-body py-3">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Create Invoice</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb">
+                      <button type="button"
+                        class="btn bg-danger-subtle text-danger fw-semibold px-4 rounded-pill">INV-2012001</button>
+                    </ol>
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="row">
-          <div class="col-12">
-            <div class="card border-0 shadow-sm">
-              <div class="card-body p-4">
-                <div class="row g-3 mt-1">
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Customer <span class="text-danger">*</span></label>
-                    <div class="customer-input-group">
-                      <select class="form-select" id="customerSelect">
-                        <option value="">-- Select Customer --</option>
+          <div class="row">
+            <div class="col-12">
+              <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                  <div class="row g-3 mt-1">
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Customer <span class="text-danger">*</span></label>
+                      <div class="customer-input-group">
+                        <select class="form-select" id="customerSelect">
+                          <option value="">-- Select Customer --</option>
+                        </select>
+                        <button type="button" class="btn-icon-add" id="createCustomerBtn">
+                          <iconify-icon icon="solar:user-plus-bold" width="16"></iconify-icon>
+                          Create
+                        </button>
+                      </div>
+                      <input type="hidden" id="customerName" value="ABC Enterprises">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Currency</label>
+                      <select class="form-select" id="currencySelect" style="border-radius: 12px;">
+                        <option value="INR">INR (₹)</option>
+                        <option value="USD">USD ($)</option>
+                        <option value="EUR">EUR (€)</option>
                       </select>
-                      <button type="button" class="btn-icon-add" id="createCustomerBtn">
-                        <iconify-icon icon="solar:user-plus-bold" width="16"></iconify-icon>
-                        Create
-                      </button>
                     </div>
-                    <input type="hidden" id="customerName" value="ABC Enterprises">
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Issue Date</label>
+                      <input type="date" class="form-control" id="issueDate" value="2026-04-20"
+                        style="border-radius: 12px;">
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Due Date</label>
+                      <input type="date" class="form-control" id="dueDate" value="2026-05-20"
+                        style="border-radius: 12px;">
+                    </div>
+                    <div class="col-md-12">
+                      <label class="form-label fw-semibold">Description / Notes</label>
+                      <textarea class="form-control" id="invoiceDescription" rows="2"
+                        style="border-radius: 12px;">Thank you for your business. Payment due within 30 days.</textarea>
+                    </div>
                   </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Currency</label>
-                    <select class="form-select" id="currencySelect" style="border-radius: 12px;">
-                      <option value="INR">INR (₹)</option>
-                      <option value="USD">USD ($)</option>
-                      <option value="EUR">EUR (€)</option>
-                    </select>
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Issue Date</label>
-                    <input type="date" class="form-control" id="issueDate" value="2026-04-20" style="border-radius: 12px;">
-                  </div>
-                  <div class="col-md-6">
-                    <label class="form-label fw-semibold">Due Date</label>
-                    <input type="date" class="form-control" id="dueDate" value="2026-05-20" style="border-radius: 12px;">
-                  </div>
-                  <div class="col-md-12">
-                    <label class="form-label fw-semibold">Description / Notes</label>
-                    <textarea class="form-control" id="invoiceDescription" rows="2" style="border-radius: 12px;">Thank you for your business. Payment due within 30 days.</textarea>
-                  </div>
-                </div>
 
-                <!-- Line Items Section -->
-                <div class="row mt-4">
-                  <div class="col-12">
-                    <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                      <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
-                      <div class="d-flex gap-2">
-                        <span class="scanner-badge" id="showScannerBtn">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2"/><path fill="currentColor" d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z"/></svg> Scan Barcode
-                        </span>
-                        <button class="btn btn-primary rounded-pill px-4" id="openAddItemsModalBtn" type="button">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Add Line Item
-                        </button>
-                        <!-- HTML Redirect Button - opens create-item.html in new tab/window -->
-                        <button class="btn btn-outline-primary rounded-pill px-3" id="goToCreateItemBtn" type="button">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z"/><path fill="currentColor" d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8"/></svg> Create New Item
-                        </button>
-                      </div>
-                    </div>
-                    <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
-                      <div class="input-group">
-                        <span class="input-group-text bg-white"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2"/><path fill="currentColor" d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z"/></svg></span>
-                        <input type="text" id="barcodeInput" class="form-control" placeholder="Scan or type barcode / item code" autofocus>
-                        <button class="btn btn-outline-secondary" id="closeScannerBtn">Close</button>
-                      </div>
-                      <small class="text-muted">Press Enter to find and add item by code or name</small>
-                    </div>
-                    <div class="table-responsive">
-                      <table class="table table-hover" id="itemsTable" style="border-radius: 16px; overflow: hidden;">
-                        <thead class="table-light">
-                          <tr><th style="width: 28%">Item / Description</th><th style="width: 10%">Price</th><th style="width: 8%">Qty</th><th style="width: 10%">Unit</th><th style="width: 18%">Tax Rate</th><th style="width: 15%">Amount</th><th style="width: 11%">Action</th> </tr>
-                        </thead>
-                        <tbody id="itemsTableBody"></tbody>
-                      </table>
-                      <button class="btn-add" id="addLineItemBtns">+ Add Item</button>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Invoice Summary Card -->
-                <div class="row mt-4 justify-content-end">
-                  <div class="col-lg-8 col-md-12">
-                    <div class="invoice-summary-card">
-                      <div class="summary-row">
-                        <span class="summary-label">Tax Breakdowns</span>
-                        <div class="d-flex align-items-center gap-3">
-                          <label class="switch"><input type="checkbox" id="taxInclusiveToggle"><span class="slider"></span></label>
-                          <span class="badge bg-light text-dark px-3 py-2 rounded-pill" id="taxModeLabel">Exclusive</span>
+                  <!-- Line Items Section -->
+                  <div class="row mt-4">
+                    <div class="col-12">
+                      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h5 class="fw-semibold mb-0"><iconify-icon
+                            icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
+                        <div class="d-flex gap-2">
+                          <span class="scanner-badge" id="showScannerBtn">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                              <path fill="currentColor"
+                                d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2" />
+                              <path fill="currentColor"
+                                d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
+                            </svg> Scan Barcode
+                          </span>
+                          <button class="btn btn-primary rounded-pill px-4" id="openAddItemsModalBtn" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
+                              <path fill="currentColor"
+                                d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
+                            </svg> Add Line Item
+                          </button>
+                          <!-- HTML Redirect Button - opens create-item.html in new tab/window -->
+                          <button class="btn btn-outline-primary rounded-pill px-3" id="goToCreateItemBtn"
+                            type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                              <path fill="currentColor" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z" />
+                              <path fill="currentColor"
+                                d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
+                            </svg> Create New Item
+                          </button>
                         </div>
                       </div>
-                      <div class="summary-row"><span class="summary-label">Taxable Value</span><span class="summary-value" id="taxableAmountDisplay">₹ 0.00</span></div>
-                      <div class="mt-2">
-                        <button class="tax-accordion-btn" type="button" data-bs-toggle="collapse" data-bs-target="#taxDetailsCollapse" aria-expanded="false">
-                          <span>View Tax Breakdown (CGST + SGST)</span><iconify-icon icon="solar:alt-arrow-down-bold" width="14"></iconify-icon>
-                        </button>
-                        <div class="collapse" id="taxDetailsCollapse"><div class="tax-breakdown" id="taxBreakdownDetails"><div class="tax-detail-row"><span class="text-muted">No tax items</span></div></div></div>
+                      <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
+                        <div class="input-group">
+                          <span class="input-group-text bg-white"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+                              height="24" viewBox="0 0 24 24">
+                              <path fill="currentColor"
+                                d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2" />
+                              <path fill="currentColor"
+                                d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
+                            </svg></span>
+                          <input type="text" id="barcodeInput" class="form-control"
+                            placeholder="Scan or type barcode / item code" autofocus>
+                          <button class="btn btn-outline-secondary" id="closeScannerBtn">Close</button>
+                        </div>
+                        <small class="text-muted">Press Enter to find and add item by code or name</small>
                       </div>
-                      <div class="summary-row"><span class="summary-label">Shipping Charge</span><div style="width: 160px;"><div class="input-group"><span class="input-group-text bg-white border-end-0" id="shippingSymbol">₹</span><input type="number" id="shippingCharge" class="form-control form-control-sm text-end" value="50" style="border-left: none;"></div></div></div>
-                      <div class="summary-row"><span class="summary-label">Subtotal (Excl. Tax)</span><span class="summary-value" id="subtotalDisplay">₹ 0.00</span></div>
-                      <div class="summary-row"><span class="summary-label">Total Tax (GST)</span><span class="summary-value text-success" id="taxDisplay">₹ 0.00</span></div>
-                      <div class="payment-section"><div class="payment-row d-flex gap-3 flex-wrap"><span class="payment-label mt-2">Amount Received</span><div class="payment-input-wrapper flex-grow-1"><div class="input-group"><span class="input-group-text bg-white" id="receivedSymbol">₹</span><input type="number" id="amountReceived" class="form-control" value="0" step="any"></div></div><div class="payment-input-wrapper"><select id="paymentMethod" class="payment-method-select form-select"><option value="Cash">Cash</option><option value="UPI">UPI</option><option value="Card">Card</option></select></div></div></div>
-                      <div class="summary-row"><span class="summary-label">Payment Status</span><div class="d-flex align-items-center gap-3"><div class="form-check form-switch"><input class="form-check-input" type="checkbox" id="markAsPaidToggle" style="cursor: pointer;"></div><span id="paidStatusLabel" class="badge bg-warning-subtle text-warning px-3 py-1 rounded-pill">Unpaid</span></div></div>
-                      <div class="summary-row"><span class="summary-label fw-bold">Balance Due</span><span class="summary-value fw-bold" id="balanceDisplay" style="color: #dc2626;">₹ 0.00</span></div>
-                      <div class="summary-total"><div class="d-flex justify-content-between align-items-center"><span class="summary-label text-white">Total Amount Due <br><small style="color: rgba(255,255,255,0.65);">Including all taxes & charges</small></span><span class="summary-value" id="netTotalDisplay">₹ 0.00</span></div></div>
+                      <div class="table-responsive">
+                        <table class="table table-hover" id="itemsTable" style="border-radius: 16px; overflow: hidden;">
+                          <thead class="table-light">
+                            <tr>
+                              <th style="width: 28%">Item / Description</th>
+                              <th style="width: 10%">Price</th>
+                              <th style="width: 8%">Qty</th>
+                              <th style="width: 10%">Unit</th>
+                              <th style="width: 18%">Tax Rate</th>
+                              <th style="width: 15%">Amount</th>
+                              <th style="width: 11%">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody id="itemsTableBody"></tbody>
+                        </table>
+                        <button class="btn-add" id="addLineItemBtns">+ Add Item</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Invoice Summary Card -->
+                  <div class="row mt-4 justify-content-end">
+                    <div class="col-lg-8 col-md-12">
+                      <div class="invoice-summary-card">
+                        <div class="summary-row">
+                          <span class="summary-label">Tax Breakdowns</span>
+                          <div class="d-flex align-items-center gap-3">
+                            <label class="switch"><input type="checkbox" id="taxInclusiveToggle"><span
+                                class="slider"></span></label>
+                            <span class="badge bg-light text-dark px-3 py-2 rounded-pill"
+                              id="taxModeLabel">Exclusive</span>
+                          </div>
+                        </div>
+                        <div class="summary-row"><span class="summary-label">Taxable Value</span><span
+                            class="summary-value" id="taxableAmountDisplay">₹ 0.00</span></div>
+                        <div class="mt-2">
+                          <button class="tax-accordion-btn" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#taxDetailsCollapse" aria-expanded="false">
+                            <span>View Tax Breakdown (CGST + SGST)</span><iconify-icon icon="solar:alt-arrow-down-bold"
+                              width="14"></iconify-icon>
+                          </button>
+                          <div class="collapse" id="taxDetailsCollapse">
+                            <div class="tax-breakdown" id="taxBreakdownDetails">
+                              <div class="tax-detail-row"><span class="text-muted">No tax items</span></div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="summary-row"><span class="summary-label">Shipping Charge</span>
+                          <div style="width: 160px;">
+                            <div class="input-group"><span class="input-group-text bg-white border-end-0"
+                                id="shippingSymbol">₹</span><input type="number" id="shippingCharge"
+                                class="form-control form-control-sm text-end" value="50" style="border-left: none;">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="summary-row"><span class="summary-label">Subtotal (Excl. Tax)</span><span
+                            class="summary-value" id="subtotalDisplay">₹ 0.00</span></div>
+                        <div class="summary-row"><span class="summary-label">Total Tax (GST)</span><span
+                            class="summary-value text-success" id="taxDisplay">₹ 0.00</span></div>
+                        <div class="payment-section">
+                          <div class="payment-row d-flex gap-3 flex-wrap"><span class="payment-label mt-2">Amount
+                              Received</span>
+                            <div class="payment-input-wrapper flex-grow-1">
+                              <div class="input-group"><span class="input-group-text bg-white"
+                                  id="receivedSymbol">₹</span><input type="number" id="amountReceived"
+                                  class="form-control" value="0" step="any"></div>
+                            </div>
+                            <div class="payment-input-wrapper"><select id="paymentMethod"
+                                class="payment-method-select form-select">
+                                <option value="Cash">Cash</option>
+                                <option value="UPI">UPI</option>
+                                <option value="Card">Card</option>
+                              </select></div>
+                          </div>
+                        </div>
+                        <div class="summary-row"><span class="summary-label">Payment Status</span>
+                          <div class="d-flex align-items-center gap-3">
+                            <div class="form-check form-switch"><input class="form-check-input" type="checkbox"
+                                id="markAsPaidToggle" style="cursor: pointer;"></div><span id="paidStatusLabel"
+                              class="badge bg-warning-subtle text-warning px-3 py-1 rounded-pill">Unpaid</span>
+                          </div>
+                        </div>
+                        <div class="summary-row"><span class="summary-label fw-bold">Balance Due</span><span
+                            class="summary-value fw-bold" id="balanceDisplay" style="color: #dc2626;">₹ 0.00</span>
+                        </div>
+                        <div class="summary-total">
+                          <div class="d-flex justify-content-between align-items-center"><span
+                              class="summary-label text-white">Total Amount Due <br><small
+                                style="color: rgba(255,255,255,0.65);">Including all taxes & charges</small></span><span
+                              class="summary-value" id="netTotalDisplay">₹ 0.00</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mt-4">
+                    <div class="col-12">
+                      <div class="d-flex justify-content-end gap-3">
+                        <button class="btn btn-outline-primary px-4 rounded-pill" id="recordPaymentBtn">Save & Record
+                          Payment</button>
+
+                        <button class="btn btn-primary px-4 rounded-pill"
+                          onclick="location.href='invoice-preview.html'">Preview Invoice</button>
+
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div class="row mt-4"><div class="col-12"><div class="d-flex justify-content-end gap-3">
-                  <button class="btn btn-outline-primary px-4 rounded-pill" id="recordPaymentBtn">Save & Record Payment</button>
-
-                  <button class="btn btn-primary px-4 rounded-pill" onclick="location.href='invoice-preview.html'">Send to Customer</button>
-                  
-                  </div></div></div>
               </div>
             </div>
           </div>
@@ -1462,100 +1667,128 @@
       </div>
     </div>
   </div>
-</div>
 
-<!-- Add Items Modal (Library Only) -->
-<div class="modal fade" id="addItemsModal" tabindex="-1" aria-labelledby="addItemsModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header px-4 py-3">
-        <h5 class="modal-title fw-bold" id="addItemsModalLabel">Add Items to Bill</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body px-4 pb-3">
-        <div class="modal-item-search mb-4">
-          <iconify-icon icon="solar:magnifer-linear"></iconify-icon>
-          <input type="text" class="form-control" id="modalSearchInput" placeholder="Search items">
+  <!-- Add Items Modal (Library Only) -->
+  <div class="modal fade" id="addItemsModal" tabindex="-1" aria-labelledby="addItemsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header px-4 py-3">
+          <h5 class="modal-title fw-bold" id="addItemsModalLabel">Add Items to Bill</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-        <div class="item-category-tabs" id="categoryChipsContainer">
-          <span class="category-chip active" data-cat="all">All Items</span>
-          <span class="category-chip" data-cat="product">Products</span>
-          <span class="category-chip" data-cat="service">Services</span>
-        </div>
-        <div class="table-responsive">
-          <table class="item-table-modal">
-            <thead>
-              <tr><th>Item Name</th><th>Type</th><th>Stock</th><th>Sales Price</th><th>Unit</th><th>Quantity</th><th>Action</th></tr>
-            </thead>
-            <tbody id="modalItemsList"></tbody>
-          </table>
-        </div>
-        <div class="mt-3">
-          <div class="selected-count" id="modalSelectedCount">
-            <iconify-icon icon="solar:bag-check-bold" width="18"></iconify-icon>
-            <span>Selected Items: </span>
-            <span class="count-number" id="selectedCountNumber">0</span>
+        <div class="modal-body px-4 pb-3">
+          <div class="modal-item-search mb-4">
+            <iconify-icon icon="solar:magnifer-linear"></iconify-icon>
+            <input type="text" class="form-control" id="modalSearchInput" placeholder="Search items">
+          </div>
+          <div class="item-category-tabs" id="categoryChipsContainer">
+            <span class="category-chip active" data-cat="all">All Items</span>
+            <span class="category-chip" data-cat="product">Products</span>
+            <span class="category-chip" data-cat="service">Services</span>
+          </div>
+          <div class="table-responsive">
+            <table class="item-table-modal">
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Type</th>
+                  <th>Stock</th>
+                  <th>Sales Price</th>
+                  <th>Unit</th>
+                  <th>Quantity</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="modalItemsList"></tbody>
+            </table>
+          </div>
+          <div class="mt-3">
+            <div class="selected-count" id="modalSelectedCount">
+              <iconify-icon icon="solar:bag-check-bold" width="18"></iconify-icon>
+              <span>Selected Items: </span>
+              <span class="count-number" id="selectedCountNumber">0</span>
+            </div>
           </div>
         </div>
-      </div>
-      <div class="modal-footer border-0 pt-0 pb-4 px-4">
-        <button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
-        <button class="btn btn-primary px-5" id="confirmAddToBillBtn">Add to Bill</button>
+        <div class="modal-footer border-0 pt-0 pb-4 px-4">
+          <button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary px-5" id="confirmAddToBillBtn">Add to Bill</button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Customer Creation Modal - Fully Restored UI -->
-<div class="modal fade customer-modal" id="addCustomerModal" tabindex="-1" data-bs-backdrop="static">
-  <div class="modal-dialog modal-lg modal-dialog-centered">
-    <div class="modal-content">
-      <div class="modal-header mt-3">
-        <h5 class="modal-title fw-bold">Create New Customer</h5>
-        <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
-      </div>
-      <div class="modal-body p-4">
-        <div class="step-indicator">
-          <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Basic Info</div></div>
-          <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Billing Address</div></div>
-          <div class="step-item" data-step="3"><div class="step-circle">3</div><div class="step-label">Shipping Address</div></div>
+  <!-- Customer Creation Modal - Fully Restored UI -->
+  <div class="modal fade customer-modal" id="addCustomerModal" tabindex="-1" data-bs-backdrop="static">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header mt-3">
+          <h5 class="modal-title fw-bold">Create New Customer</h5>
+          <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
         </div>
-        <div id="step1" class="form-step active-step">
-          <div class="section-title-step fw-bold mb-3">Basic Information</div>
-          <div class="row g-3">
-            <div class="col-md-12"><label class="form-label fw-semibold">Full Name *</label><input type="text" id="custName" class="form-control" placeholder="Enter customer name"></div>
-            <div class="col-md-6"><label class="form-label fw-semibold">Phone Number *</label><input type="tel" id="custPhone" class="form-control" placeholder="+91 9876543210"></div>
-            <div class="col-md-6"><label class="form-label fw-semibold">Email Address</label><input type="email" id="custEmail" class="form-control" placeholder="customer@example.com"></div>
+        <div class="modal-body p-4">
+          <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+              <div class="step-circle">1</div>
+              <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step-item" data-step="2">
+              <div class="step-circle">2</div>
+              <div class="step-label">Billing Address</div>
+            </div>
+            <div class="step-item" data-step="3">
+              <div class="step-circle">3</div>
+              <div class="step-label">Shipping Address</div>
+            </div>
+          </div>
+          <div id="step1" class="form-step active-step">
+            <div class="section-title-step fw-bold mb-3">Basic Information</div>
+            <div class="row g-3">
+              <div class="col-md-12"><label class="form-label fw-semibold">Full Name *</label><input type="text"
+                  id="custName" class="form-control" placeholder="Enter customer name"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">Phone Number *</label><input type="tel"
+                  id="custPhone" class="form-control" placeholder="+91 9876543210"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">Email Address</label><input type="email"
+                  id="custEmail" class="form-control" placeholder="customer@example.com"></div>
+            </div>
+          </div>
+          <div id="step2" class="form-step">
+            <div class="section-title-step fw-bold mb-3">Billing Address</div>
+            <div class="row g-3">
+              <div class="col-12"><label class="form-label fw-semibold">Address Line</label><textarea id="billAddress"
+                  class="form-control" rows="2" placeholder="Street, Building, Area"></textarea></div>
+              <div class="col-md-4"><label class="form-label">City</label><input id="billCity" class="form-control"
+                  placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label><input id="billState" class="form-control"
+                  placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip" class="form-control"
+                  placeholder="Zip Code"></div>
+            </div>
+          </div>
+          <div id="step3" class="form-step">
+            <div class="section-title-step fw-bold mb-3">Shipping Address</div>
+            <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label
+                class="form-check-label fw-semibold"> Same as Billing Address</label></div>
+            <div class="row g-3">
+              <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress"
+                  class="form-control" rows="2" placeholder="Street, Building, Area"></textarea></div>
+              <div class="col-md-4"><label class="form-label">City</label><input id="shipCity" class="form-control"
+                  placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label><input id="shipState" class="form-control"
+                  placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip" class="form-control"
+                  placeholder="Zip Code"></div>
+            </div>
           </div>
         </div>
-        <div id="step2" class="form-step">
-          <div class="section-title-step fw-bold mb-3">Billing Address</div>
-          <div class="row g-3">
-            <div class="col-12"><label class="form-label fw-semibold">Address Line</label><textarea id="billAddress" class="form-control" rows="2" placeholder="Street, Building, Area"></textarea></div>
-            <div class="col-md-4"><label class="form-label">City</label><input id="billCity" class="form-control" placeholder="City"></div>
-            <div class="col-md-4"><label class="form-label">State</label><input id="billState" class="form-control" placeholder="State"></div>
-            <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip" class="form-control" placeholder="Zip Code"></div>
-          </div>
+        <div class="modal-footer border-0 px-4 pb-4">
+          <button class="btn btn-secondary" id="prevStepBtn" disabled>Previous</button>
+          <button class="btn btn-primary" id="nextStepBtn">Next</button>
+          <button class="btn btn-success" id="submitCustomerBtn" style="display:none;">Create Customer</button>
         </div>
-        <div id="step3" class="form-step">
-          <div class="section-title-step fw-bold mb-3">Shipping Address</div>
-          <div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label class="form-check-label fw-semibold"> Same as Billing Address</label></div>
-          <div class="row g-3">
-            <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress" class="form-control" rows="2" placeholder="Street, Building, Area"></textarea></div>
-            <div class="col-md-4"><label class="form-label">City</label><input id="shipCity" class="form-control" placeholder="City"></div>
-            <div class="col-md-4"><label class="form-label">State</label><input id="shipState" class="form-control" placeholder="State"></div>
-            <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip" class="form-control" placeholder="Zip Code"></div>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer border-0 px-4 pb-4">
-        <button class="btn btn-secondary" id="prevStepBtn" disabled>Previous</button>
-        <button class="btn btn-primary" id="nextStepBtn">Next</button>
-        <button class="btn btn-success" id="submitCustomerBtn" style="display:none;">Create Customer</button>
       </div>
     </div>
   </div>
-</div>
 
   <!-- Import Js Files -->
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
@@ -1582,132 +1815,133 @@
   <script src="assets/libs/js/dashboard1.js"></script>
   <script src="assets/libs/js/index.global.min.js"></script>
 
-<script>
-  // ========== FULL INVOICE SYSTEM WITH HTML REDIRECTION FOR CREATE ITEM ==========
-  let customers = [{ id: "CUST-001", name: "ABC Enterprises", phone: "+91 9876543210", email: "contact@abc.com", billing: { address: "123 MG Road", city: "Mumbai", state: "Maharashtra", zip: "400001" }, shipping: {} }];
-  let inventory = [
-    { id: "i1", name: "Laptop Pro", type: "product", code: "LAP123", stock: 15, unit: "PCS", price: 1200, taxRate: 18, priceInclusive: false },
-    { id: "i2", name: "Web Design Service", type: "service", code: "WEB01", stock: 999, unit: "Hour", price: 2500, taxRate: 12, priceInclusive: false },
-    { id: "i3", name: "Cloud Hosting", type: "service", unit: "Year", price: 4800, taxRate: 5, stock: 100, priceInclusive: false }
-  ];
-  let modalSelectedItems = [];
-  let isTaxInclusive = false;
+  <script>
+    // ========== FULL INVOICE SYSTEM WITH HTML REDIRECTION FOR CREATE ITEM ==========
+    let customers = [{ id: "CUST-001", name: "ABC Enterprises", phone: "+91 9876543210", email: "contact@abc.com", billing: { address: "123 MG Road", city: "Mumbai", state: "Maharashtra", zip: "400001" }, shipping: {} }];
+    let inventory = [
+      { id: "i1", name: "Laptop Pro", type: "product", code: "LAP123", stock: 15, unit: "PCS", price: 1200, taxRate: 18, priceInclusive: false },
+      { id: "i2", name: "Web Design Service", type: "service", code: "WEB01", stock: 999, unit: "Hour", price: 2500, taxRate: 12, priceInclusive: false },
+      { id: "i3", name: "Cloud Hosting", type: "service", unit: "Year", price: 4800, taxRate: 5, stock: 100, priceInclusive: false }
+    ];
+    let modalSelectedItems = [];
+    let isTaxInclusive = false;
 
-  function getSymbol() { const m = { INR: '₹', USD: '$', EUR: '€' }; return m[document.getElementById('currencySelect')?.value] || '₹'; }
-  function formatMoney(amt) { return `${getSymbol()} ${amt.toFixed(2)}`; }
-  function showToast(msg, type = 'success') { const toastDiv = document.createElement('div'); toastDiv.className = `alert alert-${type} position-fixed bottom-0 end-0 m-3 rounded-pill shadow-lg`; toastDiv.style.zIndex = 9999; toastDiv.innerText = msg; document.body.appendChild(toastDiv); setTimeout(() => toastDiv.remove(), 2500); }
-  function populateCustomerDropdown() { const sel = document.getElementById('customerSelect'); sel.innerHTML = '<option value="">-- Select Customer --</option>'; customers.forEach(c => { sel.innerHTML += `<option value="${c.id}">${c.name} (${c.id})</option>`; }); if (customers.length) sel.value = customers[0].id; }
-  
-  function recalcTotals() { const rows = document.querySelectorAll('#itemsTableBody .item-row'); let subtotal = 0, totalTax = 0, taxableAmt = 0; const taxMap = new Map(); rows.forEach(row => { const price = parseFloat(row.querySelector('.item-price')?.value) || 0; const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0; const taxRate = parseFloat(row.querySelector('.tax-rate-select')?.value) || 0; let amountExcl = price * qty, taxAmt = amountExcl * taxRate / 100, finalAmount = amountExcl + taxAmt; if (isTaxInclusive) { const priceExcl = price / (1 + taxRate / 100); amountExcl = priceExcl * qty; taxAmt = (price * qty) - amountExcl; finalAmount = price * qty; } subtotal += amountExcl; taxableAmt += amountExcl; totalTax += taxAmt; if (taxRate > 0) taxMap.set(taxRate, (taxMap.get(taxRate) || 0) + taxAmt); row.querySelector('.row-amount').innerText = formatMoney(finalAmount); }); const shipping = parseFloat(document.getElementById('shippingCharge')?.value) || 0; const netTotal = subtotal + totalTax + shipping; document.getElementById('subtotalDisplay').innerText = formatMoney(subtotal); document.getElementById('taxableAmountDisplay').innerText = formatMoney(taxableAmt); document.getElementById('taxDisplay').innerHTML = formatMoney(totalTax); document.getElementById('netTotalDisplay').innerHTML = formatMoney(netTotal); let breakdownHtml = ''; for (let [rate, amt] of taxMap) breakdownHtml += `<div class='d-flex justify-content-between'><span>GST ${rate}%</span><span>${formatMoney(amt)}</span></div>`; document.getElementById('taxBreakdownDetails').innerHTML = breakdownHtml || '<span class="text-muted">No taxes</span>'; updateBalance(netTotal); }
-  function updateBalance(totalDue) { let rec = parseFloat(document.getElementById('amountReceived')?.value) || 0; const isPaid = document.getElementById('markAsPaidToggle')?.checked; if (isPaid) { rec = totalDue; document.getElementById('amountReceived').value = totalDue; } const balance = Math.max(0, totalDue - rec); document.getElementById('balanceDisplay').innerText = formatMoney(balance); document.getElementById('paidStatusLabel').innerText = isPaid ? 'Paid' : 'Unpaid'; document.getElementById('paidStatusLabel').className = isPaid ? 'badge bg-success-subtle text-success px-3 py-1 rounded-pill' : 'badge bg-warning-subtle text-warning px-3 py-1 rounded-pill'; }
-  function createItemRow(itemObj, qty = 1) { const tr = document.createElement('tr'); tr.className = 'item-row'; tr.innerHTML = `<td><input type="text" class="form-control form-control-sm item-desc" value="${escapeHtml(itemObj.name)}"></td><td><input type="number" step="any" class="form-control form-control-sm item-price" value="${itemObj.price}"></td><td><input type="number" step="any" class="form-control form-control-sm item-qty" value="${qty}"></td><td><input type="text" class="form-control form-control-sm item-unit" value="${escapeHtml(itemObj.unit || 'PCS')}"></td><td><select class="form-select form-select-sm tax-rate-select">${[0,5,12,18,28].map(r => `<option value="${r}" ${r == itemObj.taxRate ? 'selected' : ''}>${r}%</option>`).join('')}</select></td><td class="row-amount fw-semibold text-primary">${formatMoney(itemObj.price * qty)}</td><td class="text-center"><button class="btn btn-sm delete-row-btn"><iconify-icon icon="solar:trash-bin-trash-linear" width="16"></iconify-icon></button></td>`; tr.querySelectorAll('.item-price, .item-qty').forEach(inp => inp.addEventListener('input', () => recalcTotals())); tr.querySelector('.tax-rate-select')?.addEventListener('change', () => recalcTotals()); tr.querySelector('.delete-row-btn')?.addEventListener('click', () => { tr.remove(); recalcTotals(); showToast('Item removed', 'info'); }); return tr; }
-  function renderModalLibrary() { const tbody = document.getElementById('modalItemsList'); const search = document.getElementById('modalSearchInput')?.value.toLowerCase() || ''; const cat = document.querySelector('.category-chip.active')?.dataset.cat || 'all'; let filtered = inventory.filter(i => (cat === 'all' || i.type === cat) && i.name.toLowerCase().includes(search)); tbody.innerHTML = filtered.map(item => { const selectedQty = modalSelectedItems.find(s => s.inventoryItem.id === item.id)?.quantity || 1; return `<tr><td class="fw-semibold">${item.name}</td><td><span class="badge bg-secondary">${item.type}</span></td><td>${item.stock > 0 ? item.stock : '∞'}</td><td>${getSymbol()} ${item.price.toFixed(2)}</td><td>${item.unit}</td><td><div class="quantity-control-wrapper"><button class="qty-btn qty-decr" data-id="${item.id}">-</button><input type="text" class="qty-value" data-id="${item.id}" value="${selectedQty}" readonly><button class="qty-btn qty-incr" data-id="${item.id}">+</button></div></td><td><button class="btn-add-item add-item-modal-btn" data-id="${item.id}">Add to Bill</button></td>`; }).join(''); attachModalEvents(); updateModalCount(); }
-  function attachModalEvents() { document.querySelectorAll('.qty-incr').forEach(btn => btn.addEventListener('click', (e) => { let id = btn.dataset.id; let entry = modalSelectedItems.find(s => s.inventoryItem.id === id); if (entry) entry.quantity++; else modalSelectedItems.push({ inventoryItem: inventory.find(i => i.id === id), quantity: 1 }); updateModalCount(); renderModalLibrary(); })); document.querySelectorAll('.qty-decr').forEach(btn => btn.addEventListener('click', (e) => { let id = btn.dataset.id; let idx = modalSelectedItems.findIndex(s => s.inventoryItem.id === id); if (idx >= 0) { if (modalSelectedItems[idx].quantity > 1) modalSelectedItems[idx].quantity--; else modalSelectedItems.splice(idx, 1); } updateModalCount(); renderModalLibrary(); })); document.querySelectorAll('.add-item-modal-btn').forEach(btn => btn.addEventListener('click', (e) => { let id = btn.dataset.id; let inv = inventory.find(i => i.id === id); let entry = modalSelectedItems.find(s => s.inventoryItem.id === id); if (!entry) modalSelectedItems.push({ inventoryItem: inv, quantity: 1 }); updateModalCount(); showToast(`${inv.name} added to selection`, 'success'); renderModalLibrary(); })); }
-  function updateModalCount() { const total = modalSelectedItems.reduce((s, i) => s + i.quantity, 0); document.getElementById('selectedCountNumber').innerText = total; document.getElementById('confirmAddToBillBtn').disabled = total === 0; }
-  function addSelectedToInvoice() { if (!modalSelectedItems.length) { showToast('No items selected', 'danger'); return false; } const tbody = document.getElementById('itemsTableBody'); modalSelectedItems.forEach(sel => { tbody.appendChild(createItemRow(sel.inventoryItem, sel.quantity)); }); recalcTotals(); showToast(`${modalSelectedItems.length} item(s) added to invoice!`, 'success'); modalSelectedItems = []; renderModalLibrary(); return true; }
-  function handleBarcodeScan(code) { const found = inventory.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase())); if (found) { document.getElementById('itemsTableBody').appendChild(createItemRow(found, 1)); recalcTotals(); showToast(`Scanned: ${found.name} added`, 'success'); document.getElementById('barcodeScannerPanel').style.display = 'none'; } else { showToast('Item not found', 'danger'); } }
-  function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+    function getSymbol() { const m = { INR: '₹', USD: '$', EUR: '€' }; return m[document.getElementById('currencySelect')?.value] || '₹'; }
+    function formatMoney(amt) { return `${getSymbol()} ${amt.toFixed(2)}`; }
+    function showToast(msg, type = 'success') { const toastDiv = document.createElement('div'); toastDiv.className = `alert alert-${type} position-fixed bottom-0 end-0 m-3 rounded-pill shadow-lg`; toastDiv.style.zIndex = 9999; toastDiv.innerText = msg; document.body.appendChild(toastDiv); setTimeout(() => toastDiv.remove(), 2500); }
+    function populateCustomerDropdown() { const sel = document.getElementById('customerSelect'); sel.innerHTML = '<option value="">-- Select Customer --</option>'; customers.forEach(c => { sel.innerHTML += `<option value="${c.id}">${c.name} (${c.id})</option>`; }); if (customers.length) sel.value = customers[0].id; }
 
-  document.addEventListener('DOMContentLoaded', () => {
-    populateCustomerDropdown();
-    const tbody = document.getElementById('itemsTableBody');
-    [createItemRow({ name: 'Web Development Services', price: 2500, unit: 'Project', taxRate: 18 }, 1), createItemRow({ name: 'Cloud Hosting', price: 480, unit: 'Year', taxRate: 5 }, 1)].forEach(r => tbody.appendChild(r));
-    recalcTotals();
-    
-    const itemsModal = new bootstrap.Modal(document.getElementById('addItemsModal'));
-    
-    document.getElementById('openAddItemsModalBtn').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
-    document.getElementById('addLineItemBtns').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
-    document.getElementById('confirmAddToBillBtn').onclick = () => { addSelectedToInvoice(); itemsModal.hide(); };
-    document.getElementById('modalSearchInput')?.addEventListener('input', () => renderModalLibrary());
-    document.querySelectorAll('.category-chip').forEach(c => c.addEventListener('click', function () { document.querySelectorAll('.category-chip').forEach(x => x.classList.remove('active')); this.classList.add('active'); renderModalLibrary(); }));
-    document.getElementById('currencySelect')?.addEventListener('change', () => recalcTotals());
-    document.getElementById('shippingCharge')?.addEventListener('input', () => recalcTotals());
-    document.getElementById('amountReceived')?.addEventListener('input', () => { const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0; updateBalance(net); });
-    document.getElementById('markAsPaidToggle')?.addEventListener('change', () => { const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0; updateBalance(net); });
-    document.getElementById('taxInclusiveToggle')?.addEventListener('change', (e) => { isTaxInclusive = e.target.checked; document.getElementById('taxModeLabel').innerText = isTaxInclusive ? 'Inclusive' : 'Exclusive'; recalcTotals(); });
-    document.getElementById('saveContinueBtn')?.addEventListener('click', () => showToast('Invoice saved as draft', 'success'));
-    document.getElementById('recordPaymentBtn')?.addEventListener('click', () => showToast('Payment recorded successfully', 'success'));
-    
-    // HTML REDIRECTION for Create New Item - opens separate page
-    document.getElementById('goToCreateItemBtn')?.addEventListener('click', (e) => {
-      e.preventDefault();
-      // Open create-item.html in new tab (or current tab - change _blank to _self if needed)
-      window.open('create-item.html', '_blank');
-      showToast('Opening Create Item page in new tab', 'info');
-    });
-    
-    const scannerBtn = document.getElementById('showScannerBtn'); const scannerPanel = document.getElementById('barcodeScannerPanel'); const closeScanner = document.getElementById('closeScannerBtn'); const barcodeInput = document.getElementById('barcodeInput');
-    scannerBtn?.addEventListener('click', () => { scannerPanel.style.display = 'block'; barcodeInput?.focus(); });
-    closeScanner?.addEventListener('click', () => scannerPanel.style.display = 'none');
-    barcodeInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { handleBarcodeScan(e.target.value); e.target.value = ''; } });
-    
-    // Customer Modal Logic - Fully Restored
-    let step = 1; const custModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
-    document.getElementById('createCustomerBtn')?.addEventListener('click', () => custModal.show());
-    function updateStepUI() { 
-      document.querySelectorAll('.step-item').forEach((el, i) => { 
-        if (i + 1 < step) el.classList.add('completed'); else el.classList.remove('completed'); 
-        if (i + 1 === step) el.classList.add('active'); else el.classList.remove('active'); 
-      }); 
-      document.querySelectorAll('.form-step').forEach((el, i) => { 
-        if (i + 1 === step) el.classList.add('active-step'); else el.classList.remove('active-step'); 
-      }); 
-      document.getElementById('prevStepBtn').disabled = (step === 1); 
-      if (step === 3) { 
-        document.getElementById('nextStepBtn').style.display = 'none'; 
-        document.getElementById('submitCustomerBtn').style.display = 'inline-flex'; 
-      } else { 
-        document.getElementById('nextStepBtn').style.display = 'inline-flex'; 
-        document.getElementById('submitCustomerBtn').style.display = 'none'; 
-      } 
-    }
-    document.getElementById('nextStepBtn')?.addEventListener('click', () => { if (step < 3) { step++; updateStepUI(); } });
-    document.getElementById('prevStepBtn')?.addEventListener('click', () => { if (step > 1) { step--; updateStepUI(); } });
-    document.getElementById('submitCustomerBtn')?.addEventListener('click', () => { 
-      const name = document.getElementById('custName').value; 
-      if (!name) { showToast('Customer name required', 'danger'); return; } 
-      const newCust = { 
-        id: `CUST-${customers.length + 1}`, 
-        name, 
-        email: document.getElementById('custEmail').value, 
-        phone: document.getElementById('custPhone').value, 
-        billing: { 
-          address: document.getElementById('billAddress').value, 
-          city: document.getElementById('billCity').value, 
-          state: document.getElementById('billState').value,
-          zip: document.getElementById('billZip').value
-        } 
-      }; 
-      customers.push(newCust); 
-      populateCustomerDropdown(); 
-      custModal.hide(); 
-      showToast(`Customer ${name} created`); 
-      step = 1; 
+    function recalcTotals() { const rows = document.querySelectorAll('#itemsTableBody .item-row'); let subtotal = 0, totalTax = 0, taxableAmt = 0; const taxMap = new Map(); rows.forEach(row => { const price = parseFloat(row.querySelector('.item-price')?.value) || 0; const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0; const taxRate = parseFloat(row.querySelector('.tax-rate-select')?.value) || 0; let amountExcl = price * qty, taxAmt = amountExcl * taxRate / 100, finalAmount = amountExcl + taxAmt; if (isTaxInclusive) { const priceExcl = price / (1 + taxRate / 100); amountExcl = priceExcl * qty; taxAmt = (price * qty) - amountExcl; finalAmount = price * qty; } subtotal += amountExcl; taxableAmt += amountExcl; totalTax += taxAmt; if (taxRate > 0) taxMap.set(taxRate, (taxMap.get(taxRate) || 0) + taxAmt); row.querySelector('.row-amount').innerText = formatMoney(finalAmount); }); const shipping = parseFloat(document.getElementById('shippingCharge')?.value) || 0; const netTotal = subtotal + totalTax + shipping; document.getElementById('subtotalDisplay').innerText = formatMoney(subtotal); document.getElementById('taxableAmountDisplay').innerText = formatMoney(taxableAmt); document.getElementById('taxDisplay').innerHTML = formatMoney(totalTax); document.getElementById('netTotalDisplay').innerHTML = formatMoney(netTotal); let breakdownHtml = ''; for (let [rate, amt] of taxMap) breakdownHtml += `<div class='d-flex justify-content-between'><span>GST ${rate}%</span><span>${formatMoney(amt)}</span></div>`; document.getElementById('taxBreakdownDetails').innerHTML = breakdownHtml || '<span class="text-muted">No taxes</span>'; updateBalance(netTotal); }
+    function updateBalance(totalDue) { let rec = parseFloat(document.getElementById('amountReceived')?.value) || 0; const isPaid = document.getElementById('markAsPaidToggle')?.checked; if (isPaid) { rec = totalDue; document.getElementById('amountReceived').value = totalDue; } const balance = Math.max(0, totalDue - rec); document.getElementById('balanceDisplay').innerText = formatMoney(balance); document.getElementById('paidStatusLabel').innerText = isPaid ? 'Paid' : 'Unpaid'; document.getElementById('paidStatusLabel').className = isPaid ? 'badge bg-success-subtle text-success px-3 py-1 rounded-pill' : 'badge bg-warning-subtle text-warning px-3 py-1 rounded-pill'; }
+    function createItemRow(itemObj, qty = 1) { const tr = document.createElement('tr'); tr.className = 'item-row'; tr.innerHTML = `<td><input type="text" class="form-control form-control-sm item-desc" value="${escapeHtml(itemObj.name)}"></td><td><input type="number" step="any" class="form-control form-control-sm item-price" value="${itemObj.price}"></td><td><input type="number" step="any" class="form-control form-control-sm item-qty" value="${qty}"></td><td><input type="text" class="form-control form-control-sm item-unit" value="${escapeHtml(itemObj.unit || 'PCS')}"></td><td><select class="form-select form-select-sm tax-rate-select">${[0, 5, 12, 18, 28].map(r => `<option value="${r}" ${r == itemObj.taxRate ? 'selected' : ''}>${r}%</option>`).join('')}</select></td><td class="row-amount fw-semibold text-primary">${formatMoney(itemObj.price * qty)}</td><td class="text-center"><button class="btn btn-sm delete-row-btn"><iconify-icon icon="solar:trash-bin-trash-linear" width="16"></iconify-icon></button></td>`; tr.querySelectorAll('.item-price, .item-qty').forEach(inp => inp.addEventListener('input', () => recalcTotals())); tr.querySelector('.tax-rate-select')?.addEventListener('change', () => recalcTotals()); tr.querySelector('.delete-row-btn')?.addEventListener('click', () => { tr.remove(); recalcTotals(); showToast('Item removed', 'info'); }); return tr; }
+    function renderModalLibrary() { const tbody = document.getElementById('modalItemsList'); const search = document.getElementById('modalSearchInput')?.value.toLowerCase() || ''; const cat = document.querySelector('.category-chip.active')?.dataset.cat || 'all'; let filtered = inventory.filter(i => (cat === 'all' || i.type === cat) && i.name.toLowerCase().includes(search)); tbody.innerHTML = filtered.map(item => { const selectedQty = modalSelectedItems.find(s => s.inventoryItem.id === item.id)?.quantity || 1; return `<tr><td class="fw-semibold">${item.name}</td><td><span class="badge bg-secondary">${item.type}</span></td><td>${item.stock > 0 ? item.stock : '∞'}</td><td>${getSymbol()} ${item.price.toFixed(2)}</td><td>${item.unit}</td><td><div class="quantity-control-wrapper"><button class="qty-btn qty-decr" data-id="${item.id}">-</button><input type="text" class="qty-value" data-id="${item.id}" value="${selectedQty}" readonly><button class="qty-btn qty-incr" data-id="${item.id}">+</button></div></td><td><button class="btn-add-item add-item-modal-btn" data-id="${item.id}">Add to Bill</button></td>`; }).join(''); attachModalEvents(); updateModalCount(); }
+    function attachModalEvents() { document.querySelectorAll('.qty-incr').forEach(btn => btn.addEventListener('click', (e) => { let id = btn.dataset.id; let entry = modalSelectedItems.find(s => s.inventoryItem.id === id); if (entry) entry.quantity++; else modalSelectedItems.push({ inventoryItem: inventory.find(i => i.id === id), quantity: 1 }); updateModalCount(); renderModalLibrary(); })); document.querySelectorAll('.qty-decr').forEach(btn => btn.addEventListener('click', (e) => { let id = btn.dataset.id; let idx = modalSelectedItems.findIndex(s => s.inventoryItem.id === id); if (idx >= 0) { if (modalSelectedItems[idx].quantity > 1) modalSelectedItems[idx].quantity--; else modalSelectedItems.splice(idx, 1); } updateModalCount(); renderModalLibrary(); })); document.querySelectorAll('.add-item-modal-btn').forEach(btn => btn.addEventListener('click', (e) => { let id = btn.dataset.id; let inv = inventory.find(i => i.id === id); let entry = modalSelectedItems.find(s => s.inventoryItem.id === id); if (!entry) modalSelectedItems.push({ inventoryItem: inv, quantity: 1 }); updateModalCount(); showToast(`${inv.name} added to selection`, 'success'); renderModalLibrary(); })); }
+    function updateModalCount() { const total = modalSelectedItems.reduce((s, i) => s + i.quantity, 0); document.getElementById('selectedCountNumber').innerText = total; document.getElementById('confirmAddToBillBtn').disabled = total === 0; }
+    function addSelectedToInvoice() { if (!modalSelectedItems.length) { showToast('No items selected', 'danger'); return false; } const tbody = document.getElementById('itemsTableBody'); modalSelectedItems.forEach(sel => { tbody.appendChild(createItemRow(sel.inventoryItem, sel.quantity)); }); recalcTotals(); showToast(`${modalSelectedItems.length} item(s) added to invoice!`, 'success'); modalSelectedItems = []; renderModalLibrary(); return true; }
+    function handleBarcodeScan(code) { const found = inventory.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase())); if (found) { document.getElementById('itemsTableBody').appendChild(createItemRow(found, 1)); recalcTotals(); showToast(`Scanned: ${found.name} added`, 'success'); document.getElementById('barcodeScannerPanel').style.display = 'none'; } else { showToast('Item not found', 'danger'); } }
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      populateCustomerDropdown();
+      const tbody = document.getElementById('itemsTableBody');
+      [createItemRow({ name: 'Web Development Services', price: 2500, unit: 'Project', taxRate: 18 }, 1), createItemRow({ name: 'Cloud Hosting', price: 480, unit: 'Year', taxRate: 5 }, 1)].forEach(r => tbody.appendChild(r));
+      recalcTotals();
+
+      const itemsModal = new bootstrap.Modal(document.getElementById('addItemsModal'));
+
+      document.getElementById('openAddItemsModalBtn').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
+      document.getElementById('addLineItemBtns').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
+      document.getElementById('confirmAddToBillBtn').onclick = () => { addSelectedToInvoice(); itemsModal.hide(); };
+      document.getElementById('modalSearchInput')?.addEventListener('input', () => renderModalLibrary());
+      document.querySelectorAll('.category-chip').forEach(c => c.addEventListener('click', function () { document.querySelectorAll('.category-chip').forEach(x => x.classList.remove('active')); this.classList.add('active'); renderModalLibrary(); }));
+      document.getElementById('currencySelect')?.addEventListener('change', () => recalcTotals());
+      document.getElementById('shippingCharge')?.addEventListener('input', () => recalcTotals());
+      document.getElementById('amountReceived')?.addEventListener('input', () => { const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0; updateBalance(net); });
+      document.getElementById('markAsPaidToggle')?.addEventListener('change', () => { const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0; updateBalance(net); });
+      document.getElementById('taxInclusiveToggle')?.addEventListener('change', (e) => { isTaxInclusive = e.target.checked; document.getElementById('taxModeLabel').innerText = isTaxInclusive ? 'Inclusive' : 'Exclusive'; recalcTotals(); });
+      document.getElementById('saveContinueBtn')?.addEventListener('click', () => showToast('Invoice saved as draft', 'success'));
+      document.getElementById('recordPaymentBtn')?.addEventListener('click', () => showToast('Payment recorded successfully', 'success'));
+
+      // HTML REDIRECTION for Create New Item - opens separate page
+      document.getElementById('goToCreateItemBtn')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        // Open create-item.html in new tab (or current tab - change _blank to _self if needed)
+        window.open('create-item.html', '_blank');
+        showToast('Opening Create Item page in new tab', 'info');
+      });
+
+      const scannerBtn = document.getElementById('showScannerBtn'); const scannerPanel = document.getElementById('barcodeScannerPanel'); const closeScanner = document.getElementById('closeScannerBtn'); const barcodeInput = document.getElementById('barcodeInput');
+      scannerBtn?.addEventListener('click', () => { scannerPanel.style.display = 'block'; barcodeInput?.focus(); });
+      closeScanner?.addEventListener('click', () => scannerPanel.style.display = 'none');
+      barcodeInput?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { handleBarcodeScan(e.target.value); e.target.value = ''; } });
+
+      // Customer Modal Logic - Fully Restored
+      let step = 1; const custModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
+      document.getElementById('createCustomerBtn')?.addEventListener('click', () => custModal.show());
+      function updateStepUI() {
+        document.querySelectorAll('.step-item').forEach((el, i) => {
+          if (i + 1 < step) el.classList.add('completed'); else el.classList.remove('completed');
+          if (i + 1 === step) el.classList.add('active'); else el.classList.remove('active');
+        });
+        document.querySelectorAll('.form-step').forEach((el, i) => {
+          if (i + 1 === step) el.classList.add('active-step'); else el.classList.remove('active-step');
+        });
+        document.getElementById('prevStepBtn').disabled = (step === 1);
+        if (step === 3) {
+          document.getElementById('nextStepBtn').style.display = 'none';
+          document.getElementById('submitCustomerBtn').style.display = 'inline-flex';
+        } else {
+          document.getElementById('nextStepBtn').style.display = 'inline-flex';
+          document.getElementById('submitCustomerBtn').style.display = 'none';
+        }
+      }
+      document.getElementById('nextStepBtn')?.addEventListener('click', () => { if (step < 3) { step++; updateStepUI(); } });
+      document.getElementById('prevStepBtn')?.addEventListener('click', () => { if (step > 1) { step--; updateStepUI(); } });
+      document.getElementById('submitCustomerBtn')?.addEventListener('click', () => {
+        const name = document.getElementById('custName').value;
+        if (!name) { showToast('Customer name required', 'danger'); return; }
+        const newCust = {
+          id: `CUST-${customers.length + 1}`,
+          name,
+          email: document.getElementById('custEmail').value,
+          phone: document.getElementById('custPhone').value,
+          billing: {
+            address: document.getElementById('billAddress').value,
+            city: document.getElementById('billCity').value,
+            state: document.getElementById('billState').value,
+            zip: document.getElementById('billZip').value
+          }
+        };
+        customers.push(newCust);
+        populateCustomerDropdown();
+        custModal.hide();
+        showToast(`Customer ${name} created`);
+        step = 1;
+        updateStepUI();
+        // Reset form fields
+        document.getElementById('custName').value = '';
+        document.getElementById('custPhone').value = '';
+        document.getElementById('custEmail').value = '';
+        document.getElementById('billAddress').value = '';
+        document.getElementById('billCity').value = '';
+        document.getElementById('billState').value = '';
+        document.getElementById('billZip').value = '';
+        document.getElementById('shipAddress').value = '';
+        document.getElementById('shipCity').value = '';
+        document.getElementById('shipState').value = '';
+        document.getElementById('shipZip').value = '';
+      });
+      document.getElementById('sameAsBilling')?.addEventListener('change', (e) => {
+        if (e.target.checked) {
+          document.getElementById('shipAddress').value = document.getElementById('billAddress').value;
+          document.getElementById('shipCity').value = document.getElementById('billCity').value;
+          document.getElementById('shipState').value = document.getElementById('billState').value;
+          document.getElementById('shipZip').value = document.getElementById('billZip').value;
+        }
+      });
       updateStepUI();
-      // Reset form fields
-      document.getElementById('custName').value = '';
-      document.getElementById('custPhone').value = '';
-      document.getElementById('custEmail').value = '';
-      document.getElementById('billAddress').value = '';
-      document.getElementById('billCity').value = '';
-      document.getElementById('billState').value = '';
-      document.getElementById('billZip').value = '';
-      document.getElementById('shipAddress').value = '';
-      document.getElementById('shipCity').value = '';
-      document.getElementById('shipState').value = '';
-      document.getElementById('shipZip').value = '';
     });
-    document.getElementById('sameAsBilling')?.addEventListener('change', (e) => { 
-      if (e.target.checked) { 
-        document.getElementById('shipAddress').value = document.getElementById('billAddress').value; 
-        document.getElementById('shipCity').value = document.getElementById('billCity').value; 
-        document.getElementById('shipState').value = document.getElementById('billState').value; 
-        document.getElementById('shipZip').value = document.getElementById('billZip').value; 
-      } 
-    });
-    updateStepUI();
-  });
-</script>
+  </script>
 </body>
+
 </html>

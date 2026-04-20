@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +12,6 @@
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
   <style>
- 
     /* Main Card Container */
     .create-item-container {
       background: #ffffff;
@@ -21,12 +21,12 @@
       overflow: hidden;
       transition: all 0.3s ease;
     }
-    
+
     .create-item-header {
       background: #ffffff;
       border-bottom: 1px solid #eef2f6;
     }
-    
+
     .create-item-title {
       font-size: 1.25rem;
       font-weight: 700;
@@ -36,16 +36,16 @@
       align-items: center;
       gap: 10px;
     }
-    
+
     .create-item-body {
       padding: 2rem;
     }
-    
+
     /* Form Section Styles */
     .form-section {
       margin-bottom: 1.75rem;
     }
-    
+
     .form-section-label {
       font-size: 0.85rem;
       font-weight: 700;
@@ -55,7 +55,7 @@
       border-bottom: 1.5px solid #eef2f6;
       display: inline-block;
     }
-    
+
     /* Enhanced Input Styles - Theme Based */
     .theme-input {
       border-radius: 4px;
@@ -68,18 +68,18 @@
       color: #1e293b;
       font-weight: 500;
     }
-    
+
     .theme-input:focus {
       border-color: #233578;
       box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.12);
       outline: none;
       background: #ffffff;
     }
-    
+
     .theme-input:hover {
       border-color: #233578;
     }
-    
+
     .theme-select {
       border-radius: 4px;
       border: 1.5px solid #e2e8f0;
@@ -96,19 +96,19 @@
       background-repeat: no-repeat;
       background-position: right 1rem center;
     }
-    
+
     .theme-select:focus {
       border-color: #233578;
       box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.12);
       outline: none;
     }
-    
+
     /* Input Group Styling */
     .input-group-custom {
       display: flex;
       align-items: stretch;
     }
-    
+
     .input-group-text-custom {
       background: #ffffff;
       border: 1.5px solid #e2e8f0;
@@ -121,12 +121,12 @@
       display: flex;
       align-items: center;
     }
-    
+
     .input-group-custom .theme-input {
       border-radius: 0 14px 14px 0;
       border-left: none;
     }
-    
+
     /* Form Label */
     .theme-label {
       font-weight: 600;
@@ -136,12 +136,12 @@
       display: block;
       letter-spacing: 0.3px;
     }
-    
+
     .required-star {
       color: #dc2626;
       margin-left: 3px;
     }
-    
+
     /* Checkbox Styling */
     .theme-checkbox {
       display: flex;
@@ -149,7 +149,7 @@
       gap: 10px;
       margin-top: 0.5rem;
     }
-    
+
     .theme-checkbox input {
       width: 18px;
       height: 18px;
@@ -157,7 +157,7 @@
       accent-color: #233578;
       border-radius: 5px;
     }
-    
+
     .theme-checkbox label {
       font-size: 0.8rem;
       font-weight: 500;
@@ -165,14 +165,14 @@
       cursor: pointer;
       margin: 0;
     }
-    
+
     .hint-text {
       font-size: 0.7rem;
       color: #94a3b8;
       margin-top: 0.5rem;
       display: block;
     }
-    
+
     /* Button Styles */
     .btn-theme-primary {
       background: linear-gradient(135deg, #233578 0%, #35448d 100%);
@@ -189,14 +189,14 @@
       cursor: pointer;
       text-decoration: none;
     }
-    
+
     .btn-theme-primary:hover {
       background: linear-gradient(135deg, #1a2a60 0%, #2a3880 100%);
       transform: translateY(-1px);
       box-shadow: 0 6px 14px rgba(35, 53, 120, 0.25);
       color: white;
     }
-    
+
     .btn-theme-secondary {
       background: transparent;
       color: #475569;
@@ -211,13 +211,13 @@
       gap: 8px;
       cursor: pointer;
     }
-    
+
     .btn-theme-secondary:hover {
       border-color: #233578;
       color: #233578;
       background: #f8fafc;
     }
-    
+
     /* Breadcrumb */
     .custom-breadcrumb {
       background: #ffffff;
@@ -229,23 +229,25 @@
       font-size: 0.8rem;
       border: 1px solid #eef2f6;
     }
-    
+
     /* Grid spacing */
     .row.gap-4 {
       --bs-gutter-y: 1.5rem;
     }
-    
+
     /* Responsive */
     @media (max-width: 768px) {
       .create-item-body {
         padding: 1.25rem;
       }
-      .btn-theme-primary, .btn-theme-secondary {
+
+      .btn-theme-primary,
+      .btn-theme-secondary {
         padding: 0.6rem 1.25rem;
         font-size: 0.8rem;
       }
     }
-    
+
     /* Recent Items Hint */
     .recent-hint {
       background: #f8fafc;
@@ -264,17 +266,20 @@
     .code-input-wrapper {
       position: relative;
     }
+
     .code-hint {
-      font-size: 0.65rem;
+      font-size: 12px;
       color: #94a3b8;
       margin-top: 0.3rem;
       display: flex;
       align-items: center;
       gap: 4px;
     }
+
     .code-hint iconify-icon {
       font-size: 12px;
     }
+
     .suggestions-dropdown {
       position: absolute;
       top: 100%;
@@ -283,12 +288,13 @@
       background: white;
       border: 1px solid #e2e8f0;
       border-radius: 12px;
-      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
       max-height: 200px;
       overflow-y: auto;
       z-index: 100;
       display: none;
     }
+
     .suggestion-item {
       padding: 8px 12px;
       font-size: 0.8rem;
@@ -296,16 +302,19 @@
       transition: background 0.1s;
       border-bottom: 1px solid #f1f5f9;
     }
+
     .suggestion-item:hover {
       background: #f1f5f9;
     }
+
     .suggestion-item:last-child {
       border-bottom: none;
     }
   </style>
 </head>
+
 <body>
-<div id="main-wrapper">
+  <div id="main-wrapper">
     <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
@@ -335,7 +344,8 @@
                   <span class="hide-menu">Items</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span>Inventory</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span
+                        class="icon-small"></span>Inventory</a></li>
                 </ul>
               </li>
               <li class="sidebar-item">
@@ -344,10 +354,14 @@
                   <span class="hide-menu">Purchase</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-landingpage.html"><span class="icon-small"></span>Suppliers</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-aboutpage.html"><span class="icon-small"></span>Purchase Order</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Purchase Bill</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Supplier Statement</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-landingpage.html"><span
+                        class="icon-small"></span>Suppliers</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-aboutpage.html"><span
+                        class="icon-small"></span>Purchase Order</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Purchase
+                      Bill</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Supplier
+                      Statement</a></li>
                 </ul>
               </li>
               <li class="sidebar-item">
@@ -356,11 +370,16 @@
                   <span class="hide-menu">Sales</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span>Customer</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-aboutpage.html"><span class="icon-small"></span>Enquiry</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Estimates</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Invoice</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Customer Statement</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span
+                        class="icon-small"></span>Customer</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-aboutpage.html"><span
+                        class="icon-small"></span>Enquiry</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span
+                        class="icon-small"></span>Estimates</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Invoice</a>
+                  </li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Customer
+                      Statement</a></li>
                 </ul>
               </li>
               <li><span class="sidebar-divider"></span></li>
@@ -370,15 +389,16 @@
       </div>
     </aside>
     <!-- Sidebar End -->
-    
-  <div class="page-wrapper">
-     <!-- Header Start -->
+
+    <div class="page-wrapper">
+      <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
               <li class="nav-item d-flex d-xl-none">
-                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)">
+                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                  href="javascript:void(0)">
                   <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
                 </a>
               </li>
@@ -389,8 +409,9 @@
               </li>
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd">
-                  <button class="btn bg-primary-subtle text-primary dropdown-toggle" onclick="location.href='create-invoice.html'"
-                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    onclick="location.href='create-invoice.html'"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
                     <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
                     Create Sales Invoice
                   </button>
@@ -409,13 +430,15 @@
               <div class="d-flex align-items-center justify-content-between">
                 <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
                   <li class="nav-item dropdown">
-                    <a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                    <a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
                       type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar">
                       <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
                     </a>
                   </li>
                   <li class="nav-item d-block d-xl-none">
-                    <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal">
                       <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
                     </a>
                   </li>
@@ -427,7 +450,8 @@
                   <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
                       <div class="d-flex align-items-center gap-2 lh-base">
-                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" />
+                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35"
+                          alt="Fintle-img" />
                       </div>
                     </a>
                   </li>
@@ -438,402 +462,409 @@
         </div>
       </header>
       <!-- Header End -->
-    
-    <div class="body-wrapper">
+
+      <div class="body-wrapper">
         <div class="container-fluid p-4">
-        <div class="card card-body py-3">
-          <div class="row align-items-center">
-            <div class="col-12">
-              <div class="d-sm-flex align-items-center justify-space-between">
-                <h4 class="mb-4 mb-sm-0 card-title">Create New Item</h4>
-                <nav aria-label="breadcrumb" class="ms-auto">
-                  <div class="custom-breadcrumb">
-                    <a href="invoice.html">
-                    <span style="color:#64748b;">Inventory</span></a>
-                    <iconify-icon icon="solar:alt-arrow-right-bold" width="12" style="color:#cbd5e1;"></iconify-icon>
-                    <span style="color:#233578; font-weight:500;">Create Item</span>
-                  </div>
-                </nav>
+          <div class="card card-body py-3">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Create New Item</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <div class="custom-breadcrumb">
+                      <a href="invoice.html">
+                        <span style="color:#64748b;">Inventory</span></a>
+                      <iconify-icon icon="solar:alt-arrow-right-bold" width="12" style="color:#cbd5e1;"></iconify-icon>
+                      <span style="color:#233578; font-weight:500;">Create Item</span>
+                    </div>
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-    
-        <!-- Create New Item Card -->
-        <div class="create-item-container">
-          <div class="create-item-body">
-            <div class="row g-4">
-              <!-- Item Name -->
-              <div class="col-12">
-                <label class="theme-label">Item Name <span class="required-star">*</span></label>
-                <input type="text" id="newItemName" class="theme-input" placeholder="Enter item name (e.g., Laptop, Consulting Service)" autocomplete="off">
-              </div>
-              
-              <!-- Item Type & Units -->
-              <div class="col-md-4">
-                <label class="theme-label">Item Type</label>
-                <select id="newItemType" class="theme-select">
-                  <option value="product">Product (Goods)</option>
-                  <option value="service">Service</option>
-                </select>
-              </div>
-              
-              <!-- Dynamic HSN/SAC Code Field - appears based on type -->
-              <div class="col-md-4" id="codeFieldContainer">
-                <label class="theme-label" id="codeFieldLabel">HSN Code</label>
-                <div class="code-input-wrapper">
-                  <input type="text" id="itemCodeInput" class="theme-input" placeholder="Type at least 3 characters to search" autocomplete="off">
-                  <div id="suggestionsDropdown" class="suggestions-dropdown"></div>
+
+          <!-- Create New Item Card -->
+          <div class="create-item-container">
+            <div class="create-item-body">
+              <div class="row g-4">
+                <!-- Item Name -->
+                <div class="col-12">
+                  <label class="theme-label">Item Name <span class="required-star">*</span></label>
+                  <input type="text" id="newItemName" class="theme-input"
+                    placeholder="Enter item name (e.g., Laptop, Consulting Service)" autocomplete="off">
                 </div>
-                <div class="code-hint" id="codeHintText">
-                  <iconify-icon icon="solar:info-circle-linear"></iconify-icon>
-                  <span>Hint: Type at least 3 characters to search</span>
+
+                <!-- Item Type & Units -->
+                <div class="col-md-4">
+                  <label class="theme-label">Item Type</label>
+                  <select id="newItemType" class="theme-select">
+                    <option value="product">Product (Goods)</option>
+                    <option value="service">Service</option>
+                  </select>
                 </div>
-              </div>
-              <div class="col-md-4">
-                <label class="theme-label">Units</label>
-                <select id="newItemUnit" class="theme-select">
-                  <option value="PCS">Pieces (PCS)</option>
-                  <option value="Hour">Hour</option>
-                  <option value="Month">Month</option>
-                  <option value="Year">Year</option>
-                  <option value="KG">Kilogram (KG)</option>
-                  <option value="Box">Box</option>
-                  <option value="Session">Session</option>
-                  <option value="Project">Project</option>
-                </select>
+
+                <!-- Dynamic HSN/SAC Code Field - appears based on type -->
+                <div class="col-md-4" id="codeFieldContainer">
+                  <label class="theme-label" id="codeFieldLabel">HSN Code</label>
+                  <div class="code-input-wrapper">
+                    <input type="text" id="itemCodeInput" class="theme-input"
+                      placeholder="Type at least 3 characters to search" autocomplete="off">
+                    <div id="suggestionsDropdown" class="suggestions-dropdown"></div>
+                  </div>
+                  <div class="code-hint" id="codeHintText">
+                    <iconify-icon icon="solar:info-circle-linear"></iconify-icon>
+                    <span>Hint: Type at least 3 characters to search</span>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label class="theme-label">Units</label>
+                  <select id="newItemUnit" class="theme-select">
+                    <option value="PCS">Pieces (PCS)</option>
+                    <option value="Hour">Hour</option>
+                    <option value="Month">Month</option>
+                    <option value="Year">Year</option>
+                    <option value="KG">Kilogram (KG)</option>
+                    <option value="Box">Box</option>
+                    <option value="Session">Session</option>
+                    <option value="Project">Project</option>
+                  </select>
+                </div>
+
+
+                <!-- Sale Price & GST -->
+                <div class="col-md-6">
+                  <label class="theme-label">Sale Price (₹)</label>
+                  <div class="input-group-custom">
+                    <span class="input-group-text-custom">₹</span>
+                    <input type="number" id="newItemPrice" class="theme-input" value="0" step="any"
+                      style="border-radius: 0 14px 14px 0; border-left: none;">
+                  </div>
+                  <div id="priceHint" class="hint-text"></div>
+                </div>
+                <div class="col-md-6">
+                  <label class="theme-label">GST Rate (%)</label>
+                  <select id="newItemGst" class="theme-select">
+                    <option value="0">0% (No Tax)</option>
+                    <option value="5">5%</option>
+                    <option value="12" selected>12%</option>
+                    <option value="18">18%</option>
+                    <option value="28">28%</option>
+                  </select>
+                </div>
+
+                <!-- Price Inclusive Checkbox -->
+                <div class="col-12">
+                  <div class="theme-checkbox">
+                    <input type="checkbox" id="priceWithTaxCheck">
+                    <label for="priceWithTaxCheck">Sale price is inclusive of tax</label>
+                  </div>
+                  <div class="hint-text" style="margin-top: 0.25rem;">
+                    If checked, GST will be calculated from this price (price includes tax amount)
+                  </div>
+                </div>
+
+                <!-- Optional Fields Row -->
+                <div class="col-md-6">
+                  <label class="theme-label">Barcode / SKU (Optional)</label>
+                  <input type="text" id="newItemCode" class="theme-input"
+                    placeholder="Enter barcode or SKU for scanning">
+                </div>
+                <div class="col-md-6">
+                  <label class="theme-label">Initial Stock (Optional)</label>
+                  <input type="number" id="newItemStock" class="theme-input" value="0" step="any"
+                    placeholder="Enter stock quantity">
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="col-12 mt-3">
+                  <div class="d-flex justify-content-end gap-3">
+                    <button class="btn-theme-secondary" id="resetFormBtn">
+                      <iconify-icon icon="solar:refresh-bold" width="16"></iconify-icon>
+                      Reset
+                    </button>
+                    <button class="btn-theme-primary" id="createNewItemSidebarBtn">
+                      <iconify-icon icon="solar:add-circle-bold" width="18"></iconify-icon>
+                      Create Item
+                    </button>
+                  </div>
+                </div>
               </div>
 
-              
-              <!-- Sale Price & GST -->
-              <div class="col-md-6">
-                <label class="theme-label">Sale Price (₹)</label>
-                <div class="input-group-custom">
-                  <span class="input-group-text-custom">₹</span>
-                  <input type="number" id="newItemPrice" class="theme-input" value="0" step="any" style="border-radius: 0 14px 14px 0; border-left: none;">
-                </div>
-                <div id="priceHint" class="hint-text"></div>
+              <!-- Recent Items Hint -->
+              <div class="recent-hint">
+                <iconify-icon icon="solar:clock-circle-bold" width="18" style="color:#233578;"></iconify-icon>
+                <span>New items will appear instantly in your inventory library and will be available for invoice
+                  creation</span>
               </div>
-              <div class="col-md-6">
-                <label class="theme-label">GST Rate (%)</label>
-                <select id="newItemGst" class="theme-select">
-                  <option value="0">0% (No Tax)</option>
-                  <option value="5">5%</option>
-                  <option value="12" selected>12%</option>
-                  <option value="18">18%</option>
-                  <option value="28">28%</option>
-                </select>
-              </div>
-              
-              <!-- Price Inclusive Checkbox -->
-              <div class="col-12">
-                <div class="theme-checkbox">
-                  <input type="checkbox" id="priceWithTaxCheck">
-                  <label for="priceWithTaxCheck">Sale price is inclusive of tax</label>
-                </div>
-                <div class="hint-text" style="margin-top: 0.25rem;">
-                  If checked, GST will be calculated from this price (price includes tax amount)
-                </div>
-              </div>
-
-              <!-- Optional Fields Row -->
-              <div class="col-md-6">
-                <label class="theme-label">Barcode / SKU (Optional)</label>
-                <input type="text" id="newItemCode" class="theme-input" placeholder="Enter barcode or SKU for scanning">
-              </div>
-              <div class="col-md-6">
-                <label class="theme-label">Initial Stock (Optional)</label>
-                <input type="number" id="newItemStock" class="theme-input" value="0" step="any" placeholder="Enter stock quantity">
-              </div>
-              
-              <!-- Action Buttons -->
-              <div class="col-12 mt-3">
-                <div class="d-flex justify-content-end gap-3">
-                  <button class="btn-theme-secondary" id="resetFormBtn">
-                    <iconify-icon icon="solar:refresh-bold" width="16"></iconify-icon>
-                    Reset
-                  </button>
-                  <button class="btn-theme-primary" id="createNewItemSidebarBtn">
-                    <iconify-icon icon="solar:add-circle-bold" width="18"></iconify-icon>
-                    Create Item
-                  </button>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Recent Items Hint -->
-            <div class="recent-hint">
-              <iconify-icon icon="solar:clock-circle-bold" width="18" style="color:#233578;"></iconify-icon>
-              <span>New items will appear instantly in your inventory library and will be available for invoice creation</span>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-<script src="assets/libs/js/simplebar.min.js"></script>
-<script src="assets/libs/js/app.init.js"></script>
-<script src="assets/libs/js/theme.js"></script>
-<script src="assets/libs/js/app.min.js"></script>
-<script src="assets/libs/js/sidebarmenu.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="assets/libs/js/app.init.js"></script>
+  <script src="assets/libs/js/theme.js"></script>
+  <script src="assets/libs/js/app.min.js"></script>
+  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-<script>
-  // ========== CREATE ITEM PAGE WITH DYNAMIC HSN/SAC CODE FIELD ==========
-  
-  // Sample HSN codes for products (goods)
-  const hsnSuggestions = [
-    "84713000 - Portable computers (Laptops)", "84715000 - Processing units", "85171200 - Smartphones",
-    "85285200 - Monitors", "94016100 - Seats with wooden frames", "33049900 - Cosmetics",
-    "62034200 - Cotton trousers", "21069099 - Processed food items", "87112000 - Motorcycles",
-    "85044010 - Power adapters", "90230090 - Scientific instruments"
-  ];
-  
-  // Sample SAC codes for services
-  const sacSuggestions = [
-    "998311 - Software development services", "998312 - IT consulting", "998314 - Web design services",
-    "998511 - Advertising services", "998521 - Digital marketing", "998412 - Accounting services",
-    "998446 - Legal services", "998591 - Business consulting", "998421 - Training services",
-    "998532 - Photography services", "998361 - Maintenance services"
-  ];
-  
-  let currentCodeType = 'hsn'; // 'hsn' for product, 'sac' for service
-  let inventoryItems = [];
-  const STORAGE_KEY = 'fintle_inventory_items';
-  
-  // Load inventory from localStorage
-  function loadInventory() {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    if (stored) {
-      try { inventoryItems = JSON.parse(stored); } catch(e) { inventoryItems = []; }
+  <script>
+    // ========== CREATE ITEM PAGE WITH DYNAMIC HSN/SAC CODE FIELD ==========
+
+    // Sample HSN codes for products (goods)
+    const hsnSuggestions = [
+      "84713000 - Portable computers (Laptops)", "84715000 - Processing units", "85171200 - Smartphones",
+      "85285200 - Monitors", "94016100 - Seats with wooden frames", "33049900 - Cosmetics",
+      "62034200 - Cotton trousers", "21069099 - Processed food items", "87112000 - Motorcycles",
+      "85044010 - Power adapters", "90230090 - Scientific instruments"
+    ];
+
+    // Sample SAC codes for services
+    const sacSuggestions = [
+      "998311 - Software development services", "998312 - IT consulting", "998314 - Web design services",
+      "998511 - Advertising services", "998521 - Digital marketing", "998412 - Accounting services",
+      "998446 - Legal services", "998591 - Business consulting", "998421 - Training services",
+      "998532 - Photography services", "998361 - Maintenance services"
+    ];
+
+    let currentCodeType = 'hsn'; // 'hsn' for product, 'sac' for service
+    let inventoryItems = [];
+    const STORAGE_KEY = 'fintle_inventory_items';
+
+    // Load inventory from localStorage
+    function loadInventory() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (stored) {
+        try { inventoryItems = JSON.parse(stored); } catch (e) { inventoryItems = []; }
+      }
+      if (inventoryItems.length === 0) {
+        inventoryItems = [
+          { id: "i1", name: "Laptop Pro", type: "product", hsnCode: "84713000", code: "LAP123", stock: 15, unit: "PCS", price: 1200, taxRate: 18, priceInclusive: false },
+          { id: "i2", name: "Web Design Service", type: "service", sacCode: "998314", code: "WEB01", stock: 0, unit: "Hour", price: 2500, taxRate: 12, priceInclusive: false },
+          { id: "i3", name: "Cloud Hosting", type: "service", sacCode: "998311", code: "CLD01", stock: 0, unit: "Year", price: 4800, taxRate: 5, priceInclusive: false }
+        ];
+        saveInventory();
+      }
     }
-    if (inventoryItems.length === 0) {
-      inventoryItems = [
-        { id: "i1", name: "Laptop Pro", type: "product", hsnCode: "84713000", code: "LAP123", stock: 15, unit: "PCS", price: 1200, taxRate: 18, priceInclusive: false },
-        { id: "i2", name: "Web Design Service", type: "service", sacCode: "998314", code: "WEB01", stock: 0, unit: "Hour", price: 2500, taxRate: 12, priceInclusive: false },
-        { id: "i3", name: "Cloud Hosting", type: "service", sacCode: "998311", code: "CLD01", stock: 0, unit: "Year", price: 4800, taxRate: 5, priceInclusive: false }
-      ];
-      saveInventory();
+
+    function saveInventory() { localStorage.setItem(STORAGE_KEY, JSON.stringify(inventoryItems)); }
+
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.className = 'alert-toast position-fixed bottom-0 end-0 m-3 rounded-pill shadow-lg';
+      toast.style.zIndex = 9999;
+      toast.style.background = type === 'success' ? '#10b981' : '#ef4444';
+      toast.style.color = 'white';
+      toast.style.padding = '12px 24px';
+      toast.style.fontSize = '0.85rem';
+      toast.style.fontWeight = '500';
+      toast.style.display = 'flex';
+      toast.style.alignItems = 'center';
+      toast.style.gap = '10px';
+      toast.innerHTML = `<iconify-icon icon="${type === 'success' ? 'solar:check-circle-bold' : 'solar:danger-triangle-bold'}" width="18"></iconify-icon><span>${message}</span>`;
+      document.body.appendChild(toast);
+      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
     }
-  }
-  
-  function saveInventory() { localStorage.setItem(STORAGE_KEY, JSON.stringify(inventoryItems)); }
-  
-  function showToast(message, type = 'success') {
-    const toast = document.createElement('div');
-    toast.className = 'alert-toast position-fixed bottom-0 end-0 m-3 rounded-pill shadow-lg';
-    toast.style.zIndex = 9999;
-    toast.style.background = type === 'success' ? '#10b981' : '#ef4444';
-    toast.style.color = 'white';
-    toast.style.padding = '12px 24px';
-    toast.style.fontSize = '0.85rem';
-    toast.style.fontWeight = '500';
-    toast.style.display = 'flex';
-    toast.style.alignItems = 'center';
-    toast.style.gap = '10px';
-    toast.innerHTML = `<iconify-icon icon="${type === 'success' ? 'solar:check-circle-bold' : 'solar:danger-triangle-bold'}" width="18"></iconify-icon><span>${message}</span>`;
-    document.body.appendChild(toast);
-    setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 300); }, 3000);
-  }
-  
-  function generateId() { return 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); }
-  
-  // Update code field based on item type (product = HSN, service = SAC)
-  function updateCodeField() {
-    const itemType = document.getElementById('newItemType').value;
-    const labelEl = document.getElementById('codeFieldLabel');
-    const hintTextEl = document.getElementById('codeHintText');
-    const inputEl = document.getElementById('itemCodeInput');
-    
-    if (itemType === 'product') {
-      labelEl.innerHTML = 'HSN Code <span class="required-star">*</span>';
-      hintTextEl.innerHTML = '<iconify-icon icon="solar:info-circle-linear"></iconify-icon><span>Hint: Type at least 3 characters to search HSN codes</span>';
-      currentCodeType = 'hsn';
-      inputEl.placeholder = 'e.g., 84713000 - Laptops';
-    } else {
-      labelEl.innerHTML = 'SAC Code <span class="required-star">*</span>';
-      hintTextEl.innerHTML = '<iconify-icon icon="solar:info-circle-linear"></iconify-icon><span>Hint: Type at least 3 characters to search SAC codes</span>';
-      currentCodeType = 'sac';
-      inputEl.placeholder = 'e.g., 998314 - Web design';
-    }
-    // Clear suggestions dropdown
-    document.getElementById('suggestionsDropdown').style.display = 'none';
-  }
-  
-  // Get suggestions based on current type and search term
-  function getSuggestions(searchTerm) {
-    if (!searchTerm || searchTerm.length < 3) return [];
-    const source = currentCodeType === 'hsn' ? hsnSuggestions : sacSuggestions;
-    return source.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
-  }
-  
-  // Render suggestions dropdown
-  function renderSuggestions(suggestions) {
-    const dropdown = document.getElementById('suggestionsDropdown');
-    if (!suggestions.length) {
-      dropdown.style.display = 'none';
-      return;
-    }
-    dropdown.innerHTML = suggestions.map(sug => `<div class="suggestion-item">${sug}</div>`).join('');
-    dropdown.style.display = 'block';
-    // Add click handlers
-    document.querySelectorAll('.suggestion-item').forEach(el => {
-      el.addEventListener('click', () => {
-        document.getElementById('itemCodeInput').value = el.innerText;
-        dropdown.style.display = 'none';
-      });
-    });
-  }
-  
-  // Handle input for code search
-  function handleCodeSearch(e) {
-    const searchTerm = e.target.value.trim();
-    if (searchTerm.length >= 3) {
-      const suggestions = getSuggestions(searchTerm);
-      renderSuggestions(suggestions);
-    } else {
+
+    function generateId() { return 'item_' + Date.now() + '_' + Math.random().toString(36).substr(2, 8); }
+
+    // Update code field based on item type (product = HSN, service = SAC)
+    function updateCodeField() {
+      const itemType = document.getElementById('newItemType').value;
+      const labelEl = document.getElementById('codeFieldLabel');
+      const hintTextEl = document.getElementById('codeHintText');
+      const inputEl = document.getElementById('itemCodeInput');
+
+      if (itemType === 'product') {
+        labelEl.innerHTML = 'HSN Code <span class="required-star">*</span>';
+        hintTextEl.innerHTML = '<iconify-icon icon="solar:info-circle-linear"></iconify-icon><span>Hint: Type at least 3 characters to search HSN codes</span>';
+        currentCodeType = 'hsn';
+        inputEl.placeholder = 'e.g., 84713000 - Laptops';
+      } else {
+        labelEl.innerHTML = 'SAC Code <span class="required-star">*</span>';
+        hintTextEl.innerHTML = '<iconify-icon icon="solar:info-circle-linear"></iconify-icon><span>Hint: Type at least 3 characters to search SAC codes</span>';
+        currentCodeType = 'sac';
+        inputEl.placeholder = 'e.g., 998314 - Web design';
+      }
+      // Clear suggestions dropdown
       document.getElementById('suggestionsDropdown').style.display = 'none';
     }
-  }
-  
-  // Reset form
-  function resetForm() {
-    document.getElementById('newItemName').value = '';
-    document.getElementById('newItemType').value = 'product';
-    document.getElementById('newItemUnit').value = 'PCS';
-    document.getElementById('newItemPrice').value = '0';
-    document.getElementById('newItemGst').value = '12';
-    document.getElementById('priceWithTaxCheck').checked = false;
-    document.getElementById('newItemCode').value = '';
-    document.getElementById('newItemStock').value = '0';
-    document.getElementById('itemCodeInput').value = '';
-    updateCodeField(); // refresh label and type
-    updatePriceHint();
-    document.getElementById('suggestionsDropdown').style.display = 'none';
-    document.getElementById('newItemName').focus();
-    showToast('Form reset successfully', 'success');
-  }
-  
-  // Create new item with HSN or SAC
-  function createNewItem() {
-    const name = document.getElementById('newItemName').value.trim();
-    if (!name) { showToast('Please enter item name', 'error'); return false; }
-    
-    const type = document.getElementById('newItemType').value;
-    const unit = document.getElementById('newItemUnit').value;
-    let price = parseFloat(document.getElementById('newItemPrice').value);
-    const taxRate = parseInt(document.getElementById('newItemGst').value);
-    const priceInclusive = document.getElementById('priceWithTaxCheck').checked;
-    const barcodeSku = document.getElementById('newItemCode').value.trim();
-    let stock = parseFloat(document.getElementById('newItemStock').value);
-    let codeValue = document.getElementById('itemCodeInput').value.trim();
-    
-    if (isNaN(price) || price < 0) price = 0;
-    if (isNaN(stock) || stock < 0) stock = 0;
-    
-    // Validate HSN/SAC code (optional but recommended)
-    if (!codeValue) {
-      if (!confirm('HSN/SAC code is recommended for tax compliance. Continue without it?')) return false;
+
+    // Get suggestions based on current type and search term
+    function getSuggestions(searchTerm) {
+      if (!searchTerm || searchTerm.length < 3) return [];
+      const source = currentCodeType === 'hsn' ? hsnSuggestions : sacSuggestions;
+      return source.filter(item => item.toLowerCase().includes(searchTerm.toLowerCase()));
     }
-    
-    let finalPrice = price;
-    if (priceInclusive && taxRate > 0) {
-      finalPrice = price / (1 + taxRate / 100);
+
+    // Render suggestions dropdown
+    function renderSuggestions(suggestions) {
+      const dropdown = document.getElementById('suggestionsDropdown');
+      if (!suggestions.length) {
+        dropdown.style.display = 'none';
+        return;
+      }
+      dropdown.innerHTML = suggestions.map(sug => `<div class="suggestion-item">${sug}</div>`).join('');
+      dropdown.style.display = 'block';
+      // Add click handlers
+      document.querySelectorAll('.suggestion-item').forEach(el => {
+        el.addEventListener('click', () => {
+          document.getElementById('itemCodeInput').value = el.innerText;
+          dropdown.style.display = 'none';
+        });
+      });
     }
-    
-    const newItem = {
-      id: generateId(),
-      name: name,
-      type: type,
-      unit: unit,
-      price: finalPrice,
-      taxRate: taxRate,
-      priceInclusive: priceInclusive,
-      stock: stock,
-      code: barcodeSku,
-      displayPrice: price,
-      createdAt: new Date().toISOString()
+
+    // Handle input for code search
+    function handleCodeSearch(e) {
+      const searchTerm = e.target.value.trim();
+      if (searchTerm.length >= 3) {
+        const suggestions = getSuggestions(searchTerm);
+        renderSuggestions(suggestions);
+      } else {
+        document.getElementById('suggestionsDropdown').style.display = 'none';
+      }
+    }
+
+    // Reset form
+    function resetForm() {
+      document.getElementById('newItemName').value = '';
+      document.getElementById('newItemType').value = 'product';
+      document.getElementById('newItemUnit').value = 'PCS';
+      document.getElementById('newItemPrice').value = '0';
+      document.getElementById('newItemGst').value = '12';
+      document.getElementById('priceWithTaxCheck').checked = false;
+      document.getElementById('newItemCode').value = '';
+      document.getElementById('newItemStock').value = '0';
+      document.getElementById('itemCodeInput').value = '';
+      updateCodeField(); // refresh label and type
+      updatePriceHint();
+      document.getElementById('suggestionsDropdown').style.display = 'none';
+      document.getElementById('newItemName').focus();
+      showToast('Form reset successfully', 'success');
+    }
+
+    // Create new item with HSN or SAC
+    function createNewItem() {
+      const name = document.getElementById('newItemName').value.trim();
+      if (!name) { showToast('Please enter item name', 'error'); return false; }
+
+      const type = document.getElementById('newItemType').value;
+      const unit = document.getElementById('newItemUnit').value;
+      let price = parseFloat(document.getElementById('newItemPrice').value);
+      const taxRate = parseInt(document.getElementById('newItemGst').value);
+      const priceInclusive = document.getElementById('priceWithTaxCheck').checked;
+      const barcodeSku = document.getElementById('newItemCode').value.trim();
+      let stock = parseFloat(document.getElementById('newItemStock').value);
+      let codeValue = document.getElementById('itemCodeInput').value.trim();
+
+      if (isNaN(price) || price < 0) price = 0;
+      if (isNaN(stock) || stock < 0) stock = 0;
+
+      // Validate HSN/SAC code (optional but recommended)
+      if (!codeValue) {
+        if (!confirm('HSN/SAC code is recommended for tax compliance. Continue without it?')) return false;
+      }
+
+      let finalPrice = price;
+      if (priceInclusive && taxRate > 0) {
+        finalPrice = price / (1 + taxRate / 100);
+      }
+
+      const newItem = {
+        id: generateId(),
+        name: name,
+        type: type,
+        unit: unit,
+        price: finalPrice,
+        taxRate: taxRate,
+        priceInclusive: priceInclusive,
+        stock: stock,
+        code: barcodeSku,
+        displayPrice: price,
+        createdAt: new Date().toISOString()
+      };
+
+      // Add HSN or SAC based on type
+      if (type === 'product') {
+        newItem.hsnCode = codeValue;
+      } else {
+        newItem.sacCode = codeValue;
+      }
+
+      inventoryItems.unshift(newItem);
+      saveInventory();
+      showToast(`Item "${name}" created successfully!`, 'success');
+      resetForm();
+      window.dispatchEvent(new CustomEvent('itemCreated', { detail: newItem }));
+      return true;
+    }
+
+    function updatePriceHint() {
+      const isInclusive = document.getElementById('priceWithTaxCheck').checked;
+      const taxRate = parseInt(document.getElementById('newItemGst').value);
+      const priceInput = document.getElementById('newItemPrice');
+      const currentPrice = parseFloat(priceInput.value) || 0;
+      let hintText = '';
+      if (isInclusive && taxRate > 0) {
+        const basePrice = currentPrice / (1 + taxRate / 100);
+        hintText = `Base price: ₹${basePrice.toFixed(2)} + ${taxRate}% GST = ₹${currentPrice.toFixed(2)}`;
+      } else if (taxRate > 0 && currentPrice > 0) {
+        const taxAmount = currentPrice * taxRate / 100;
+        hintText = `+${taxRate}% GST (₹${taxAmount.toFixed(2)}) will be added → Total: ₹${(currentPrice + taxAmount).toFixed(2)}`;
+      } else if (taxRate > 0) {
+        hintText = `+${taxRate}% GST will be added to the price`;
+      }
+      const hintElement = document.getElementById('priceHint');
+      if (hintElement) hintElement.textContent = hintText;
+    }
+
+    function handleEnterKey(e) {
+      if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
+        e.preventDefault();
+        createNewItem();
+      }
+    }
+
+    // Close suggestions when clicking outside
+    document.addEventListener('click', function (e) {
+      const dropdown = document.getElementById('suggestionsDropdown');
+      const input = document.getElementById('itemCodeInput');
+      if (dropdown && input && !input.contains(e.target) && !dropdown.contains(e.target)) {
+        dropdown.style.display = 'none';
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+      loadInventory();
+      updateCodeField();
+      document.getElementById('newItemName').focus();
+
+      document.getElementById('createNewItemSidebarBtn').addEventListener('click', createNewItem);
+      document.getElementById('resetFormBtn').addEventListener('click', resetForm);
+      document.getElementById('newItemType').addEventListener('change', updateCodeField);
+      document.getElementById('itemCodeInput').addEventListener('input', handleCodeSearch);
+
+      const inputs = document.querySelectorAll('input, select');
+      inputs.forEach(input => input.addEventListener('keypress', handleEnterKey));
+
+      const priceInput = document.getElementById('newItemPrice');
+      const taxSelect = document.getElementById('newItemGst');
+      const inclusiveCheck = document.getElementById('priceWithTaxCheck');
+      if (priceInput) priceInput.addEventListener('input', updatePriceHint);
+      if (taxSelect) taxSelect.addEventListener('change', updatePriceHint);
+      if (inclusiveCheck) inclusiveCheck.addEventListener('change', updatePriceHint);
+      updatePriceHint();
+    });
+
+    window.FintleInventory = {
+      getItems: () => inventoryItems,
+      addItem: (item) => { inventoryItems.unshift(item); saveInventory(); showToast(`Item "${item.name}" added`, 'success'); }
     };
-    
-    // Add HSN or SAC based on type
-    if (type === 'product') {
-      newItem.hsnCode = codeValue;
-    } else {
-      newItem.sacCode = codeValue;
-    }
-    
-    inventoryItems.unshift(newItem);
-    saveInventory();
-    showToast(`Item "${name}" created successfully!`, 'success');
-    resetForm();
-    window.dispatchEvent(new CustomEvent('itemCreated', { detail: newItem }));
-    return true;
-  }
-  
-  function updatePriceHint() {
-    const isInclusive = document.getElementById('priceWithTaxCheck').checked;
-    const taxRate = parseInt(document.getElementById('newItemGst').value);
-    const priceInput = document.getElementById('newItemPrice');
-    const currentPrice = parseFloat(priceInput.value) || 0;
-    let hintText = '';
-    if (isInclusive && taxRate > 0) {
-      const basePrice = currentPrice / (1 + taxRate / 100);
-      hintText = `Base price: ₹${basePrice.toFixed(2)} + ${taxRate}% GST = ₹${currentPrice.toFixed(2)}`;
-    } else if (taxRate > 0 && currentPrice > 0) {
-      const taxAmount = currentPrice * taxRate / 100;
-      hintText = `+${taxRate}% GST (₹${taxAmount.toFixed(2)}) will be added → Total: ₹${(currentPrice + taxAmount).toFixed(2)}`;
-    } else if (taxRate > 0) {
-      hintText = `+${taxRate}% GST will be added to the price`;
-    }
-    const hintElement = document.getElementById('priceHint');
-    if (hintElement) hintElement.textContent = hintText;
-  }
-  
-  function handleEnterKey(e) {
-    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') {
-      e.preventDefault();
-      createNewItem();
-    }
-  }
-  
-  // Close suggestions when clicking outside
-  document.addEventListener('click', function(e) {
-    const dropdown = document.getElementById('suggestionsDropdown');
-    const input = document.getElementById('itemCodeInput');
-    if (dropdown && input && !input.contains(e.target) && !dropdown.contains(e.target)) {
-      dropdown.style.display = 'none';
-    }
-  });
-  
-  document.addEventListener('DOMContentLoaded', function() {
-    loadInventory();
-    updateCodeField();
-    document.getElementById('newItemName').focus();
-    
-    document.getElementById('createNewItemSidebarBtn').addEventListener('click', createNewItem);
-    document.getElementById('resetFormBtn').addEventListener('click', resetForm);
-    document.getElementById('newItemType').addEventListener('change', updateCodeField);
-    document.getElementById('itemCodeInput').addEventListener('input', handleCodeSearch);
-    
-    const inputs = document.querySelectorAll('input, select');
-    inputs.forEach(input => input.addEventListener('keypress', handleEnterKey));
-    
-    const priceInput = document.getElementById('newItemPrice');
-    const taxSelect = document.getElementById('newItemGst');
-    const inclusiveCheck = document.getElementById('priceWithTaxCheck');
-    if (priceInput) priceInput.addEventListener('input', updatePriceHint);
-    if (taxSelect) taxSelect.addEventListener('change', updatePriceHint);
-    if (inclusiveCheck) inclusiveCheck.addEventListener('change', updatePriceHint);
-    updatePriceHint();
-  });
-  
-  window.FintleInventory = {
-    getItems: () => inventoryItems,
-    addItem: (item) => { inventoryItems.unshift(item); saveInventory(); showToast(`Item "${item.name}" added`, 'success'); }
-  };
-</script>
+  </script>
 </body>
+
 </html>
