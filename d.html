@@ -2,698 +2,270 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Elegant Invoice Settings</title>
-    <!-- Bootstrap 5 + Icons + Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professional Tax Invoice</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        :root {
+            --brand-blue: #eef2f8; /* Soft Professional Blue */
+            --border-color: #cbd5e1;
+            --text-main: #334155;
+            --text-muted: #64748b;
         }
 
         body {
-            background: #f0f2f5;
+            background-color: #f1f5f9;
             font-family: 'Inter', sans-serif;
+            color: var(--text-main);
+            -webkit-print-color-adjust: exact;
         }
 
-        /* Main Layout */
-        .settings-container {
+        .invoice-container {
+            background: #fff;
+            max-width: 900px;
+            margin: 40px auto;
+            border: 1px solid var(--border-color);
+            min-height: 1100px;
             display: flex;
-            min-height: 100vh;
-            background: #f0f2f5;
+            flex-direction: column;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
         }
 
-        /* Left Panel - Invoice Preview */
-        .invoice-preview-panel {
-            flex: 1.2;
-            background: #e8edf2;
-            padding: 32px;
-            overflow-y: auto;
-            position: sticky;
-            top: 0;
-            height: 100vh;
-        }
-
-        /* Right Panel - Settings */
-        .settings-panel {
-            flex: 0.9;
-            background: white;
-            padding: 28px 32px;
-            overflow-y: auto;
-            height: 100vh;
-            border-left: 1px solid #eef2f8;
-            box-shadow: -8px 0 30px rgba(0, 0, 0, 0.05);
-        }
-
-        /* Elegant Invoice Card */
-        .invoice-card {
-            background: white;
-            border-radius: 32px;
-            padding: 32px;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            max-width: 720px;
-            margin: 0 auto;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .invoice-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 6px;
-            background: linear-gradient(90deg, #2c7da0, #61a5c2, #89c2d9);
-        }
-
-        .invoice-header {
-            text-align: center;
-            border-bottom: 1px solid #eef2f8;
-            padding-bottom: 24px;
-            margin-bottom: 24px;
+        /* Header Elements */
+        .logo-box {
+            border: 1px dashed var(--border-color);
+            width: 150px;
+            height: 60px;
+            background-color: #f8fafc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            color: var(--text-muted);
         }
 
         .invoice-title {
-            background: linear-gradient(135deg, #2c7da0, #1f5e7a);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 50px;
-            font-size: 0.7rem;
             font-weight: 700;
-            letter-spacing: 1px;
-            display: inline-block;
-            margin-bottom: 16px;
-            text-transform: uppercase;
-        }
-
-        .invoice-header h3 {
-            font-weight: 800;
-            color: #1e293b;
-            margin-bottom: 6px;
-            font-size: 1.6rem;
-            letter-spacing: -0.02em;
-        }
-
-        .business-details {
-            font-size: 0.7rem;
-            color: #64748b;
-            line-height: 1.5;
-        }
-
-        /* Info Grid */
-        .info-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            background: #f8fafc;
-            padding: 16px;
-            border-radius: 20px;
-            margin-bottom: 20px;
-        }
-
-        .info-item {
-            text-align: center;
-        }
-
-        .info-label {
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #94a3b8;
-            margin-bottom: 4px;
-        }
-
-        .info-value {
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: #1e293b;
-        }
-
-        /* Bill To Section - Elegant */
-        .bill-to-section {
-            background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
-            padding: 18px 20px;
-            border-radius: 24px;
-            margin: 20px 0;
-            border: 1px solid #eef2f8;
-        }
-
-        .bill-header {
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #2c7da0;
-            margin-bottom: 12px;
-        }
-
-        .bill-name {
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #1e293b;
-            margin-bottom: 6px;
-        }
-
-        .bill-address {
-            font-size: 0.7rem;
-            color: #64748b;
-            line-height: 1.4;
-        }
-
-        .bill-details-row {
-            display: flex;
-            gap: 24px;
-            margin-top: 12px;
-            flex-wrap: wrap;
-        }
-
-        .bill-detail {
-            font-size: 0.7rem;
-        }
-
-        .bill-detail strong {
-            color: #475569;
-        }
-
-        /* Elegant Table */
-        .items-table-preview {
-            width: 100%;
-            font-size: 0.7rem;
-            border-collapse: separate;
-            border-spacing: 0;
-        }
-
-        .items-table-preview th {
-            background: #f1f5f9;
-            font-weight: 700;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: #475569;
-            padding: 12px 8px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        .items-table-preview td {
-            padding: 12px 8px;
-            border-bottom: 1px solid #f0f2f5;
-            color: #334155;
-        }
-
-        .items-table-preview tr:last-child td {
-            border-bottom: none;
-        }
-
-        /* Total Section */
-        .total-section {
-            margin-top: 20px;
-            padding-top: 16px;
-            border-top: 2px dashed #e2e8f0;
-            text-align: right;
-        }
-
-        .total-amount {
-            font-size: 1.1rem;
-            font-weight: 800;
-            color: #1e293b;
-        }
-
-        .total-label {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin-right: 12px;
-        }
-
-        .footer-note {
-            margin-top: 20px;
-            text-align: center;
-            font-size: 0.65rem;
-            color: #94a3b8;
+            font-size: 22px;
             letter-spacing: 0.5px;
-            padding-top: 16px;
-            border-top: 1px solid #eef2f8;
+            color: #1e293b;
         }
 
-        /* Settings Styles */
-        .section-title {
-            font-size: 0.75rem;
-            font-weight: 800;
+        /* Section Bars */
+        .section-bar {
+            background-color: var(--brand-blue);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
+            padding: 8px 20px;
+            font-weight: 600;
+            font-size: 13px;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: #5b6e8c;
-            margin-bottom: 18px;
-            margin-top: 8px;
-            border-left: 3px solid #2c7da0;
-            padding-left: 12px;
         }
 
-        .theme-badge {
-            background: #f8fafc;
-            border: 2px solid #eef2f8;
-            border-radius: 20px;
-            padding: 12px 8px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.25s ease;
+        /* Professional Table Styling */
+        .table {
+            margin-bottom: 0;
+            border-color: var(--border-color);
         }
 
-        .theme-badge.active {
-            border-color: #2c7da0;
-            background: linear-gradient(135deg, #eef2ff, #ffffff);
-            box-shadow: 0 4px 12px rgba(44, 125, 160, 0.15);
+        .table thead th {
+            background-color: var(--brand-blue);
+            font-weight: 600;
+            font-size: 12px;
+            color: #475569;
+            text-transform: uppercase;
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-color);
+            vertical-align: middle;
         }
 
-        .theme-badge:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        .table tbody td {
+            padding: 15px 10px;
+            font-size: 14px;
+            vertical-align: top;
+            border-right: 1px solid var(--border-color);
         }
 
-        .setting-checkbox {
-            margin-bottom: 14px;
+        .table tbody td:last-child { border-right: none; }
+
+        /* Column Widths */
+        .col-idx { width: 5%; text-align: center; }
+        .col-desc { width: 35%; }
+        .col-price { width: 15%; text-align: right; }
+        .col-qty { width: 10%; text-align: center; }
+        .col-unit { width: 10%; text-align: center; }
+        .col-tax { width: 10%; text-align: center; }
+        .col-amt { width: 15%; text-align: right; font-weight: 600; }
+
+        .empty-area { height: 300px; }
+
+        /* Summary & Signatory Section */
+        .footer-flex {
+            margin-top: auto;
+            display: flex;
+            border-top: 1px solid var(--border-color);
         }
 
-        .setting-checkbox .form-check-input:checked {
-            background-color: #2c7da0;
-            border-color: #2c7da0;
-            box-shadow: 0 0 0 2px rgba(44, 125, 160, 0.2);
+        .summary-wrapper {
+            width: 400px;
+            margin-left: auto;
+            border-left: 1px solid var(--border-color);
         }
 
-        .custom-field-btn {
-            border: 1.5px dashed #cbd5e1;
-            background: white;
-            border-radius: 40px;
-            padding: 10px 16px;
-            font-size: 0.75rem;
-            font-weight: 500;
-            color: #2c7da0;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
+        .summary-header {
+            background-color: var(--brand-blue);
+            padding: 12px 20px;
+            font-weight: 700;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .custom-field-btn:hover {
-            background: #f1f5f9;
-            border-color: #2c7da0;
-            border-style: solid;
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            border-bottom: 1px solid #f1f5f9;
         }
 
-        .form-control-sm-custom {
-            border-radius: 14px;
-            border: 1px solid #e2e8f0;
-            padding: 0.55rem 0.85rem;
-            font-size: 0.8rem;
-            width: 100%;
-            transition: all 0.2s;
+        .balance-due {
+            background-color: #f8fafc;
+            padding: 12px 20px;
+            font-weight: 700;
+            color: #0f172a;
         }
 
-        .form-control-sm-custom:focus {
-            border-color: #2c7da0;
-            outline: none;
-            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+        .signatory-box {
+            background-color: var(--brand-blue);
+            height: 160px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            padding-bottom: 30px;
+            border-top: 1px solid var(--border-color);
         }
 
-        .color-option {
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 3px solid transparent;
-            transition: all 0.2s;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        .sign-line {
+            width: 60%;
+            border-top: 1px dashed #94a3b8;
+            margin-bottom: 10px;
         }
 
-        .color-option.active {
-            border-color: #1e293b;
-            box-shadow: 0 0 0 2px white, 0 0 0 4px #2c7da0;
-            transform: scale(1.05);
+        .no-print-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 999;
         }
 
-        .scrollable {
-            max-height: calc(100vh - 40px);
-            overflow-y: auto;
-            padding-right: 6px;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #e2e8f0;
-            border-radius: 10px;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #94a3b8;
-            border-radius: 10px;
-        }
-
-        @media (max-width: 992px) {
-            .settings-container {
-                flex-direction: column;
-            }
-            .invoice-preview-panel, .settings-panel {
-                height: auto;
-                position: relative;
-            }
-            .info-grid {
-                grid-template-columns: 1fr;
-                gap: 8px;
-            }
+        @media print {
+            body { background: white; padding: 0; }
+            .invoice-container { margin: 0; border: none; width: 100%; box-shadow: none; }
+            .no-print-btn { display: none; }
         }
     </style>
 </head>
 <body>
-<div class="settings-container">
-    <!-- Left Side: Elegant Invoice Template Preview -->
-    <div class="invoice-preview-panel">
-        <div class="invoice-card" id="invoicePreview">
-            <div class="invoice-header">
-                <div class="invoice-title">TAX INVOICE</div>
-                <h3>FINTLE</h3>
-                <div class="business-details">GSTIN: 29AAACF1234D1Z | 123 Business Street, Chennai - 600001</div>
-            </div>
-            
-            <div class="info-grid">
-                <div class="info-item"><div class="info-label">Invoice No.</div><div class="info-value">INV-2404-001</div></div>
-                <div class="info-item"><div class="info-label">Date</div><div class="info-value">17/01/2023</div></div>
-                <div class="info-item"><div class="info-label">Due Date</div><div class="info-value">16/02/2023</div></div>
-            </div>
 
-            <div class="bill-to-section">
-                <div class="bill-header">📄 BILL TO</div>
-                <div class="bill-name">Sample Party</div>
-                <div class="bill-address">No F2, Outer Circle, Connaught Circus, New Delhi - 110001</div>
-                <div class="bill-details-row">
-                    <div class="bill-detail" id="phoneDisplay"><strong>Mobile:</strong> 7400417400</div>
-                    <div class="bill-detail"><strong>GSTIN:</strong> 074BCCH2702H4ZZ</div>
-                </div>
-            </div>
+<button class="btn btn-dark no-print-btn shadow" onclick="window.print()">Print Invoice</button>
 
-            <table class="items-table-preview" id="itemsTablePreview">
-                <thead>
-                    <tr>
-                        <th style="width:40px">#</th>
-                        <th>Item Description</th>
-                        <th id="colHsn">HSN</th>
-                        <th>Qty</th>
-                        <th>Rate (₹)</th>
-                        <th>Tax</th>
-                        <th>Amount</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Samsung A30<span id="itemDescPreview" class="d-block small text-muted" style="font-size:0.65rem"></span></td>
-                        <td>1234</td>
-                        <td>1 PCS</td>
-                        <td>10,000</td>
-                        <td>18%</td>
-                        <td>₹11,800</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Parle-G 200g<span class="d-block small text-muted" style="font-size:0.65rem"></span></td>
-                        <td>40511209</td>
-                        <td>1 BOX</td>
-                        <td>342.86</td>
-                        <td>5%</td>
-                        <td>₹360</td>
-                    </tr>
-                </tbody>
+<div class="invoice-container">
+    <div class="d-flex justify-content-between align-items-center p-4">
+        <div class="logo-box">COMPANY LOGO</div>
+        <div class="invoice-title">TAX INVOICE</div>
+        <div class="logo-box">QR / AUTH</div>
+    </div>
+
+    <div class="row m-0">
+        <div class="col-8 section-bar">Bill To</div>
+        <div class="col-4 section-bar border-start">Invoice Details</div>
+    </div>
+
+    <div class="row m-0 border-bottom">
+        <div class="col-8 p-4">
+            <h5 class="fw-bold mb-1">Guru</h5>
+            <p class="text-muted small mb-0">
+                123 Business Avenue, Suite 500<br>
+                Bangalore, Karnataka 560001
+            </p>
+        </div>
+        <div class="col-4 p-4 border-start">
+            <table class="w-100 small">
+                <tr>
+                    <td class="text-muted pb-1">Invoice No:</td>
+                    <td class="text-end fw-bold pb-1">3</td>
+                </tr>
+                <tr>
+                    <td class="text-muted">Date:</td>
+                    <td class="text-end fw-bold">05.08.2025</td>
+                </tr>
             </table>
-
-            <div class="total-section">
-                <span class="total-label">TOTAL AMOUNT</span>
-                <span class="total-amount">₹12,160.00</span>
-            </div>
-            <div class="footer-note" id="footerNote">🔖 ORIGINAL FOR RECIPIENT</div>
         </div>
     </div>
 
-    <!-- Right Side: Settings Panel -->
-    <div class="settings-panel">
-        <div class="scrollable">
-            <h5 class="mb-3 fw-bold" style="color: #1e293b;"><i class="fas fa-sliders-h me-2 text-primary"></i>Invoice Settings</h5>
-            
-            <!-- Themes Section -->
-            <div class="section-title mt-2">🎨 Themes</div>
-            <div class="row g-2 mb-4">
-                <div class="col-4"><div class="theme-badge active" data-theme="classic"><i class="fas fa-file-alt fs-4 mb-1 d-block"></i><small>Classic</small></div></div>
-                <div class="col-4"><div class="theme-badge" data-theme="modern"><i class="fas fa-border-all fs-4 mb-1 d-block"></i><small>Modern</small></div></div>
-                <div class="col-4"><div class="theme-badge" data-theme="minimal"><i class="fas fa-square fs-4 mb-1 d-block"></i><small>Minimal</small></div></div>
-                <div class="col-4 mt-2"><div class="theme-badge" data-theme="corporate"><i class="fas fa-building fs-4 mb-1 d-block"></i><small>Corporate</small></div></div>
-                <div class="col-4 mt-2"><div class="theme-badge" data-theme="elegant"><i class="fas fa-gem fs-4 mb-1 d-block"></i><small>Elegant</small></div></div>
+    <table class="table border-bottom">
+        <thead>
+            <tr>
+                <th class="col-idx">#</th>
+                <th class="col-desc text-start">Item / Description</th>
+                <th class="col-price">Price</th>
+                <th class="col-qty">Qty</th>
+                <th class="col-unit">Unit</th>
+                <th class="col-tax">Tax Rate</th>
+                <th class="col-amt">Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="text-center text-muted">1</td>
+                <td>
+                    <div class="fw-bold">UI/UX Design Services</div>
+                    <div class="text-muted small">Standard design sprint for mobile application...</div>
+                </td>
+                <td class="text-end">₹50,000.00</td>
+                <td class="text-center">1</td>
+                <td class="text-center text-muted">PCS</td>
+                <td class="text-center">18%</td>
+                <td class="text-end">₹50,000.00</td>
+            </tr>
+            <tr class="empty-area">
+                <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr class="table-light fw-bold">
+                <td colspan="6" class="text-end py-2">Total</td>
+                <td class="text-end py-2">₹50,000.00</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="footer-flex">
+        <div class="p-4 small text-muted align-self-end">
+            * All disputes subject to local jurisdiction.
+        </div>
+
+        <div class="summary-wrapper">
+            <div class="summary-header">Amounts</div>
+            <div class="summary-body">
+                <div class="summary-item">
+                    <span class="text-muted">Total</span>
+                    <span class="fw-bold">₹50,000.00</span>
+                </div>
+                <div class="summary-item">
+                    <span class="text-muted">Received</span>
+                    <span>₹0.00</span>
+                </div>
+                <div class="balance-due d-flex justify-content-between">
+                    <span>Balance</span>
+                    <span>₹50,000.00</span>
+                </div>
+                <div class="signatory-box">
+                    <div class="sign-line"></div>
+                    <div class="small fw-bold text-uppercase">Authorized Signatory</div>
+                </div>
             </div>
-
-            <!-- Select Color -->
-            <div class="section-title">🎨 Accent Color</div>
-            <div class="d-flex gap-3 mb-4">
-                <div class="color-option active" style="background: #2c7da0;" data-color="#2c7da0"></div>
-                <div class="color-option" style="background: #e67e22;" data-color="#e67e22"></div>
-                <div class="color-option" style="background: #16a085;" data-color="#16a085"></div>
-                <div class="color-option" style="background: #8e44ad;" data-color="#8e44ad"></div>
-                <div class="color-option" style="background: #c0392b;" data-color="#c0392b"></div>
-            </div>
-
-            <!-- Theme Settings Checkboxes -->
-            <div class="section-title">⚙️ Theme Settings</div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="showPartyBalance"><label class="form-check-label small">Show party balance in invoice</label></div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="enableFreeQty"><label class="form-check-label small">Enable free item quantity</label></div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="showItemDesc" checked><label class="form-check-label small">Show item description in invoice</label></div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="showAlternateUnit"><label class="form-check-label small">Show Alternate Unit in Invoice</label></div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="showPhoneNumber" checked><label class="form-check-label small">Show phone number on Invoice</label></div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="showTime"><label class="form-check-label small">Show time on Invoices</label></div>
-            <div class="setting-checkbox form-check"><input class="form-check-input" type="checkbox" id="priceHistory"><label class="form-check-label small">Price History</label></div>
-            <div class="setting-checkbox form-check mb-4"><input class="form-check-input" type="checkbox" id="luxuryTheme"><label class="form-check-label small">Auto-apply luxury theme for sharing</label></div>
-
-            <!-- Invoice Details -->
-            <div class="section-title">📋 Invoice Details</div>
-            <div class="mb-3"><label class="small fw-semibold mb-1">Industry Type</label><select class="form-control-sm-custom" id="industryType"><option>Retail</option><option>Wholesale</option><option>Manufacturing</option><option>Services</option><option>Healthcare</option></select></div>
-            <div class="mb-3"><label class="small fw-semibold mb-1">PO Number</label><input type="text" class="form-control-sm-custom" id="poNumber" placeholder="Enter PO Number"></div>
-            <div class="mb-3"><label class="small fw-semibold mb-1">E-way Bill Number</label><input type="text" class="form-control-sm-custom" id="ewayBill" placeholder="E-way Bill No."></div>
-            <div class="mb-3"><label class="small fw-semibold mb-1">Vehicle Number</label><input type="text" class="form-control-sm-custom" id="vehicleNo" placeholder="Vehicle Number"></div>
-            <button class="custom-field-btn mb-4" id="addInvoiceCustomField"><i class="fas fa-plus me-2"></i>Add Custom Field</button>
-
-            <!-- Party Details -->
-            <div class="section-title">👥 Party Details</div>
-            <button class="custom-field-btn mb-4" id="addPartyCustomField"><i class="fas fa-plus me-2"></i>Add Custom Field</button>
-
-            <!-- Item Table Columns -->
-            <div class="section-title">📊 Item Table Columns</div>
-            <div class="row g-2 mb-4">
-                <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" id="colPrice" checked><label class="form-check-label small">Price/Item (₹)</label></div></div>
-                <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" id="colQuantity" checked><label class="form-check-label small">Quantity</label></div></div>
-                <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" id="colBatchNo"><label class="form-check-label small">Batch No.</label></div></div>
-                <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" id="colExpDate"><label class="form-check-label small">Exp. Date</label></div></div>
-                <div class="col-6"><div class="form-check"><input class="form-check-input" type="checkbox" id="colMfgDate"><label class="form-check-label small">Mfg Date</label></div></div>
-            </div>
-
-            <div class="alert alert-info small mt-3" role="alert" style="border-radius: 20px; background: #eef2ff; border: none;"><i class="fas fa-save me-2"></i> Settings auto-save as you change.</div>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-<script>
-    const showItemDescCheck = document.getElementById('showItemDesc');
-    const showPhoneCheck = document.getElementById('showPhoneNumber');
-    const colBatchNoCheck = document.getElementById('colBatchNo');
-    const colExpDateCheck = document.getElementById('colExpDate');
-    const colMfgDateCheck = document.getElementById('colMfgDate');
-    const phoneDisplay = document.getElementById('phoneDisplay');
-    let currentColor = '#2c7da0';
-
-    function applyTheme(theme) {
-        const card = document.querySelector('.invoice-card');
-        card.style.transition = 'all 0.3s ease';
-        if (theme === 'modern') {
-            card.style.borderRadius = '16px';
-            card.style.boxShadow = '0 20px 40px rgba(0,0,0,0.12)';
-            card.style.fontFamily = "'Inter', sans-serif";
-        } else if (theme === 'minimal') {
-            card.style.borderRadius = '0px';
-            card.style.boxShadow = 'none';
-            card.style.border = '1px solid #e2e8f0';
-        } else if (theme === 'corporate') {
-            card.style.borderRadius = '20px';
-            card.style.borderTop = `4px solid ${currentColor}`;
-        } else if (theme === 'elegant') {
-            card.style.borderRadius = '40px';
-            card.style.background = 'linear-gradient(145deg, #ffffff, #fefaf5)';
-            card.style.fontFamily = "'Playfair Display', serif";
-        } else {
-            card.style.borderRadius = '32px';
-            card.style.boxShadow = '0 25px 50px -12px rgba(0,0,0,0.15)';
-            card.style.border = 'none';
-            card.style.background = 'white';
-            card.style.fontFamily = "'Inter', sans-serif";
-        }
-    }
-
-    function applyColor(color) {
-        currentColor = color;
-        const title = document.querySelector('.invoice-title');
-        if (title) title.style.background = `linear-gradient(135deg, ${color}, ${color}dd)`;
-        const billHeader = document.querySelector('.bill-header');
-        if (billHeader) billHeader.style.color = color;
-        document.querySelectorAll('.section-title').forEach(el => el.style.borderLeftColor = color);
-        const tableHeaders = document.querySelectorAll('.items-table-preview th');
-        tableHeaders.forEach(th => th.style.color = color);
-    }
-
-    function updateInvoicePreview() {
-        const descElements = document.querySelectorAll('#itemsTablePreview tbody tr td:nth-child(2) .small');
-        if (showItemDescCheck.checked) {
-            descElements.forEach(el => el.style.display = 'block');
-            const rows = document.querySelectorAll('#itemsTablePreview tbody tr');
-            if (rows[0] && !rows[0].querySelector('.small').innerHTML.trim()) {
-                rows[0].querySelector('.small').innerHTML = 'Samsung Galaxy A30, 64GB';
-                rows[1].querySelector('.small').innerHTML = 'Best biscuit, 200g pack';
-            }
-        } else {
-            descElements.forEach(el => el.style.display = 'none');
-        }
-        phoneDisplay.style.display = showPhoneCheck.checked ? 'block' : 'none';
-
-        // Dynamic columns
-        const table = document.getElementById('itemsTablePreview');
-        const headerRow = table.querySelector('thead tr');
-        
-        let batchHeader = document.querySelector('#itemsTablePreview th.batch-col');
-        if (colBatchNoCheck.checked && !batchHeader) {
-            const newTh = document.createElement('th'); newTh.textContent = 'Batch No.'; newTh.classList.add('batch-col');
-            headerRow.insertBefore(newTh, headerRow.children[6]);
-            table.querySelectorAll('tbody tr').forEach(row => { const td = document.createElement('td'); td.textContent = 'BCH-001'; td.classList.add('batch-col'); row.insertBefore(td, row.children[6]); });
-        } else if (!colBatchNoCheck.checked && batchHeader) { batchHeader.remove(); document.querySelectorAll('#itemsTablePreview .batch-col').forEach(el => el.remove()); }
-        
-        let expHeader = document.querySelector('#itemsTablePreview th.exp-col');
-        if (colExpDateCheck.checked && !expHeader) {
-            const newTh = document.createElement('th'); newTh.textContent = 'Exp. Date'; newTh.classList.add('exp-col');
-            headerRow.insertBefore(newTh, headerRow.children[colBatchNoCheck.checked ? 7 : 6]);
-            table.querySelectorAll('tbody tr').forEach(row => { const td = document.createElement('td'); td.textContent = '12/2025'; td.classList.add('exp-col'); row.insertBefore(td, row.children[colBatchNoCheck.checked ? 7 : 6]); });
-        } else if (!colExpDateCheck.checked && expHeader) { expHeader.remove(); document.querySelectorAll('#itemsTablePreview .exp-col').forEach(el => el.remove()); }
-        
-        let mfgHeader = document.querySelector('#itemsTablePreview th.mfg-col');
-        if (colMfgDateCheck.checked && !mfgHeader) {
-            const newTh = document.createElement('th'); newTh.textContent = 'Mfg Date'; newTh.classList.add('mfg-col');
-            headerRow.appendChild(newTh);
-            table.querySelectorAll('tbody tr').forEach(row => { const td = document.createElement('td'); td.textContent = '01/2023'; td.classList.add('mfg-col'); row.appendChild(td); });
-        } else if (!colMfgDateCheck.checked && mfgHeader) { mfgHeader.remove(); document.querySelectorAll('#itemsTablePreview .mfg-col').forEach(el => el.remove()); }
-    }
-
-    // Theme Badge Click
-    document.querySelectorAll('.theme-badge').forEach(badge => {
-        badge.addEventListener('click', function() {
-            document.querySelectorAll('.theme-badge').forEach(b => b.classList.remove('active'));
-            this.classList.add('active');
-            applyTheme(this.dataset.theme);
-        });
-    });
-
-    document.querySelectorAll('.color-option').forEach(opt => {
-        opt.addEventListener('click', function() {
-            document.querySelectorAll('.color-option').forEach(o => o.classList.remove('active'));
-            this.classList.add('active');
-            applyColor(this.dataset.color);
-        });
-    });
-
-    document.getElementById('addInvoiceCustomField')?.addEventListener('click', () => {
-        const fieldName = prompt('Enter custom field name:', 'Reference No.');
-        if (fieldName) {
-            const div = document.createElement('div'); div.className = 'mb-3 mt-2';
-            div.innerHTML = `<label class="small fw-semibold mb-1">${fieldName}</label><input type="text" class="form-control-sm-custom" placeholder="Enter ${fieldName}">`;
-            document.querySelector('#industryType')?.parentNode?.insertAdjacentElement('afterend', div);
-            alert(`Custom field "${fieldName}" added`);
-        }
-    });
-    
-    document.getElementById('addPartyCustomField')?.addEventListener('click', () => {
-        const fieldName = prompt('Enter custom party field name:', 'PAN Number');
-        if (fieldName) {
-            const billSection = document.querySelector('.bill-to-section');
-            const div = document.createElement('div'); div.className = 'bill-detail mt-1'; div.innerHTML = `<strong>${fieldName}:</strong> N/A`;
-            billSection?.querySelector('.bill-details-row')?.appendChild(div);
-            alert(`Party field "${fieldName}" added`);
-        }
-    });
-
-    showItemDescCheck.addEventListener('change', updateInvoicePreview);
-    showPhoneCheck.addEventListener('change', updateInvoicePreview);
-    colBatchNoCheck.addEventListener('change', updateInvoicePreview);
-    colExpDateCheck.addEventListener('change', updateInvoicePreview);
-    colMfgDateCheck.addEventListener('change', updateInvoicePreview);
-    
-    document.getElementById('showPartyBalance')?.addEventListener('change', (e) => {
-        const billDiv = document.querySelector('.bill-to-section');
-        let balanceSpan = document.getElementById('partyBalanceSpan');
-        if (e.target.checked && !balanceSpan) {
-            const span = document.createElement('div'); span.id = 'partyBalanceSpan'; span.className = 'bill-detail mt-1 text-success fw-bold'; span.innerHTML = '💰 Balance: ₹25,000 (Credit)';
-            billDiv?.querySelector('.bill-details-row')?.appendChild(span);
-        } else if (balanceSpan) balanceSpan.remove();
-    });
-    
-    document.getElementById('enableFreeQty')?.addEventListener('change', (e) => { if(e.target.checked) alert('Free quantity feature enabled'); });
-    document.getElementById('showAlternateUnit')?.addEventListener('change', (e) => { if(e.target.checked) alert('Alternate unit enabled'); });
-    document.getElementById('showTime')?.addEventListener('change', (e) => {
-        const grid = document.querySelector('.info-grid');
-        let timeSpan = document.getElementById('timeDisplay');
-        if (e.target.checked && !timeSpan) {
-            const newItem = document.createElement('div'); newItem.className = 'info-item'; newItem.id = 'timeDisplay'; newItem.innerHTML = '<div class="info-label">Time</div><div class="info-value">10:30 AM</div>';
-            grid?.appendChild(newItem);
-        } else if (timeSpan) timeSpan.remove();
-    });
-    
-    document.getElementById('priceHistory')?.addEventListener('change', (e) => { if(e.target.checked) alert('Price history tracking enabled'); });
-    document.getElementById('luxuryTheme')?.addEventListener('change', (e) => {
-        document.getElementById('footerNote').innerHTML = e.target.checked ? '✨ LUXURY EDITION | TAX INVOICE ✨' : '🔖 ORIGINAL FOR RECIPIENT';
-    });
-    
-    document.getElementById('poNumber')?.addEventListener('input', (e) => {
-        let poSpan = document.getElementById('poDisplay');
-        if (e.target.value && !poSpan) {
-            const grid = document.querySelector('.info-grid');
-            const newItem = document.createElement('div'); newItem.className = 'info-item'; newItem.id = 'poDisplay'; newItem.innerHTML = `<div class="info-label">PO No.</div><div class="info-value">${e.target.value}</div>`;
-            grid?.appendChild(newItem);
-        } else if (poSpan) poSpan.querySelector('.info-value').innerText = e.target.value || '—';
-    });
-    
-    document.getElementById('ewayBill')?.addEventListener('input', (e) => {
-        let ewaySpan = document.getElementById('ewayDisplay');
-        if (e.target.value && !ewaySpan) {
-            const grid = document.querySelector('.info-grid');
-            const newItem = document.createElement('div'); newItem.className = 'info-item'; newItem.id = 'ewayDisplay'; newItem.innerHTML = `<div class="info-label">E-way Bill</div><div class="info-value">${e.target.value}</div>`;
-            grid?.appendChild(newItem);
-        } else if (ewaySpan) ewaySpan.querySelector('.info-value').innerText = e.target.value || '—';
-    });
-    
-    document.getElementById('vehicleNo')?.addEventListener('input', (e) => {
-        let vehSpan = document.getElementById('vehicleDisplay');
-        if (e.target.value && !vehSpan) {
-            const grid = document.querySelector('.info-grid');
-            const newItem = document.createElement('div'); newItem.className = 'info-item'; newItem.id = 'vehicleDisplay'; newItem.innerHTML = `<div class="info-label">Vehicle No.</div><div class="info-value">${e.target.value}</div>`;
-            grid?.appendChild(newItem);
-        } else if (vehSpan) vehSpan.querySelector('.info-value').innerText = e.target.value || '—';
-    });
-
-    applyTheme('classic');
-    applyColor('#2c7da0');
-    updateInvoicePreview();
-    
-    if (showItemDescCheck.checked) {
-        const rows = document.querySelectorAll('#itemsTablePreview tbody tr');
-        if (rows[0] && !rows[0].querySelector('.small').innerHTML) rows[0].querySelector('.small').innerHTML = 'Samsung Galaxy A30, 64GB';
-        if (rows[1] && !rows[1].querySelector('.small').innerHTML) rows[1].querySelector('.small').innerHTML = 'Best biscuit, 200g pack';
-    }
-</script>
 </body>
 </html>
