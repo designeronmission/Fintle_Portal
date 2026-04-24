@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle | Customer Management</title>
+  <title>Fintle | Customer Management with Balance KPIs</title>
   <!-- Bootstrap 5 + Icons + Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -13,13 +13,67 @@
     rel="stylesheet">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
+
   <style>
+    /* Pagination - Clean & Below Table */
+    .pagination-container {
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid #eef2f6;
+    }
+
+    .page-link {
+      border-radius: 8px;
+      margin: 0 3px;
+      border: 1px solid #e2e8f0;
+      color: #475569;
+      font-weight: 500;
+      padding: 8px 14px;
+      font-size: 13px;
+      transition: all 0.2s;
+      background: white;
+    }
+
+    .page-link:hover {
+      background-color: #f8fafc;
+      border-color: #cbd5e1;
+      color: #2a3b82;
+    }
+
+    .page-item.active .page-link {
+      background: #2a3b82;
+      color: white;
+      border-color: #2a3b82;
+    }
+
+    .page-item.disabled .page-link {
+      background: #f8fafc;
+      color: #94a3b8;
+      border-color: #e2e8f0;
+      cursor: not-allowed;
+    }
+
+    /* Pagination wrapper */
+    .pagination {
+      gap: 5px;
+      margin-bottom: 0;
+      flex-wrap: wrap;
+    }
+        /* Info text styling */
+    .pagination-info {
+      background: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 12px;
+    }
+
+
     .btn-primary {
       background-color: #2a3b82;
       border-color: #2a3b82;
       color: #fff;
       border-radius: 40px;
-      padding: 9px 12px;
+      padding: 9px 20px;
       font-weight: 600;
       transition: all 0.2s;
     }
@@ -61,10 +115,8 @@
       text-decoration: underline;
     }
 
-    /* Fixed table wrapper with horizontal scroll */
     .customer-table-wrapper {
       overflow-x: auto;
-      position: relative;
       border-radius: 12px;
     }
 
@@ -91,7 +143,6 @@
       white-space: nowrap;
     }
 
-    /* Sticky Action column */
     .customer-table th:last-child,
     .customer-table td:last-child {
       position: sticky;
@@ -135,105 +186,85 @@
       margin-right: 8px;
     }
 
-    /* KPI Section */
-    .kpi-section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 0 4px;
-    }
-
-    .kpi-section-heading h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #1e293b;
-      margin: 0;
-    }
-
-    /* KPI CARDS */
     .dashboard-container {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       background: white;
       justify-content: flex-start;
       flex-wrap: wrap;
-      margin-bottom: 24px;
+      margin-bottom: 10px;
       padding: 20px 24px;
-      border-radius: 16px;
+      border-radius: 20px;
       border: 1px solid #edf2f7;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
 
     .kpi-card-new {
       background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      width: 100%;
+      border: 1px solid #e9eef3;
+      border-radius: 20px;
       flex: 1;
       padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
       transition: all 0.2s ease;
-    }
-
-    .kpi-card-new.primary {
-      border-color: #2a3b82;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
 
     .kpi-card-new:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
       border-color: #cbd5e1;
     }
 
-    .icon-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5b6e8c;
+      letter-spacing: 0.3px;
+    }
+
+    .icon-small {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
     }
 
-    .icon-circle.blue {
-      background-color: #EEF4FF;
-    }
-
-    .icon-circle.green {
-      background-color: #F0FFEE;
-    }
-
-    .icon-circle.orange {
-      background-color: #FFF9EE;
-    }
-
-    .card-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-label {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 4px;
-      color: #5c5c5c;
-      line-height: normal;
-    }
-
-    .card-amount {
+    .kpi-amount-main {
       font-size: 26px;
       font-weight: 700;
-      color: #383838;
-      margin-bottom: 2px;
-      line-height: normal;
+      color: #1e293b;
+      line-height: 1.2;
+
     }
 
-    /* Unified actions card */
+    .kpi-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5f7f9e;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .count-badge {
+      background: #eff3f8;
+      border-radius: 40px;
+      padding: 4px 12px;
+      font-weight: 700;
+      color: #2a3b82;
+    }
+
     .unified-actions-card {
       background: white;
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 12px 20px;
       margin-bottom: 24px;
       border: 1px solid #edf2f7;
@@ -253,18 +284,12 @@
       border-radius: 40px;
       padding: 6px 18px;
       min-width: 260px;
-      transition: all 0.2s;
     }
 
     .search-inline:focus-within {
       border-color: #2a3b82;
       background: white;
       box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
-    }
-
-    .search-inline i {
-      color: #94a3b8;
-      font-size: 1rem;
     }
 
     .search-inline input {
@@ -274,7 +299,6 @@
       width: 100%;
       outline: none;
       font-size: 0.85rem;
-      font-weight: 500;
     }
 
     .tabs-centered {
@@ -282,7 +306,6 @@
       flex-wrap: wrap;
       justify-content: center;
       gap: 8px;
-      flex: 1;
     }
 
     .customer-tab {
@@ -294,20 +317,10 @@
       border: none;
       border-radius: 40px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 8px;
-    }
-
-    .customer-tab i {
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    .customer-tab:hover {
-      color: #2a3b82;
-      background: #f8fafc;
     }
 
     .customer-tab.active {
@@ -324,15 +337,6 @@
       font-weight: 700;
     }
 
-    .customer-tab.active .tab-count {
-      background: #2a3b82;
-      color: white;
-    }
-
-    .btn-create-right {
-      flex-shrink: 0;
-    }
-
     .action-btn {
       width: 32px;
       height: 32px;
@@ -343,22 +347,16 @@
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      transition: all 0.2s;
     }
 
     .action-btn:hover {
       background: #f1f5f9;
-      border-color: #cbd5e1;
     }
 
     @media (max-width: 992px) {
       .unified-actions-card {
         flex-direction: column;
         align-items: stretch;
-      }
-
-      .search-inline {
-        width: 100%;
       }
 
       .tabs-centered {
@@ -369,85 +367,188 @@
       .btn-create-right {
         order: 3;
         text-align: center;
-        width: 100%;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .kpi-card-new {
-        max-width: 100%;
-      }
-
-      .dashboard-container {
-        padding: 16px;
       }
     }
   </style>
 </head>
 
 <body>
+
   <div id="main-wrapper">
     <!-- Sidebar Start -->
+   <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
           <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png"
-                alt="Logo" class="logo-image" /></a>
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
           </div>
+          
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4"><a class="sidebar-link" href="" id="get-url"
-                  aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span
-                    class="hide-menu">Dashboard</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="../main/index2.html"
-                  aria-expanded="false"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon><span
-                    class="hide-menu">Inbox</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon><span
-                    class="hide-menu">Items</span></a>
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span
-                        class="icon-small"></span>Inventory</a></li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon><span
-                    class="hide-menu">Purchase</span></a>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-landingpage.html"><span
-                        class="icon-small"></span>Suppliers</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-aboutpage.html"><span
-                        class="icon-small"></span>Purchase Order</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Purchase
-                      Bill</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Supplier
-                      Statement</a></li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
                 </ul>
               </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon><span
-                    class="hide-menu">Sales</span></a>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span
-                        class="icon-small"></span>Customer</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="../main/frontend-aboutpage.html"><span
-                        class="icon-small"></span>Enquiry</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span
-                        class="icon-small"></span>Estimates</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span
-                        class="icon-small"></span>Invoice</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>Customer
-                      Statement</a></li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
                 </ul>
               </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
               <li><span class="sidebar-divider"></span></li>
             </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </nav>
         </div>
       </div>
     </aside>
+    <!-- Sidebar End -->
 
+    <!-- Sidebar End -->
     <div class="page-wrapper">
       <!-- Header Start -->
       <header class="topbar">
@@ -463,8 +564,8 @@
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                    onclick="location.href='create-customer.html'"><iconify-icon icon="solar:add-plus-line-duotone"
-                      class="fs-5"></iconify-icon>Create Customer</button></div>
+                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
+                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
               </li>
             </ul>
             <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
@@ -573,7 +674,8 @@
                           <div
                             class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
                             <iconify-icon icon="solar:bill-list-bold-duotone"
-                              class="fs-7 text-secondary"></iconify-icon></div>
+                              class="fs-7 text-secondary"></iconify-icon>
+                          </div>
                           <div>
                             <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
                               class="fs-11 d-block text-body-color">Get latest invoice</span>
@@ -594,7 +696,7 @@
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title">Customer Management</h4>
+                  <h4 class="mb-4 mb-sm-0 card-title">Customer Overview</h4>
                   <nav aria-label="breadcrumb" class="ms-auto">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item d-flex align-items-center">
@@ -602,69 +704,61 @@
                           <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
                         </a>
                       </li>
-                      <li class="breadcrumb-item active">Customers</li>
                     </ol>
                   </nav>
                 </div>
               </div>
             </div>
           </div>
-
-          <!-- KPI CARDS -->
-          <div class="dashboard-container">
-            <!-- All Customers Card -->
-            <div class="kpi-card-new primary">
-              <div class="icon-circle blue">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 12C14.21 12 16 10.21 16 8C16 5.79 14.21 4 12 4C9.79 4 8 5.79 8 8C8 10.21 9.79 12 12 12ZM12 14C9.33 14 4 15.34 4 18V20H20V18C20 15.34 14.67 14 12 14Z" fill="#1D3562"/>
-                </svg>
+          <!-- UPDATED KPI CARDS: amount + number of customers for To Pay / To Collect -->
+          <div class="dashboard-container col-lg-12">
+            <!-- All Customers Card simple -->
+            <div class="kpi-card-new col-lg-4">
+              <div class="kpi-header">
+                <span class="kpi-label"> Total Customers</span>
+                <div class="icon-small bg-light-primary" style="background:#eef2ff;"><i
+                    class="fas fa-users text-primary"></i></div>
               </div>
-              <div class="card-content">
-                <p class="card-label">All Customers</p>
-                <p class="card-amount" id="totalCustomers">0</p>
+              <div class="kpi-amount-main" id="totalCustomersKPI">0</div>
+              <div class="kpi-sub">Registered accounts</div>
+            </div>
+
+            <!-- TO PAY CARD (Amount + Count) -->
+            <div class="kpi-card-new col-lg-4">
+              <div class="kpi-header">
+                <span class="kpi-label"> To Pay (receivable)</span>
+                <div class="icon-small" style="background:#fff0e6;"><i class="fas fa-arrow-up text-warning"></i></div>
+              </div>
+              <div class="kpi-amount-main" id="toPayAmountKPI">₹0</div>
+              <div class="kpi-sub">
+                <span><i class="far fa-user-circle"></i> <span id="toPayCountKPI">0</span> customers</span>
+                <span class="count-badge">outstanding</span>
               </div>
             </div>
 
-            <!-- To Pay Card -->
-            <div class="kpi-card-new">
-              <div class="icon-circle orange">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z" fill="#BB7628"/>
-                  <path d="M12 7V13L16 15" stroke="#BB7628" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
+            <!-- TO COLLECT CARD (Amount + Count) -->
+            <div class="kpi-card-new col-lg-4">
+              <div class="kpi-header">
+                <span class="kpi-label"> To Collect (credit balance)</span>
+                <div class="icon-small" style="background:#e3f7ec;"><i class="fas fa-arrow-down text-success"></i></div>
               </div>
-              <div class="card-content">
-                <p class="card-label">To Pay</p>
-                <p class="card-amount" id="toPayCustomers">0</p>
-              </div>
-            </div>
-
-            <!-- To Collect Card -->
-            <div class="kpi-card-new">
-              <div class="icon-circle green">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12 20C7.58 20 4 16.42 4 12C4 7.58 7.58 4 12 4C16.42 4 20 7.58 20 12C20 16.42 16.42 20 12 20Z" fill="#2E7D32"/>
-                  <path d="M16 8L8 16M8 8L16 16" stroke="#2E7D32" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <div class="card-content">
-                <p class="card-label">To Collect</p>
-                <p class="card-amount" id="toCollectCustomers">0</p>
+              <div class="kpi-amount-main" id="toCollectAmountKPI">₹0</div>
+              <div class="kpi-sub">
+                <span><i class="far fa-user-circle"></i> <span id="toCollectCountKPI">0</span> customers</span>
+                <span class="count-badge">credit due</span>
               </div>
             </div>
-            
           </div>
 
-          <!-- Customer Table Section -->
+          <!-- Table actions -->
           <div class="card overflow-hidden p-4">
-            <!-- Unified Card: Inline Search | Tabs | CTA -->
             <div class="unified-actions-card">
               <div class="search-inline">
                 <i class="fas fa-search"></i>
-                <input type="text" id="globalSearchInput" placeholder="Search by name, email, phone or ID..." autocomplete="off">
+                <input type="text" id="globalSearchInput" placeholder="Search by name, email, phone or ID...">
               </div>
               <div class="tabs-centered">
-                <button class="customer-tab active" data-tab="all"><i class="fas fa-users"></i> All Customers <span
+                <button class="customer-tab active" data-tab="all"><i class="fas fa-users"></i> All <span
                     class="tab-count" id="countAll">0</span></button>
                 <button class="customer-tab" data-tab="toPay"><i class="fas fa-clock"></i> To Pay <span
                     class="tab-count" id="countToPay">0</span></button>
@@ -672,44 +766,56 @@
                     class="tab-count" id="countToCollect">0</span></button>
               </div>
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-customer.html'"><i class="fas fa-plus me-2"></i>New Customer</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-customer.html'"><i
+                    class="fas fa-plus me-2"></i>New Customer</button>
               </div>
             </div>
 
-            <!-- Customer Table -->
             <div class="customer-table-wrapper">
-              <table class="customer-table align-middle mb-0 w-100">
+              <table class="customer-table align-middle">
                 <thead>
                   <tr>
                     <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
                     <th>S.No</th>
                     <th>Customer ID</th>
                     <th>Customer Name</th>
-                    <th>Phone No</th>
-                    <th>Email ID</th>
+                    <th>Phone</th>
+                    <th>Email</th>
                     <th>Status</th>
+                    <th>Outstanding Balance (₹)</th>
                     <th>Created On</th>
-                    <th>Last Updated On</th>
+                    <th>Last Updated</th>
                     <th>Created By</th>
-                    <th style="width:80px; position:sticky; right:0; background:#f8fafc;">Action</th>
+                    <th style="width:80px; position:sticky; right:0;">Action</th>
                   </tr>
                 </thead>
                 <tbody id="customerTableBody"></tbody>
               </table>
             </div>
-            <div class="card-footer bg-transparent border-0 d-flex justify-content-between align-items-center py-3 px-4 flex-wrap gap-2">
-              <span class="pagination-info text-muted small">Showing <span id="rowStart">0</span>-<span id="rowEnd">0</span> of <span id="totalRows">0</span> customers</span>
-              <nav><ul class="pagination pagination-sm mb-0" id="pagination"></ul></nav>
+                   <!-- Pagination Below Table - Clean Design -->
+            <div class="pagination-container">
+              <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                <div class="pagination-info">
+                  <i class="fas fa-table me-1 text-muted"></i>
+                  <span>Showing <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span>
+                  <span class="mx-1 text-muted">of</span>
+                  <strong id="totalRows">0</strong>
+                  <span class="text-muted">quotations</span>
+                </div>
+                <nav>
+                  <ul class="pagination" id="pagination"></ul>
+                </nav>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-
   <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
     style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
 
+  <!-- Import Js Files -->
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
   <script src="assets/libs/js/app.init.js"></script>
@@ -719,108 +825,362 @@
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
   <script>
-    let customers = [
-      { id: 1, customerId: 'CUST-001', name: 'ABC Enterprises', phone: '+91 9876543210', email: 'contact@abc.com', status: 'Active', createdOn: '2026-01-15', lastUpdated: '2026-03-20', createdBy: 'John Doe', hasOutstanding: true },
-      { id: 2, customerId: 'CUST-002', name: 'XYZ Solutions', phone: '+91 9876543211', email: 'info@xyz.com', status: 'Active', createdOn: '2026-02-10', lastUpdated: '2026-03-15', createdBy: 'Jane Smith', hasOutstanding: false },
-      { id: 3, customerId: 'CUST-003', name: 'Global Traders', phone: '+91 9876543212', email: 'sales@global.com', status: 'Inactive', createdOn: '2026-01-05', lastUpdated: '2026-02-28', createdBy: 'Mike Johnson', hasOutstanding: true },
-      { id: 4, customerId: 'CUST-004', name: 'Sunrise Industries', phone: '+91 9876543213', email: 'contact@sunrise.com', status: 'Active', createdOn: '2026-03-01', lastUpdated: '2026-04-01', createdBy: 'Sarah Wilson', hasOutstanding: false },
-      { id: 5, customerId: 'CUST-005', name: 'Metro Corp', phone: '+91 9876543214', email: 'info@metro.com', status: 'Active', createdOn: '2026-02-20', lastUpdated: '2026-03-25', createdBy: 'David Brown', hasOutstanding: true },
-      { id: 6, customerId: 'CUST-006', name: 'Aster Innovations', phone: '+91 9876543215', email: 'hello@aster.com', status: 'Active', createdOn: '2026-01-25', lastUpdated: '2026-03-18', createdBy: 'Emily Davis', hasOutstanding: false },
-      { id: 7, customerId: 'CUST-007', name: 'Tech Solutions Ltd', phone: '+91 9876543216', email: 'support@tech.com', status: 'Inactive', createdOn: '2026-03-10', lastUpdated: '2026-04-02', createdBy: 'Robert Lee', hasOutstanding: true }
+    // Data models
+    let categories = ["Electronics", "Clothing", "Groceries", "Furniture"];
+    let items = [
+      { id: 1, name: "Goods Television", code: "TV-X100", batchNo: "BATCH-A01", category: "Electronics", customField: "Warranty: 2yr", stockQty: -22, unit: "PCS", sellingPrice: 1000, purchasePrice: 1009 },
+      { id: 2, name: "Sample Item", code: "8901262010023", batchNo: "SMP-B02", category: "Electronics", customField: "IMEI: 8901262010023", stockQty: 117, unit: "BOX", sellingPrice: 220, purchasePrice: 190 },
+      { id: 3, name: "t-shirts", code: "TSH-001", batchNo: "BATCH-C03", category: "Clothing", customField: "Size: M/L", stockQty: -14, unit: "PCS", sellingPrice: 200.2, purchasePrice: 199.2 },
+      { id: 4, name: "Tea Dust", code: "TEA-001", batchNo: "BATCH-D04", category: "Groceries", customField: "Organic", stockQty: 3, unit: "PCS", sellingPrice: 300.3, purchasePrice: 0 }
     ];
+    let nextId = 5;
+    let isLowStockMode = false;
+    let currentFilters = { searchName: "", category: "" };
 
-    let currentTab = 'all', currentPage = 1, rowsPerPage = 10;
-    let currentSearchTerm = '';
+    function showToast(msg) { const t = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerHTML = msg; t.style.display = 'flex'; setTimeout(() => t.style.display = 'none', 2300); }
+    function formatCurrency(amt) { return amt ? `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2 })}` : "₹ 0.00"; }
+    function escapeHtml(s) { if (!s) return '-'; return String(s).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
 
-    function showToast(msg) {
-      const t = document.getElementById('liveToastMsg');
-      document.getElementById('toastText').innerText = msg;
-      t.style.display = 'block';
-      setTimeout(() => t.style.display = 'none', 2200);
-    }
-
-    function getStatusClass(status) {
-      return status === 'Active' ? 'status-active' : 'status-inactive';
-    }
-
-    function filterCustomers() {
-      let search = currentSearchTerm.toLowerCase();
-      return customers.filter(cust => {
-        let matchSearch = search === '' || cust.name.toLowerCase().includes(search) || cust.customerId.toLowerCase().includes(search) || cust.email.toLowerCase().includes(search) || cust.phone.includes(search);
-        if (currentTab === 'all') return matchSearch;
-        if (currentTab === 'toPay') return cust.hasOutstanding === true && matchSearch;
-        if (currentTab === 'toCollect') return cust.hasOutstanding === false && matchSearch;
-        return matchSearch;
+    function updateCategorySelects() {
+      const selects = ['categorySelect', 'searchCategory'];
+      selects.forEach(id => {
+        const sel = document.getElementById(id);
+        if (sel) { sel.innerHTML = '<option value="">All Categories</option>' + categories.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join(''); }
       });
     }
 
+    function updateStats() {
+      let totalValue = 0, lowCount = 0;
+      items.forEach(i => { let q = i.stockQty || 0; if (q > 0) totalValue += q * (i.sellingPrice || 0); if ((q <= 10 && q > 0) || q < 0) lowCount++; });
+      document.getElementById('totalInventoryValue').innerHTML = formatCurrency(totalValue);
+      document.getElementById('lowStockCount').innerText = lowCount;
+    }
+
+    function getFilteredItems() {
+      let filtered = [...items];
+      if (isLowStockMode) filtered = filtered.filter(i => { let q = i.stockQty; return (q <= 10 && q > 0) || q < 0; });
+      if (currentFilters.searchName) {
+        const search = currentFilters.searchName.toLowerCase();
+        filtered = filtered.filter(i => i.name.toLowerCase().includes(search) || (i.code || '').toLowerCase().includes(search) || (i.batchNo || '').toLowerCase().includes(search));
+      }
+      if (currentFilters.category) filtered = filtered.filter(i => i.category === currentFilters.category);
+      return filtered;
+    }
+
+    function renderTable() {
+      const tbody = document.getElementById('itemsTableBody');
+      const filtered = getFilteredItems();
+      tbody.innerHTML = "";
+      filtered.forEach(item => {
+        const isLow = ((item.stockQty <= 10 && item.stockQty > 0) || item.stockQty < 0);
+        const stockBadgeClass = isLow ? "badge-lowstock" : "badge-normal";
+        const row = document.createElement('tr');
+        row.innerHTML = `<td style="padding-left:1.5rem;"><input class="form-check-input item-checkbox" type="checkbox" data-id="${item.id}"></td>
+        <td><strong>${escapeHtml(item.name)}</strong>${item.customField ? `<div class="small text-muted">${escapeHtml(item.customField)}</div>` : ''}</td>
+        <td><span class="item-code-link" data-id="${item.id}" data-bs-toggle="modal" data-bs-target="#itemPreviewModal">${escapeHtml(item.code)}</span></td>
+        <td><span class="small">${escapeHtml(item.batchNo || '-')}</span></td>
+        <td><span class="category-badge">${escapeHtml(item.category || 'Uncategorized')}</span></td>
+        <td><span class="badge ${stockBadgeClass} px-3 py-2 rounded-pill">${item.stockQty} ${item.unit}</span></td>
+        <td>${formatCurrency(item.sellingPrice)}</td><td>${formatCurrency(item.purchasePrice)}</td>
+        <td><div class="dropdown"><button class="btn btn-sm btn-light rounded-circle" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+          <ul class="dropdown-menu dropdown-menu-custom"><li><a class="dropdown-item edit-item" href="#" data-id="${item.id}"><i class="fas fa-edit me-2"></i> Edit</a></li>
+          <li><a class="dropdown-item delete-item" href="#" data-id="${item.id}"><i class="fas fa-trash-alt me-2 text-danger"></i> Delete</a></li></ul></div></td>`;
+        tbody.appendChild(row);
+      });
+      document.getElementById('itemRowCount').innerText = filtered.length;
+      attachItemEvents();
+    }
+
+    function attachItemEvents() {
+      document.querySelectorAll('.edit-item').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); openEditModal(parseInt(btn.dataset.id)); }));
+      document.querySelectorAll('.delete-item').forEach(btn => btn.addEventListener('click', (e) => { e.preventDefault(); if (confirm("Delete permanently?")) { items = items.filter(i => i.id != btn.dataset.id); renderTable(); updateStats(); showToast("Deleted"); } }));
+      document.querySelectorAll('.item-code-link').forEach(link => { link.removeEventListener('click', previewHandler); link.addEventListener('click', previewHandler); });
+    }
+
+    function previewHandler(e) {
+      const id = parseInt(e.currentTarget.dataset.id);
+      const item = items.find(i => i.id === id);
+      if (item) document.getElementById('previewDetailsContainer').innerHTML = `<div class="border rounded-3 p-3 bg-light"><p><strong>Name:</strong> ${escapeHtml(item.name)}</p><p><strong>Code/IMEI:</strong> ${escapeHtml(item.code)}</p><p><strong>Batch:</strong> ${escapeHtml(item.batchNo || '-')}</p><p><strong>Category:</strong> ${escapeHtml(item.category)}</p><p><strong>Custom:</strong> ${escapeHtml(item.customField || '-')}</p><p><strong>Stock:</strong> ${item.stockQty} ${item.unit}</p><p><strong>Selling:</strong> ${formatCurrency(item.sellingPrice)}</p><p><strong>Purchase:</strong> ${formatCurrency(item.purchasePrice)}</p></div>`;
+    }
+
+    function openEditModal(id) {
+      const item = items.find(i => i.id === id);
+      if (item) {
+        document.getElementById('modalFormTitle').innerText = "Edit Item";
+        document.getElementById('editItemId').value = item.id;
+        document.getElementById('itemNameInput').value = item.name;
+        document.getElementById('itemCodeInput').value = item.code;
+        document.getElementById('batchNoInput').value = item.batchNo || '';
+        document.getElementById('categorySelect').value = item.category;
+        document.getElementById('customFieldInput').value = item.customField || '';
+        document.getElementById('stockQtyInput').value = item.stockQty;
+        document.getElementById('unitSelect').value = item.unit;
+        document.getElementById('sellingPriceInput').value = item.sellingPrice;
+        document.getElementById('purchasePriceInput').value = item.purchasePrice;
+        new bootstrap.Modal(document.getElementById('itemFormModal')).show();
+      }
+    }
+
+    document.getElementById('itemForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const id = document.getElementById('editItemId').value;
+      const name = document.getElementById('itemNameInput').value.trim();
+      if (!name) { showToast("Item name required"); return; }
+      const newItem = {
+        id: id ? parseInt(id) : nextId++, name, code: document.getElementById('itemCodeInput').value.trim() || '-',
+        batchNo: document.getElementById('batchNoInput').value.trim(),
+        category: document.getElementById('categorySelect').value || "Uncategorized",
+        customField: document.getElementById('customFieldInput').value.trim(),
+        stockQty: parseInt(document.getElementById('stockQtyInput').value) || 0,
+        unit: document.getElementById('unitSelect').value,
+        sellingPrice: parseFloat(document.getElementById('sellingPriceInput').value) || 0,
+        purchasePrice: parseFloat(document.getElementById('purchasePriceInput').value) || 0
+      };
+      if (id) { const idx = items.findIndex(i => i.id == id); if (idx !== -1) items[idx] = newItem; showToast("Updated"); }
+      else { items.push(newItem); showToast("Created"); }
+      renderTable(); updateStats();
+      bootstrap.Modal.getInstance(document.getElementById('itemFormModal')).hide();
+      document.getElementById('itemForm').reset(); document.getElementById('editItemId').value = ""; document.getElementById('modalFormTitle').innerText = "Create New Item";
+    });
+
+    document.getElementById('saveCategoryBtn')?.addEventListener('click', () => {
+      const newCat = document.getElementById('newCategoryName').value.trim();
+      if (newCat && !categories.includes(newCat)) { categories.push(newCat); updateCategorySelects(); showToast(`Category "${newCat}" added`); }
+      bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
+      document.getElementById('newCategoryName').value = '';
+    });
+
+    function bulkDeleteSelected() {
+      const checked = document.querySelectorAll('.item-checkbox:checked');
+      if (checked.length === 0) { showToast("No items selected"); return; }
+      if (confirm(`Delete ${checked.length} items?`)) {
+        const ids = Array.from(checked).map(cb => parseInt(cb.dataset.id));
+        items = items.filter(i => !ids.includes(i.id));
+        renderTable(); updateStats(); showToast(`Deleted ${ids.length} items`);
+        document.getElementById('selectAllItemsCheck').checked = false;
+      }
+    }
+
+    function processBulkAdd() {
+      const text = document.getElementById('bulkItemsData').value;
+      const lines = text.split('\n');
+      let added = 0;
+      for (let line of lines) {
+        if (line.trim() === "") continue;
+        const parts = line.split(',').map(s => s.trim());
+        if (parts.length >= 3) {
+          const name = parts[0];
+          if (!name) continue;
+          const newCat = parts[3] || "Uncategorized";
+          if (!categories.includes(newCat)) { categories.push(newCat); }
+          items.push({
+            id: nextId++, name: name, code: parts[1] || '-', batchNo: parts[2] || '',
+            category: newCat, customField: parts[8] || '', stockQty: parseInt(parts[4]) || 0,
+            unit: parts[5] || 'PCS', sellingPrice: parseFloat(parts[6]) || 0, purchasePrice: parseFloat(parts[7]) || 0
+          });
+          added++;
+        }
+      }
+      if (added > 0) { updateCategorySelects(); renderTable(); updateStats(); showToast(`Added ${added} items`); }
+      bootstrap.Modal.getInstance(document.getElementById('bulkAddModal')).hide();
+      document.getElementById('bulkItemsData').value = '';
+    }
+
+    // Event listeners
+    document.getElementById('selectAllItemsCheck')?.addEventListener('change', (e) => document.querySelectorAll('.item-checkbox').forEach(cb => cb.checked = e.target.checked));
+    document.getElementById('bulkDeleteBtn')?.addEventListener('click', (e) => { e.preventDefault(); bulkDeleteSelected(); });
+    document.getElementById('bulkAddItemsBtn')?.addEventListener('click', (e) => { e.preventDefault(); new bootstrap.Modal(document.getElementById('bulkAddModal')).show(); });
+    document.getElementById('bulkAddMultipleLink')?.addEventListener('click', (e) => { e.preventDefault(); new bootstrap.Modal(document.getElementById('bulkAddModal')).show(); });
+    document.getElementById('processBulkAddBtn')?.addEventListener('click', processBulkAdd);
+    document.getElementById('bulkEditBtn')?.addEventListener('click', (e) => { e.preventDefault(); showToast("✏️ Bulk Edit: Select items to edit (demo)"); });
+    document.getElementById('createItemBtn')?.addEventListener('click', () => { document.getElementById('itemForm').reset(); document.getElementById('editItemId').value = ""; document.getElementById('modalFormTitle').innerText = "Create New Item"; new bootstrap.Modal(document.getElementById('itemFormModal')).show(); });
+
+    document.getElementById('toggleLowStockBtn')?.addEventListener('click', () => {
+      isLowStockMode = !isLowStockMode;
+      const btn = document.getElementById('toggleLowStockBtn');
+      const textSpan = document.getElementById('lowStockBtnText');
+      if (isLowStockMode) { textSpan.innerText = "Show All Items"; btn.classList.remove('btn-outline-secondary'); btn.classList.add('btn-primary'); }
+      else { textSpan.innerText = "Low Stock"; btn.classList.remove('btn-primary'); btn.classList.add('btn-outline-secondary'); }
+      renderTable(); updateStats();
+    });
+
+    document.getElementById('viewLowStockLink')?.addEventListener('click', (e) => { e.preventDefault(); if (!isLowStockMode) document.getElementById('toggleLowStockBtn').click(); });
+    document.getElementById('searchItemName')?.addEventListener('input', (e) => { currentFilters.searchName = e.target.value; renderTable(); });
+    document.getElementById('searchCategory')?.addEventListener('change', (e) => { currentFilters.category = e.target.value; renderTable(); });
+
+    updateCategorySelects();
+    renderTable();
+    updateStats();
+  </script>
+
+  <script>
+    // ----- ENHANCED CUSTOMER DATA with dynamic outstanding balances (to pay positive amount = customer owes us, to collect negative = we owe customer or credit)
+    // Business logic: "To Pay" (outstanding > 0) means customer needs to pay us. "To Collect" (outstanding < 0) means we need to collect from customer? Actually typical accounting: if balance > 0 => customer owes (to pay). if balance < 0 => we owe customer (to collect/receive)
+    // For clarity: To Pay = receivable (positive balance), To Collect = payable (negative balance - credit balance)
+    let customers = [
+      { id: 1, customerId: 'CUST-001', name: 'ABC Enterprises', phone: '+91 9876543210', email: 'contact@abc.com', status: 'Active', createdOn: '2026-01-15', lastUpdated: '2026-03-20', createdBy: 'John Doe', outstandingBalance: 12500 },
+      { id: 2, customerId: 'CUST-002', name: 'XYZ Solutions', phone: '+91 9876543211', email: 'info@xyz.com', status: 'Active', createdOn: '2026-02-10', lastUpdated: '2026-03-15', createdBy: 'Jane Smith', outstandingBalance: -5000 },
+      { id: 3, customerId: 'CUST-003', name: 'Global Traders', phone: '+91 9876543212', email: 'sales@global.com', status: 'Inactive', createdOn: '2026-01-05', lastUpdated: '2026-02-28', createdBy: 'Mike Johnson', outstandingBalance: 3200 },
+      { id: 4, customerId: 'CUST-004', name: 'Sunrise Industries', phone: '+91 9876543213', email: 'contact@sunrise.com', status: 'Active', createdOn: '2026-03-01', lastUpdated: '2026-04-01', createdBy: 'Sarah Wilson', outstandingBalance: 0 },
+      { id: 5, customerId: 'CUST-005', name: 'Metro Corp', phone: '+91 9876543214', email: 'info@metro.com', status: 'Active', createdOn: '2026-02-20', lastUpdated: '2026-03-25', createdBy: 'David Brown', outstandingBalance: 8700 },
+      { id: 6, customerId: 'CUST-006', name: 'Aster Innovations', phone: '+91 9876543215', email: 'hello@aster.com', status: 'Active', createdOn: '2026-01-25', lastUpdated: '2026-03-18', createdBy: 'Emily Davis', outstandingBalance: -2150 },
+      { id: 7, customerId: 'CUST-007', name: 'Tech Solutions Ltd', phone: '+91 9876543216', email: 'support@tech.com', status: 'Inactive', createdOn: '2026-03-10', lastUpdated: '2026-04-02', createdBy: 'Robert Lee', outstandingBalance: 45600 },
+      { id: 8, customerId: 'CUST-008', name: 'Visionary Retail', phone: '+91 9988776655', email: 'vision@retail.com', status: 'Active', createdOn: '2026-04-05', lastUpdated: '2026-04-10', createdBy: 'Priya Mehta', outstandingBalance: -12000 },
+      { id: 9, customerId: 'CUST-009', name: 'NexGen Media', phone: '+91 9876509876', email: 'media@nexgen.com', status: 'Active', createdOn: '2026-03-22', lastUpdated: '2026-04-12', createdBy: 'Arjun Nair', outstandingBalance: 5500 }
+    ];
+
+    let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
+    let currentSearchTerm = '';
+
+    function showToast(msg) {
+      const toast = document.getElementById('liveToastMsg');
+      if (toast) {
+        document.getElementById('toastText').innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2200);
+      } else {
+        alert(msg);
+      }
+    }
+
+    function getStatusClass(status) { return status === 'Active' ? 'status-active' : 'status-inactive'; }
+
+    // Filter by tab and search
+    function filterCustomers() {
+      let search = currentSearchTerm.toLowerCase().trim();
+      let filtered = customers.filter(cust => {
+        let matchSearch = search === '' || cust.name.toLowerCase().includes(search) || cust.customerId.toLowerCase().includes(search) || cust.email.toLowerCase().includes(search) || cust.phone.includes(search);
+        if (currentTab === 'all') return matchSearch;
+        if (currentTab === 'toPay') return cust.outstandingBalance > 0 && matchSearch;
+        if (currentTab === 'toCollect') return cust.outstandingBalance < 0 && matchSearch;
+        return matchSearch;
+      });
+      return filtered;
+    }
+
+    // Update KPI cards with TOTAL AMOUNT and customer counts for To Pay / To Collect
     function updateKPIs() {
-      let totalCustomers = customers.length;
-      let toPayCustomers = customers.filter(c => c.hasOutstanding === true).length;
-      let toCollectCustomers = customers.filter(c => c.hasOutstanding === false).length;
+      const totalCustomers = customers.length;
+      // To Pay: outstanding > 0 (customer owes us)
+      const toPayCustomersList = customers.filter(c => c.outstandingBalance > 0);
+      const toPayCount = toPayCustomersList.length;
+      const toPayTotalAmount = toPayCustomersList.reduce((sum, c) => sum + c.outstandingBalance, 0);
 
-      document.getElementById('totalCustomers').innerText = totalCustomers;
-      document.getElementById('toPayCustomers').innerText = toPayCustomers;
-      document.getElementById('toCollectCustomers').innerText = toCollectCustomers;
+      // To Collect: outstanding < 0 (we owe customer - absolute value is refund/credit)
+      const toCollectCustomersList = customers.filter(c => c.outstandingBalance < 0);
+      const toCollectCount = toCollectCustomersList.length;
+      const toCollectTotalAmount = toCollectCustomersList.reduce((sum, c) => sum + Math.abs(c.outstandingBalance), 0);
 
-      document.getElementById('countAll').innerText = totalCustomers;
-      document.getElementById('countToPay').innerText = toPayCustomers;
-      document.getElementById('countToCollect').innerText = toCollectCustomers;
+      // update DOM elements
+      const totalCustomersKPIElem = document.getElementById('totalCustomersKPI');
+      const toPayAmountKPIElem = document.getElementById('toPayAmountKPI');
+      const toPayCountKPIElem = document.getElementById('toPayCountKPI');
+      const toCollectAmountKPIElem = document.getElementById('toCollectAmountKPI');
+      const toCollectCountKPIElem = document.getElementById('toCollectCountKPI');
+      const countAllElem = document.getElementById('countAll');
+      const countToPayElem = document.getElementById('countToPay');
+      const countToCollectElem = document.getElementById('countToCollect');
+
+      if (totalCustomersKPIElem) totalCustomersKPIElem.innerText = totalCustomers;
+      if (toPayAmountKPIElem) toPayAmountKPIElem.innerHTML = `₹${toPayTotalAmount.toLocaleString('en-IN')}`;
+      if (toPayCountKPIElem) toPayCountKPIElem.innerText = toPayCount;
+      if (toCollectAmountKPIElem) toCollectAmountKPIElem.innerHTML = `₹${toCollectTotalAmount.toLocaleString('en-IN')}`;
+      if (toCollectCountKPIElem) toCollectCountKPIElem.innerText = toCollectCount;
+
+      // update tab counters as well (based on raw, not filtered by search)
+      if (countAllElem) countAllElem.innerText = totalCustomers;
+      if (countToPayElem) countToPayElem.innerText = toPayCount;
+      if (countToCollectElem) countToCollectElem.innerText = toCollectCount;
+    }
+
+    // Format currency
+    function formatBalance(balance) {
+      if (balance > 0) return `₹${balance.toLocaleString('en-IN')} (Due)`;
+      if (balance < 0) return `₹${Math.abs(balance).toLocaleString('en-IN')} (Credit)`;
+      return `₹0 (Settled)`;
+    }
+
+    function getBalanceBadgeStyle(balance) {
+      if (balance > 0) return 'background:#fee2e2; color:#b91c1c; padding:6px 12px; border-radius:20px; font-weight:600;font-size:12px';
+      if (balance < 0) return 'background:#e0f2fe; color:#0369a1; padding:6px 12px; border-radius:20px; font-weight:600; font-size:12px';
+      return 'background:#e9eef3; color:#2d3a3f; padding:6px 12px; border-radius:20px;';
     }
 
     function renderTable() {
       let filtered = filterCustomers();
-      let total = filtered.length, totalPages = Math.ceil(total / rowsPerPage);
-      let start = (currentPage - 1) * rowsPerPage, end = Math.min(start + rowsPerPage, total);
+      let total = filtered.length;
+      let totalPages = Math.ceil(total / rowsPerPage);
+      if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      let start = (currentPage - 1) * rowsPerPage;
+      let end = Math.min(start + rowsPerPage, total);
       let pageData = filtered.slice(start, end);
       let tbody = document.getElementById('customerTableBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
-      
+
       if (pageData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="11" class="text-center py-5 text-muted">No customers found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="12" class="text-center py-5 text-muted">No customers found</td></tr>';
       } else {
         pageData.forEach((cust, idx) => {
           let sno = start + idx + 1;
+          let balanceDisplay = formatBalance(cust.outstandingBalance);
+          let balanceStyle = getBalanceBadgeStyle(cust.outstandingBalance);
           let row = `<tr>
-            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${cust.id}"></td>
-            <td>${sno}</td>
-            <td><span class="customer-link" data-id="${cust.customerId}">${cust.customerId}</span></td>
-            <td class="fw-medium">${cust.name}</td>
-            <td>${cust.phone}</td>
-            <td>${cust.email}</td>
-            <td><span class="status-badge ${getStatusClass(cust.status)}">${cust.status}</span></td>
-            <td>${cust.createdOn}</td>
-            <td>${cust.lastUpdated}</td>
-            <td>${cust.createdBy}</td>
-            <td><div class="dropdown action-dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick="viewCustomer('${cust.customerId}')"><i class="fas fa-eye text-primary"></i> View</a></li>
-                <li><a class="dropdown-item" href="#" onclick="editCustomer(${cust.id})"><i class="fas fa-edit text-success"></i> Edit</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="deleteCustomer(${cust.id})"><i class="fas fa-trash-alt"></i> Delete</a></li>
-              </ul></div></div></td>
-          </tr>`;
+          <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${cust.id}"></td>
+          <td>${sno}</td>
+          <td><span class="customer-link" data-id="${cust.customerId}" style="cursor:pointer; font-weight:600; color:#2a3b82;">${cust.customerId}</span></td>
+          <td class="fw-medium">${cust.name}</td>
+          <td>${cust.phone}</td>
+          <td>${cust.email}</td>
+          <td><span class="status-badge ${getStatusClass(cust.status)}">${cust.status}</span></td>
+          <td><span style="${balanceStyle}">${balanceDisplay}</span></td>
+          <td>${cust.createdOn}</td>
+          <td>${cust.lastUpdated}</td>
+          <td>${cust.createdBy}</td>
+          <td><div class="dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a class="dropdown-item" href="#" onclick="viewCustomer('${cust.customerId}')"> View</a></li>
+              <li><a class="dropdown-item" href="#" onclick="editCustomer(${cust.id})">Edit</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li><a class="dropdown-item text-danger" href="#" onclick="deleteCustomer(${cust.id})"> Delete</a></li>
+            </ul></div></td>
+        </tr>`;
           tbody.insertAdjacentHTML('beforeend', row);
         });
       }
-      
-      document.getElementById('rowStart').innerText = total ? start + 1 : 0;
-      document.getElementById('rowEnd').innerText = end;
-      document.getElementById('totalRows').innerText = total;
-      
+
+      const rowStartElem = document.getElementById('rowStart');
+      const rowEndElem = document.getElementById('rowEnd');
+      const totalRowsElem = document.getElementById('totalRows');
+
+      if (rowStartElem) rowStartElem.innerText = total ? start + 1 : 0;
+      if (rowEndElem) rowEndElem.innerText = end;
+      if (totalRowsElem) totalRowsElem.innerText = total;
+
+      // Pagination UI
       let pagination = document.getElementById('pagination');
-      pagination.innerHTML = '';
-      if (totalPages > 1) {
-        pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
-        for (let i = 1; i <= totalPages; i++) {
-          if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
-            pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
-          else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+      if (pagination) {
+        pagination.innerHTML = '';
+        if (totalPages > 1) {
+          pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+          for (let i = 1; i <= totalPages; i++) {
+            if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+              pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+            else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+          }
+          pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
         }
-        pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
       }
-      
-      document.querySelectorAll('.customer-link').forEach(el => el.addEventListener('click', (e) => viewCustomer(el.getAttribute('data-id'))));
+
+      // attach click events for customer links (view)
+      document.querySelectorAll('.customer-link').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          viewCustomer(el.getAttribute('data-id'));
+        });
+      });
+
       const selectAll = document.getElementById('selectAllCheckbox');
       if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     }
@@ -834,53 +1194,67 @@
       }
     }
 
-    const globalSearchInput = document.getElementById('globalSearchInput');
-    if (globalSearchInput) {
-      globalSearchInput.addEventListener('input', function () {
+    // search handler
+    const searchInput = document.getElementById('globalSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', function () {
         currentSearchTerm = this.value;
         currentPage = 1;
         renderTable();
       });
     }
 
-    function viewCustomer(customerId) {
+    // UPDATED: View Customer - Redirect to customer-detail.html with customerId parameter
+    window.viewCustomer = function (customerId) {
       window.location.href = `customer-detail.html?id=${customerId}`;
-    }
+    };
 
-    function editCustomer(id) {
-      showToast(`Edit customer #${id}`);
-    }
+    window.editCustomer = function (id) {
+      const customer = customers.find(c => c.id === id);
+      if (customer) {
+        window.location.href = `edit-customer.html?id=${customer.customerId}`;
+      } else {
+        showToast(`Edit customer ID ${id} (demo)`);
+      }
+    };
 
-    function deleteCustomer(id) {
-      if (confirm('Delete this customer?')) {
+    window.deleteCustomer = function (id) {
+      if (confirm('Permanently delete this customer? Outstanding data will be removed.')) {
         customers = customers.filter(c => c.id !== id);
         updateKPIs();
-        let filtered = filterCustomers();
-        if (currentPage > Math.ceil(filtered.length / rowsPerPage) && Math.ceil(filtered.length / rowsPerPage) > 0)
-          currentPage = Math.ceil(filtered.length / rowsPerPage);
+        let filteredAfter = filterCustomers();
+        let maxPage = Math.ceil(filteredAfter.length / rowsPerPage);
+        if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
+        if (filteredAfter.length === 0) currentPage = 1;
         renderTable();
-        showToast('Customer deleted');
+        showToast('Customer deleted successfully');
       }
+    };
+
+    // tab switching
+    const customerTabs = document.querySelectorAll('.customer-tab');
+    if (customerTabs.length) {
+      customerTabs.forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.customer-tab').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentTab = btn.dataset.tab;
+          currentPage = 1;
+          renderTable();
+        });
+      });
     }
 
-    document.querySelectorAll('.customer-tab').forEach(btn => btn.addEventListener('click', () => {
-      document.querySelectorAll('.customer-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentTab = btn.dataset.tab;
-      currentPage = 1;
-      renderTable();
-    }));
-
+    // Initial load
     updateKPIs();
     renderTable();
 
-    window.viewCustomer = viewCustomer;
+    // Expose functions globally
+    window.changePage = changePage;
     window.editCustomer = editCustomer;
     window.deleteCustomer = deleteCustomer;
-    window.changePage = changePage;
+    window.viewCustomer = viewCustomer;
   </script>
-
-  
 </body>
 
 </html>

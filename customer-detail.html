@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Customer Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        :root {
+            --brand-blue: #eef2f8;
+            --border-color: #cbd5e1;
+            --text-main: #334155;
+            --text-muted: #64748b;
+        }
+
+        /* Enhanced Customer Info Card */
+        .customer-info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 24px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .customer-avatar {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
+        }
+
+        .customer-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .customer-detail {
+            font-size: 13px;
+            color: #5b6e8c;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .customer-detail i {
+            width: 18px;
+            color: #2a3b82;
+            font-size: 12px;
+        }
+
+        .status-badge-custom {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-active-custom {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-inactive-custom {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .date-chip {
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* KPI Cards inside customer detail */
+        .kpi-grid {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .kpi-mini-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 180px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .kpi-mini-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-icon.blue-light {
+            background: #eef2ff;
+            color: #2a3b82;
+        }
+
+        .kpi-icon.green-light {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .kpi-icon.orange-light {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .kpi-info h6 {
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .kpi-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0;
+        }
+
+        /* Tabs with Action Button */
+        .tabs-header-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-bottom: 28px;
+            border: 1px solid #edf2f7;
+            gap: 16px;
+        }
+
+        .detail-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .detail-tab {
+            padding: 10px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-tab i {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .detail-tab:hover {
+            color: #2a3b82;
+            background: #f8fafc;
+        }
+
+        .detail-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .settings-dropdown-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-dropdown-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .dropdown-menu-custom {
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            min-width: 200px;
+        }
+
+        .dropdown-menu-custom .dropdown-item {
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dropdown-menu-custom .dropdown-item i {
+            width: 18px;
+            font-size: 14px;
+        }
+
+        .dropdown-menu-custom .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid #edf2f7;
+        }
+
+        .tab-content.active-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Invoices Table */
+        .invoices-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .invoices-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .invoices-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .invoices-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            font-size: 13px;
+        }
+
+        .invoice-link {
+            color: #2a3b82;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .invoice-link:hover {
+            text-decoration: underline;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .status-paid {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-unpaid {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .status-overdue {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .action-icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0 2px;
+        }
+
+        .action-icon-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        /* Address Card */
+        .address-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #eef2f6;
+            margin-bottom: 20px;
+        }
+
+        .address-card h6 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        /* Activity Timeline */
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .timeline-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .timeline-content p {
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .timeline-content small {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        @media (max-width: 768px) {
+            .customer-info-card {
+                padding: 20px;
+            }
+            .customer-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
+            }
+            .detail-tab {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            .tabs-header-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .settings-dropdown-btn {
+                justify-content: center;
+            }
+            .kpi-mini-card {
+                min-width: calc(50% - 16px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">
+    <!-- Sidebar Start -->
+   <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+    <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-customer.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Customer</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper">
+                <div class="container-fluid p-4">
+                    <div class="card card-body py-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="customer.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Customer Details</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="customer.html">Customers</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Customer Details</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Customer Info Card -->
+                    <div class="customer-info-card" id="customerInfoCard"></div>
+
+                    <!-- KPI Cards Row -->
+                    <div class="kpi-grid">
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon blue-light"><i class="fas fa-file-invoice fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Total Invoices</h6>
+                                <h3 id="totalInvoices">0</h3>
+                            </div>
+                        </div>
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon green-light"><i class="fas fa-check-circle fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Paid Invoices</h6>
+                                <h3 id="paidInvoices">0</h3>
+                            </div>
+                        </div>
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon orange-light"><i class="fas fa-clock fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Outstanding Balance</h6>
+                                <h3 id="outstandingBalance">₹0</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Header with Settings Dropdown -->
+                    <div class="tabs-header-wrapper">
+                        <div class="detail-tabs">
+                            <button class="detail-tab active" data-tab="invoices"><i class="fas fa-receipt"></i> Invoices</button>
+                            <button class="detail-tab" data-tab="address"><i class="fas fa-map-marker-alt"></i> Address & Contact</button>
+                            <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity Log</button>
+                            <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="settings-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cog"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                                <li><a class="dropdown-item" href="#" onclick="editCustomer()"> Edit Customer</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="createInvoice()"> Create Invoice</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteCustomer()"> Delete Customer</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="exportStatement()"> Export Statement</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Invoices -->
+                    <div id="invoices" class="tab-content active-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                            <h5 class="mb-0 fw-semibold">Invoice History</h5>
+                            <button class="btn btn-primary rounded-pill px-4" onclick="createInvoice()"><i class="fas fa-plus me-2"></i>New Invoice</button>
+                        </div>
+                        <div class="invoices-table-wrapper">
+                            <table class="invoices-table">
+                                <thead>
+                                    <tr>
+                                        <th>Invoice ID</th>
+                                        <th>Issue Date</th>
+                                        <th>Due Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="invoicesTableBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Address & Contact -->
+                    <div id="address" class="tab-content">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-building me-2 text-primary"></i>Billing Address</h6>
+                                    <p class="mb-1 text-muted" id="billingAddress">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-truck me-2 text-primary"></i>Shipping Address</h6>
+                                    <p class="mb-1 text-muted" id="shippingAddress">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-phone-alt me-2 text-primary"></i>Contact Information</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Email:</strong> <span id="contactEmail">-</span></p>
+                                            <p class="mb-2"><strong>Phone:</strong> <span id="contactPhone">-</span></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>GST Number:</strong> <span id="gstNumber">-</span></p>
+                                            <p class="mb-2"><strong>PAN Number:</strong> <span id="panNumber">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Activity Log -->
+                    <div id="activity" class="tab-content">
+                        <h5 class="fw-semibold mb-4">Recent Activities</h5>
+                        <div id="activityTimeline"></div>
+                    </div>
+
+                    <!-- Tab Content: Notes -->
+                    <div id="notes" class="tab-content">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Internal Notes</label>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this customer..."></textarea>
+                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const customerId = urlParams.get('id') || 'CUST-001';
+
+        // Customer Data
+        const customerData = {
+            id: customerId,
+            name: 'ABC Enterprises',
+            email: 'contact@abc.com',
+            phone: '+91 9876543210',
+            gst: '29AAACF1234D1Z',
+            pan: 'ABCDE1234F',
+            status: 'Active',
+            billingAddress: '123, Business Park, Andheri East, Mumbai - 400093, Maharashtra',
+            shippingAddress: '123, Business Park, Andheri East, Mumbai - 400093, Maharashtra',
+            createdOn: '2026-01-15',
+            createdBy: 'John Doe'
+        };
+
+        // Invoices Data
+        let customerInvoices = [
+            { id: 'INV-2404-001', issueDate: '2026-04-01', dueDate: '2026-05-01', amount: 5404, status: 'Paid', paidAmount: 5404 },
+            { id: 'INV-2404-005', issueDate: '2026-04-15', dueDate: '2026-05-15', amount: 2100, status: 'Unpaid', paidAmount: 0 },
+            { id: 'INV-2403-045', issueDate: '2026-03-01', dueDate: '2026-04-01', amount: 890, status: 'Overdue', paidAmount: 0 }
+        ];
+
+        // Activity Log
+        let activities = [
+            { action: 'Customer created', date: '2026-01-15 10:30 AM', user: 'John Doe' },
+            { action: 'Invoice INV-2404-001 created', date: '2026-04-01 02:15 PM', user: 'Admin' },
+            { action: 'Payment received for INV-2404-001', date: '2026-04-10 11:45 AM', user: 'System' },
+            { action: 'Customer profile updated', date: '2026-04-15 09:20 AM', user: 'Sarah Wilson' }
+        ];
+
+        function formatCurrency(amt) {
+            return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        function getStatusBadgeClass(status) {
+            if (status === 'Paid') return 'status-paid';
+            if (status === 'Overdue') return 'status-overdue';
+            return 'status-unpaid';
+        }
+
+        function renderCustomerInfo() {
+            const container = document.getElementById('customerInfoCard');
+            const statusClass = customerData.status === 'Active' ? 'status-active-custom' : 'status-inactive-custom';
+            const statusIcon = customerData.status === 'Active' ? 'fa-check-circle' : 'fa-times-circle';
+
+            container.innerHTML = `
+                <div class="row align-items-center g-4">
+                    <div class="col-auto"><div class="customer-avatar">${customerData.name.charAt(0)}</div></div>
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h3 class="customer-name">${customerData.name}</h3>
+                                <div class="customer-detail"><i class="fas fa-envelope"></i> ${customerData.email}</div>
+                                <div class="customer-detail"><i class="fas fa-phone"></i> ${customerData.phone}</div>
+                                <div class="customer-detail"><i class="fas fa-id-card"></i> GST: ${customerData.gst} | PAN: ${customerData.pan}</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-md-end">
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${customerData.status}</span></div>
+                                    <div class="d-flex gap-2 justify-content-md-end">
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Since: ${customerData.createdOn}</span>
+                                        <span class="date-chip"><i class="fas fa-user"></i> ${customerData.createdBy}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('billingAddress').innerText = customerData.billingAddress;
+            document.getElementById('shippingAddress').innerText = customerData.shippingAddress;
+            document.getElementById('contactEmail').innerText = customerData.email;
+            document.getElementById('contactPhone').innerText = customerData.phone;
+            document.getElementById('gstNumber').innerText = customerData.gst;
+            document.getElementById('panNumber').innerText = customerData.pan;
+        }
+
+        function updateKPIs() {
+            const total = customerInvoices.length;
+            const paid = customerInvoices.filter(i => i.status === 'Paid').length;
+            const outstanding = customerInvoices.reduce((sum, i) => sum + (i.amount - i.paidAmount), 0);
+            
+            document.getElementById('totalInvoices').innerText = total;
+            document.getElementById('paidInvoices').innerText = paid;
+            document.getElementById('outstandingBalance').innerHTML = formatCurrency(outstanding);
+        }
+
+        function renderInvoices() {
+            const tbody = document.getElementById('invoicesTableBody');
+            if (customerInvoices.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-5">No invoices found</td></tr>';
+                return;
+            }
+            tbody.innerHTML = customerInvoices.map(inv => `
+                <tr>
+                    <td><a class="invoice-link" onclick="viewInvoice('${inv.id}')">${inv.id}</a></td>
+                    <td>${inv.issueDate}</td>
+                    <td>${inv.dueDate}</td>
+                    <td class="fw-semibold">${formatCurrency(inv.amount)}</td>
+                    <td><span class="status-badge ${getStatusBadgeClass(inv.status)}">${inv.status}</span></td>
+                    <td>
+                        <button class="action-icon-btn" onclick="viewInvoice('${inv.id}')" title="View"><i class="fas fa-eye text-primary"></i></button>
+                        <button class="action-icon-btn" onclick="markAsPaid('${inv.id}')" title="Mark as Paid"><i class="fas fa-check-circle text-success"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderActivityTimeline() {
+            const container = document.getElementById('activityTimeline');
+            const iconMap = {
+                'Customer created': 'fa-user-plus',
+                'Invoice': 'fa-file-invoice',
+                'Payment': 'fa-credit-card',
+                'updated': 'fa-edit'
+            };
+            container.innerHTML = activities.map(act => {
+                let icon = 'fa-info-circle';
+                if (act.action.includes('created')) icon = 'fa-user-plus';
+                else if (act.action.includes('Invoice')) icon = 'fa-file-invoice';
+                else if (act.action.includes('Payment')) icon = 'fa-credit-card';
+                else if (act.action.includes('updated')) icon = 'fa-edit';
+                
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-icon blue-light"><i class="fas ${icon}"></i></div>
+                        <div class="timeline-content">
+                            <p class="mb-0 fw-semibold">${act.action}</p>
+                            <small><i class="far fa-clock me-1"></i>${act.date} by ${act.user}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`customer_notes_${customerData.id}`);
+            if (saved) document.getElementById('internalNotes').value = saved;
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('internalNotes').value;
+            localStorage.setItem(`customer_notes_${customerData.id}`, notes);
+            showToast('Notes saved successfully', 'success');
+            addActivity('Internal notes updated', 'System');
+        }
+
+        function addActivity(action, user) {
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10) + ' ' + now.toLocaleTimeString();
+            activities.unshift({ action, date: dateStr, user });
+            renderActivityTimeline();
+        }
+
+        function viewInvoice(invoiceId) {
+            window.location.href = `invoice-detail.html?id=${invoiceId}`;
+        }
+
+        function markAsPaid(invoiceId) {
+            const inv = customerInvoices.find(i => i.id === invoiceId);
+            if (inv && inv.status !== 'Paid') {
+                inv.status = 'Paid';
+                inv.paidAmount = inv.amount;
+                updateKPIs();
+                renderInvoices();
+                addActivity(`Invoice ${invoiceId} marked as paid`, 'Admin');
+                showToast(`Invoice ${invoiceId} marked as paid`, 'success');
+            }
+        }
+
+        function editCustomer() {
+            window.location.href = `edit-customer.html?id=${customerData.id}`;
+        }
+
+        function createInvoice() {
+            window.location.href = `create-invoice.html?customer=${customerData.id}`;
+        }
+
+        function deleteCustomer() {
+            if (confirm(`Delete customer "${customerData.name}"? This action cannot be undone.`)) {
+                showToast('Customer deleted successfully', 'info');
+                setTimeout(() => window.location.href = 'customer.html', 1500);
+            }
+        }
+
+        function exportStatement() {
+            showToast('Customer statement exported', 'success');
+        }
+
+        function showToast(msg, type) {
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'success' ? 'success' : 'info'} position-fixed bottom-0 end-0 m-3 rounded-pill shadow-lg`;
+            toast.style.zIndex = 9999;
+            toast.style.backgroundColor = type === 'success' ? '#10b981' : '#2a3b82';
+            toast.style.color = 'white';
+            toast.innerHTML = `<i class="fas fa-bell me-2"></i>${msg}`;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 2500);
+        }
+
+        function initTabs() {
+            const tabs = document.querySelectorAll('.detail-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contents.forEach(content => content.classList.remove('active-content'));
+                    document.getElementById(tabId).classList.add('active-content');
+                });
+            });
+        }
+
+        // Initialize everything
+        renderCustomerInfo();
+        updateKPIs();
+        renderInvoices();
+        renderActivityTimeline();
+        loadNotes();
+        initTabs();
+
+        // Expose functions globally
+        window.viewInvoice = viewInvoice;
+        window.markAsPaid = markAsPaid;
+        window.editCustomer = editCustomer;
+        window.createInvoice = createInvoice;
+        window.deleteCustomer = deleteCustomer;
+        window.exportStatement = exportStatement;
+        window.saveNotes = saveNotes;
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Enquiry Management</title>
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        * {
+            font-family: 'Inter', 'Manrope', sans-serif;
+        }
+
+        body {
+            background: #f5f7fb;
+        }
+
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        /* Status Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-new {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .status-in-progress {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .status-quoted {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-archived {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .enquiry-link {
+            cursor: pointer;
+            font-weight: 600;
+            color: #2a3b82;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+        }
+
+        .enquiry-link:hover {
+            text-decoration: underline;
+        }
+
+        .customer-link {
+            cursor: pointer;
+            font-weight: 600;
+            color: #2a3b82;
+            text-decoration: none;
+        }
+
+        .customer-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Table Styling */
+        .enquiry-table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .enquiry-table {
+            min-width: 1400px;
+            font-size: 0.85rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .enquiry-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .enquiry-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            white-space: nowrap;
+        }
+
+        /* Sticky Action column */
+        .enquiry-table th:last-child,
+        .enquiry-table td:last-child {
+            position: sticky;
+            right: 0;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .enquiry-table th:last-child {
+            background-color: #f8fafc;
+            z-index: 11;
+        }
+
+        .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            border: none;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .page-item.active .page-link {
+            background: #2a3b82;
+            color: white;
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown-item {
+            font-size: 0.8rem;
+            padding: 8px 18px;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+        /* KPI Cards */
+        .dashboard-container {
+            display: flex;
+            gap: 20px;
+            background: white;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding: 20px 24px;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .kpi-card {
+            background: white;
+            border: 1px solid #e9eef3;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 180px;
+            padding: 18px 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5b6e8c;
+            letter-spacing: 0.3px;
+        }
+
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-amount-main {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: #5f7f9e;
+            border-top: 1px dashed #e2edf2;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .count-badge {
+            background: #eff3f8;
+            border-radius: 40px;
+            padding: 2px 10px;
+            font-weight: 700;
+            color: #2a3b82;
+            font-size: 12px;
+        }
+
+        /* Unified Actions */
+        .unified-actions-card {
+            background: white;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            border: 1px solid #edf2f7;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .search-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 6px 18px;
+            min-width: 260px;
+        }
+
+        .search-inline:focus-within {
+            border-color: #2a3b82;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
+        }
+
+        .search-inline input {
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            width: 100%;
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        .search-inline i {
+            color: #94a3b8;
+        }
+
+        .tabs-centered {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            flex: 1;
+        }
+
+        .enquiry-tab {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .enquiry-tab:hover {
+            color: #2a3b82;
+            background: #f8fafc;
+        }
+
+        .enquiry-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .tab-count {
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 30px;
+            padding: 2px 9px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .enquiry-tab.active .tab-count {
+            background: #2a3b82;
+            color: white;
+        }
+
+        .btn-create-right {
+            flex-shrink: 0;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        @media (max-width: 992px) {
+            .unified-actions-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .tabs-centered {
+                order: 2;
+                justify-content: center;
+            }
+            .btn-create-right {
+                order: 3;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 16px;
+            }
+            .kpi-card {
+                min-width: 100%;
+            }
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 24px;
+            border: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+    </style>
+</head>
+
+<body>
+
+<div id="main-wrapper">
+   <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+
+    <div class="page-wrapper">
+        <header class="topbar">
+            <div class="with-vertical">
+                <nav class="navbar navbar-expand-lg p-0">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+                        <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+                        <li class="nav-item d-none d-lg-flex dropdown">
+                            <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px;" onclick="openCreateModal()"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Enquiry</button></div>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3 ms-auto">
+                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                    </div>
+                </nav>
+            </div>
+        </header>
+
+        <div class="body-wrapper p-3">
+            <div class="container-fluid p-0">
+                <div class="card card-body py-3 mb-2">
+                    <div class="row align-items-center">
+                        <div class="col-12">
+                            <div class="d-sm-flex align-items-center justify-space-between">
+                                <h4 class="mb-4 mb-sm-0 card-title">Enquiry Management</h4>
+                                <nav aria-label="breadcrumb" class="ms-auto">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item d-flex align-items-center">
+                                            <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                            </a>
+                                        </li>
+                                        <li class="breadcrumb-item active">Enquiries</li>
+                                    </ol>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="dashboard-container">
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Total Enquiries</span>
+                            <div class="icon-circle" style="background:#eef2ff;"><i class="fas fa-envelope text-primary"></i></div>
+                        </div>
+                        <div class="kpi-amount-main" id="totalEnquiries">0</div>
+                        <div class="kpi-sub">All customer inquiries</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">New Enquiries</span>
+                            <div class="icon-circle" style="background:#e0f2fe;"><i class="fas fa-bell" style="color:#0284c7"></i></div>
+                        </div>
+                        <div class="kpi-amount-main" id="newEnquiries">0</div>
+                        <div class="kpi-sub"><span><i class="far fa-clock"></i> Awaiting response</span><span class="count-badge" id="newCountBadge">0</span></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-header">
+                            <span class="kpi-label">Conversion Rate</span>
+                            <div class="icon-circle" style="background:#e3f7ec;"><i class="fas fa-chart-line" style="color:#10b981"></i></div>
+                        </div>
+                        <div class="kpi-amount-main" id="conversionRate">0%</div>
+                        <div class="kpi-sub"><span><i class="fas fa-file-invoice"></i> To Quotation</span><span class="count-badge" id="quotedCountBadge">0</span></div>
+                    </div>
+                </div>
+
+                <div class="card overflow-hidden p-4">
+                    <div class="unified-actions-card">
+                        <div class="search-inline">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="globalSearchInput" placeholder="Search by ID, customer, email or phone...">
+                        </div>
+                        <div class="tabs-centered">
+                            <button class="enquiry-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
+                            <button class="enquiry-tab" data-tab="new"><i class="fas fa-bell"></i> New <span class="tab-count" id="countNew">0</span></button>
+                            <button class="enquiry-tab" data-tab="quoted"><i class="fas fa-file-invoice"></i> Move to Quotation <span class="tab-count" id="countQuoted">0</span></button>
+                            <button class="enquiry-tab" data-tab="archived"><i class="fas fa-archive"></i> Archived <span class="tab-count" id="countArchived">0</span></button>
+                        </div>
+                        <div class="btn-create-right">
+                            <button class="btn btn-primary shadow-sm" onclick="openCreateModal()"><i class="fas fa-plus me-2"></i>New Enquiry</button>
+                        </div>
+                    </div>
+
+                    <div class="enquiry-table-wrapper">
+                        <table class="enquiry-table align-middle">
+                            <thead>
+                                <tr>
+                                    <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
+                                    <th>S.No</th>
+                                    <th>Status</th>
+                                    <th>Enq ID</th>
+                                    <th>Customer</th>
+                                    <th>Title</th>
+                                    <th>Email</th>
+                                    <th>Phone Number</th>
+                                    <th>Created On</th>
+                                    <th>Created By</th>
+                                    <th>Last Updated On</th>
+                                    <th>Last Updated By</th>
+                                    <th style="width:80px;">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="enquiryTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center py-3 flex-wrap">
+                        <span class="text-muted small">Showing <span id="rowStart">0</span>-<span id="rowEnd">0</span> of <span id="totalRows">0</span> enquiries</span>
+                        <nav><ul class="pagination pagination-sm mb-0" id="pagination"></ul></nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Create/Edit Enquiry Modal -->
+<div class="modal fade" id="enquiryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header border-0 pt-4 px-4">
+                <h5 class="modal-title fw-bold"><i class="fas fa-envelope text-primary me-2"></i><span id="modalTitle">Create New Enquiry</span></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body px-4 pb-4">
+                <form id="enquiryForm">
+                    <input type="hidden" id="editEnquiryId">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Customer Name *</label>
+                            <input type="text" class="form-control" id="customerName" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Title *</label>
+                            <input type="text" class="form-control" id="title" required placeholder="Enquiry subject">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email *</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone Number *</label>
+                            <input type="tel" class="form-control" id="phone" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Message / Description</label>
+                        <textarea class="form-control" id="message" rows="4" placeholder="Enquiry details..."></textarea>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="enquiryStatus">
+                                <option value="New">New</option>
+                                <option value="In Progress">In Progress</option>
+                                <option value="Quoted">Quoted</option>
+                                <option value="Archived">Archived</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Assigned To</label>
+                            <select class="form-select" id="assignedTo">
+                                <option>John Doe</option>
+                                <option>Jane Smith</option>
+                                <option>Mike Johnson</option>
+                                <option>Sarah Wilson</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary rounded-pill px-5">Save Enquiry</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Toast -->
+<div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+</div>
+
+<script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+<script src="assets/libs/js/simplebar.min.js"></script>
+<script src="assets/libs/js/app.init.js"></script>
+<script src="assets/libs/js/theme.js"></script>
+<script src="assets/libs/js/app.min.js"></script>
+<script src="assets/libs/js/sidebarmenu.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+<script>
+    let enquiries = [
+        { id: 1, enqId: 'ENQ-2404-001', customerName: 'ABC Enterprises', customerId: 'CUST-001', title: 'Product Pricing Inquiry', email: 'contact@abc.com', phone: '+91 9876543210', status: 'New', createdOn: '2026-04-01', createdBy: 'John Doe', lastUpdatedOn: '2026-04-01', lastUpdatedBy: 'John Doe', message: 'Need pricing for bulk order' },
+        { id: 2, enqId: 'ENQ-2404-002', customerName: 'XYZ Solutions', customerId: 'CUST-002', title: 'Service Availability', email: 'info@xyz.com', phone: '+91 9876543211', status: 'In Progress', createdOn: '2026-04-03', createdBy: 'Jane Smith', lastUpdatedOn: '2026-04-05', lastUpdatedBy: 'Jane Smith', message: 'Looking for consultation services' },
+        { id: 3, enqId: 'ENQ-2404-003', customerName: 'Global Traders', customerId: 'CUST-003', title: 'International Shipping', email: 'sales@global.com', phone: '+91 9876543212', status: 'Quoted', createdOn: '2026-03-28', createdBy: 'Mike Johnson', lastUpdatedOn: '2026-04-02', lastUpdatedBy: 'Mike Johnson', message: 'Shipping rates to Europe' },
+        { id: 4, enqId: 'ENQ-2404-004', customerName: 'Sunrise Industries', customerId: 'CUST-004', title: 'Bulk Order Discount', email: 'contact@sunrise.com', phone: '+91 9876543213', status: 'New', createdOn: '2026-04-06', createdBy: 'Sarah Wilson', lastUpdatedOn: '2026-04-06', lastUpdatedBy: 'Sarah Wilson', message: 'Volume discount request' },
+        { id: 5, enqId: 'ENQ-2404-005', customerName: 'Metro Corp', customerId: 'CUST-005', title: 'Technical Support', email: 'info@metro.com', phone: '+91 9876543214', status: 'In Progress', createdOn: '2026-03-30', createdBy: 'David Brown', lastUpdatedOn: '2026-04-04', lastUpdatedBy: 'David Brown', message: 'Product installation query' },
+        { id: 6, enqId: 'ENQ-2404-006', customerName: 'Aster Innovations', customerId: 'CUST-006', title: 'Partnership Proposal', email: 'hello@aster.com', phone: '+91 9876543215', status: 'Quoted', createdOn: '2026-03-25', createdBy: 'Emily Davis', lastUpdatedOn: '2026-03-30', lastUpdatedBy: 'Emily Davis', message: 'Strategic partnership request' },
+        { id: 7, enqId: 'ENQ-2404-007', customerName: 'Tech Solutions Ltd', customerId: 'CUST-007', title: 'Software Demo', email: 'support@tech.com', phone: '+91 9876543216', status: 'Archived', createdOn: '2026-03-20', createdBy: 'Robert Lee', lastUpdatedOn: '2026-03-28', lastUpdatedBy: 'Robert Lee', message: 'Request for product demo' }
+    ];
+
+    let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
+    let currentSearchTerm = '';
+    let nextId = 8;
+
+    function showToast(msg) {
+        const toast = document.getElementById('liveToastMsg');
+        document.getElementById('toastText').innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2200);
+    }
+
+    function escapeHtml(str) {
+        if (!str) return '-';
+        return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+    }
+
+    function getStatusClass(status) {
+        if (status === 'New') return 'status-new';
+        if (status === 'In Progress') return 'status-in-progress';
+        if (status === 'Quoted') return 'status-quoted';
+        return 'status-archived';
+    }
+
+    function filterEnquiries() {
+        let search = currentSearchTerm.toLowerCase().trim();
+        return enquiries.filter(e => {
+            let matchSearch = search === '' || e.enqId.toLowerCase().includes(search) || e.customerName.toLowerCase().includes(search) || e.email.toLowerCase().includes(search) || e.phone.includes(search);
+            if (currentTab === 'all') return matchSearch;
+            if (currentTab === 'new') return (e.status === 'New') && matchSearch;
+            if (currentTab === 'quoted') return (e.status === 'Quoted') && matchSearch;
+            if (currentTab === 'archived') return (e.status === 'Archived') && matchSearch;
+            return matchSearch;
+        });
+    }
+
+    function updateKPIs() {
+        const total = enquiries.length;
+        const newCount = enquiries.filter(e => e.status === 'New').length;
+        const quotedCount = enquiries.filter(e => e.status === 'Quoted').length;
+        const conversionRate = total > 0 ? Math.round((quotedCount / total) * 100) : 0;
+        
+        document.getElementById('totalEnquiries').innerText = total;
+        document.getElementById('newEnquiries').innerText = newCount;
+        document.getElementById('conversionRate').innerText = conversionRate + '%';
+        document.getElementById('newCountBadge').innerText = newCount;
+        document.getElementById('quotedCountBadge').innerText = quotedCount;
+        
+        document.getElementById('countAll').innerText = total;
+        document.getElementById('countNew').innerText = newCount;
+        document.getElementById('countQuoted').innerText = quotedCount;
+        document.getElementById('countArchived').innerText = enquiries.filter(e => e.status === 'Archived').length;
+    }
+
+    function renderTable() {
+        let filtered = filterEnquiries();
+        let total = filtered.length;
+        let totalPages = Math.ceil(total / rowsPerPage);
+        if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+        let start = (currentPage - 1) * rowsPerPage;
+        let end = Math.min(start + rowsPerPage, total);
+        let pageData = filtered.slice(start, end);
+        let tbody = document.getElementById('enquiryTableBody');
+        tbody.innerHTML = '';
+
+        if (pageData.length === 0) {
+            tbody.innerHTML = '<td><td colspan="13" class="text-center py-5 text-muted">No enquiries found</td></tr>';
+        } else {
+            pageData.forEach((e, idx) => {
+                let sno = start + idx + 1;
+                let statusClass = getStatusClass(e.status);
+                let row = `<tr>
+                    <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${e.id}"></td>
+                    <td>${sno}</td>
+                    <td><span class="status-badge ${statusClass}">${e.status}</span></td>
+                    <td><span class="enquiry-link" data-id="${e.enqId}">${e.enqId}</span></td>
+                    <td><span class="customer-link" onclick="goToCustomerDetail('${e.customerId}')">${escapeHtml(e.customerName)}</span></td>
+                    <td>${escapeHtml(e.title)}</td>
+                    <td>${escapeHtml(e.email)}</td>
+                    <td>${escapeHtml(e.phone)}</td>
+                    <td>${e.createdOn}</td>
+                    <td>${escapeHtml(e.createdBy)}</td>
+                    <td>${e.lastUpdatedOn}</td>
+                    <td>${escapeHtml(e.lastUpdatedBy)}</td>
+                    <td>
+                        <div class="dropdown">
+                            <button class="action-btn" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-ellipsis-v"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#" onclick="viewEnquiry('${e.enqId}')"><i class="fas fa-eye text-primary"></i> View</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="editEnquiry(${e.id})"><i class="fas fa-edit text-success"></i> Edit</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="createQuotation('${e.enqId}', '${escapeHtml(e.customerName)}')"><i class="fas fa-file-invoice text-warning"></i> Create Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="markAsArchive(${e.id})"><i class="fas fa-archive text-info"></i> Mark as Archive</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteEnquiry(${e.id})"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>`;
+                tbody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+
+        document.getElementById('rowStart').innerText = total ? start + 1 : 0;
+        document.getElementById('rowEnd').innerText = end;
+        document.getElementById('totalRows').innerText = total;
+
+        let pagination = document.getElementById('pagination');
+        pagination.innerHTML = '';
+        if (totalPages > 1) {
+            pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+            for (let i = 1; i <= totalPages; i++) {
+                if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+                    pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+                else if (i === currentPage - 3 || i === currentPage + 3)
+                    pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+            }
+            pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
+        }
+
+        document.querySelectorAll('.enquiry-link').forEach(el => {
+            el.addEventListener('click', (e) => viewEnquiry(el.getAttribute('data-id')));
+        });
+        
+        const selectAll = document.getElementById('selectAllCheckbox');
+        if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
+    }
+
+    function changePage(p) {
+        let filtered = filterEnquiries();
+        let pages = Math.ceil(filtered.length / rowsPerPage);
+        if (p >= 1 && p <= pages) {
+            currentPage = p;
+            renderTable();
+        }
+    }
+
+    document.getElementById('globalSearchInput').addEventListener('input', function() {
+        currentSearchTerm = this.value.toLowerCase();
+        currentPage = 1;
+        renderTable();
+    });
+
+    document.querySelectorAll('.enquiry-tab').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.enquiry-tab').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            currentTab = this.dataset.tab;
+            currentPage = 1;
+            renderTable();
+        });
+    });
+
+    function openCreateModal() {
+        document.getElementById('modalTitle').innerText = 'Create New Enquiry';
+        document.getElementById('editEnquiryId').value = '';
+        document.getElementById('enquiryForm').reset();
+        document.getElementById('enquiryStatus').value = 'New';
+        new bootstrap.Modal(document.getElementById('enquiryModal')).show();
+    }
+
+    window.goToCustomerDetail = function(customerId) {
+        window.location.href = `customer-detail.html?id=${customerId}`;
+    };
+
+    window.viewEnquiry = function(enqId) {
+        window.location.href = `enquiry-detail.html?id=${enqId}`;
+    };
+
+    window.editEnquiry = function(id) {
+        const enquiry = enquiries.find(e => e.id === id);
+        if (enquiry) {
+            document.getElementById('modalTitle').innerText = 'Edit Enquiry';
+            document.getElementById('editEnquiryId').value = enquiry.id;
+            document.getElementById('customerName').value = enquiry.customerName;
+            document.getElementById('title').value = enquiry.title;
+            document.getElementById('email').value = enquiry.email;
+            document.getElementById('phone').value = enquiry.phone;
+            document.getElementById('message').value = enquiry.message || '';
+            document.getElementById('enquiryStatus').value = enquiry.status;
+            new bootstrap.Modal(document.getElementById('enquiryModal')).show();
+        }
+    };
+
+    window.createQuotation = function(enqId, customerName) {
+        window.location.href = `create-quotation.html?enquiry=${enqId}&customer=${encodeURIComponent(customerName)}`;
+    };
+
+    window.markAsArchive = function(id) {
+        const enquiry = enquiries.find(e => e.id === id);
+        if (enquiry && enquiry.status !== 'Archived') {
+            enquiry.status = 'Archived';
+            enquiry.lastUpdatedOn = new Date().toISOString().slice(0, 10);
+            enquiry.lastUpdatedBy = 'Admin';
+            updateKPIs();
+            renderTable();
+            showToast(`Enquiry ${enquiry.enqId} archived successfully`);
+        } else if (enquiry && enquiry.status === 'Archived') {
+            showToast('Enquiry is already archived');
+        }
+    };
+
+    window.deleteEnquiry = function(id) {
+        if (confirm('Permanently delete this enquiry?')) {
+            enquiries = enquiries.filter(e => e.id !== id);
+            updateKPIs();
+            renderTable();
+            showToast('Enquiry deleted successfully');
+        }
+    };
+
+    document.getElementById('enquiryForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const id = document.getElementById('editEnquiryId').value;
+        const now = new Date().toISOString().slice(0, 10);
+        const customerName = document.getElementById('customerName').value;
+        
+        const newEnquiry = {
+            id: id ? parseInt(id) : nextId++,
+            enqId: id ? enquiries.find(e => e.id == id).enqId : `ENQ-${now.replace(/-/g, '')}-${String(nextId).padStart(3, '0')}`,
+            customerName: customerName,
+            customerId: id ? enquiries.find(e => e.id == id).customerId : `CUST-${String(nextId).padStart(3, '0')}`,
+            title: document.getElementById('title').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value,
+            status: document.getElementById('enquiryStatus').value,
+            createdOn: id ? enquiries.find(e => e.id == id).createdOn : now,
+            createdBy: id ? enquiries.find(e => e.id == id).createdBy : 'Admin',
+            lastUpdatedOn: now,
+            lastUpdatedBy: 'Admin',
+            message: document.getElementById('message').value
+        };
+        
+        if (id) {
+            const idx = enquiries.findIndex(e => e.id == id);
+            if (idx !== -1) enquiries[idx] = newEnquiry;
+            showToast('Enquiry updated successfully');
+        } else {
+            enquiries.push(newEnquiry);
+            showToast('Enquiry created successfully');
+        }
+        
+        updateKPIs();
+        renderTable();
+        bootstrap.Modal.getInstance(document.getElementById('enquiryModal')).hide();
+    });
+
+    updateKPIs();
+    renderTable();
+
+    window.changePage = changePage;
+    window.openCreateModal = openCreateModal;
+</script>
+</body>
+
+</html>

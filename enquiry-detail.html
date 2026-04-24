@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Enquiry Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+
+        /* Enhanced Enquiry Info Card */
+        .enquiry-info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 24px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .enquiry-avatar {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
+        }
+
+        .enquiry-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .enquiry-detail {
+            font-size: 13px;
+            color: #5b6e8c;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .enquiry-detail i {
+            width: 18px;
+            color: #2a3b82;
+            font-size: 12px;
+        }
+
+        .status-badge-custom {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-new-custom {
+            background: #e0f2fe;
+            color: #0284c7;
+        }
+
+        .status-progress-custom {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .status-quoted-custom {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-archived-custom {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .date-chip {
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* KPI Cards inside enquiry detail */
+        .kpi-grid {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .kpi-mini-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 180px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .kpi-mini-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-icon.blue-light {
+            background: #eef2ff;
+            color: #2a3b82;
+        }
+
+        .kpi-icon.green-light {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .kpi-icon.orange-light {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .kpi-info h6 {
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .kpi-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0;
+        }
+
+        /* Tabs with Action Button */
+        .tabs-header-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-bottom: 28px;
+            border: 1px solid #edf2f7;
+            gap: 16px;
+        }
+
+        .detail-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .detail-tab {
+            padding: 10px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-tab i {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .detail-tab:hover {
+            color: #2a3b82;
+            background: #f8fafc;
+        }
+
+        .detail-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .settings-dropdown-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-dropdown-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .dropdown-menu-custom {
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            min-width: 200px;
+        }
+
+        .dropdown-menu-custom .dropdown-item {
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dropdown-menu-custom .dropdown-item i {
+            width: 18px;
+            font-size: 14px;
+        }
+
+        .dropdown-menu-custom .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid #edf2f7;
+        }
+
+        .tab-content.active-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Message Card */
+        .message-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #eef2f6;
+            margin-bottom: 20px;
+        }
+
+        .message-card h6 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        .message-content {
+            background: white;
+            border-radius: 16px;
+            padding: 20px;
+            line-height: 1.6;
+            color: #334155;
+        }
+
+        /* Activity Timeline */
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .timeline-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .timeline-content p {
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .timeline-content small {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .enquiry-info-card {
+                padding: 20px;
+            }
+            .enquiry-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
+            }
+            .detail-tab {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            .tabs-header-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .settings-dropdown-btn {
+                justify-content: center;
+            }
+            .kpi-mini-card {
+                min-width: calc(50% - 16px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">
+          <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-enquiry.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Enquiry</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper">
+                <div class="container-fluid p-4">
+                    <div class="card card-body py-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="enquiry.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Enquiry Details</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="enquiry.html">Enquiries</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Enquiry Details</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Enquiry Info Card -->
+                    <div class="enquiry-info-card" id="enquiryInfoCard"></div>
+
+                    <!-- KPI Cards Row -->
+                    <div class="kpi-grid">
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon blue-light"><i class="fas fa-clock fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Response Time</h6>
+                                <h3 id="responseTime">-</h3>
+                            </div>
+                        </div>
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon green-light"><i class="fas fa-file-invoice fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Quotation Status</h6>
+                                <h3 id="quotationStatus">-</h3>
+                            </div>
+                        </div>
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon orange-light"><i class="fas fa-user fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Assigned To</h6>
+                                <h3 id="assignedTo">-</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Header with Settings Dropdown -->
+                    <div class="tabs-header-wrapper">
+                        <div class="detail-tabs">
+                            <button class="detail-tab active" data-tab="details"><i class="fas fa-info-circle"></i> Details</button>
+                            <button class="detail-tab" data-tab="conversation"><i class="fas fa-comments"></i> Conversation</button>
+                            <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity Log</button>
+                            <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="settings-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cog"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                                <li><a class="dropdown-item" href="#" onclick="editEnquiry()"><i class="fas fa-edit"></i> Edit Enquiry</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="createQuotation()"><i class="fas fa-file-invoice"></i> Create Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="changeStatus()"><i class="fas fa-tag"></i> Change Status</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteEnquiry()"><i class="fas fa-trash-alt"></i> Delete Enquiry</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Details -->
+                    <div id="details" class="tab-content active-content">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="message-card">
+                                    <h6><i class="fas fa-user me-2 text-primary"></i>Customer Information</h6>
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label text-muted small">Customer Name</label>
+                                            <p class="fw-semibold mb-0" id="detailCustomerName">-</p>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label text-muted small">Email Address</label>
+                                            <p class="fw-semibold mb-0" id="detailEmail">-</p>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label text-muted small">Phone Number</label>
+                                            <p class="fw-semibold mb-0" id="detailPhone">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="message-card">
+                                    <h6><i class="fas fa-ticket-alt me-2 text-primary"></i>Enquiry Information</h6>
+                                    <div class="row">
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label text-muted small">Title / Subject</label>
+                                            <p class="fw-semibold mb-0" id="detailTitle">-</p>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label text-muted small">Status</label>
+                                            <p class="mb-0" id="detailStatus">-</p>
+                                        </div>
+                                        <div class="col-12 mb-3">
+                                            <label class="form-label text-muted small">Created By</label>
+                                            <p class="fw-semibold mb-0" id="detailCreatedBy">-</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="message-card">
+                                    <h6><i class="fas fa-envelope me-2 text-primary"></i>Message / Description</h6>
+                                    <div class="message-content" id="detailMessage"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Conversation -->
+                    <div id="conversation" class="tab-content">
+                        <h5 class="fw-semibold mb-4">Conversation History</h5>
+                        <div id="conversationList"></div>
+                        <div class="mt-4">
+                            <label class="form-label fw-semibold">Add Reply</label>
+                            <textarea class="form-control" rows="3" id="replyMessage" placeholder="Type your reply here..."></textarea>
+                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="sendReply()"><i class="fas fa-paper-plane me-2"></i>Send Reply</button>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Activity Log -->
+                    <div id="activity" class="tab-content">
+                        <h5 class="fw-semibold mb-4">Recent Activities</h5>
+                        <div id="activityTimeline"></div>
+                    </div>
+
+                    <!-- Tab Content: Notes -->
+                    <div id="notes" class="tab-content">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Internal Notes</label>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this enquiry..."></textarea>
+                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Change Status Modal -->
+    <div class="modal fade" id="statusModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content rounded-4">
+                <div class="modal-header border-0">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-tag text-primary me-2"></i>Change Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <select class="form-select" id="newStatus">
+                        <option value="New">New</option>
+                        <option value="In Progress">In Progress</option>
+                        <option value="Quoted">Quoted</option>
+                        <option value="Archived">Archived</option>
+                    </select>
+                </div>
+                <div class="modal-footer border-0">
+                    <button class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-primary rounded-pill px-4" onclick="updateStatus()">Update Status</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enquiry Detail Modal for viewing -->
+    <div class="modal fade" id="enquiryDetailModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4">
+                <div class="modal-header border-0 pt-4 px-4">
+                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="enquiries.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Enquiry Details</h4>
+                   
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 pb-4" id="enquiryDetailContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const enquiryId = urlParams.get('id') || 'ENQ-2404-001';
+
+        // Enquiry Data
+        const enquiryData = {
+            id: enquiryId,
+            customerName: 'ABC Enterprises',
+            customerId: 'CUST-001',
+            email: 'contact@abc.com',
+            phone: '+91 9876543210',
+            title: 'Product Pricing Inquiry',
+            status: 'New',
+            message: 'We are interested in your product line and would like to get pricing information for bulk orders. Please share the wholesale price list and minimum order quantity details.\n\nAlso, let us know if there are any ongoing discounts or special offers for new customers.',
+            createdOn: '2026-04-01',
+            createdBy: 'John Doe',
+            lastUpdatedOn: '2026-04-01',
+            lastUpdatedBy: 'John Doe',
+            assignedTo: 'Sarah Wilson',
+            quotationId: null
+        };
+
+        // Conversation Data
+        let conversations = [
+            { id: 1, sender: 'ABC Enterprises', message: 'We are interested in your product line. Please share pricing details.', date: '2026-04-01 10:30 AM', type: 'customer' },
+            { id: 2, sender: 'Support Team', message: 'Thank you for your interest. We will get back to you shortly with the pricing details.', date: '2026-04-01 11:45 AM', type: 'staff' }
+        ];
+
+        // Activity Log
+        let activities = [
+            { action: 'Enquiry created', date: '2026-04-01 10:30 AM', user: 'John Doe' },
+            { action: 'Status changed to In Progress', date: '2026-04-02 09:15 AM', user: 'Sarah Wilson' },
+            { action: 'Reply sent to customer', date: '2026-04-02 11:30 AM', user: 'Support Team' }
+        ];
+
+        function showToast(msg) {
+            const toast = document.getElementById('liveToastMsg');
+            document.getElementById('toastText').innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2200);
+        }
+
+        function getStatusClass(status) {
+            if (status === 'New') return 'status-new-custom';
+            if (status === 'In Progress') return 'status-progress-custom';
+            if (status === 'Quoted') return 'status-quoted-custom';
+            return 'status-archived-custom';
+        }
+
+        function getStatusIcon(status) {
+            if (status === 'New') return 'fa-bell';
+            if (status === 'In Progress') return 'fa-clock';
+            if (status === 'Quoted') return 'fa-file-invoice';
+            return 'fa-archive';
+        }
+
+        function formatDate(dateStr) {
+            return dateStr;
+        }
+
+        function renderEnquiryInfo() {
+            const container = document.getElementById('enquiryInfoCard');
+            const statusClass = getStatusClass(enquiryData.status);
+            const statusIcon = getStatusIcon(enquiryData.status);
+
+            container.innerHTML = `
+                <div class="row align-items-center g-4">
+                    <div class="col-auto"><div class="enquiry-avatar"><i class="fas fa-envelope"></i></div></div>
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h3 class="enquiry-number">${escapeHtml(enquiryData.id)}</h3>
+                                <div class="enquiry-detail"><i class="fas fa-building"></i> ${escapeHtml(enquiryData.customerName)}</div>
+                                <div class="enquiry-detail"><i class="fas fa-heading"></i> ${escapeHtml(enquiryData.title)}</div>
+                                <div class="enquiry-detail"><i class="fas fa-envelope"></i> ${escapeHtml(enquiryData.email)}</div>
+                                <div class="enquiry-detail"><i class="fas fa-phone"></i> ${escapeHtml(enquiryData.phone)}</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-md-end">
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${enquiryData.status}</span></div>
+                                    <div class="d-flex gap-2 justify-content-md-end">
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Created: ${enquiryData.createdOn}</span>
+                                        <span class="date-chip"><i class="fas fa-user"></i> ${enquiryData.createdBy}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Details tab
+            document.getElementById('detailCustomerName').innerHTML = `<a href="customer-detail.html?id=${enquiryData.customerId}" class="customer-link" style="color:#2a3b82; text-decoration:none;">${escapeHtml(enquiryData.customerName)}</a>`;
+            document.getElementById('detailEmail').innerHTML = escapeHtml(enquiryData.email);
+            document.getElementById('detailPhone').innerHTML = escapeHtml(enquiryData.phone);
+            document.getElementById('detailTitle').innerHTML = escapeHtml(enquiryData.title);
+            document.getElementById('detailStatus').innerHTML = `<span class="status-badge ${getStatusClass(enquiryData.status)}">${enquiryData.status}</span>`;
+            document.getElementById('detailCreatedBy').innerHTML = `${escapeHtml(enquiryData.createdBy)} on ${enquiryData.createdOn}`;
+            document.getElementById('detailMessage').innerHTML = escapeHtml(enquiryData.message).replace(/\n/g, '<br>');
+
+            // KPI Cards
+            const responseTime = enquiryData.status === 'New' ? 'Pending' : '2 days';
+            document.getElementById('responseTime').innerHTML = responseTime;
+            document.getElementById('quotationStatus').innerHTML = enquiryData.quotationId ? 'Created' : 'Not Created';
+            document.getElementById('assignedTo').innerHTML = escapeHtml(enquiryData.assignedTo);
+        }
+
+        function renderConversations() {
+            const container = document.getElementById('conversationList');
+            container.innerHTML = conversations.map(conv => `
+                <div class="timeline-item">
+                    <div class="timeline-icon ${conv.type === 'customer' ? 'orange-light' : 'blue-light'}">
+                        <i class="fas ${conv.type === 'customer' ? 'fa-user' : 'fa-headset'}"></i>
+                    </div>
+                    <div class="timeline-content">
+                        <p class="mb-0 fw-semibold">${escapeHtml(conv.sender)}</p>
+                        <div class="bg-light rounded-3 p-3 mt-2">${escapeHtml(conv.message).replace(/\n/g, '<br>')}</div>
+                        <small><i class="far fa-clock me-1"></i>${conv.date}</small>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderActivityTimeline() {
+            const container = document.getElementById('activityTimeline');
+            container.innerHTML = activities.map(act => {
+                let icon = 'fa-info-circle';
+                if (act.action.includes('created')) icon = 'fa-plus-circle';
+                else if (act.action.includes('changed')) icon = 'fa-exchange-alt';
+                else if (act.action.includes('sent')) icon = 'fa-paper-plane';
+                
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-icon blue-light"><i class="fas ${icon}"></i></div>
+                        <div class="timeline-content">
+                            <p class="mb-0 fw-semibold">${act.action}</p>
+                            <small><i class="far fa-clock me-1"></i>${act.date} by ${act.user}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`enquiry_notes_${enquiryData.id}`);
+            if (saved) document.getElementById('internalNotes').value = saved;
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('internalNotes').value;
+            localStorage.setItem(`enquiry_notes_${enquiryData.id}`, notes);
+            showToast('Notes saved successfully');
+            addActivity('Internal notes updated', 'Admin');
+        }
+
+        function sendReply() {
+            const reply = document.getElementById('replyMessage').value.trim();
+            if (!reply) {
+                showToast('Please enter a reply message');
+                return;
+            }
+            
+            conversations.push({
+                id: conversations.length + 1,
+                sender: 'Support Team',
+                message: reply,
+                date: new Date().toLocaleString(),
+                type: 'staff'
+            });
+            
+            renderConversations();
+            addActivity('Reply sent to customer', 'Support Team');
+            document.getElementById('replyMessage').value = '';
+            showToast('Reply sent successfully');
+        }
+
+        function addActivity(action, user) {
+            const now = new Date();
+            const dateStr = now.toLocaleString();
+            activities.unshift({ action, date: dateStr, user });
+            renderActivityTimeline();
+        }
+
+        function editEnquiry() {
+            showToast('Edit enquiry feature coming soon');
+        }
+
+        function createQuotation() {
+            window.location.href = `create-quotation.html?enquiry=${enquiryData.id}&customer=${encodeURIComponent(enquiryData.customerName)}`;
+        }
+
+        function changeStatus() {
+            document.getElementById('newStatus').value = enquiryData.status;
+            new bootstrap.Modal(document.getElementById('statusModal')).show();
+        }
+
+        function updateStatus() {
+            const newStatus = document.getElementById('newStatus').value;
+            if (newStatus !== enquiryData.status) {
+                enquiryData.status = newStatus;
+                enquiryData.lastUpdatedOn = new Date().toISOString().slice(0, 10);
+                enquiryData.lastUpdatedBy = 'Admin';
+                renderEnquiryInfo();
+                addActivity(`Status changed to ${newStatus}`, 'Admin');
+                showToast(`Status updated to ${newStatus}`);
+            }
+            bootstrap.Modal.getInstance(document.getElementById('statusModal')).hide();
+        }
+
+        function deleteEnquiry() {
+            if (confirm(`Delete enquiry "${enquiryData.id}"? This action cannot be undone.`)) {
+                showToast('Enquiry deleted successfully');
+                setTimeout(() => window.location.href = 'enquiry.html', 1500);
+            }
+        }
+
+        function initTabs() {
+            const tabs = document.querySelectorAll('.detail-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contents.forEach(content => content.classList.remove('active-content'));
+                    document.getElementById(tabId).classList.add('active-content');
+                });
+            });
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '-';
+            return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+        }
+
+        // Initialize
+        renderEnquiryInfo();
+        renderConversations();
+        renderActivityTimeline();
+        loadNotes();
+        initTabs();
+
+        // Expose functions globally
+        window.editEnquiry = editEnquiry;
+        window.createQuotation = createQuotation;
+        window.changeStatus = changeStatus;
+        window.deleteEnquiry = deleteEnquiry;
+        window.saveNotes = saveNotes;
+        window.sendReply = sendReply;
+        window.updateStatus = updateStatus;
+    </script>
+</body>
+
+</html>

@@ -582,6 +582,7 @@
 <body>
   <div id="main-wrapper">
     <!-- Sidebar Start -->
+   <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -590,60 +591,169 @@
               <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
             </a>
           </div>
+          
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
               <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                <a class="sidebar-link " href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
               </li>
+
               <li class="sidebar-item">
-                <a class="sidebar-link" href="../main/index2.html" aria-expanded="false">
+                <a class="sidebar-link" href="#" aria-expanded="false">
                   <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Inbox</span>
                 </a>
               </li>
+
+              <!-- Items -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
                   <span class="hide-menu">Items</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span> Inventory</a></li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
                 </ul>
               </li>
+
+              <!-- Purchase -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Purchase</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Suppliers</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Purchase Order</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Purchase Bill</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Supplier Statement</a></li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
                 </ul>
               </li>
+
+              <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span> Customer</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Enquiry</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Estimates</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span class="icon-small"></span> Invoice</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Customer Statement</a></li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
                 </ul>
               </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
               <li><span class="sidebar-divider"></span></li>
             </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
           </nav>
         </div>
       </div>
     </aside>
+    <!-- Sidebar End -->
+
     <!-- Sidebar End -->
 
     <div class="page-wrapper">

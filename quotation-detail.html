@@ -1,0 +1,1047 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Quotation Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+
+        /* Enhanced Quotation Info Card */
+        .quotation-info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 24px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quotation-avatar {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
+        }
+
+        .quotation-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .quotation-detail {
+            font-size: 13px;
+            color: #5b6e8c;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .quotation-detail i {
+            width: 18px;
+            color: #2a3b82;
+            font-size: 12px;
+        }
+
+        .status-badge-custom {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-open-custom {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .status-closed-custom {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-expired-custom {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .date-chip {
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* KPI Cards inside quotation detail */
+        .kpi-grid {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .kpi-mini-card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 180px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .kpi-mini-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .kpi-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-icon.blue-light {
+            background: #eef2ff;
+            color: #2a3b82;
+        }
+
+        .kpi-icon.green-light {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .kpi-icon.orange-light {
+            background: #fff3e3;
+            color: #d97706;
+        }
+
+        .kpi-info h6 {
+            font-size: 12px;
+            font-weight: 500;
+            color: #64748b;
+            margin-bottom: 4px;
+        }
+
+        .kpi-info h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 0;
+        }
+
+        /* Tabs with Action Button */
+        .tabs-header-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-bottom: 28px;
+            border: 1px solid #edf2f7;
+            gap: 16px;
+        }
+
+        .detail-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .detail-tab {
+            padding: 10px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-tab i {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .detail-tab:hover {
+            color: #2a3b82;
+            background: #f8fafc;
+        }
+
+        .detail-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .settings-dropdown-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-dropdown-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .dropdown-menu-custom {
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            min-width: 200px;
+        }
+
+        .dropdown-menu-custom .dropdown-item {
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dropdown-menu-custom .dropdown-item i {
+            width: 18px;
+            font-size: 14px;
+        }
+
+        .dropdown-menu-custom .dropdown-item:hover {
+            background: #f8fafc;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid #edf2f7;
+        }
+
+        .tab-content.active-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+          /* Activity Timeline */
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .timeline-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .timeline-content p {
+            margin-bottom: 4px;
+            font-size: 13px;
+            color: #334155;
+        }
+
+        .timeline-content small {
+            color: #94a3b8;
+            font-size: 11px;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Quotation Items Table */
+        .items-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .items-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .items-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            font-size: 13px;
+        }
+
+        /* Summary Section */
+        .summary-section {
+            margin-top: 24px;
+            border-top: 1px solid #eef2f6;
+            padding-top: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: flex-end;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .summary-box {
+            width: 300px;
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 16px 20px;
+        }
+
+        .summary-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .summary-line.total {
+            font-weight: 700;
+            font-size: 16px;
+            color: #1e293b;
+            border-bottom: none;
+            padding-top: 12px;
+        }
+
+        .action-icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            margin: 0 2px;
+        }
+
+        .action-icon-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        /* Terms Card */
+        .terms-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #eef2f6;
+            margin-top: 20px;
+        }
+
+        .terms-card h6 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .quotation-info-card {
+                padding: 20px;
+            }
+            .quotation-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
+            }
+            .detail-tab {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            .tabs-header-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .settings-dropdown-btn {
+                justify-content: center;
+            }
+            .kpi-mini-card {
+                min-width: calc(50% - 16px);
+            }
+            .summary-row {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">
+   <!-- Sidebar Start -->
+   <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link active" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+    <!-- Sidebar End -->
+
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-quotation.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Quotation</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper">
+                <div class="container-fluid p-4">
+                    <div class="card card-body py-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="quotation.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Quotation Details</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="quotation.html">Quotations</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Quotation Details</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quotation Info Card -->
+                    <div class="quotation-info-card" id="quotationInfoCard"></div>
+
+                    <!-- KPI Cards Row -->
+                    <div class="kpi-grid">
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon blue-light"><i class="fas fa-file-alt fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Quote Amount</h6>
+                                <h3 id="quoteAmount">₹0</h3>
+                            </div>
+                        </div>
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon orange-light"><i class="fas fa-hourglass-half fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Valid Until</h6>
+                                <h3 id="validUntil">-</h3>
+                            </div>
+                        </div>
+                        <div class="kpi-mini-card">
+                            <div class="kpi-icon green-light"><i class="fas fa-percent fa-lg"></i></div>
+                            <div class="kpi-info">
+                                <h6>Tax Rate</h6>
+                                <h3 id="taxRate">0%</h3>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Header with Settings Dropdown -->
+                    <div class="tabs-header-wrapper">
+                        <div class="detail-tabs">
+                            <button class="detail-tab active" data-tab="items"><i class="fas fa-list"></i> Items</button>
+                            <button class="detail-tab" data-tab="terms"><i class="fas fa-file-contract"></i> Terms & Conditions</button>
+                            <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity Log</button>
+                            <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="settings-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cog"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                                <li><a class="dropdown-item" href="#" onclick="editQuotation()"><i class="fas fa-edit"></i> Edit Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="cloneQuotation()"><i class="fas fa-copy"></i> Clone Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="convertToInvoice()"><i class="fas fa-file-invoice"></i> Convert to Invoice</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" onclick="downloadQuotation()"><i class="fas fa-download"></i> Download PDF</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="shareQuotation()"><i class="fas fa-share-alt"></i> Share</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteQuotation()"><i class="fas fa-trash-alt"></i> Delete Quotation</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Items -->
+                    <div id="items" class="tab-content active-content">
+                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+                            <h5 class="mb-0 fw-semibold">Quotation Items</h5>
+                            <button class="btn btn-outline-primary rounded-pill px-4" onclick="editQuotation()"><i class="fas fa-plus me-2"></i>Add/Edit Items</button>
+                        </div>
+                        <div class="items-table-wrapper">
+                            <table class="items-table">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Item / Description</th>
+                                        <th>Quantity</th>
+                                        <th>Unit Price</th>
+                                        <th>Discount</th>
+                                        <th>Tax</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="itemsTableBody"></tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Summary Section -->
+                        <div class="summary-section">
+                            <div class="summary-row">
+                                <div class="summary-box">
+                                    <div class="summary-line">
+                                        <span>Subtotal</span>
+                                        <span id="subtotalAmount">₹0</span>
+                                    </div>
+                                    <div class="summary-line">
+                                        <span>Tax (GST)</span>
+                                        <span id="taxAmount">₹0</span>
+                                    </div>
+                                    <div class="summary-line">
+                                        <span>Discount</span>
+                                        <span id="discountAmount">₹0</span>
+                                    </div>
+                                    <div class="summary-line total">
+                                        <span>Total Amount</span>
+                                        <span id="totalAmount">₹0</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Terms & Conditions -->
+                    <div id="terms" class="tab-content">
+                        <div class="terms-card">
+                            <h6>Terms & Conditions</h6>
+                            <div id="termsContent" class="text-muted" style="line-height: 1.6;"></div>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Activity Log -->
+                    <div id="activity" class="tab-content">
+                        <h5 class="fw-semibold mb-4">Recent Activities</h5>
+                        <div id="activityTimeline"></div>
+                    </div>
+
+                    <!-- Tab Content: Notes -->
+                    <div id="notes" class="tab-content">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Internal Notes</label>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this quotation..."></textarea>
+                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const quotationId = urlParams.get('id') || 'QT-2404-001';
+
+        // Quotation Data
+        const quotationData = {
+            id: quotationId,
+            date: '2026-04-01',
+            validUntil: '2026-05-01',
+            customerName: 'ABC Enterprises',
+            customerEmail: 'contact@abc.com',
+            customerPhone: '+91 9876543210',
+            status: 'Open',
+            createdBy: 'John Doe',
+            createdOn: '2026-04-01',
+            subtotal: 29800,
+            taxRate: 18,
+            taxAmount: 5364,
+            discount: 0,
+            total: 35164,
+            terms: '1. Payment due within 15 days of invoice date.\n2. Goods once sold will not be taken back.\n3. This is a system generated quotation and requires no signature.\n4. All disputes subject to local jurisdiction.',
+            items: [
+                { id: 1, name: 'Web Development Services', description: 'Complete website development with admin panel', quantity: 1, unitPrice: 25000, discount: 0, tax: 18, amount: 25000 },
+                { id: 2, name: 'Hosting Package', description: 'Annual hosting + domain registration', quantity: 1, unitPrice: 4800, discount: 0, tax: 18, amount: 4800 }
+            ]
+        };
+
+        // Activity Log
+        let activities = [
+            { action: 'Quotation created', date: '2026-04-01 10:30 AM', user: 'John Doe' },
+            { action: 'Quotation sent to customer', date: '2026-04-02 02:15 PM', user: 'Admin' },
+            { action: 'Customer viewed quotation', date: '2026-04-03 09:45 AM', user: 'Customer Portal' },
+            { action: 'Follow-up email sent', date: '2026-04-10 11:30 AM', user: 'Sarah Wilson' }
+        ];
+
+        function formatCurrency(amt) {
+            return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        function getStatusClass(status) {
+            if (status === 'Open') return 'status-open-custom';
+            if (status === 'Closed') return 'status-closed-custom';
+            return 'status-expired-custom';
+        }
+
+        function getStatusIcon(status) {
+            if (status === 'Open') return 'fa-clock';
+            if (status === 'Closed') return 'fa-check-circle';
+            return 'fa-exclamation-triangle';
+        }
+
+        function renderQuotationInfo() {
+            const container = document.getElementById('quotationInfoCard');
+            const statusClass = getStatusClass(quotationData.status);
+            const statusIcon = getStatusIcon(quotationData.status);
+
+            container.innerHTML = `
+                <div class="row align-items-center g-4">
+                    <div class="col-auto"><div class="quotation-avatar"><i class="fas fa-file-alt"></i></div></div>
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h3 class="quotation-number">${quotationData.id}</h3>
+                                <div class="quotation-detail"><i class="fas fa-building"></i> ${quotationData.customerName}</div>
+                                <div class="quotation-detail"><i class="fas fa-envelope"></i> ${quotationData.customerEmail}</div>
+                                <div class="quotation-detail"><i class="fas fa-phone"></i> ${quotationData.customerPhone}</div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-md-end">
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${quotationData.status}</span></div>
+                                    <div class="d-flex gap-2 justify-content-md-end">
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Created: ${quotationData.createdOn}</span>
+                                        <span class="date-chip"><i class="fas fa-user"></i> ${quotationData.createdBy}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('quoteAmount').innerHTML = formatCurrency(quotationData.total);
+            document.getElementById('validUntil').innerHTML = `<small>${quotationData.validUntil}</small>`;
+            document.getElementById('taxRate').innerHTML = `${quotationData.taxRate}%`;
+        }
+
+        function updateKPIs() {
+            document.getElementById('quoteAmount').innerHTML = formatCurrency(quotationData.total);
+            document.getElementById('validUntil').innerHTML = quotationData.validUntil;
+            document.getElementById('taxRate').innerHTML = `${quotationData.taxRate}%`;
+        }
+
+        function renderItems() {
+            const tbody = document.getElementById('itemsTableBody');
+            if (quotationData.items.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-5">No items added<td></tr>';
+                return;
+            }
+            tbody.innerHTML = quotationData.items.map((item, idx) => `
+                <tr>
+                    <td>${idx + 1}</td>
+                    <td>
+                        <div class="fw-semibold">${item.name}</div>
+                        <div class="text-muted small">${item.description || '-'}</div>
+                    </td>
+                    <td class="text-center">${item.quantity}</td>
+                    <td class="text-end">${formatCurrency(item.unitPrice)}</td>
+                    <td class="text-center">${item.discount > 0 ? item.discount + '%' : '-'}</td>
+                    <td class="text-center">${item.tax}%</td>
+                    <td class="text-end fw-semibold">${formatCurrency(item.amount)}</td>
+                </tr>
+            `).join('');
+
+            document.getElementById('subtotalAmount').innerHTML = formatCurrency(quotationData.subtotal);
+            document.getElementById('taxAmount').innerHTML = formatCurrency(quotationData.taxAmount);
+            document.getElementById('discountAmount').innerHTML = formatCurrency(quotationData.discount);
+            document.getElementById('totalAmount').innerHTML = formatCurrency(quotationData.total);
+        }
+
+        function renderTerms() {
+            const container = document.getElementById('termsContent');
+            const termsHtml = quotationData.terms.split('\n').map(line => `<p class="mb-2">${line}</p>`).join('');
+            container.innerHTML = termsHtml || '<p class="text-muted">No terms and conditions defined.</p>';
+        }
+
+        function renderActivityTimeline() {
+            const container = document.getElementById('activityTimeline');
+            container.innerHTML = activities.map(act => {
+                let icon = 'fa-info-circle';
+                if (act.action.includes('created')) icon = 'fa-plus-circle';
+                else if (act.action.includes('sent')) icon = 'fa-paper-plane';
+                else if (act.action.includes('viewed')) icon = 'fa-eye';
+                else if (act.action.includes('email')) icon = 'fa-envelope';
+                
+                return `
+                    <div class="timeline-item">
+                        <div class="timeline-icon blue-light"><i class="fas ${icon}"></i></div>
+                        <div class="timeline-content">
+                            <p class="mb-0 fw-semibold">${act.action}</p>
+                            <small><i class="far fa-clock me-1"></i>${act.date} by ${act.user}</small>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`quotation_notes_${quotationData.id}`);
+            if (saved) document.getElementById('internalNotes').value = saved;
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('internalNotes').value;
+            localStorage.setItem(`quotation_notes_${quotationData.id}`, notes);
+            showToast('Notes saved successfully');
+            addActivity('Internal notes updated', 'System');
+        }
+
+        function addActivity(action, user) {
+            const now = new Date();
+            const dateStr = now.toISOString().slice(0, 10) + ' ' + now.toLocaleTimeString();
+            activities.unshift({ action, date: dateStr, user });
+            renderActivityTimeline();
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('liveToastMsg');
+            document.getElementById('toastText').innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2200);
+        }
+
+        function editQuotation() {
+            window.location.href = `edit-quotation.html?id=${quotationData.id}`;
+        }
+
+        function cloneQuotation() {
+            showToast(`Cloning quotation ${quotationData.id}`);
+            setTimeout(() => window.location.href = `create-quotation.html?clone=${quotationData.id}`, 1000);
+        }
+
+        function convertToInvoice() {
+            showToast(`Converting quotation ${quotationData.id} to invoice`);
+            setTimeout(() => window.location.href = `create-invoice.html?quotation=${quotationData.id}`, 1000);
+        }
+
+        function downloadQuotation() {
+            showToast(`Downloading PDF for ${quotationData.id}`);
+        }
+
+        function shareQuotation() {
+            showToast(`Share link copied for ${quotationData.id}`);
+        }
+
+        function deleteQuotation() {
+            if (confirm(`Delete quotation "${quotationData.id}"? This action cannot be undone.`)) {
+                showToast('Quotation deleted successfully');
+                setTimeout(() => window.location.href = 'quotation-list.html', 1500);
+            }
+        }
+
+        function initTabs() {
+            const tabs = document.querySelectorAll('.detail-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contents.forEach(content => content.classList.remove('active-content'));
+                    document.getElementById(tabId).classList.add('active-content');
+                });
+            });
+        }
+
+        // Initialize everything
+        renderQuotationInfo();
+        updateKPIs();
+        renderItems();
+        renderTerms();
+        renderActivityTimeline();
+        loadNotes();
+        initTabs();
+
+        // Expose functions globally
+        window.editQuotation = editQuotation;
+        window.cloneQuotation = cloneQuotation;
+        window.convertToInvoice = convertToInvoice;
+        window.downloadQuotation = downloadQuotation;
+        window.shareQuotation = shareQuotation;
+        window.deleteQuotation = deleteQuotation;
+        window.saveNotes = saveNotes;
+    </script>
+</body>
+
+</html>

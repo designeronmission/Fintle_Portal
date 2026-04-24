@@ -4,16 +4,176 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle | Invoice Dashboard</title>
+  <title>Fintle | Quotation & Estimate Management</title>
   <!-- Bootstrap 5 + Icons + Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-  <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+      <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
   <style>
+
+
+    .btn-primary {
+      background-color: #2a3b82;
+      border-color: #2a3b82;
+      color: #fff;
+      border-radius: 40px;
+      padding: 9px 20px;
+      font-weight: 600;
+      transition: all 0.2s;
+    }
+
+    .btn-primary:hover {
+      background-color: #1f2e6e;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status-open {
+      background: #fff3e3;
+      color: #d97706;
+    }
+
+    .status-closed {
+      background: #e6f7e6;
+      color: #10b981;
+    }
+
+    .status-expired {
+      background: #fee2e2;
+      color: #ef4444;
+    }
+
+    .quotation-link {
+      cursor: pointer;
+      font-weight: 600;
+      color: #2a3b82;
+      font-family: monospace;
+      letter-spacing: 0.3px;
+    }
+
+    .quotation-link:hover {
+      text-decoration: underline;
+    }
+
+    /* Table Styling */
+    .quotation-table-wrapper {
+      overflow-x: auto;
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .quotation-table {
+      min-width: 900px;
+      font-size: 0.85rem;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .quotation-table th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #1e293b;
+      padding: 14px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .quotation-table td {
+      padding: 14px 12px;
+      vertical-align: middle;
+      border-bottom: 1px solid #eef2f6;
+      white-space: nowrap;
+    }
+
+    /* Sticky Action column */
+    .quotation-table th:last-child,
+    .quotation-table td:last-child {
+      position: sticky;
+      right: 0;
+      background-color: white;
+      z-index: 5;
+    }
+    
+    .quotation-table th:last-child {
+      background-color: #f8fafc;
+      z-index: 6;
+    }
+
+    /* Ensure table cells can contain dropdowns properly */
+    .quotation-table td:last-child {
+      overflow: visible;
+    }
+
+    /* Dropdown styling - fully visible */
+    .action-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* Clean dropdown menu */
+    .dropdown-menu {
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
+      padding: 6px 0;
+      min-width: 160px;
+      z-index: 1060;
+    }
+
+    .dropdown-item {
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dropdown-item i {
+      width: 18px;
+      font-size: 0.85rem;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f8fafc;
+    }
+
+    .dropdown-divider {
+      margin: 6px 0;
+    }
+
     /* Pagination - Clean & Below Table */
     .pagination-container {
       margin-top: 20px;
@@ -58,284 +218,90 @@
       margin-bottom: 0;
       flex-wrap: wrap;
     }
-        /* Info text styling */
-    .pagination-info {
-      background: #f8fafc;
-      padding: 6px 14px;
-      border-radius: 30px;
-      font-size: 12px;
-    }
 
-    .btn-primary {
-      background-color: #2a3b82;
-      border-color: #2a3b82;
-      color: #fff;
-      border-radius: 40px;
-      padding: 9px 12px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .btn-primary:hover {
-      background-color: #1f2e6e;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
-    }
-
-    .status-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .status-draft {
-      background: #f1f5f9;
-      color: #64748b;
-    }
-
-    .status-unsent {
-      background: #fef3c7;
-      color: #d97706;
-    }
-
-    .status-sent {
-      background: #e0f2fe;
-      color: #0284c7;
-    }
-
-    .status-paid {
-      background: #e6f7e6;
-      color: #10b981;
-    }
-
-    .status-overdue {
-      background: #fee2e2;
-      color: #ef4444;
-    }
-
-    .status-unpaid {
-      background: #fff3e3;
-      color: #c26b1a;
-    }
-
-    .status-Overdue {
-      background: #fee2e2;
-      color: #dc2626;
-    }
-
-    .invoice-number-link {
-      cursor: pointer;
-      font-weight: 600;
-      color: #2a3b82;
-      font-family: monospace;
-      letter-spacing: 0.3px;
-    }
-
-    .invoice-number-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Fixed table wrapper with horizontal scroll - Action column sticky */
-    .invoice-table-wrapper {
-      overflow-x: auto;
-      position: relative;
-      border-radius: 12px;
-    }
-
-    .invoice-table {
-      min-width: 1400px;
-      font-size: 0.85rem;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .invoice-table th {
-      background: #f8fafc;
-      font-weight: 600;
-      color: #1e293b;
-      padding: 14px 12px;
-      border-bottom: 1px solid #e2e8f0;
-      white-space: nowrap;
-    }
-
-    .invoice-table td {
-      padding: 14px 12px;
-      vertical-align: middle;
-      border-bottom: 1px solid #eef2f6;
-      white-space: nowrap;
-    }
-
-    /* Sticky Action column - fixed on the right */
-    .invoice-table th:last-child,
-    .invoice-table td:last-child {
-      position: sticky;
-      right: 0;
-      background-color: white;
-      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
-      z-index: 10;
-    }
-
-    .invoice-table th:last-child {
-      background-color: #f8fafc;
-      z-index: 11;
-    }
-
-    /* Balance column styling */
-    .balance-positive {
-      color: #10b981;
-      font-weight: 700;
-    }
-
-    .balance-negative {
-      color: #ef4444;
-      font-weight: 700;
-    }
-
-    .balance-zero {
-      color: #64748b;
-    }
-
-    .page-link {
-      border-radius: 8px;
-      margin: 0 2px;
-      border: none;
-      color: #475569;
-      font-weight: 500;
-    }
-
-    .page-item.active .page-link {
-      background: #2a3b82;
-      color: white;
-    }
-
-    .dropdown-menu {
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-    }
-
-    .dropdown-item {
-      font-size: 0.8rem;
-      padding: 8px 18px;
-    }
-
-    .dropdown-item i {
-      width: 20px;
-      margin-right: 8px;
-    }
-
-    /* KPI Section Heading */
-    .kpi-section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 0 4px;
-      background-color: white;
-      padding: 20px;
-    }
-    .kpi-section-heading h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #1e293b;
-      margin: 0;
-    }
-    .kpi-section-heading p {
-      font-size: 13px;
-      color: #64748b;
-      margin: 0;
-    }
-
-    /* KPI CARDS - Clean design */
+    /* KPI Cards */
     .dashboard-container {
       display: flex;
-      gap: 16px;
+      gap: 20px;
       background: white;
       justify-content: flex-start;
       flex-wrap: wrap;
       margin-bottom: 10px;
       padding: 20px 24px;
-      border-radius: 16px;
+      border-radius: 20px;
       border: 1px solid #edf2f7;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
 
-    .kpi-card-new {
+    .kpi-card {
       background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      width: 100%;
+      border: 1px solid #e9eef3;
+      border-radius: 20px;
       flex: 1;
+      min-width: 180px;
       padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
       transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
     }
 
-    .kpi-card-new.primary {
-      border-color: #2a3b82;
-    }
-
-    .kpi-card-new:hover {
+    .kpi-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
       border-color: #cbd5e1;
     }
 
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5b6e8c;
+      letter-spacing: 0.3px;
+    }
+
     .icon-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
       display: flex;
       align-items: center;
       justify-content: center;
-      flex-shrink: 0;
     }
 
-    .icon-circle.blue {
-      background-color: #EEF4FF;
-    }
-
-    .icon-circle.green {
-      background-color: #F0FFEE;
-    }
-
-    .icon-circle.orange {
-      background-color: #FFF9EE;
-    }
-
-    .icon-circle.red {
-      background-color: #FFEEEE;
-    }
-
-    .card-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-label {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 4px;
-      color: #5c5c5c;
-      line-height: normal;
-    }
-
-    .card-amount {
-      font-size: 26px;
+    .kpi-amount-main {
+      font-size: 28px;
       font-weight: 700;
-      color: #383838;
-      margin-bottom: 2px;
-      line-height: normal;
+      color: #1e293b;
+      line-height: 1.2;
+      margin-bottom: 8px;
     }
 
-    /* Unified actions card - with inline search */
+    .kpi-sub {
+      font-size: 12px;
+      font-weight: 500;
+      color: #5f7f9e;
+      padding-top: 10px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .count-badge {
+      background: #eff3f8;
+      border-radius: 40px;
+      padding: 2px 10px;
+      font-weight: 700;
+      color: #2a3b82;
+      font-size: 12px;
+    }
+
+    /* Unified Actions */
     .unified-actions-card {
       background: white;
-      border-radius: 16px;
+      border-radius: 20px;
       padding: 12px 20px;
       margin-bottom: 24px;
       border: 1px solid #edf2f7;
@@ -346,7 +312,6 @@
       gap: 16px;
     }
 
-    /* Inline search bar (left side) */
     .search-inline {
       display: flex;
       align-items: center;
@@ -356,17 +321,14 @@
       border-radius: 40px;
       padding: 6px 18px;
       min-width: 260px;
-      transition: all 0.2s;
     }
+
     .search-inline:focus-within {
       border-color: #2a3b82;
       background: white;
       box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
     }
-    .search-inline i {
-      color: #94a3b8;
-      font-size: 1rem;
-    }
+
     .search-inline input {
       border: none;
       background: transparent;
@@ -374,7 +336,6 @@
       width: 100%;
       outline: none;
       font-size: 0.85rem;
-      font-weight: 500;
     }
 
     .tabs-centered {
@@ -385,7 +346,7 @@
       flex: 1;
     }
 
-    .invoice-tab {
+    .quotation-tab {
       padding: 8px 20px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -394,23 +355,18 @@
       border: none;
       border-radius: 40px;
       cursor: pointer;
-      transition: all 0.2s ease;
+      transition: all 0.2s;
       display: inline-flex;
       align-items: center;
       gap: 8px;
     }
 
-    .invoice-tab i {
-      font-size: 0.9rem;
-      opacity: 0.7;
-    }
-
-    .invoice-tab:hover {
+    .quotation-tab:hover {
       color: #2a3b82;
       background: #f8fafc;
     }
 
-    .invoice-tab.active {
+    .quotation-tab.active {
       color: #2a3b82;
       background: #eef2ff;
     }
@@ -424,7 +380,7 @@
       font-weight: 700;
     }
 
-    .invoice-tab.active .tab-count {
+    .quotation-tab.active .tab-count {
       background: #2a3b82;
       color: white;
     }
@@ -433,41 +389,18 @@
       flex-shrink: 0;
     }
 
-    /* Search Modal (hidden - we use inline search now) */
-    .search-modal-input {
-      width: 100%;
-      padding: 16px 20px;
-      font-size: 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 60px;
-      outline: none;
-    }
-
-    .action-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      background: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .action-btn:hover {
-      background: #f1f5f9;
-      border-color: #cbd5e1;
+    /* Info text styling */
+    .pagination-info {
+      background: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 12px;
     }
 
     @media (max-width: 992px) {
       .unified-actions-card {
         flex-direction: column;
         align-items: stretch;
-      }
-      .search-inline {
-        width: 100%;
       }
       .tabs-centered {
         order: 2;
@@ -476,24 +409,31 @@
       .btn-create-right {
         order: 3;
         text-align: center;
-        width: 100%;
       }
     }
 
     @media (max-width: 768px) {
-      .kpi-card-new {
-        max-width: 100%;
+      .kpi-card {
+        min-width: 100%;
       }
       .dashboard-container {
         padding: 16px;
+      }
+      .pagination {
+        justify-content: center;
+      }
+      .page-link {
+        padding: 6px 10px;
+        font-size: 12px;
       }
     }
   </style>
 </head>
 
 <body>
-  <div id="main-wrapper">
 
+  <div id="main-wrapper">
+    <!-- Sidebar Start -->
    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
@@ -508,7 +448,7 @@
             <ul class="sidebar-menu" id="sidebarnav">
               <!-- Dashboard -->
               <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                <a class="sidebar-link active" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
@@ -568,7 +508,7 @@
 
               <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
@@ -670,7 +610,7 @@
 
 
     <div class="page-wrapper">
-      <!-- Header Start -->
+        <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -811,151 +751,93 @@
 
       <div class="body-wrapper p-3">
         <div class="container-fluid p-0">
-               <div class="card card-body py-3 mb-2">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title">Invoice Overview</h4>
-                                    <nav aria-label="breadcrumb" class="ms-auto">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                                                </a>
-                                            </li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-          <!-- KPI CARDS -->
-          <div class="dashboard-container col-lg-12">
-            <!-- Total Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle blue">
-                <svg width="19" height="19" viewBox="0 0 19 19" fill="none">
-                  <path
-                    d="M3.325 4.75C2.9471 4.75 2.5846 4.5999 2.3174 4.3326C2.0501 4.0654 1.9 3.7029 1.9 3.325C1.9 2.9471 2.0501 2.5846 2.3174 2.3174C2.5846 2.0501 2.9471 1.9 3.325 1.9C3.7029 1.9 4.0654 2.0501 4.3326 2.3174C4.5999 2.5846 4.75 2.9471 4.75 3.325C4.75 3.7029 4.5999 4.0654 4.3326 4.3326C4.0654 4.5999 3.7029 4.75 3.325 4.75ZM18.4395 9.101L9.8895 0.551C9.5475 0.209 9.0725 0 8.55 0H1.9C0.8455 0 0 0.8455 0 1.9V8.55C0 9.0725 0.209 9.5475 0.5605 9.8895L9.101 18.4395C9.4525 18.7815 9.9275 19 10.45 19C10.9725 19 11.4475 18.7815 11.7895 18.4395L18.4395 11.7895C18.791 11.4475 19 10.9725 19 10.45C19 9.918 18.7815 9.443 18.4395 9.101Z"
-                    fill="#1D3562" />
-                </svg>
-              </div>
-              <div class="card-content">
-                <p class="card-label">Total Invoice</p>
-                <p class="card-amount" id="totalInvoiceAmount">$0.00</p>
-              </div>
-            </div>
-
-            <!-- Paid Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle green">
-                <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
-                  <path
-                    d="M9.0542 1.2167C8.7375 0.9 8.2625 0.9 7.9458 1.2167L3.1958 5.9667C2.8792 6.2833 2.8792 6.7583 3.1958 7.075C3.3542 7.2333 3.5521 7.3125 3.75 7.3125C3.9479 7.3125 4.1458 7.2333 4.3042 7.075L9.0542 2.325C9.3708 2.0083 9.3708 1.5333 9.0542 1.2167Z"
-                    fill="#2E7D32" />
-                  <path
-                    d="M13.8042 5.9667L9.0542 1.2167C8.7375 0.9 8.2625 0.9 7.9458 1.2167C7.6292 1.5333 7.6292 2.0083 7.9458 2.325L12.6958 7.075C12.8542 7.2333 13.0521 7.3125 13.25 7.3125C13.4479 7.3125 13.6458 7.2333 13.8042 7.075C14.1208 6.7583 14.1208 6.2833 13.8042 5.9667Z"
-                    fill="#1B5E20" />
-                  <path
-                    d="M13.8042 15.2292H3.1958C2.8 15.2292 2.4833 14.9521 2.4042 14.5958L0.9792 7.3125H16.0208L14.5563 14.5958C14.4771 14.9521 14.1604 15.2292 13.8042 15.2292Z"
-                    fill="#388E3C" />
-                  <path
-                    d="M16.0208 8.1042H0.9792C0.5437 8.1042 0.1875 7.7479 0.1875 7.3125V6.5208C0.1875 6.0854 0.5437 5.7292 0.9792 5.7292H16.0208C16.4563 5.7292 16.8125 6.0854 16.8125 6.5208V7.3125C16.8125 7.7479 16.4563 8.1042 16.0208 8.1042Z"
-                    fill="#4CAF50" />
-                  <path
-                    d="M11.1917 8.8167L8.0646 11.9437L6.6 10.4396L5.7292 11.3104L8.0646 13.6458L12.0625 9.6479L11.1917 8.8167Z"
-                    fill="#DCEDC8" />
-                </svg>
-              </div>
-              <div class="card-content">
-                <p class="card-label">Paid Invoice</p>
-                <p class="card-amount" id="paidInvoiceAmount">$0.00</p>
-              </div>
-            </div>
-
-            <!-- Unpaid Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle orange">
-                <svg width="20" height="23" viewBox="0 0 20 23" fill="none">
-                  <path
-                    d="M3 18V16C3 14.9391 3.4214 13.9217 4.1716 13.1716C4.9217 12.4214 5.9391 12 7 12H10.5M14 18L18 14M5 4C5 5.0609 5.4214 6.0783 5.1716 6.8284C5.9217 7.5786 6.9391 8 8 8C9.0609 8 10.0783 7.5786 10.8284 6.8284C11.5786 6.0783 12 5.0609 12 4C12 2.9391 11.5786 1.9217 10.8284 1.1716C10.0783 0.4214 9.0609 0 8 0C6.9391 0 5.9217 0.4214 5.1716 1.1716C4.4214 1.9217 4 2.9391 4 4ZM13 16C13 16.7956 13.3161 17.5587 13.8787 18.1213C14.4413 18.6839 15.2044 19 16 19C16.7956 19 17.5587 18.6839 18.1213 18.1213C18.6839 17.5587 19 16.7956 19 16C19 15.2044 18.6839 14.4413 18.1213 13.8787C17.5587 13.3161 15.2044 13 16 13C15.2044 13 14.4413 13.3161 13.8787 13.8787C13.3161 14.4413 13 15.2044 13 16Z"
-                    stroke="#BB7628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
-              </div>
-              <div class="card-content">
-                <p class="card-label">Unpaid Invoice</p>
-                <p class="card-amount" id="unpaidInvoiceAmount">$0.00</p>
-              </div>
-            </div>
-
-            <!-- Overdue Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle red">
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
-                  <path
-                    d="M8.5 0.4065C4.0309 0.4065 0.4065 4.029 0.4065 8.5C0.4065 12.971 4.0309 16.5935 8.5 16.5935C12.9704 16.5935 16.5935 12.971 16.5935 8.5C16.5935 4.029 12.971 0.4065 8.5 0.4065ZM8.5 2.3752C9.7141 2.3752 10.8441 2.7348 11.797 3.3465L3.3465 11.797C2.7122 10.8144 2.375 9.6696 2.3752 8.5C2.3752 5.1229 5.1229 2.3752 8.5 2.3752ZM8.5 14.6248C7.3305 14.6247 6.1858 14.2875 5.203 13.6535L13.6529 5.203C14.2872 6.1856 14.6244 7.3304 14.6241 8.5C14.6241 11.8771 11.8771 14.6248 8.5 14.6248Z"
-                    fill="#BB2828" />
-                </svg>
-              </div>
-              <div class="card-content">
-                <p class="card-label">Overdue Invoice</p>
-                <p class="card-amount" id="OverdueInvoiceAmount">$0.00</p>
+          <!-- Breadcrumb -->
+          <div class="card card-body py-3 mb-2">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Quotations & Estimates</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                      <li class="breadcrumb-item active">Quotations</li>
+                    </ol>
+                  </nav>
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- Invoice Table Section -->
+          <!-- KPI CARDS -->
+          <div class="dashboard-container">
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Total Quotations</span>
+                <div class="icon-circle" style="background:#eef2ff;"><i class="fas fa-file-alt text-primary"></i></div>
+              </div>
+              <div class="kpi-amount-main" id="totalQuotations">0</div>
+              <div class="kpi-sub">Total estimates created</div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Open Quotations</span>
+                <div class="icon-circle" style="background:#fff0e6;"><i class="fas fa-clock" style="color:#d97706"></i></div>
+              </div>
+              <div class="kpi-amount-main" id="openQuotations">0</div>
+              <div class="kpi-sub"><span><i class="far fa-hourglass"></i> Pending response</span><span class="count-badge" id="openCountBadge">0</span></div>
+            </div>
+
+            <div class="kpi-card">
+              <div class="kpi-header">
+                <span class="kpi-label">Closed Quotations</span>
+                <div class="icon-circle" style="background:#e3f7ec;"><i class="fas fa-check-circle" style="color:#10b981"></i></div>
+              </div>
+              <div class="kpi-amount-main" id="closedQuotations">0</div>
+              <div class="kpi-sub"><span><i class="fas fa-file-invoice-dollar"></i> Converted/Closed</span><span class="count-badge" id="closedCountBadge">0</span></div>
+            </div>
+          </div>
+
+          <!-- Table actions -->
           <div class="card overflow-hidden p-4">
-            <!-- Unified Card: Inline Search | Tabs | CTA -->
             <div class="unified-actions-card">
-              <!-- LEFT: Inline Search Bar (replaces modal search) -->
               <div class="search-inline">
                 <i class="fas fa-search"></i>
-                <input type="text" id="globalSearchInput" placeholder="Search by customer, invoice ID, reference..." autocomplete="off">
+                <input type="text" id="globalSearchInput" placeholder="Search by quotation number or customer name...">
               </div>
-              <!-- CENTER: Tabs -->
               <div class="tabs-centered">
-                <button class="invoice-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span
-                    class="tab-count" id="countAll">0</span></button>
-                <button class="invoice-tab" data-tab="paid"><i class="fas fa-check-circle"></i> Paid <span
-                    class="tab-count" id="countPaidTab">0</span></button>
-                <button class="invoice-tab" data-tab="unpaid"><i class="fas fa-clock"></i> Unpaid <span class="tab-count"
-                    id="countUnpaidTab">0</span></button>
-                <button class="invoice-tab" data-tab="Overdue"><i class="fas fa-times-circle"></i> Overdue <span
-                    class="tab-count" id="countOverdueTab">0</span></button>
+                <button class="quotation-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
+                <button class="quotation-tab" data-tab="open"><i class="fas fa-clock"></i> Open <span class="tab-count" id="countOpen">0</span></button>
+                <button class="quotation-tab" data-tab="closed"><i class="fas fa-check-circle"></i> Closed <span class="tab-count" id="countClosed">0</span></button>
               </div>
-              <!-- RIGHT: Create Button -->
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-invoice.html'"><i class="fas fa-plus me-2"></i>New Invoice</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-quotation.html'"><i class="fas fa-plus me-2"></i>New Quotation</button>
               </div>
             </div>
 
-            <!-- Invoice Table -->
-            <div class="invoice-table-wrapper">
-              <table class="invoice-table align-middle mb-0 w-100">
+            <div class="quotation-table-wrapper">
+              <table class="quotation-table align-middle">
                 <thead>
                   <tr>
                     <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
-                    <th>S.No</th>
-                    <th>Status</th>
-                    <th>Due</th>
-                    <th>Invoice ID</th>
-                    <th>Customer</th>
-                    <th>Reference</th>
-                    <th>Issue Date</th>
-                    <th>Due Date</th>
+                    <th>Date</th>
+                    <th>Quotation Number</th>
+                    <th>Customer Name</th>
+                    <th>Due In</th>
                     <th>Amount</th>
-                    <th>Paid</th>
-                    <th>Balance</th>
-                    <th style="width:80px; position:sticky; right:0; background:#f8fafc;">Action</th>
+                    <th>Status</th>
+                    <th style="width:90px;">Action</th>
                   </tr>
                 </thead>
-                <tbody id="invoiceTableBody"></tbody>
+                <tbody id="quotationTableBody"></tbody>
               </table>
             </div>
-                       <!-- Pagination Below Table - Clean Design -->
+            
+            <!-- Pagination Below Table - Clean Design -->
             <div class="pagination-container">
               <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div class="pagination-info">
@@ -976,22 +858,11 @@
     </div>
   </div>
 
-  <!-- Invoice Preview Modal -->
-  <div class="modal fade" id="invoicePreviewModal" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content border-0 rounded-4">
-        <div class="modal-header bg-white border-0 pt-4 px-4">
-          <h5 class="modal-title fw-bold">Invoice Preview</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body px-4 pb-4" id="previewModalBody"></div>
-      </div>
-    </div>
+  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
   </div>
 
-  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
-    style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
-
+ 
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
   <script src="assets/libs/js/app.init.js"></script>
@@ -1000,191 +871,274 @@
   <script src="assets/libs/js/sidebarmenu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
+
   <script>
-    let invoices = [
-      { id: 1, status: 'Paid', due: '-', invoiceId: 'INV-2404-001', customer: 'ABC Enterprises', reference: 'PO-123', issueDate: '2026-04-01', dueDate: '2026-05-01', amount: 5404, paid: 5404, balance: 0 },
-      { id: 2, status: 'Unpaid', due: '15 days', invoiceId: 'INV-2404-002', customer: 'XYZ Solutions', reference: 'REF-456', issueDate: '2026-04-10', dueDate: '2026-05-10', amount: 3200, paid: 0, balance: 3200 },
-      { id: 3, status: 'Paid', due: '-', invoiceId: 'INV-2404-003', customer: 'Global Traders', reference: 'PO-789', issueDate: '2026-03-25', dueDate: '2026-04-25', amount: 1250, paid: 1250, balance: 0 },
-      { id: 4, status: 'Overdue', due: 'Overdue 5d', invoiceId: 'INV-2403-045', customer: 'Sunrise Industries', reference: 'INV-REF-01', issueDate: '2026-03-01', dueDate: '2026-04-01', amount: 890, paid: 0, balance: 890 },
-      { id: 5, status: 'Draft', due: '-', invoiceId: 'INV-2404-005', customer: 'Metro Corp', reference: 'DRAFT-001', issueDate: '2026-04-15', dueDate: '2026-05-15', amount: 2100, paid: 0, balance: 2100 },
-      { id: 6, status: 'Paid', due: '-', invoiceId: 'INV-2404-006', customer: 'Aster Innovations', reference: 'PO-999', issueDate: '2026-03-15', dueDate: '2026-04-15', amount: 4750, paid: 4750, balance: 0 },
-      { id: 7, status: 'Draft', due: '-', invoiceId: 'INV-2404-007', customer: 'Tech Solutions Ltd', reference: 'DRAFT-002', issueDate: '2026-04-18', dueDate: '2026-05-18', amount: 3500, paid: 0, balance: 3500 },
-      { id: 8, status: 'Unpaid', due: '10 days', invoiceId: 'INV-2404-008', customer: 'Digital Wave', reference: 'REF-888', issueDate: '2026-04-05', dueDate: '2026-05-05', amount: 6800, paid: 2000, balance: 4800 },
-      { id: 9, status: 'Overdue', due: '-', invoiceId: 'INV-2404-009', customer: 'Overdue Corp', reference: 'CANCEL-01', issueDate: '2026-04-12', dueDate: '2026-05-12', amount: 1500, paid: 0, balance: 1500 }
+    // Quotation Data
+    let quotations = [
+      { id: 1, date: '2026-04-01', quotationNo: 'QT-2404-001', customerName: 'ABC Enterprises', dueIn: 5, amount: 12500, status: 'Open' },
+      { id: 2, date: '2026-04-05', quotationNo: 'QT-2404-002', customerName: 'XYZ Solutions', dueIn: 12, amount: 8500, status: 'Open' },
+      { id: 3, date: '2026-03-28', quotationNo: 'QT-2403-089', customerName: 'Global Traders', dueIn: -3, amount: 3200, status: 'Expired' },
+      { id: 4, date: '2026-03-15', quotationNo: 'QT-2403-045', customerName: 'Sunrise Industries', dueIn: -15, amount: 18900, status: 'Closed' },
+      { id: 5, date: '2026-04-10', quotationNo: 'QT-2404-003', customerName: 'Metro Corp', dueIn: 8, amount: 4300, status: 'Open' },
+      { id: 6, date: '2026-03-20', quotationNo: 'QT-2403-067', customerName: 'Aster Innovations', dueIn: -8, amount: 6750, status: 'Closed' },
+      { id: 7, date: '2026-04-12', quotationNo: 'QT-2404-004', customerName: 'Tech Solutions Ltd', dueIn: 15, amount: 22300, status: 'Open' },
+      { id: 8, date: '2026-04-08', quotationNo: 'QT-2404-005', customerName: 'Visionary Retail', dueIn: 3, amount: 5600, status: 'Open' },
+      { id: 9, date: '2026-03-25', quotationNo: 'QT-2403-092', customerName: 'NexGen Media', dueIn: -5, amount: 9800, status: 'Expired' },
+      { id: 10, date: '2026-04-02', quotationNo: 'QT-2404-006', customerName: 'Digital Solutions', dueIn: 10, amount: 15750, status: 'Open' },
+      { id: 11, date: '2026-04-14', quotationNo: 'QT-2404-007', customerName: 'Blue Ocean Corp', dueIn: 20, amount: 34200, status: 'Open' },
+      { id: 12, date: '2026-04-11', quotationNo: 'QT-2404-008', customerName: 'Red Apple Stores', dueIn: 6, amount: 8200, status: 'Open' }
     ];
-    let currentTab = 'all', currentPage = 1, rowsPerPage = 10;
+
+    let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
     let currentSearchTerm = '';
 
-    function formatCurrency(amt) { return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; }
-    function formatUSD(amt) { return `$${amt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; }
-    function getBalanceClass(balance) {
-      if (balance > 0) return 'balance-negative';
-      if (balance === 0) return 'balance-zero';
-      return 'balance-positive';
+    function showToast(msg) {
+      const toast = document.getElementById('liveToastMsg');
+      if (toast) {
+        document.getElementById('toastText').innerText = msg;
+        toast.style.display = 'block';
+        setTimeout(() => toast.style.display = 'none', 2200);
+      }
     }
+
+    function formatCurrency(amt) {
+      return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+    }
+
     function getStatusClass(status) {
-      const map = { 'Paid': 'status-paid', 'Unpaid': 'status-unpaid', 'Draft': 'status-draft', 'Sent': 'status-sent', 'Unsent': 'status-unsent', 'Overdue': 'status-overdue', 'Overdue': 'status-Overdue' };
-      return map[status] || 'status-draft';
+      if (status === 'Open') return 'status-open';
+      if (status === 'Closed') return 'status-closed';
+      return 'status-expired';
     }
-    function showToast(msg) { const t = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerText = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2200); }
 
-    function redirectToInvoiceDetail(invoiceId) { window.location.href = `invoice-detail.html?id=${invoiceId}`; }
+    function getDueInText(dueIn) {
+      if (dueIn < 0) return `Expired ${Math.abs(dueIn)} days ago`;
+      if (dueIn === 0) return 'Due today';
+      return `${dueIn} days`;
+    }
 
-    function filterInvoices() {
-      let search = currentSearchTerm.toLowerCase();
-      return invoices.filter(inv => {
-        let matchSearch = search === '' || inv.customer.toLowerCase().includes(search) || inv.invoiceId.toLowerCase().includes(search) || inv.reference.toLowerCase().includes(search);
+    function filterQuotations() {
+      let search = currentSearchTerm.toLowerCase().trim();
+      return quotations.filter(q => {
+        let matchSearch = search === '' || q.quotationNo.toLowerCase().includes(search) || q.customerName.toLowerCase().includes(search);
         if (currentTab === 'all') return matchSearch;
-        if (currentTab === 'paid') return inv.status === 'Paid' && matchSearch;
-        if (currentTab === 'unpaid') return (inv.status === 'Unpaid' || inv.status === 'Overdue') && matchSearch;
-        if (currentTab === 'Overdue') return inv.status === 'Overdue' && matchSearch;
+        if (currentTab === 'open') return (q.status === 'Open') && matchSearch;
+        if (currentTab === 'closed') return (q.status === 'Closed') && matchSearch;
         return matchSearch;
       });
     }
 
     function updateKPIs() {
-      let totalAmount = invoices.reduce((s, i) => s + i.amount, 0);
-      let paidAmount = invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + i.amount, 0);
-      let unpaidAmount = invoices.filter(i => i.status === 'Unpaid' || i.status === 'Overdue').reduce((s, i) => s + i.balance, 0);
-      let OverdueAmount = invoices.filter(i => i.status === 'Overdue').reduce((s, i) => s + i.amount, 0);
+      const total = quotations.length;
+      const openCount = quotations.filter(q => q.status === 'Open').length;
+      const closedCount = quotations.filter(q => q.status === 'Closed').length;
+      const openAmount = quotations.filter(q => q.status === 'Open').reduce((sum, q) => sum + q.amount, 0);
+      const closedAmount = quotations.filter(q => q.status === 'Closed').reduce((sum, q) => sum + q.amount, 0);
 
-      document.getElementById('totalInvoiceAmount').innerText = formatUSD(totalAmount);
-      document.getElementById('paidInvoiceAmount').innerText = formatUSD(paidAmount);
-      document.getElementById('unpaidInvoiceAmount').innerText = formatUSD(unpaidAmount);
-      document.getElementById('OverdueInvoiceAmount').innerText = formatUSD(OverdueAmount);
+      document.getElementById('totalQuotations').innerText = total;
+      document.getElementById('openQuotations').innerText = formatCurrency(openAmount);
+      document.getElementById('closedQuotations').innerText = formatCurrency(closedAmount);
+      
+      document.getElementById('openCountBadge').innerText = openCount;
+      document.getElementById('closedCountBadge').innerText = closedCount;
 
-      document.getElementById('countAll').innerText = invoices.length;
-      document.getElementById('countPaidTab').innerText = invoices.filter(i => i.status === 'Paid').length;
-      document.getElementById('countUnpaidTab').innerText = invoices.filter(i => i.status === 'Unpaid' || i.status === 'Overdue').length;
-      document.getElementById('countOverdueTab').innerText = invoices.filter(i => i.status === 'Overdue').length;
+      document.getElementById('countAll').innerText = total;
+      document.getElementById('countOpen').innerText = openCount;
+      document.getElementById('countClosed').innerText = closedCount;
     }
 
     function renderTable() {
-      let filtered = filterInvoices();
-      let total = filtered.length, totalPages = Math.ceil(total / rowsPerPage);
-      let start = (currentPage - 1) * rowsPerPage, end = Math.min(start + rowsPerPage, total);
+      let filtered = filterQuotations();
+      let total = filtered.length;
+      let totalPages = Math.ceil(total / rowsPerPage);
+      
+      // Adjust current page if out of bounds
+      if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+      if (currentPage < 1) currentPage = 1;
+      
+      let start = (currentPage - 1) * rowsPerPage;
+      let end = Math.min(start + rowsPerPage, total);
       let pageData = filtered.slice(start, end);
-      let tbody = document.getElementById('invoiceTableBody');
+      let tbody = document.getElementById('quotationTableBody');
+      if (!tbody) return;
       tbody.innerHTML = '';
+
       if (pageData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="13" class="text-center py-5 text-muted">No invoices found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted">No quotations found</td></tr>';
       } else {
-        pageData.forEach((inv, idx) => {
-          let sno = start + idx + 1;
-          let balanceClass = getBalanceClass(inv.balance);
+        pageData.forEach((q) => {
+          let statusClass = getStatusClass(q.status);
           let row = `<tr>
-            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${inv.id}"></td>
-            <td>${sno}</td>
-            <td><span class="status-badge ${getStatusClass(inv.status)}">${inv.status}</span></td>
-            <td>${inv.due}</td>
-            <td><span class="invoice-number-link" data-id="${inv.invoiceId}" style="cursor:pointer; color:#2a3b82; font-weight:600;">${inv.invoiceId}</span></td>
-            <td class="fw-medium">${inv.customer}</td>
-            <td>${inv.reference}</td>
-            <td>${inv.issueDate}</td>
-            <td>${inv.dueDate}</td>
-            <td class="fw-semibold">${formatCurrency(inv.amount)}</td>
-            <td>${formatCurrency(inv.paid)}</td>
-            <td class="${balanceClass}">${formatCurrency(inv.balance)}</td>
-            <td><div class="dropdown action-dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
-              <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick="redirectToInvoiceDetail('${inv.invoiceId}')">View</a></li>
-                <li><a class="dropdown-item" href="#" onclick="editInvoice(${inv.id})">Edit</a></li>
-                ${inv.status !== 'Paid' && inv.status !== 'Overdue' ? '<li><a class="dropdown-item" href="#" onclick="markAsPaid(' + inv.id + ')"> Mark as Paid</a></li>' : ''}
-                <li><a class="dropdown-item" href="#" onclick="cloneInvoice(${inv.id})">Mark as Paid</a></li>
-                <li><a class="dropdown-item" href="#" onclick="cloneInvoice(${inv.id})">Clone</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="deleteInvoice(${inv.id})"> Delete</a></li>
-                <li><a class="dropdown-item" href="#" onclick="downloadInvoice(${inv.id})">Download</a></li>
-              </ul></div></td>
+            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${q.id}"></td>
+            <td>${q.date}</td>
+            <td><span class="quotation-link" data-id="${q.quotationNo}">${q.quotationNo}</span></td>
+            <td class="fw-medium">${q.customerName}</td>
+            <td>${getDueInText(q.dueIn)}</td>
+            <td class="fw-semibold">${formatCurrency(q.amount)}</td>
+            <td><span class="status-badge ${statusClass}">${q.status}</span></td>
+            <td>
+              <div class="dropdown action-dropdown">
+                <button class="action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end">
+                  <li><a class="dropdown-item" href="#" onclick="viewQuotation('${q.quotationNo}')"> View</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="cloneQuotation(${q.id})"> Clone</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="downloadQuotation(${q.id})"> Download</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item text-danger" href="#" onclick="deleteQuotation(${q.id})"> Delete</a></li>
+                </ul>
+              </div>
+            </td>
           </tr>`;
           tbody.insertAdjacentHTML('beforeend', row);
         });
       }
+
+      // Update info text
       document.getElementById('rowStart').innerText = total ? start + 1 : 0;
       document.getElementById('rowEnd').innerText = end;
       document.getElementById('totalRows').innerText = total;
-      let pagination = document.getElementById('pagination');
-      pagination.innerHTML = '';
-      if (totalPages > 1) {
-        pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
-        for (let i = 1; i <= totalPages; i++) {
-          if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
-            pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
-          else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
-        }
-        pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
-      }
-      document.querySelectorAll('.invoice-number-link').forEach(el => el.addEventListener('click', (e) => redirectToInvoiceDetail(el.getAttribute('data-id'))));
+
+      // Render Pagination
+      renderPagination(totalPages);
+
+      // Attach click events for quotation links
+      document.querySelectorAll('.quotation-link').forEach(el => {
+        el.removeEventListener('click', quotationClickHandler);
+        el.addEventListener('click', quotationClickHandler);
+      });
+
       const selectAll = document.getElementById('selectAllCheckbox');
       if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     }
 
-    function changePage(p) { let filtered = filterInvoices(); let pages = Math.ceil(filtered.length / rowsPerPage); if (p >= 1 && p <= pages) { currentPage = p; renderTable(); } }
+    function renderPagination(totalPages) {
+      let pagination = document.getElementById('pagination');
+      if (!pagination) return;
+      pagination.innerHTML = '';
+      
+      if (totalPages <= 1) return;
+      
+      // Previous button
+      pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+        <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;"><i class="fas fa-chevron-left"></i></a>
+      </li>`;
+      
+      // Page numbers - show limited pages for clean design
+      let startPage = Math.max(1, currentPage - 2);
+      let endPage = Math.min(totalPages, currentPage + 2);
+      
+      if (startPage > 1) {
+        pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(1); return false;">1</a></li>`;
+        if (startPage > 2) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+      }
+      
+      for (let i = startPage; i <= endPage; i++) {
+        pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}">
+          <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
+        </li>`;
+      }
+      
+      if (endPage < totalPages) {
+        if (endPage < totalPages - 1) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+        pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${totalPages}); return false;">${totalPages}</a></li>`;
+      }
+      
+      // Next button
+      pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+        <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;"><i class="fas fa-chevron-right"></i></a>
+      </li>`;
+    }
 
-    // Inline search handler
-    const globalSearchInput = document.getElementById('globalSearchInput');
-    if (globalSearchInput) {
-      globalSearchInput.addEventListener('input', function () {
+    function quotationClickHandler(e) {
+      e.preventDefault();
+      const quotationNo = this.getAttribute('data-id');
+      window.location.href = `quotation-detail.html?id=${quotationNo}`;
+    }
+
+    function changePage(p) {
+      let filtered = filterQuotations();
+      let pages = Math.ceil(filtered.length / rowsPerPage);
+      if (p >= 1 && p <= pages) {
+        currentPage = p;
+        renderTable();
+      }
+    }
+
+    // Search handler
+    const searchInput = document.getElementById('globalSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', function() {
         currentSearchTerm = this.value;
         currentPage = 1;
         renderTable();
       });
     }
 
-    function editInvoice(id) { let inv = invoices.find(i => i.id === id); if (inv) window.location.href = `edit-invoice.html?id=${inv.invoiceId}`; }
-    function markAsPaid(id) {
-      let inv = invoices.find(i => i.id === id);
-      if (inv && inv.status !== 'Paid') {
-        inv.status = 'Paid';
-        inv.paid = inv.amount;
-        inv.balance = 0;
-        updateKPIs();
-        renderTable();
-        showToast(`Invoice ${inv.invoiceId} marked as paid`);
-      }
-    }
-    function cloneInvoice(id) {
-      let inv = invoices.find(i => i.id === id);
-      if (inv) {
-        let newId = Math.max(...invoices.map(i => i.id)) + 1;
-        let newInv = { ...inv, id: newId, invoiceId: inv.invoiceId + '-CLONE', status: 'Draft', paid: 0, balance: inv.amount };
-        invoices.push(newInv);
-        updateKPIs();
-        renderTable();
-        showToast(`Cloned ${newInv.invoiceId}`);
-      }
-    }
-    function deleteInvoice(id) {
-      if (confirm('Delete invoice?')) {
-        invoices = invoices.filter(i => i.id !== id);
-        updateKPIs();
-        let filtered = filterInvoices();
-        if (currentPage > Math.ceil(filtered.length / rowsPerPage) && Math.ceil(filtered.length / rowsPerPage) > 0)
-          currentPage = Math.ceil(filtered.length / rowsPerPage);
-        renderTable();
-        showToast('Invoice deleted');
-      }
-    }
-    function downloadInvoice(id) { showToast(`Downloading invoice #${id}`); }
+    // CRUD Operations
+    window.viewQuotation = function(quotationNo) {
+      window.location.href = `quotation-detail.html?id=${quotationNo}`;
+    };
 
-    document.querySelectorAll('.invoice-tab').forEach(btn => btn.addEventListener('click', () => {
-      document.querySelectorAll('.invoice-tab').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      currentTab = btn.dataset.tab;
-      currentPage = 1;
-      renderTable();
-    }));
+    window.cloneQuotation = function(id) {
+      const original = quotations.find(q => q.id === id);
+      if (original) {
+        const newId = Math.max(...quotations.map(q => q.id)) + 1;
+        const newQuotation = {
+          ...original,
+          id: newId,
+          quotationNo: `${original.quotationNo.split('-')[0]}-${String(parseInt(original.quotationNo.split('-')[1]) + 100).slice(-3)}`,
+          date: new Date().toISOString().slice(0, 10),
+          status: 'Open',
+          dueIn: 7
+        };
+        quotations.push(newQuotation);
+        updateKPIs();
+        renderTable();
+        showToast(`Cloned quotation to ${newQuotation.quotationNo}`);
+      }
+    };
 
+    window.downloadQuotation = function(id) {
+      const quotation = quotations.find(q => q.id === id);
+      showToast(`Downloading PDF for ${quotation?.quotationNo}`);
+    };
+
+    window.deleteQuotation = function(id) {
+      if (confirm('Permanently delete this quotation?')) {
+        quotations = quotations.filter(q => q.id !== id);
+        updateKPIs();
+        let filteredAfter = filterQuotations();
+        let maxPage = Math.ceil(filteredAfter.length / rowsPerPage);
+        if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
+        if (filteredAfter.length === 0) currentPage = 1;
+        renderTable();
+        showToast('Quotation deleted successfully');
+      }
+    };
+
+    // Tab switching
+    document.querySelectorAll('.quotation-tab').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.quotation-tab').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentTab = btn.dataset.tab;
+        currentPage = 1;
+        renderTable();
+      });
+    });
+
+    // Initialize
     updateKPIs();
     renderTable();
 
-    window.editInvoice = editInvoice;
-    window.markAsPaid = markAsPaid;
-    window.cloneInvoice = cloneInvoice;
-    window.deleteInvoice = deleteInvoice;
-    window.downloadInvoice = downloadInvoice;
+    // Expose globals
     window.changePage = changePage;
-    window.redirectToInvoiceDetail = redirectToInvoiceDetail;
+    window.viewQuotation = viewQuotation;
+    window.cloneQuotation = cloneQuotation;
+    window.downloadQuotation = downloadQuotation;
+    window.deleteQuotation = deleteQuotation;
   </script>
 </body>
 

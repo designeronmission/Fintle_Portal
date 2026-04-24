@@ -1,0 +1,1147 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Item Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .btn-outline-secondary-custom {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-secondary-custom:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+        }
+
+        /* Enhanced Item Info Card */
+        .item-info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border-radius: 24px;
+            padding: 28px 32px;
+            margin-bottom: 28px;
+            border: none;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .item-avatar {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 28px;
+            font-weight: 600;
+            box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
+        }
+
+        .item-name {
+            font-size: 22px;
+            font-weight: 700;
+            color: #0f172a;
+            margin-bottom: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .item-detail {
+            font-size: 13px;
+            color: #5b6e8c;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .item-detail i {
+            width: 18px;
+            color: #2a3b82;
+            font-size: 12px;
+        }
+
+        .status-badge-custom {
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-size: 13px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-active-custom {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-inactive-custom {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .date-chip {
+            background: #f1f5f9;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Info Cards Grid */
+        .info-grid {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .info-card {
+            background: white;
+            border: 1px solid #e9eef3;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 280px;
+            padding: 20px 24px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .info-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .info-card h6 {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #eef2f6;
+        }
+
+        .info-row:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            font-size: 13px;
+            color: #5b6e8c;
+        }
+
+        .info-value {
+            font-size: 13px;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .info-value.negative {
+            color: #ef4444;
+        }
+
+        .info-value.positive {
+            color: #10b981;
+        }
+
+        /* Stock Table */
+        .stock-table-wrapper {
+            overflow-x: auto;
+            margin-top: 20px;
+        }
+
+        .stock-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .stock-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .stock-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            font-size: 13px;
+        }
+
+        .stock-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .stock-badge-in {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .stock-badge-out {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        /* Tabs with Action Button */
+        .tabs-header-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border-radius: 20px;
+            padding: 8px 20px;
+            margin-bottom: 28px;
+            border: 1px solid #edf2f7;
+            gap: 16px;
+        }
+
+        .detail-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            flex: 1;
+        }
+
+        .detail-tab {
+            padding: 10px 28px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .detail-tab i {
+            font-size: 1rem;
+            opacity: 0.7;
+        }
+
+        .detail-tab:hover {
+            color: #2a3b82;
+            background: #f8fafc;
+        }
+
+        .detail-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .settings-dropdown-btn {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 8px 20px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #475569;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .settings-dropdown-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .dropdown-menu-custom {
+            border-radius: 16px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            padding: 8px 0;
+            min-width: 200px;
+        }
+
+        .dropdown-menu-custom .dropdown-item {
+            padding: 10px 20px;
+            font-size: 13px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .dropdown-menu-custom .dropdown-item i {
+            width: 18px;
+            font-size: 14px;
+        }
+
+        /* Tab Content */
+        .tab-content {
+            display: none;
+            background: white;
+            border-radius: 24px;
+            padding: 28px;
+            border: 1px solid #edf2f7;
+        }
+
+        .tab-content.active-content {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 24px;
+            border: none;
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+
+        @media (max-width: 768px) {
+            .item-info-card {
+                padding: 20px;
+            }
+            .item-avatar {
+                width: 56px;
+                height: 56px;
+                font-size: 22px;
+            }
+            .detail-tab {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+            .tabs-header-wrapper {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .settings-dropdown-btn {
+                justify-content: center;
+            }
+            .info-card {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">
+    <!-- Sidebar Start -->
+   <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link active" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+    <!-- Sidebar End -->
+
+
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-item.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Item</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper">
+                <div class="container-fluid p-4">
+                    <div class="card card-body py-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="items.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Item Details</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="items.html">Items</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Item Details</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Item Info Card -->
+                    <div class="item-info-card" id="itemInfoCard"></div>
+
+                    <!-- Info Cards Grid -->
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h6><i class="fas fa-info-circle me-2 text-primary"></i>General Details</h6>
+                            <div class="info-row">
+                                <span class="info-label">Item Name</span>
+                                <span class="info-value" id="generalName">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Item Code</span>
+                                <span class="info-value" id="generalCode">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Category</span>
+                                <span class="info-value" id="generalCategory">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Current Stock</span>
+                                <span class="info-value" id="generalStock">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Stock Value</span>
+                                <span class="info-value" id="generalStockValue">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Low Stock Quantity</span>
+                                <span class="info-value" id="lowStockQty">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Low Stock Warning</span>
+                                <span class="info-value" id="lowStockWarning">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Item Description</span>
+                                <span class="info-value" id="itemDescription">-</span>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <h6><i class="fas fa-tag me-2 text-primary"></i>Pricing Details</h6>
+                            <div class="info-row">
+                                <span class="info-label">Sales Price</span>
+                                <span class="info-value" id="salesPrice">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Without Tax</span>
+                                <span class="info-value" id="salesWithoutTax">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Purchase Price</span>
+                                <span class="info-value" id="purchasePrice">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Without Tax</span>
+                                <span class="info-value" id="purchaseWithoutTax">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">GST Tax Rate</span>
+                                <span class="info-value" id="gstRate">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">HSN Code</span>
+                                <span class="info-value" id="hsnCode">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Unit</span>
+                                <span class="info-value" id="unitInfo">-</span>
+                            </div>
+                            <div class="info-row">
+                                <span class="info-label">Custom Field</span>
+                                <span class="info-value" id="customField">-</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs Header with Settings Dropdown -->
+                    <div class="tabs-header-wrapper">
+                        <div class="detail-tabs">
+                            <button class="detail-tab active" data-tab="stock"><i class="fas fa-boxes"></i> Stock Movements</button>
+                            <button class="detail-tab" data-tab="history"><i class="fas fa-history"></i> Price History</button>
+                            <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
+                        </div>
+
+                        <div class="dropdown">
+                            <button class="settings-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-cog"></i> Actions
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
+                                <li><a class="dropdown-item" href="#" onclick="openEditModal()"><i class="fas fa-edit"></i> Edit Item</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="cloneItem()"><i class="fas fa-copy"></i> Clone Item</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteItem()"><i class="fas fa-trash-alt"></i> Delete Item</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Stock Movements -->
+                    <div id="stock" class="tab-content active-content">
+                        <h5 class="fw-semibold mb-4">Stock Movement History</h5>
+                        <div class="stock-table-wrapper">
+                            <table class="stock-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Reference</th>
+                                        <th>Type</th>
+                                        <th>Quantity</th>
+                                        <th>Balance</th>
+                                        <th>Remarks</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="stockMovementsBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Price History -->
+                    <div id="history" class="tab-content">
+                        <h5 class="fw-semibold mb-4">Price History</h5>
+                        <div class="stock-table-wrapper">
+                            <table class="stock-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Sales Price</th>
+                                        <th>Purchase Price</th>
+                                        <th>Changed By</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="priceHistoryBody"></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Tab Content: Notes -->
+                    <div id="notes" class="tab-content">
+                        <div class="mb-4">
+                            <label class="form-label fw-semibold">Internal Notes</label>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this item..."></textarea>
+                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Item Modal -->
+    <div class="modal fade" id="editItemModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0 pt-4 px-4">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-edit text-primary me-2"></i>Edit Item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 pb-4">
+                    <form id="editItemForm">
+                        <div class="row">
+                            <div class="col-md-8 mb-3">
+                                <label class="form-label">Item Name *</label>
+                                <input type="text" class="form-control" id="editItemName" required>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Category *</label>
+                                <select class="form-select" id="editCategory" required>
+                                    <option>Electronics</option>
+                                    <option>Clothing</option>
+                                    <option>Groceries</option>
+                                    <option>Furniture</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Item Code / SKU</label>
+                                <input type="text" class="form-control" id="editItemCode">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Batch Number</label>
+                                <input type="text" class="form-control" id="editBatchNo">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Stock Quantity</label>
+                                <input type="number" class="form-control" id="editStockQty">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Unit</label>
+                                <select class="form-select" id="editUnit">
+                                    <option>PCS</option><option>BOX</option><option>KG</option><option>LTR</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label class="form-label">Custom Field</label>
+                                <input type="text" class="form-control" id="editCustomField" placeholder="Size/Warranty/etc">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Selling Price (₹) *</label>
+                                <input type="number" class="form-control" id="editSellingPrice" step="0.01" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Purchase Price (₹)</label>
+                                <input type="number" class="form-control" id="editPurchasePrice" step="0.01">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Tax Rate (%)</label>
+                                <input type="number" class="form-control" id="editTaxRate" step="0.01" value="0">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">HSN Code</label>
+                                <input type="text" class="form-control" id="editHsnCode" placeholder="HSN/SAC code">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Description</label>
+                            <textarea class="form-control" id="editDescription" rows="3"></textarea>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="editStatus">
+                                    <option value="active">Active</option>
+                                    <option value="inactive">Inactive</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Low Stock Warning</label>
+                                <select class="form-select" id="editLowStockWarning">
+                                    <option>Enabled</option>
+                                    <option>Disabled</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-end gap-3 mt-4">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-5">Save Changes</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Get item code from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const itemCode = urlParams.get('code') || 'TV-X100';
+
+        // Item Data
+        let itemData = {
+            code: itemCode,
+            name: 'Goods Television',
+            category: 'Electronics',
+            subCategory: 'Television',
+            stockQty: -22,
+            unit: 'PCS',
+            sellingPrice: 1000,
+            purchasePrice: 1009,
+            taxRate: 18,
+            hsnCode: '85287230',
+            description: 'High-definition smart television with 4K resolution',
+            status: 'active',
+            customField: 'Warranty: 2yr, Size: 55 inch',
+            lowStockWarning: 'Disabled',
+            lowStockQty: 10,
+            batchNo: 'BATCH-A01',
+            createdOn: '2026-01-15',
+            createdBy: 'John Doe'
+        };
+
+        // Stock Movements
+        let stockMovements = [
+            { date: '2026-01-15', reference: 'PO-001', type: 'Purchase', quantity: 50, balance: 50, remarks: 'Initial stock' },
+            { date: '2026-02-10', reference: 'INV-001', type: 'Sale', quantity: -30, balance: 20, remarks: 'Customer order' },
+            { date: '2026-03-05', reference: 'INV-005', type: 'Sale', quantity: -42, balance: -22, remarks: 'Bulk order' }
+        ];
+
+        // Price History
+        let priceHistory = [
+            { date: '2026-01-15', salesPrice: 950, purchasePrice: 900, changedBy: 'John Doe' },
+            { date: '2026-02-01', salesPrice: 1000, purchasePrice: 1009, changedBy: 'Admin' }
+        ];
+
+        function showToast(msg) {
+            const toast = document.getElementById('liveToastMsg');
+            document.getElementById('toastText').innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2200);
+        }
+
+        function formatCurrency(amt) {
+            return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
+        }
+
+        function getStockBadgeClass(type) {
+            return type === 'Purchase' || type === 'In' ? 'stock-badge-in' : 'stock-badge-out';
+        }
+
+        function renderItemInfo() {
+            const container = document.getElementById('itemInfoCard');
+            const statusClass = itemData.status === 'active' ? 'status-active-custom' : 'status-inactive-custom';
+            const statusIcon = itemData.status === 'active' ? 'fa-check-circle' : 'fa-times-circle';
+            const stockValue = itemData.stockQty * itemData.sellingPrice;
+
+            container.innerHTML = `
+                <div class="row align-items-center g-4">
+                    <div class="col-auto"><div class="item-avatar"><i class="fas fa-box"></i></div></div>
+                    <div class="col">
+                        <div class="row align-items-center">
+                            <div class="col-md-8">
+                                <h3 class="item-name">${escapeHtml(itemData.name)}</h3>
+                                <div class="item-detail"><i class="fas fa-barcode"></i> Code: ${escapeHtml(itemData.code)}</div>
+                                <div class="item-detail"><i class="fas fa-folder"></i> Category: ${escapeHtml(itemData.category)}</div>
+                                <div class="item-detail"><i class="fas fa-cubes"></i> Stock: ${itemData.stockQty} ${itemData.unit} <span class="ms-2 ${itemData.stockQty < 0 ? 'text-danger' : itemData.stockQty <= 10 ? 'text-warning' : 'text-success'}">(${itemData.stockQty < 0 ? 'Negative Stock' : itemData.stockQty <= 10 ? 'Low Stock' : 'In Stock'})</span></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="text-md-end">
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${itemData.status === 'active' ? 'Active' : 'Inactive'}</span></div>
+                                    <div class="d-flex gap-2 justify-content-md-end">
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Created: ${itemData.createdOn}</span>
+                                        <span class="date-chip"><i class="fas fa-user"></i> ${itemData.createdBy}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // General Details
+            document.getElementById('generalName').innerHTML = escapeHtml(itemData.name);
+            document.getElementById('generalCode').innerHTML = escapeHtml(itemData.code);
+            document.getElementById('generalCategory').innerHTML = escapeHtml(itemData.category);
+            document.getElementById('generalStock').innerHTML = `${itemData.stockQty} ${itemData.unit}`;
+            document.getElementById('generalStockValue').innerHTML = formatCurrency(stockValue);
+            document.getElementById('lowStockQty').innerHTML = itemData.lowStockQty;
+            document.getElementById('lowStockWarning').innerHTML = itemData.lowStockWarning;
+            document.getElementById('itemDescription').innerHTML = escapeHtml(itemData.description) || '-';
+            
+            // Pricing Details
+            document.getElementById('salesPrice').innerHTML = formatCurrency(itemData.sellingPrice);
+            document.getElementById('salesWithoutTax').innerHTML = formatCurrency(itemData.sellingPrice);
+            document.getElementById('purchasePrice').innerHTML = formatCurrency(itemData.purchasePrice);
+            document.getElementById('purchaseWithoutTax').innerHTML = formatCurrency(itemData.purchasePrice);
+            document.getElementById('gstRate').innerHTML = `${itemData.taxRate}%`;
+            document.getElementById('hsnCode').innerHTML = escapeHtml(itemData.hsnCode);
+            document.getElementById('unitInfo').innerHTML = itemData.unit;
+            document.getElementById('customField').innerHTML = escapeHtml(itemData.customField) || '-';
+        }
+
+        function renderStockMovements() {
+            const tbody = document.getElementById('stockMovementsBody');
+            let balance = 0;
+            tbody.innerHTML = stockMovements.map(move => {
+                balance += move.quantity;
+                const stockClass = getStockBadgeClass(move.type);
+                return `
+                    <tr>
+                        <td>${move.date}</td>
+                        <td>${escapeHtml(move.reference)}</td>
+                        <td><span class="stock-badge ${stockClass}">${move.type}</span></td>
+                        <td class="${move.quantity < 0 ? 'text-danger' : 'text-success'} fw-semibold">${move.quantity > 0 ? '+' : ''}${move.quantity}</td>
+                        <td>${balance}</td>
+                        <td>${escapeHtml(move.remarks || '-')}</td>
+                    </tr>
+                `;
+            }).join('');
+        }
+
+        function renderPriceHistory() {
+            const tbody = document.getElementById('priceHistoryBody');
+            tbody.innerHTML = priceHistory.map(hist => `
+                <tr>
+                    <td>${hist.date}</td>
+                    <td class="fw-semibold">${formatCurrency(hist.salesPrice)}</td>
+                    <td>${formatCurrency(hist.purchasePrice)}</td>
+                    <td>${escapeHtml(hist.changedBy)}</td>
+                </tr>
+            `).join('');
+        }
+
+        function loadNotes() {
+            const saved = localStorage.getItem(`item_notes_${itemData.code}`);
+            if (saved) document.getElementById('internalNotes').value = saved;
+        }
+
+        function saveNotes() {
+            const notes = document.getElementById('internalNotes').value;
+            localStorage.setItem(`item_notes_${itemData.code}`, notes);
+            showToast('Notes saved successfully');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '-';
+            return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;');
+        }
+
+        // Open Edit Modal with current values
+        function openEditModal() {
+            document.getElementById('editItemName').value = itemData.name;
+            document.getElementById('editCategory').value = itemData.category;
+            document.getElementById('editItemCode').value = itemData.code;
+            document.getElementById('editBatchNo').value = itemData.batchNo || '';
+            document.getElementById('editStockQty').value = itemData.stockQty;
+            document.getElementById('editUnit').value = itemData.unit;
+            document.getElementById('editCustomField').value = itemData.customField || '';
+            document.getElementById('editSellingPrice').value = itemData.sellingPrice;
+            document.getElementById('editPurchasePrice').value = itemData.purchasePrice;
+            document.getElementById('editTaxRate').value = itemData.taxRate;
+            document.getElementById('editHsnCode').value = itemData.hsnCode;
+            document.getElementById('editDescription').value = itemData.description || '';
+            document.getElementById('editStatus').value = itemData.status;
+            document.getElementById('editLowStockWarning').value = itemData.lowStockWarning;
+            
+            new bootstrap.Modal(document.getElementById('editItemModal')).show();
+        }
+
+        // Save Edit Changes
+        document.getElementById('editItemForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            itemData.name = document.getElementById('editItemName').value;
+            itemData.category = document.getElementById('editCategory').value;
+            itemData.code = document.getElementById('editItemCode').value;
+            itemData.batchNo = document.getElementById('editBatchNo').value;
+            itemData.stockQty = parseInt(document.getElementById('editStockQty').value) || 0;
+            itemData.unit = document.getElementById('editUnit').value;
+            itemData.customField = document.getElementById('editCustomField').value;
+            itemData.sellingPrice = parseFloat(document.getElementById('editSellingPrice').value) || 0;
+            itemData.purchasePrice = parseFloat(document.getElementById('editPurchasePrice').value) || 0;
+            itemData.taxRate = parseFloat(document.getElementById('editTaxRate').value) || 0;
+            itemData.hsnCode = document.getElementById('editHsnCode').value;
+            itemData.description = document.getElementById('editDescription').value;
+            itemData.status = document.getElementById('editStatus').value;
+            itemData.lowStockWarning = document.getElementById('editLowStockWarning').value;
+            
+            // Add to price history if price changed
+            if (priceHistory[priceHistory.length - 1].salesPrice !== itemData.sellingPrice || 
+                priceHistory[priceHistory.length - 1].purchasePrice !== itemData.purchasePrice) {
+                priceHistory.push({
+                    date: new Date().toISOString().slice(0, 10),
+                    salesPrice: itemData.sellingPrice,
+                    purchasePrice: itemData.purchasePrice,
+                    changedBy: 'Admin'
+                });
+            }
+            
+            renderItemInfo();
+            renderPriceHistory();
+            bootstrap.Modal.getInstance(document.getElementById('editItemModal')).hide();
+            showToast('Item updated successfully');
+        });
+
+        // Action Functions
+        function cloneItem() {
+            showToast('Cloning item...');
+            setTimeout(() => window.location.href = `create-item.html?clone=${itemData.code}`, 1000);
+        }
+
+        function deleteItem() {
+            if (confirm(`Delete item "${itemData.name}"? This action cannot be undone.`)) {
+                showToast('Item deleted successfully');
+                setTimeout(() => window.location.href = 'items.html', 1500);
+            }
+        }
+
+        function initTabs() {
+            const tabs = document.querySelectorAll('.detail-tab');
+            const contents = document.querySelectorAll('.tab-content');
+            tabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    const tabId = tab.getAttribute('data-tab');
+                    tabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    contents.forEach(content => content.classList.remove('active-content'));
+                    document.getElementById(tabId).classList.add('active-content');
+                });
+            });
+        }
+
+        // Initialize
+        renderItemInfo();
+        renderStockMovements();
+        renderPriceHistory();
+        loadNotes();
+        initTabs();
+
+        // Expose functions globally
+        window.openEditModal = openEditModal;
+        window.cloneItem = cloneItem;
+        window.deleteItem = deleteItem;
+        window.saveNotes = saveNotes;
+    </script>
+</body>
+
+</html>

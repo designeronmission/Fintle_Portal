@@ -38823,7 +38823,7 @@ ul {
     }
 
     html[data-layout=vertical] .page-wrapper {
-        margin-left: calc(20px + 240px)
+        margin-left: calc(20px + 220px)
     }
 
     html[data-layout=vertical] body[data-sidebartype=mini-sidebar] .topbar {
@@ -52025,3 +52025,31 @@ h6 {
             align-items: center;
             justify-content: center;
         }
+
+
+
+          .sidebar-footer {
+          position: absolute;
+    bottom: -20px;
+    left: 0;
+    /* top: 40px; */
+    right: 0;
+    background: white;
+    padding: 16px;
+    border-top: 1px solid rgb(202 202 202);
+    margin-top: auto;
+    }
+
+    .sidebar-menu {
+      padding-bottom: 10px;
+    }
+    
+    .logout-item .sidebar-link {
+      color: #ef4444 !important;
+    }
+    
+    .logout-item .sidebar-link:hover {
+      background: #fee2e2 !important;
+      color: #dc2626 !important;
+    }
+    
