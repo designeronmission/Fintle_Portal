@@ -40,7 +40,6 @@
         .form-label {
             font-size: 0.75rem;
             font-weight: 700;
-            text-transform: uppercase;
             letter-spacing: 0.03em;
             color: #5b6e8c;
             margin-bottom: 6px;
@@ -136,7 +135,6 @@
         }
 
         .btn-primary {
-            background: #2c7da0;
             border: none;
             border-radius: 40px;
             padding: 0.5rem 1.2rem;
@@ -148,6 +146,7 @@
             background: #1f5e7a;
         }
     </style>
+    
 </head>
 
 <body>
@@ -168,7 +167,7 @@
             <ul class="sidebar-menu" id="sidebarnav">
               <!-- Dashboard -->
               <li class="sidebar-item mt-4">
-                <a class="sidebar-link active" href="index.html" id="get-url" aria-expanded="false">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
@@ -204,31 +203,31 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="supplier.html">
                       <span class="icon-small"></span> Suppliers
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="purchase-order.html">
                       <span class="icon-small"></span> Purchase Order
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
                       <span class="icon-small"></span> Purchase Bill
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Supplier Statement
-                    </a>
-                  </li>
+                 <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
                 </ul>
               </li>
 
               <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
@@ -1206,7 +1205,8 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-0 card-title fw-bold" style="color: #1e293b;">Create Party / Customer
+                                            <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="customer.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Party / Customer</h4> 
+                                
                                     </h4>
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb mb-0">

@@ -1,672 +1,728 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sidebar Component</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintle | Create Invoice - Complete Working System</title>
+    <!-- Favicon icon-->
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+  <!-- Bootstrap 5 CSS + Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <style>
+    /* Professional Invoice Summary Card Styling */
+    .invoice-summary-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid rgba(35, 53, 120, 0.12);
+      transition: all 0.3s ease;
+    }
     
-    <style>
-        * {
-            font-family: 'Inter', sans-serif;
-        }
-
-        body {
-            background: #f5f7fb;
-            margin: 0;
-            padding: 0;
-        }
-
-        /* Sidebar Styles */
-        .side-mini-panel {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 280px;
-            background: white;
-            border-right: 1px solid #eef2f6;
-            z-index: 1000;
-            transition: all 0.3s ease;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .iconbar {
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .sidebarmenu {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-        }
-
-        /* Brand Logo */
-        .brand-logo {
-            padding: 20px 20px;
-            border-bottom: 1px solid #eef2f6;
-            margin-bottom: 8px;
-        }
-
-        .logo-image {
-            max-height: 42px;
-            width: auto;
-        }
-
-        /* Navigation */
-        .sidebar-nav {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-            overflow-x: hidden;
-            padding: 0 12px;
-        }
-
-        .sidebar-menu {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        /* Sidebar Items */
-        .sidebar-item {
-            margin-bottom: 4px;
-        }
-
-        .sidebar-link {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 10px 14px;
-            border-radius: 12px;
-            color: #475569;
-            transition: all 0.2s;
-            text-decoration: none;
-            font-size: 14px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .sidebar-link:hover {
-            background: #f1f5f9;
-            color: #2a3b82;
-        }
-
-        .sidebar-link.active {
-            background: #eef2ff;
-            color: #2a3b82;
-        }
-
-        .sidebar-link iconify-icon {
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .hide-menu {
-            flex: 1;
-        }
-
-        /* Dropdown Arrow */
-        .sidebar-link.has-arrow {
-            position: relative;
-        }
-
-        .sidebar-link.has-arrow::after {
-            content: '\f107';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            right: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 12px;
-            transition: transform 0.2s;
-        }
-
-        .sidebar-link.has-arrow[aria-expanded="true"]::after {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        /* First Level Dropdown */
-        .first-level {
-            padding-left: 46px;
-            list-style: none;
-            margin-top: 4px;
-            margin-bottom: 4px;
-        }
-
-        .first-level .sidebar-item {
-            margin-bottom: 2px;
-        }
-
-        .first-level .sidebar-link {
-            padding: 8px 12px;
-            font-size: 13px;
-            gap: 8px;
-        }
-
-        .icon-small {
-            width: 6px;
-            height: 6px;
-            background-color: #94a3b8;
-            border-radius: 50%;
-            display: inline-block;
-            transition: all 0.2s;
-        }
-
-        .first-level .sidebar-link:hover .icon-small {
-            background-color: #2a3b82;
-        }
-
-        /* Collapse States */
-        .collapse {
-            display: none;
-        }
-
-        .collapse.show {
-            display: block;
-        }
-
-        /* Sidebar Divider */
-        .sidebar-divider {
-            display: block;
-            height: 1px;
-            background: #eef2f6;
-            margin: 16px 0;
-        }
-
-        /* Bottom Section */
-        .sidebar-bottom {
-            margin-top: auto;
-            padding: 20px 12px 24px 12px;
-            border-top: 1px solid #eef2f6;
-            background: white;
-        }
-
-        /* Logout Button */
-        .sidebar-link.logout-link {
-            background: #fee2e2;
-            color: #ef4444;
-        }
-
-        .sidebar-link.logout-link:hover {
-            background: #fecaca;
-            color: #dc2626;
-        }
-
-        /* Profile Section */
-        .sidebar-profile {
-            margin-top: 16px;
-            padding-top: 16px;
-            border-top: 1px solid #eef2f6;
-        }
-
-        /* ISO Badge */
-        .iso-badge {
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 12px 12px;
-            margin-top: 16px;
-            text-align: center;
-        }
-
-        .iso-badge .secure-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 8px;
-        }
-
-        .iso-badge .secure-item:last-child {
-            margin-bottom: 0;
-        }
-
-        /* Version Text */
-        .version-text {
-            text-align: center;
-            margin-top: 12px;
-            font-size: 10px;
-            color: #94a3b8;
-        }
-
-        /* Scrollbar Styling */
-        .sidebar-nav::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        .sidebar-nav::-webkit-scrollbar-track {
-            background: #f1f5f9;
-            border-radius: 4px;
-        }
-
-        .sidebar-nav::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 4px;
-        }
-
-        .sidebar-nav::-webkit-scrollbar-thumb:hover {
-            background: #94a3b8;
-        }
-
-        /* Main Content Area (for demo) */
-        .main-content {
-            margin-left: 280px;
-            padding: 24px;
-            min-height: 100vh;
-        }
-
-        .demo-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            border: 1px solid #edf2f7;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-        }
-
-        @media (max-width: 768px) {
-            .side-mini-panel {
-                transform: translateX(-100%);
-            }
-            .main-content {
-                margin-left: 0;
-            }
-        }
-    </style>
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #e9edf2;
+    }
+    .summary-row:last-of-type {
+      border-bottom: none;
+    }
+    .summary-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: 0.3px;
+    }
+    .summary-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+    
+    /* Professional Total Box */
+    .summary-total {
+      background: linear-gradient(135deg, #233578 0%, #35448d 100%);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+    .summary-total .summary-label {
+      color: rgba(255, 255, 255, 0.85);
+      font-size: 0.9rem;
+    }
+    .summary-total .summary-value {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+    
+    /* Tax Accordion Button */
+    .tax-accordion-btn {
+      width: 100%;
+      text-align: left;
+      background: #f1f5f9;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 5px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: #1e293b;
+      transition: all 0.2s;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .tax-accordion-btn:hover {
+      background: #e2e8f0;
+    }
+    .tax-accordion-btn[aria-expanded="true"] iconify-icon {
+      transform: rotate(180deg);
+    }
+    
+    .tax-breakdown {
+      background: #ffffff;
+      border-radius: 0px;
+      margin-top: 12px;
+      font-size: 0.75rem;
+      overflow: hidden;
+      border: 1px solid #e9edf2;
+    }
+    .tax-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 14px;
+      font-size: 0.72rem;
+      border-bottom: 1px solid #f0f2f5;
+    }
+    .tax-detail-row:last-child {
+      border-bottom: none;
+    }
+    .tax-detail-row.fw-bold {
+      background: #f8fafc;
+    }
+    .detail-tax-item {
+      background: #ffffff;
+    }
+    
+    /* Payment Section - Modern Flex Layout */
+    .payment-section {
+      background: #f9fafb;
+      border-radius: 6px;
+      border: 1px solid rgb(186, 186, 186);
+      padding: 16px;
+      margin: 12px 0;
+    }
+    .payment-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .payment-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      min-width: 110px;
+    }
+    .payment-input-wrapper {
+      flex: 1;
+      min-width: 160px;
+    }
+    .payment-input-wrapper .input-group {
+      border-radius: 5px;
+      overflow: hidden;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+    }
+    .payment-input-wrapper .input-group-text {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      font-weight: 600;
+    }
+    .payment-input-wrapper input {
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      font-size: 0.9rem;
+    }
+    .payment-method-select {
+      border-radius: 5px;
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      background: white;
+      cursor: pointer;
+      width: 100%;
+    }
+    
+    /* Switch Toggle */
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 48px;
+      height: 24px;
+    }
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #cbd5e1;
+      transition: 0.3s;
+      border-radius: 24px;
+    }
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: 0.3s;
+      border-radius: 50%;
+    }
+    input:checked + .slider {
+      background-color: #10b981;
+    }
+    input:checked + .slider:before {
+      transform: translateX(24px);
+    }
+    
+    .btn-add{
+      background: none;
+      color: #233578;
+      border: 2px dashed #233578;
+      padding: 8px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+      border-radius: 2px;
+      transition: all 0.2s;
+    }
+    .btn-add:hover {
+      background: #eef2ff;
+    }
+    
+    /* ========== MODAL BOX STYLES - RESTORED ORIGINAL UI ========== */
+    .modal-item-search {
+      position: relative;
+    }
+    .modal-item-search .form-control {
+      border-radius: 12px;
+      padding-left: 2.5rem;
+      background-color: #ffffff;
+      border: 1px solid #e2e8f0;
+    }
+    .modal-item-search iconify-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 1.2rem;
+    }
+    .item-category-tabs {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid #e9ecef;
+      padding-bottom: 8px;
+      margin-bottom: 18px;
+    }
+    .category-chip {
+      background: #f1f5f9;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #334155;
+    }
+    .category-chip.active {
+      background: #233578;
+      color: white;
+    }
+    .item-table-modal {
+      width: 100%;
+      font-size: 0.85rem;
+    }
+    .item-table-modal th {
+      background-color: #f8fafc;
+      padding: 12px 8px;
+      font-weight: 600;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .item-table-modal td {
+      padding: 12px 8px;
+      vertical-align: middle;
+      border-bottom: 1px solid #eef2f6;
+    }
+    .stock-negative {
+      color: #dc2626;
+      background: #fee2e2;
+      border-radius: 20px;
+      padding: 2px 8px;
+      display: inline-block;
+      font-size: 0.75rem;
+    }
+    .stock-positive {
+      color: #10b981;
+      background: #e0f2e9;
+      border-radius: 20px;
+      padding: 2px 8px;
+      display: inline-block;
+      font-size: 0.75rem;
+    }
+    .quantity-control-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 4px 8px;
+      width: fit-content;
+    }
+    .qty-btn {
+      background: #f1f5f9;
+      border: none;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #233578;
+    }
+    .qty-btn:hover {
+      background: #233578;
+      color: white;
+    }
+    .qty-value {
+      width: 45px;
+      text-align: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      border: none;
+      background: transparent;
+      padding: 0;
+      margin: 0;
+    }
+    .btn-add-item {
+      background: #233578;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 6px 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      transition: 0.2s;
+      white-space: nowrap;
+    }
+    .btn-add-item:hover {
+      background: #0f1f4a;
+    }
+    .modal-content {
+      border-radius: 24px;
+      border: none;
+      box-shadow: 0 20px 35px -12px rgba(0,0,0,0.2);
+    }
+    .modal-header {
+      border-bottom: 1px solid #edf2f7;
+      padding: 1rem 1.5rem;
+    }
+    
+    .selected-count {
+      background: linear-gradient(135deg, #233578 0%, #35448d 100%);
+      color: white;
+      padding: 8px 20px;
+      border-radius: 40px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      box-shadow: 0 2px 8px rgba(35, 53, 120, 0.3);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .selected-count.has-items {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      animation: pulse 0.5s ease;
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+    
+    .selected-count .count-number {
+      font-size: 1.2rem;
+      font-weight: 800;
+      background: rgba(255,255,255,0.2);
+      padding: 0 6px;
+      border-radius: 30px;
+      min-width: 35px;
+      display: inline-block;
+      text-align: center;
+    }
+    
+    /* Enhanced dropdown styling for item select and tax select */
+    .item-select-dropdown {
+      width: 100%;
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background-color: white;
+      font-size: 0.85rem;
+      cursor: pointer;
+      appearance: none;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>');
+      background-repeat: no-repeat;
+      background-position: right 12px center;
+      background-size: 14px;
+    }
+    
+    .description-textarea {
+      font-size: 0.85rem;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      width: 100%;
+      resize: vertical;
+    }
+    
+    .tax-select-with-icon {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .tax-select-with-icon select {
+      width: 100%;
+      padding: 8px 30px 8px 12px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background-color: white;
+      font-size: 0.8rem;
+      cursor: pointer;
+      appearance: none;
+    }
+    
+    .tax-select-icon {
+      position: absolute;
+      right: 10px;
+      pointer-events: none;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
+    
+    @media (max-width: 768px) {
+      .invoice-summary-card { padding: 20px; }
+      .payment-row { flex-direction: column; align-items: stretch; }
+      .payment-label { min-width: auto; }
+    }
+  </style>
 </head>
 <body>
-
-<!-- Sidebar Start -->
-<aside class="side-mini-panel with-vertical">
-    <div class="iconbar">
+  <div id="main-wrapper">
+    <!-- Sidebar Start (unchanged - kept original) -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
         <div class="sidebarmenu">
-            <!-- Brand Logo -->
-            <div class="brand-logo d-flex align-items-center nav-logo">
-                <a href="dashboard.html" class="text-nowrap logo-img">
-                    <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" onerror="this.src='https://via.placeholder.com/120x40?text=Fintle'"/>
-                </a>
-            </div>
-
-
-            <!-- Navigation -->
-            <nav class="sidebar-nav" id="menu-right-mini-1">
-                                    <!-- Profile Section -->
-                    <div class="sidebar-profile mb-4">
-                        <div class="d-flex align-items-center gap-3">
-                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="42" height="42" alt="Profile" onerror="this.src='https://via.placeholder.com/42'"/>
-                            <div class="profile-info" style="flex: 1;">
-                                <h6 class="mb-0 fs-13 fw-semibold" style="color: #1e293b;">David McMichael</h6>
-                                <p class="mb-0 fs-11 text-muted">Admin / Pro</p>
-                            </div>
-                        </div>
-                    </div>
-
-                <ul class="sidebar-menu" id="sidebarnav">
-
-                    <!-- Dashboard -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="dashboard.html" aria-expanded="false">
-                            <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Dashboard</span>
-                        </a>
-                    </li>
-
-                    <!-- Inbox -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link" href="inbox.html" aria-expanded="false">
-                            <iconify-icon icon="solar:chat-round-dots-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Inbox</span>
-                        </a>
-                    </li>
-
-                    <!-- Items Dropdown -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                            <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Items</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="items.html">
-                                    <span class="icon-small"></span>
-                                    Inventory
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Purchase Dropdown -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                            <iconify-icon icon="solar:cart-large-minimalistic-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Purchase</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="suppliers.html">
-                                    <span class="icon-small"></span>
-                                    Suppliers
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="purchase-order.html">
-                                    <span class="icon-small"></span>
-                                    Purchase Order
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="purchase-bill.html">
-                                    <span class="icon-small"></span>
-                                    Purchase Bill
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="supplier-statement.html">
-                                    <span class="icon-small"></span>
-                                    Supplier Statement
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Sales Dropdown -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                            <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Sales</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="customer.html">
-                                    <span class="icon-small"></span>
-                                    Customer
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="enquiry.html">
-                                    <span class="icon-small"></span>
-                                    Enquiry
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="estimates.html">
-                                    <span class="icon-small"></span>
-                                    Estimates
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="invoice.html">
-                                    <span class="icon-small"></span>
-                                    Invoice
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="customer-statement.html">
-                                    <span class="icon-small"></span>
-                                    Customer Statement
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Reports Dropdown -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                            <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Reports</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="sales-report.html">
-                                    <span class="icon-small"></span>
-                                    Sales Report
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="purchase-report.html">
-                                    <span class="icon-small"></span>
-                                    Purchase Report
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="stock-report.html">
-                                    <span class="icon-small"></span>
-                                    Stock Report
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="financial-report.html">
-                                    <span class="icon-small"></span>
-                                    Financial Report
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <!-- Settings Dropdown -->
-                    <li class="sidebar-item">
-                        <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                            <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Settings</span>
-                        </a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="company-profile.html">
-                                    <span class="icon-small"></span>
-                                    Company Profile
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="tax-settings.html">
-                                    <span class="icon-small"></span>
-                                    Tax Settings
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="user-management.html">
-                                    <span class="icon-small"></span>
-                                    User Management
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="backup.html">
-                                    <span class="icon-small"></span>
-                                    Backup & Restore
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-
-                    <li>
-                        <span class="sidebar-divider"></span>
-                    </li>
-
-                </ul>
-
-                <!-- Bottom Section: Logout, Settings, ISO Badge -->
-                <div class="sidebar-bottom">
-                    <!-- Logout Button -->
-                    <div class="sidebar-item mb-2">
-                        <a class="sidebar-link logout-link" href="javascript:void(0)" onclick="handleLogout()">
-                            <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Logout</span>
-                        </a>
-                    </div>
-
-                    <!-- Account Settings Button -->
-                    <div class="sidebar-item mb-3">
-                        <a class="sidebar-link" href="account-settings.html">
-                            <iconify-icon icon="solar:user-circle-line-duotone"></iconify-icon>
-                            <span class="hide-menu">Account Settings</span>
-                        </a>
-                    </div>
-
-
-
-                    <!-- Secure ISO Certified Badge -->
-                    <div class="iso-badge">
-                        <div class="secure-item">
-                            <i class="fas fa-shield-alt" style="color: #2a3b82; font-size: 14px;"></i>
-                            <span class="fs-11 fw-semibold" style="color: #475569;">ISO 27001:2024 Certified</span>
-                        </div>
-                        <div class="secure-item">
-                            <i class="fas fa-lock" style="color: #10b981; font-size: 12px;"></i>
-                            <span class="fs-10 text-muted">256-bit SSL Secure</span>
-                        </div>
-                        <div class="secure-item">
-                            <i class="fas fa-check-circle" style="color: #2a3b82; font-size: 12px;"></i>
-                            <span class="fs-10 text-muted">SOC 2 Type II Compliant</span>
-                        </div>
-                    </div>
-
-                    <!-- Version -->
-                    <div class="version-text">
-                        <span>v4.2.0 | © 2026 Fintle</span>
-                    </div>
-                </div>
-            </nav>
-        </div>
-    </div>
-</aside>
-<!-- Sidebar End -->
-
-<!-- Main Content Area (Demo) -->
-<div class="main-content">
-    <div class="demo-card">
-        <h4 class="mb-3">Welcome to Fintle Dashboard</h4>
-        <p class="text-muted">This is a demo of the sidebar component with working dropdowns, icons, logout button, and secure badge at the bottom.</p>
-        <hr>
-        <div class="mt-3">
-            <h6>Features Included:</h6>
-            <ul>
-                <li>✓ Perfect Icons using Iconify</li>
-                <li>✓ Working Dropdowns with smooth animation</li>
-                <li>✓ Active Link Highlighting based on current page</li>
-                <li>✓ Logout Option at bottom with confirmation</li>
-                <li>✓ Settings link in bottom section</li>
-                <li>✓ Profile section with user info</li>
-                <li>✓ ISO Secure Badge with certifications</li>
-                <li>✓ Responsive design</li>
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <li class="sidebar-item mt-4"><a class="sidebar-link active" href="index.html" id="get-url" aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="hide-menu">Dashboard</span></a></li>
+              <li class="sidebar-item"><a class="sidebar-link" href="#" aria-expanded="false"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon><span class="hide-menu">Inbox</span></a></li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="hide-menu">Items</span></a>
+                <ul aria-expanded="false" class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span> Inventory</a></li></ul>
+              </li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:cart-line-duotone"></iconify-icon><span class="hide-menu">Purchase</span></a>
+                <ul aria-expanded="false" class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Suppliers</a></li><li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Purchase Order</a></li></ul>
+              </li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="hide-menu">Sales</span></a>
+                <ul aria-expanded="false" class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span> Customer</a></li><li class="sidebar-item"><a class="sidebar-link" href="enquiry.html"><span class="icon-small"></span> Enquiry</a></li><li class="sidebar-item"><a class="sidebar-link" href="quotation.html"><span class="icon-small"></span> Quotation</a></li><li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span class="icon-small"></span> Invoice</a></li></ul>
+              </li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="hide-menu">Accounts</span></a>
+                <ul aria-expanded="false" class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Account Master</a></li><li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Journals</a></li></ul>
+              </li>
+              <li><span class="sidebar-divider"></span></li>
             </ul>
+            <div class="sidebar-footer"><ul class="sidebar-menu"><li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li><li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li></ul></div>
+          </nav>
         </div>
-        <div class="alert alert-info mt-3">
-            <i class="fas fa-info-circle me-2"></i> Click the dropdown arrows to expand/collapse menu items.
+      </div>
+    </aside>
+    
+    <div class="page-wrapper">
+      <header class="topbar">...</header>
+      <div class="body-wrapper">
+        <div class="container-fluid p-4">
+          <div class="card card-body py-3"><div class="row align-items-center"><div class="col-12"><div class="d-sm-flex align-items-center justify-space-between"><h4 class="mb-4 mb-sm-0 card-title">Create Quotation</h4></div></div></div></div>
+          <div class="row">
+            <div class="col-12">
+              <div class="card border-0 shadow-sm">
+                <div class="card-body p-4">
+                  <div class="row g-3 mt-1">
+                    <div class="col-md-6"><label class="form-label fw-semibold">Customer <span class="text-danger">*</span></label><input type="text" class="form-control" id="customerName" value="ABC Enterprises" style="border-radius: 12px;"></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Estimate / PO No.</label><input type="text" class="form-control" id="estimateRef" value="PO-2024-0012" style="border-radius: 12px;"></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Invoice Reference</label><input type="text" class="form-control" id="invoiceRef" value="INV-2404-001" style="border-radius: 12px;"></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Currency</label><select class="form-select" id="currencySelect" style="border-radius: 12px;"><option value="INR">🇮🇳 INR (₹)</option><option value="USD">🇺🇸 USD ($)</option><option value="EUR">🇪🇺 EUR (€)</option></select></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Issue Date</label><input type="date" class="form-control" id="issueDate" value="2026-04-15" style="border-radius: 12px;"></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Due Date</label><input type="date" class="form-control" id="dueDate" value="2026-05-15" style="border-radius: 12px;"></div>
+                    <div class="col-md-12"><label class="form-label fw-semibold">Description / Notes</label><textarea class="form-control" id="invoiceDescription" rows="2" style="border-radius: 12px;">Thank you for your business. Payment due within 30 days.</textarea></div>
+                  </div>
+
+                  <!-- Line Items Table with enhanced dropdowns: Item Select + Description Box -->
+                  <div class="row mt-4">
+                    <div class="col-12">
+                      <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                        <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
+                        <button class="btn btn-primary rounded-pill px-4" id="openAddItemsModalBtn" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Add Line Item</button>
+                      </div>
+                      <div class="table-responsive">
+                        <table class="table table-hover" id="itemsTable">
+                          <thead class="table-light"><tr><th style="width: 30%">Item / Description</th><th style="width: 10%">Price</th><th style="width: 8%">Qty</th><th style="width: 10%">Unit</th><th style="width: 18%">Tax Rate</th><th style="width: 15%">Amount</th><th style="width: 11%">Action</th></tr></thead>
+                          <tbody id="itemsTableBody"></tbody>
+                        </table>
+                        <button class="btn-add" id="addLineItemBtns">+ Add Item</button>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Rest of invoice summary (unchanted) -->
+                  <div class="row mt-4 justify-content-end">
+                    <div class="col-lg-8 col-md-12"><div class="invoice-summary-card">...</div></div>
+                  </div>
+                  <div class="row mt-4"><div class="col-12"><div class="d-flex justify-content-end gap-3"><button class="btn btn-outline-secondary px-4 rounded-pill" id="saveContinueBtn">Send to Customer</button><button class="btn btn-primary px-4 rounded-pill" id="recordPaymentBtn">Save & Record Payment</button></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+        <div class="toast-container position-fixed bottom-0 end-0 p-3"></div>
+      </div>
     </div>
-</div>
+  </div>
 
-<script>
-    // Sidebar Dropdown Toggle Functionality
-    document.addEventListener('DOMContentLoaded', function() {
-        // Get all sidebar links with has-arrow class
-        const hasArrowLinks = document.querySelectorAll('.sidebar-link.has-arrow');
-        
-        hasArrowLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                e.stopPropagation();
-                
-                // Get the parent sidebar-item and find the dropdown menu
-                const parentItem = this.closest('.sidebar-item');
-                const dropdownMenu = parentItem.querySelector('.collapse');
-                
-                if (dropdownMenu) {
-                    // Toggle the collapse class
-                    if (dropdownMenu.classList.contains('show')) {
-                        dropdownMenu.classList.remove('show');
-                        this.setAttribute('aria-expanded', 'false');
-                    } else {
-                        dropdownMenu.classList.add('show');
-                        this.setAttribute('aria-expanded', 'true');
-                    }
-                }
-            });
-        });
-        
-        // Set active class based on current URL
-        const currentPath = window.location.pathname;
-        const allSidebarLinks = document.querySelectorAll('.sidebar-link');
-        
-        allSidebarLinks.forEach(link => {
-            const href = link.getAttribute('href');
-            if (href && href !== 'javascript:void(0)' && currentPath.includes(href.split('/').pop())) {
-                // Remove active from all
-                allSidebarLinks.forEach(l => l.classList.remove('active'));
-                // Add active to current
-                link.classList.add('active');
-                
-                // Open parent dropdown if exists
-                const parentItem = link.closest('.sidebar-item');
-                const parentDropdown = parentItem?.closest('.collapse');
-                if (parentDropdown && !parentDropdown.classList.contains('show')) {
-                    parentDropdown.classList.add('show');
-                    const parentLink = parentDropdown.closest('.sidebar-item')?.querySelector('.sidebar-link.has-arrow');
-                    if (parentLink) {
-                        parentLink.setAttribute('aria-expanded', 'true');
-                    }
-                }
-            }
-        });
-        
-        // Also mark dashboard as active if on root or index
-        if (currentPath === '/' || currentPath.endsWith('index.html') || currentPath.endsWith('dashboard.html')) {
-            const dashboardLink = document.querySelector('.sidebar-link[href="dashboard.html"]');
-            if (dashboardLink) {
-                allSidebarLinks.forEach(l => l.classList.remove('active'));
-                dashboardLink.classList.add('active');
-            }
+  <!-- Modal (unchanged) -->
+  <div class="modal fade" id="addItemsModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-xl modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fw-bold">Add Items to Bill</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body px-4 pb-3"><div class="modal-item-search mb-4"><iconify-icon icon="solar:magnifer-linear"></iconify-icon><input type="text" class="form-control" id="modalSearchInput" placeholder="Search"></div><div class="d-flex justify-content-between align-items-center flex-wrap mb-2"><div class="item-category-tabs mb-0" id="categoryChipsContainer"><span class="category-chip active" data-cat="all">All Items</span><span class="category-chip" data-cat="goods">Goods</span><span class="category-chip" data-cat="sample">Sample Items</span></div><button type="button" id="createNewItemFromModal" class="btn btn-outline-primary"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Create New Item</button></div><div class="table-responsive"><table class="item-table-modal"><thead><tr><th>Item Name</th><th>Item Code</th><th>Stock</th><th>Sales Price</th><th>Purchase Price</th><th>Quantity</th><th>Action</th></tr></thead><tbody id="modalItemsList"></tbody></table></div><div class="mt-3"><div class="selected-count" id="modalSelectedCount"><iconify-icon icon="solar:bag-check-bold" width="18"></iconify-icon><span>Selected Items: </span><span class="count-number" id="selectedCountNumber">0</span></div></div></div><div class="modal-footer border-0 pt-0 pb-4 px-4"><button class="btn btn-outline-secondary px-4" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary px-5" id="confirmAddToBillBtn">Add to Bill</button></div></div></div></div>
+
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  
+  <script>
+    // Enhanced Inventory with more items for dropdown
+    const masterInventory = [
+      { id: 1, name: "Premium Web Development", code: "SVC-WEB01", stock: -2, stockUnit: "HRS", salesPrice: 2500, purchasePrice: 1800, category: "goods", uom: "Project" },
+      { id: 2, name: "Cloud Hosting Basic", code: "CLD-001", stock: 124, stockUnit: "UNITS", salesPrice: 480, purchasePrice: 300, category: "sample", uom: "Year" },
+      { id: 3, name: "UI/UX Consultation", code: "DES-202", stock: 45, stockUnit: "HRS", salesPrice: 850, purchasePrice: 600, category: "goods", uom: "Hours" },
+      { id: 4, name: "Data Analytics Setup", code: "AN-889", stock: 12, stockUnit: "PCS", salesPrice: 1500, purchasePrice: 1100, category: "goods", uom: "Project" },
+      { id: 5, name: "Security Audit", code: "SEC-007", stock: 8, stockUnit: "PCS", salesPrice: 3200, purchasePrice: 2400, category: "sample", uom: "Service" }
+    ];
+    
+    const taxOptions = [{ label: "None (0%)", value: 0 }, { label: "GST @ 5%", value: 5 }, { label: "GST @ 12%", value: 12 }, { label: "GST @ 18%", value: 18 }, { label: "GST @ 28%", value: 28 }];
+    
+    let modalSelectedItems = [];
+    let isTaxInclusive = false;
+    
+    function getCurrencySymbol() { const map = { USD: '$', EUR: '€', INR: '₹' }; return map[document.getElementById('currencySelect')?.value] || '₹'; }
+    function formatMoney(amount) { return `${getCurrencySymbol()} ${amount.toFixed(2)}`; }
+    
+    // Enhanced row creator with Item dropdown + Description box (textarea)
+    function createEnhancedItemRow(desc = "", price = 0, qty = 1, unit = "", taxRate = 18) {
+      const tr = document.createElement('tr'); tr.className = 'item-row';
+      // Generate item dropdown options from masterInventory
+      const itemOptions = masterInventory.map(item => `<option value="${item.id}" data-price="${item.salesPrice}" data-name="${item.name.replace(/"/g, '&quot;')}" data-unit="${item.uom}">${item.name} (${item.uom})</option>`).join('');
+      tr.innerHTML = `
+        <td style="min-width: 260px;">
+          <select class="item-select-dropdown mb-2" style="margin-bottom: 6px !important;">
+            <option value="">-- Select Item --</option>
+            ${itemOptions}
+          </select>
+          <textarea class="description-textarea" rows="2" placeholder="Additional description / notes...">${escapeHtml(desc)}</textarea>
+        </td>
+        <td><input type="number" step="any" class="form-control form-control item-price" value="${price}"></td>
+        <td><input type="number" step="any" class="form-control form-control item-qty" value="${qty}"></td>
+        <td><input type="text" class="form-control item-unit" value="${escapeHtml(unit)}" placeholder="Unit"></td>
+        <td><div class="tax-select-with-icon"><select class="tax-rate-select">${taxOptions.map(t => `<option value="${t.value}" ${t.value === taxRate ? 'selected' : ''}>${t.label}</option>`).join('')}</select><iconify-icon class="tax-select-icon" icon="solar:alt-arrow-down-bold" width="14"></iconify-icon></div></td>
+        <td class="row-amount fw-semibold text-dark">${formatMoney(price * qty)}</td>
+        <td class="text-center"><button class="btn btn-sm delete-row-btn" style="background: none; border: none; color: #ef4444; cursor: pointer;"><iconify-icon icon="solar:trash-bin-trash-linear" width="16"></iconify-icon></button></td>
+      `;
+      const itemSelect = tr.querySelector('.item-select-dropdown');
+      const descTextarea = tr.querySelector('.description-textarea');
+      const priceInput = tr.querySelector('.item-price');
+      const qtyInput = tr.querySelector('.item-qty');
+      const unitInput = tr.querySelector('.item-unit');
+      const taxSelect = tr.querySelector('.tax-rate-select');
+      
+      // Auto-populate when item selected
+      itemSelect.addEventListener('change', (e) => {
+        const selectedId = parseInt(e.target.value);
+        if (selectedId) {
+          const item = masterInventory.find(i => i.id === selectedId);
+          if (item) {
+            priceInput.value = item.salesPrice;
+            unitInput.value = item.uom;
+            if (!descTextarea.value.trim()) descTextarea.value = `Professional ${item.name} service as per agreement.`;
+            recalcTotals();
+          }
+        } else {
+          priceInput.value = '';
+          unitInput.value = '';
         }
+      });
+      
+      [priceInput, qtyInput].forEach(inp => inp.addEventListener('input', () => recalcTotals()));
+      taxSelect.addEventListener('change', () => recalcTotals());
+      tr.querySelector('.delete-row-btn')?.addEventListener('click', () => { tr.remove(); recalcTotals(); showToast('Item removed', 'info'); });
+      return tr;
+    }
+    
+    function escapeHtml(str) { return str?.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])) || ''; }
+    function showToast(message, type = 'success') {
+      const container = document.querySelector('.toast-container');
+      const id = 'toast-' + Date.now();
+      const bg = type === 'success' ? 'bg-success' : (type === 'danger' ? 'bg-danger' : 'bg-primary');
+      const html = `<div id="${id}" class="toast align-items-center text-white ${bg} border-0 show"><div class="d-flex"><div class="toast-body">${message}</div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div></div>`;
+      container.insertAdjacentHTML('beforeend', html);
+      const toastEl = document.getElementById(id);
+      const bsToast = new bootstrap.Toast(toastEl, { delay: 2000 });
+      bsToast.show();
+      toastEl.addEventListener('hidden.bs.toast', () => toastEl.remove());
+    }
+    
+    function calculateDetailedTaxBreakdown(itemsData) {
+      const breakdown = [];
+      itemsData.forEach(item => {
+        if (item.taxRate > 0) {
+          let taxableAmount = item.price * item.qty;
+          let taxAmount = (taxableAmount * item.taxRate) / 100;
+          if (isTaxInclusive) {
+            const priceExclTax = item.price / (1 + item.taxRate / 100);
+            taxableAmount = priceExclTax * item.qty;
+            taxAmount = (item.price * item.qty) - taxableAmount;
+          }
+          breakdown.push({ itemName: item.desc.substring(0, 30), taxRate: item.taxRate, taxableAmount, taxAmount, cgst: taxAmount / 2, sgst: taxAmount / 2 });
+        }
+      });
+      return breakdown;
+    }
+    
+    function recalcTotals() {
+      const rows = document.querySelectorAll('#itemsTableBody .item-row');
+      let itemsData = [], subtotal = 0, totalTax = 0, taxableAmount = 0;
+      rows.forEach(row => {
+        const desc = row.querySelector('.description-textarea')?.value || '';
+        const price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+        const qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+        const taxRate = parseFloat(row.querySelector('.tax-rate-select')?.value) || 0;
+        itemsData.push({ desc, price, qty, taxRate });
+        let amountExclTax = price * qty, taxAmount = amountExclTax * taxRate / 100, finalAmount = isTaxInclusive ? amountExclTax : amountExclTax + taxAmount;
+        if (isTaxInclusive) { const priceExclTax = price / (1 + taxRate / 100); amountExclTax = priceExclTax * qty; taxAmount = (price * qty) - amountExclTax; finalAmount = price * qty; }
+        const amtSpan = row.querySelector('.row-amount');
+        if (amtSpan) amtSpan.innerText = formatMoney(finalAmount);
+        if (isTaxInclusive) { const priceExclTax = price / (1 + taxRate / 100); subtotal += priceExclTax * qty; taxableAmount += priceExclTax * qty; totalTax += (price * qty) - (priceExclTax * qty); }
+        else { subtotal += price * qty; taxableAmount += price * qty; totalTax += (price * qty) * taxRate / 100; }
+      });
+      const shipping = parseFloat(document.getElementById('shippingCharge')?.value) || 0;
+      const netTotal = subtotal + totalTax + shipping;
+      document.getElementById('subtotalDisplay').innerText = formatMoney(subtotal);
+      document.getElementById('taxableAmountDisplay').innerText = formatMoney(taxableAmount);
+      document.getElementById('taxDisplay').innerText = formatMoney(totalTax);
+      document.getElementById('netTotalDisplay').innerText = formatMoney(netTotal);
+      document.getElementById('shippingSymbol').innerText = getCurrencySymbol();
+      document.getElementById('receivedSymbol').innerText = getCurrencySymbol();
+      const detailed = calculateDetailedTaxBreakdown(itemsData);
+      const breakdownDiv = document.getElementById('taxBreakdownDetails');
+      if (detailed.length === 0) breakdownDiv.innerHTML = '<div class="tax-detail-row"><span class="text-muted">No tax applicable</span><span></span></div>';
+      else {
+        let html = `<div class="tax-detail-row fw-bold bg-light"><span>Tax Component</span><span>Amount</span></div>`;
+        detailed.forEach(b => { html += `<div class="tax-detail-row detail-tax-item"><span><strong>${b.itemName}</strong> (${b.taxRate}% GST)</span><span>${formatMoney(b.taxAmount)}</span></div><div class="tax-detail-row ps-3 text-muted"><span>↳ CGST @ ${(b.taxRate/2).toFixed(2)}%</span><span>${formatMoney(b.cgst)}</span></div><div class="tax-detail-row ps-3 text-muted"><span>↳ SGST @ ${(b.taxRate/2).toFixed(2)}%</span><span>${formatMoney(b.sgst)}</span></div>`; });
+        breakdownDiv.innerHTML = html;
+      }
+      updateBalance(netTotal);
+    }
+    
+    function updateBalance(totalDue) {
+      let amountReceived = parseFloat(document.getElementById('amountReceived')?.value) || 0;
+      const isPaid = document.getElementById('markAsPaidToggle')?.checked || false;
+      if (isPaid) { amountReceived = totalDue; document.getElementById('amountReceived').value = totalDue; }
+      let balance = Math.max(0, totalDue - amountReceived);
+      document.getElementById('balanceDisplay').innerText = formatMoney(balance);
+      document.getElementById('paidStatusLabel').innerText = isPaid ? 'Paid ✓' : 'Unpaid';
+      document.getElementById('paidStatusLabel').className = isPaid ? 'badge bg-success-subtle text-success px-3 py-1 rounded-pill' : 'badge bg-warning-subtle text-warning px-3 py-1 rounded-pill';
+    }
+    
+    function addSelectedToInvoice() { if (!modalSelectedItems.length) { showToast('No items selected', 'danger'); return false; } const tbody = document.getElementById('itemsTableBody'); modalSelectedItems.forEach(sel => { const row = createEnhancedItemRow(sel.inventoryItem.name, sel.inventoryItem.salesPrice, sel.quantity, sel.inventoryItem.uom, 18); tbody.appendChild(row); }); recalcTotals(); showToast(`${modalSelectedItems.length} item(s) added to invoice!`, 'success'); modalSelectedItems = []; renderModalTable(); return true; }
+    
+    function renderModalTable() {
+      const tbody = document.getElementById('modalItemsList');
+      const searchTerm = document.getElementById('modalSearchInput')?.value.toLowerCase() || '';
+      const activeCat = document.querySelector('.category-chip.active')?.dataset.cat || 'all';
+      let filtered = masterInventory.filter(i => (activeCat === 'all' || i.category === activeCat) && i.name.toLowerCase().includes(searchTerm));
+      tbody.innerHTML = filtered.map(item => { const selected = modalSelectedItems.find(s => s.inventoryItem.id === item.id); const qty = selected ? selected.quantity : 1; const stockClass = item.stock < 0 ? 'stock-negative' : 'stock-positive'; const stockText = item.stock < 0 ? `⚠️ ${item.stock} ${item.stockUnit}` : `✓ ${item.stock} ${item.stockUnit}`; return `<tr><td class="fw-semibold">${item.name}</td><td>${item.code}</td><td><span class="${stockClass}">${stockText}</span></td><td>${getCurrencySymbol()} ${item.salesPrice.toFixed(2)}</td><td>${getCurrencySymbol()} ${item.purchasePrice.toFixed(2)}</td><td><div class="quantity-control-wrapper"><button class="qty-btn qty-decr" data-id="${item.id}">−</button><input type="text" class="qty-value" data-id="${item.id}" value="${qty}" readonly><button class="qty-btn qty-incr" data-id="${item.id}">+</button></div></td><td><button class="btn-add-item add-item-modal-btn" data-id="${item.id}">Add to Bill</button></td>`; }).join('');
+      attachModalEvents();
+      updateModalCount();
+    }
+    
+    function attachModalEvents() {
+      document.querySelectorAll('.qty-incr').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); let s = modalSelectedItems.find(s => s.inventoryItem.id === id); if(s) s.quantity++; else modalSelectedItems.push({ inventoryItem: masterInventory.find(i => i.id === id), quantity: 1 }); updateModalCount(); renderModalTable(); }));
+      document.querySelectorAll('.qty-decr').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); let s = modalSelectedItems.find(s => s.inventoryItem.id === id); if(s) { if(s.quantity > 1) s.quantity--; else modalSelectedItems = modalSelectedItems.filter(x => x.inventoryItem.id !== id); } updateModalCount(); renderModalTable(); }));
+      document.querySelectorAll('.add-item-modal-btn').forEach(btn => btn.addEventListener('click', (e) => { const id = parseInt(btn.dataset.id); const item = masterInventory.find(i => i.id === id); const row = btn.closest('tr'); const qty = parseInt(row.querySelector('.qty-value')?.value) || 1; const existing = modalSelectedItems.find(s => s.inventoryItem.id === id); if(existing) existing.quantity = qty; else modalSelectedItems.push({ inventoryItem: item, quantity: qty }); updateModalCount(); showToast(`${item.name} added`, 'success'); renderModalTable(); }));
+    }
+    
+    function updateModalCount() { const total = modalSelectedItems.reduce((s, i) => s + i.quantity, 0); document.getElementById('selectedCountNumber').innerText = total; if(document.getElementById('confirmAddToBillBtn')) document.getElementById('confirmAddToBillBtn').disabled = total === 0; const selectedDiv = document.getElementById('modalSelectedCount'); if(selectedDiv) { if(total > 0) selectedDiv.classList.add('has-items'); else selectedDiv.classList.remove('has-items'); } }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const tbody = document.getElementById('itemsTableBody');
+      // Create initial rows with enhanced dropdown + description
+      tbody.appendChild(createEnhancedItemRow("Web Development Services - Full stack", 2500, 1, "Project", 18));
+      tbody.appendChild(createEnhancedItemRow("Cloud Hosting + CDN", 480, 1, "Year", 5));
+      tbody.appendChild(createEnhancedItemRow("UI/UX Consultation & Prototyping", 850, 2, "Hours", 12));
+      recalcTotals();
+      
+      const modal = new bootstrap.Modal(document.getElementById('addItemsModal'));
+      document.getElementById('openAddItemsModalBtn')?.addEventListener('click', () => { modalSelectedItems = []; renderModalTable(); modal.show(); });
+      document.getElementById('addLineItemBtns')?.addEventListener('click', () => { modalSelectedItems = []; renderModalTable(); modal.show(); });
+      document.getElementById('confirmAddToBillBtn')?.addEventListener('click', () => { addSelectedToInvoice(); modal.hide(); });
+      document.getElementById('modalSearchInput')?.addEventListener('input', () => renderModalTable());
+      document.querySelectorAll('.category-chip').forEach(c => c.addEventListener('click', function() { document.querySelectorAll('.category-chip').forEach(x => x.classList.remove('active')); this.classList.add('active'); renderModalTable(); }));
+      document.getElementById('currencySelect')?.addEventListener('change', () => recalcTotals());
+      document.getElementById('shippingCharge')?.addEventListener('input', () => recalcTotals());
+      document.getElementById('amountReceived')?.addEventListener('input', () => { const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0; updateBalance(net); });
+      document.getElementById('markAsPaidToggle')?.addEventListener('change', (e) => { const net = parseFloat(document.getElementById('netTotalDisplay')?.innerText.replace(/[^0-9.-]/g, '')) || 0; if(e.target.checked) document.getElementById('amountReceived').value = net; updateBalance(net); });
+      document.getElementById('taxInclusiveToggle')?.addEventListener('change', (e) => { isTaxInclusive = e.target.checked; document.getElementById('taxModeLabel').innerText = isTaxInclusive ? 'Inclusive' : 'Exclusive'; recalcTotals(); });
+      document.getElementById('saveContinueBtn')?.addEventListener('click', () => showToast('Invoice saved as draft', 'success'));
+      document.getElementById('recordPaymentBtn')?.addEventListener('click', () => showToast('Payment recorded successfully', 'success'));
+      document.getElementById('createNewItemFromModal')?.addEventListener('click', () => showToast('Create new item feature - coming soon!', 'info'));
     });
-    
-    // Logout Function
-    function handleLogout() {
-        if (confirm('Are you sure you want to logout?')) {
-            // Clear local storage and session storage
-            localStorage.clear();
-            sessionStorage.clear();
-            
-            // Show toast message
-            showToastMessage('Logged out successfully');
-            
-            // Redirect to login page after short delay
-            setTimeout(() => {
-                window.location.href = 'login.html';
-            }, 1000);
-        }
-    }
-    
-    // Toast helper function
-    function showToastMessage(message) {
-        const toast = document.createElement('div');
-        toast.className = 'position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg';
-        toast.style.zIndex = '9999';
-        toast.style.backgroundColor = '#1e293b';
-        toast.innerHTML = `<i class="fas fa-check-circle me-2"></i> ${message}`;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            setTimeout(() => toast.remove(), 300);
-        }, 2000);
-    }
-    
-    // Optional: Function to show active page indicator
-    function setActiveMenu(menuId) {
-        const allLinks = document.querySelectorAll('.sidebar-link');
-        allLinks.forEach(link => link.classList.remove('active'));
-        const activeLink = document.querySelector(`.sidebar-link[href="${menuId}.html"]`);
-        if (activeLink) activeLink.classList.add('active');
-    }
-</script>
-
-<!-- Bootstrap JS for potential modals (optional) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  </script>
 </body>
 </html>

@@ -1,0 +1,1134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Supplier Management with Balance KPIs</title>
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        /* Pagination - Clean & Below Table */
+        .pagination-container {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #eef2f6;
+        }
+
+        .page-link {
+            border-radius: 8px;
+            margin: 0 3px;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-weight: 500;
+            padding: 8px 14px;
+            font-size: 13px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .page-link:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+            color: #2a3b82;
+        }
+
+        .page-item.active .page-link {
+            background: #2a3b82;
+            color: white;
+            border-color: #2a3b82;
+        }
+
+        .page-item.disabled .page-link {
+            background: #f8fafc;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            cursor: not-allowed;
+        }
+
+        .pagination {
+            gap: 5px;
+            margin-bottom: 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            background: #f8fafc;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-active {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-inactive {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .status-suspended {
+            background: #fff0e5;
+            color: #b85c1a;
+        }
+
+        .supplier-link {
+            cursor: pointer;
+            font-weight: 600;
+            color: #2a3b82;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+        }
+
+        .supplier-link:hover {
+            text-decoration: underline;
+        }
+
+        .supplier-table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .supplier-table {
+            min-width: 1300px;
+            font-size: 0.85rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .supplier-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .supplier-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            white-space: nowrap;
+        }
+
+        .supplier-table th:last-child,
+        .supplier-table td:last-child {
+            position: sticky;
+            right: 0;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .supplier-table th:last-child {
+            background-color: #f8fafc;
+            z-index: 11;
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown-item {
+            font-size: 0.8rem;
+            padding: 8px 18px;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            gap: 20px;
+            background: white;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding: 20px 24px;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .kpi-card-new {
+            background: white;
+            border: 1px solid #e9eef3;
+            border-radius: 20px;
+            flex: 1;
+            padding: 18px 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .kpi-card-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5b6e8c;
+            letter-spacing: 0.3px;
+        }
+
+        .icon-small {
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-amount-main {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .kpi-sub {
+            font-size: 13px;
+            font-weight: 500;
+            color: #5f7f9e;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .count-badge {
+            background: #eff3f8;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-weight: 700;
+            color: #2a3b82;
+        }
+
+        .unified-actions-card {
+            background: white;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            border: 1px solid #edf2f7;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .search-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 6px 18px;
+            min-width: 260px;
+        }
+
+        .search-inline:focus-within {
+            border-color: #2a3b82;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
+        }
+
+        .search-inline input {
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            width: 100%;
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        .tabs-centered {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .supplier-tab {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .supplier-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .tab-count {
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 30px;
+            padding: 2px 9px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+        }
+
+        @media (max-width: 992px) {
+            .unified-actions-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tabs-centered {
+                order: 2;
+                justify-content: center;
+            }
+
+            .btn-create-right {
+                order: 3;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <!-- Sidebar Start -->
+        <aside class="side-mini-panel with-vertical">
+            <div class="iconbar">
+                <div class="sidebarmenu">
+                    <div class="brand-logo d-flex align-items-center nav-logo">
+                        <a href="../main/index.html" class="text-nowrap logo-img">
+                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                        </a>
+                    </div>
+
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <li class="sidebar-item mt-4">
+                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Inbox</span>
+                                </a>
+                            </li>
+
+                            <!-- Items -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Items</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="items.html">
+                                            <span class="icon-small"></span> Inventory
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Purchase -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow active" href="javascript:void(0)"
+                                    aria-expanded="false">
+                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Purchase</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier.html">
+                                            <span class="icon-small"></span> Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="purchase-order.html">
+                                            <span class="icon-small"></span> Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="purchase-bill.html">
+                                            <span class="icon-small"></span> Purchase Bill
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Sales -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Sales</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span> Customer
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="enquiry.html">
+                                            <span class="icon-small"></span> Enquiry
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="quotation.html">
+                                            <span class="icon-small"></span> Quotation
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="invoice.html">
+                                            <span class="icon-small"></span> Invoice
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Accounts -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Accounts</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Account Master
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Journals
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Vouchers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Bank Payments
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> General Ledger
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Balance Sheets
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><span class="sidebar-divider"></span></li>
+                        </ul>
+
+                        <!-- Logout Option at Bottom -->
+                        <div class="sidebar-footer">
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Settings</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item logout-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()"
+                                        aria-expanded="false">
+                                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <!-- Header Start -->
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-purchase-order.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create
+                                        Purchase Order</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg"
+                                alt="Fintle-img" />
+                        </div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle"
+                            href="javascript:void(0)" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                                class="fs-6"></iconify-icon></a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul
+                                    class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)"
+                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                                            type="button" data-bs-toggle="offcanvas"
+                                            data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone"
+                                                class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item d-block d-xl-none"><a
+                                            class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                                            data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                                                icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a
+                                            class="nav-link position-relative" href="javascript:void(0)" id="drop2"
+                                            aria-expanded="false"><iconify-icon icon="solar:bell-bing-line-duotone"
+                                                class="fs-6"></iconify-icon></a>
+                                        <div
+                                            class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
+                                            <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                                                <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
+                                                    class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                                            </div>
+                                            <div class="message-body" data-simplebar><a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                                                        class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
+                                                            icon="solar:widget-3-line-duotone"></iconify-icon></span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6><span
+                                                                class="d-block fs-2">9:30 AM</span>
+                                                        </div><span
+                                                            class="d-block text-truncate text-truncate fs-11">Just see
+                                                            the my new
+                                                            admin!</span>
+                                                    </div>
+                                                </a><a href="javascript:void(0)"
+                                                    class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                                                        class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
+                                                            icon="solar:calendar-line-duotone"></iconify-icon></span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Event today</h6><span
+                                                                class="d-block fs-2">9:15 AM</span>
+                                                        </div><span
+                                                            class="d-block text-truncate text-truncate fs-11">Just a
+                                                            reminder that you have
+                                                            event</span>
+                                                    </div>
+                                                </a></div>
+                                            <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All
+                                                    Notifications</button>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"
+                                            id="drop1" aria-expanded="false">
+                                            <div class="d-flex align-items-center gap-2 lh-base"><img
+                                                    src="assets/images/needs/profile.png" class="rounded-circle"
+                                                    width="35" height="35" alt="Fintle-img" /></div>
+                                        </a>
+                                        <div
+                                            class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
+                                            <div class="position-relative px-4 pt-3 pb-2">
+                                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
+                                                    <img src="assets/images/needs/profile.png" class="rounded-circle"
+                                                        width="56" height="56" alt="Fintle-img" />
+                                                    <div>
+                                                        <h5 class="mb-0 fs-12">David McMichael <span
+                                                                class="text-success fs-11">Pro</span></h5>
+                                                        <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
+                                                                class="__cf_email__">[email&#160;protected]</a></p>
+                                                    </div>
+                                                </div>
+                                                <div class="message-body"><a href="../main/page-user-profile.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">My Profile</a><a
+                                                        href="../main/page-pricing.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a
+                                                        href="../main/app-invoice.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">My Invoice <span
+                                                            class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
+                                                        href="../main/page-account-settings.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">Account
+                                                        Settings</a><a href="../main/authentication-login2.html"
+                                                        class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                    <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
+                        <nav class="sidebar-nav scroll-sidebar">
+                            <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
+                                    class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png"
+                                        alt="Logo" class="logo-image" /></a><button type="button" class="btn-close"
+                                    data-bs-dismiss="offcanvas" aria-label="Close"></button></div>
+                            <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
+                                <ul id="sidebarnav">
+                                    <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0"
+                                            href="javascript:void(0)" aria-expanded="false"><span><iconify-icon
+                                                    icon="solar:slider-vertical-line-duotone"
+                                                    class="fs-7"></iconify-icon></span><span
+                                                class="hide-menu">Apps</span></a>
+                                        <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
+                                            <li class="sidebar-item py-2"><a href="../main/app-chat.html"
+                                                    class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:chat-line-bold-duotone"
+                                                            class="fs-7 text-primary"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
+                                                            class="fs-11 d-block text-body-color">New messages
+                                                            arrived</span>
+                                                    </div>
+                                                </a></li>
+                                            <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
+                                                    class="d-flex align-items-center">
+                                                    <div
+                                                        class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                                                        <iconify-icon icon="solar:bill-list-bold-duotone"
+                                                            class="fs-7 text-secondary"></iconify-icon>
+                                                    </div>
+                                                    <div>
+                                                        <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
+                                                            class="fs-11 d-block text-body-color">Get latest
+                                                            invoice</span>
+                                                    </div>
+                                                </a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <div class="card card-body py-3 mb-2">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Supplier Overview</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone"
+                                                        class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI CARDS -->
+                    <div class="dashboard-container col-lg-12">
+                        <!-- Total Suppliers Card -->
+                        <div class="kpi-card-new col-lg-4">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> Total Suppliers</span>
+                                <div class="icon-small bg-light-primary" style="background:#eef2ff;"><i
+                                        class="fas fa-truck text-primary"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="totalSuppliersKPI">0</div>
+                            <div class="kpi-sub">Registered vendors</div>
+                        </div>
+
+                        <!-- TO PAY CARD (Amount we need to pay to suppliers) -->
+                        <div class="kpi-card-new col-lg-4">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> To Pay (payable)</span>
+                                <div class="icon-small" style="background:#fff0e6;"><i
+                                        class="fas fa-arrow-up text-warning"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="toPayAmountKPI">₹0</div>
+                            <div class="kpi-sub">
+                                <span><i class="far fa-user-circle"></i> <span id="toPayCountKPI">0</span>
+                                    suppliers</span>
+                                <span class="count-badge">outstanding payable</span>
+                            </div>
+                        </div>
+
+                        <!-- RECEIVABLE FROM SUPPLIERS (Credit balance - suppliers owe us) -->
+                        <div class="kpi-card-new col-lg-4">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> To Collect (receivable)</span>
+                                <div class="icon-small" style="background:#e3f7ec;"><i
+                                        class="fas fa-arrow-down text-success"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="toCollectAmountKPI">₹0</div>
+                            <div class="kpi-sub">
+                                <span><i class="far fa-user-circle"></i> <span id="toCollectCountKPI">0</span>
+                                    suppliers</span>
+                                <span class="count-badge">credit due</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table actions -->
+                    <div class="card overflow-hidden p-4">
+                        <div class="unified-actions-card">
+                            <div class="search-inline">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="globalSearchInput"
+                                    placeholder="Search by name, email, phone or ID...">
+                            </div>
+                            <div class="tabs-centered">
+                                <button class="supplier-tab active" data-tab="all"><i class="fas fa-users"></i> All
+                                    <span class="tab-count" id="countAll">0</span></button>
+                                <button class="supplier-tab" data-tab="toPay"><i class="fas fa-clock"></i> To Pay <span
+                                        class="tab-count" id="countToPay">0</span></button>
+                                <button class="supplier-tab" data-tab="toCollect"><i class="fas fa-check-circle"></i> To
+                                    Collect <span class="tab-count" id="countToCollect">0</span></button>
+                            </div>
+                            <div class="btn-create-right">
+                                <button class="btn btn-primary shadow-sm"
+                                    onclick="location.href='create-supplier.html'"><i class="fas fa-plus me-2"></i>New
+                                    Supplier</button>
+                            </div>
+                        </div>
+
+                        <div class="supplier-table-wrapper">
+                            <table class="supplier-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40px;"><input class="form-check-input" type="checkbox"
+                                                id="selectAllCheckbox"></th>
+                                        <th>S.No</th>
+                                        <th>Supplier ID</th>
+                                        <th>Supplier Name</th>
+                                        <th>Phone</th>
+                                        <th>Email</th>
+                                        <th>GSTIN</th>
+                                        <th>Status</th>
+                                        <th>Outstanding Balance (₹)</th>
+                                        <th>Created On</th>
+                                        <th>Last Updated</th>
+                                        <th>Created By</th>
+                                        <th style="width:80px; position:sticky; right:0;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="supplierTableBody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination Below Table -->
+                        <div class="pagination-container">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                                <div class="pagination-info">
+                                    <i class="fas fa-table me-1 text-muted"></i>
+                                    <span>Showing <strong id="rowStart">0</strong> - <strong
+                                            id="rowEnd">0</strong></span>
+                                    <span class="mx-1 text-muted">of</span>
+                                    <strong id="totalRows">0</strong>
+                                    <span class="text-muted">suppliers</span>
+                                </div>
+                                <nav>
+                                    <ul class="pagination" id="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
+        style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
+
+    <!-- Import Js Files -->
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // ----- SUPPLIER DATA with dynamic outstanding balances
+        // Business logic: 
+        // "To Pay" (balance > 0) means we need to pay the supplier
+        // "To Collect" (balance < 0) means supplier owes us (credit/advance)
+        let suppliers = [
+            { id: 1, supplierId: 'SUP-001', name: 'ABC Enterprises', phone: '+91 9876543210', email: 'contact@abc.com', gstin: '29AAACA1234A1Z', status: 'Active', createdOn: '2026-01-15', lastUpdated: '2026-03-20', createdBy: 'John Doe', outstandingBalance: 125000 },
+            { id: 2, supplierId: 'SUP-002', name: 'XYZ Solutions', phone: '+91 9876543211', email: 'info@xyz.com', gstin: '29AAACA5678B2Z', status: 'Active', createdOn: '2026-02-10', lastUpdated: '2026-03-15', createdBy: 'Jane Smith', outstandingBalance: -52000 },
+            { id: 3, supplierId: 'SUP-003', name: 'Global Traders', phone: '+91 9876543212', email: 'sales@global.com', gstin: '29AAACA9012C3Z', status: 'Inactive', createdOn: '2026-01-05', lastUpdated: '2026-02-28', createdBy: 'Mike Johnson', outstandingBalance: 32000 },
+            { id: 4, supplierId: 'SUP-004', name: 'Sunrise Industries', phone: '+91 9876543213', email: 'contact@sunrise.com', gstin: '29AAACA3456D4Z', status: 'Active', createdOn: '2026-03-01', lastUpdated: '2026-04-01', createdBy: 'Sarah Wilson', outstandingBalance: 0 },
+            { id: 5, supplierId: 'SUP-005', name: 'Metro Corp', phone: '+91 9876543214', email: 'info@metro.com', gstin: '29AAACA7890E5Z', status: 'Active', createdOn: '2026-02-20', lastUpdated: '2026-03-25', createdBy: 'David Brown', outstandingBalance: 87000 },
+            { id: 6, supplierId: 'SUP-006', name: 'Aster Innovations', phone: '+91 9876543215', email: 'hello@aster.com', gstin: '29AAACA2345F6Z', status: 'Active', createdOn: '2026-01-25', lastUpdated: '2026-03-18', createdBy: 'Emily Davis', outstandingBalance: -21500 },
+            { id: 7, supplierId: 'SUP-007', name: 'Tech Solutions Ltd', phone: '+91 9876543216', email: 'support@tech.com', gstin: '29AAACA6789G7Z', status: 'Suspended', createdOn: '2026-03-10', lastUpdated: '2026-04-02', createdBy: 'Robert Lee', outstandingBalance: 456000 },
+            { id: 8, supplierId: 'SUP-008', name: 'Visionary Retail', phone: '+91 9988776655', email: 'vision@retail.com', gstin: '29AAACA1122H8Z', status: 'Active', createdOn: '2026-04-05', lastUpdated: '2026-04-10', createdBy: 'Priya Mehta', outstandingBalance: -120000 },
+            { id: 9, supplierId: 'SUP-009', name: 'NexGen Media', phone: '+91 9876509876', email: 'media@nexgen.com', gstin: '29AAACA3344I9Z', status: 'Active', createdOn: '2026-03-22', lastUpdated: '2026-04-12', createdBy: 'Arjun Nair', outstandingBalance: 55000 },
+            { id: 10, supplierId: 'SUP-010', name: 'Prime Logistics', phone: '+91 9876543298', email: 'dispatch@primelogistics.com', gstin: '29AAACA5566J0Z', status: 'Active', createdOn: '2026-04-08', lastUpdated: '2026-04-15', createdBy: 'Neha Gupta', outstandingBalance: 28000 },
+            { id: 11, supplierId: 'SUP-011', name: 'Shree Enterprises', phone: '+91 9876541278', email: 'shree@enterprises.com', gstin: '29AAACA7788K1Z', status: 'Inactive', createdOn: '2026-03-05', lastUpdated: '2026-03-28', createdBy: 'Rajesh Kumar', outstandingBalance: -8500 },
+            { id: 12, supplierId: 'SUP-012', name: 'Kumar Agencies', phone: '+91 9988776622', email: 'kumar@agencies.com', gstin: '29AAACA9900L2Z', status: 'Active', createdOn: '2026-02-28', lastUpdated: '2026-04-05', createdBy: 'Sunil Sharma', outstandingBalance: 112000 }
+        ];
+
+        let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
+        let currentSearchTerm = '';
+
+        function showToast(msg) {
+            const toast = document.getElementById('liveToastMsg');
+            if (toast) {
+                document.getElementById('toastText').innerText = msg;
+                toast.style.display = 'block';
+                setTimeout(() => toast.style.display = 'none', 2200);
+            } else {
+                alert(msg);
+            }
+        }
+
+        function getStatusClass(status) {
+            if (status === 'Active') return 'status-active';
+            if (status === 'Inactive') return 'status-inactive';
+            return 'status-suspended';
+        }
+
+        // Filter by tab and search
+        function filterSuppliers() {
+            let search = currentSearchTerm.toLowerCase().trim();
+            let filtered = suppliers.filter(supplier => {
+                let matchSearch = search === '' ||
+                    supplier.name.toLowerCase().includes(search) ||
+                    supplier.supplierId.toLowerCase().includes(search) ||
+                    supplier.email.toLowerCase().includes(search) ||
+                    supplier.phone.includes(search) ||
+                    (supplier.gstin && supplier.gstin.toLowerCase().includes(search));
+
+                if (currentTab === 'all') return matchSearch;
+                if (currentTab === 'toPay') return supplier.outstandingBalance > 0 && matchSearch;
+                if (currentTab === 'toCollect') return supplier.outstandingBalance < 0 && matchSearch;
+                return matchSearch;
+            });
+            return filtered;
+        }
+
+        // Update KPI cards with TOTAL AMOUNT and supplier counts
+        function updateKPIs() {
+            const totalSuppliers = suppliers.length;
+            // To Pay: outstanding > 0 (we need to pay supplier)
+            const toPaySuppliersList = suppliers.filter(s => s.outstandingBalance > 0);
+            const toPayCount = toPaySuppliersList.length;
+            const toPayTotalAmount = toPaySuppliersList.reduce((sum, s) => sum + s.outstandingBalance, 0);
+
+            // To Collect: outstanding < 0 (supplier owes us)
+            const toCollectSuppliersList = suppliers.filter(s => s.outstandingBalance < 0);
+            const toCollectCount = toCollectSuppliersList.length;
+            const toCollectTotalAmount = toCollectSuppliersList.reduce((sum, s) => sum + Math.abs(s.outstandingBalance), 0);
+
+            // Update DOM elements
+            const totalSuppliersKPIElem = document.getElementById('totalSuppliersKPI');
+            const toPayAmountKPIElem = document.getElementById('toPayAmountKPI');
+            const toPayCountKPIElem = document.getElementById('toPayCountKPI');
+            const toCollectAmountKPIElem = document.getElementById('toCollectAmountKPI');
+            const toCollectCountKPIElem = document.getElementById('toCollectCountKPI');
+            const countAllElem = document.getElementById('countAll');
+            const countToPayElem = document.getElementById('countToPay');
+            const countToCollectElem = document.getElementById('countToCollect');
+
+            if (totalSuppliersKPIElem) totalSuppliersKPIElem.innerText = totalSuppliers;
+            if (toPayAmountKPIElem) toPayAmountKPIElem.innerHTML = `₹${toPayTotalAmount.toLocaleString('en-IN')}`;
+            if (toPayCountKPIElem) toPayCountKPIElem.innerText = toPayCount;
+            if (toCollectAmountKPIElem) toCollectAmountKPIElem.innerHTML = `₹${toCollectTotalAmount.toLocaleString('en-IN')}`;
+            if (toCollectCountKPIElem) toCollectCountKPIElem.innerText = toCollectCount;
+
+            // Update tab counters
+            if (countAllElem) countAllElem.innerText = totalSuppliers;
+            if (countToPayElem) countToPayElem.innerText = toPayCount;
+            if (countToCollectElem) countToCollectElem.innerText = toCollectCount;
+        }
+
+        // Format balance display
+        function formatBalance(balance) {
+            if (balance > 0) return `₹${balance.toLocaleString('en-IN')} (To Pay)`;
+            if (balance < 0) return `₹${Math.abs(balance).toLocaleString('en-IN')} (To Collect)`;
+            return `₹0 (Settled)`;
+        }
+
+        function getBalanceBadgeStyle(balance) {
+            if (balance > 0) return 'background:#fee2e2; color:#b91c1c; padding:6px 12px; border-radius:20px; font-weight:600;font-size:12px';
+            if (balance < 0) return 'background:#e0f2fe; color:#0369a1; padding:6px 12px; border-radius:20px; font-weight:600; font-size:12px';
+            return 'background:#e9eef3; color:#2d3a3f; padding:6px 12px; border-radius:20px;';
+        }
+
+        function renderTable() {
+            let filtered = filterSuppliers();
+            let total = filtered.length;
+            let totalPages = Math.ceil(total / rowsPerPage);
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            let start = (currentPage - 1) * rowsPerPage;
+            let end = Math.min(start + rowsPerPage, total);
+            let pageData = filtered.slice(start, end);
+            let tbody = document.getElementById('supplierTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (pageData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="13" class="text-center py-5 text-muted">No suppliers found</td></tr>';
+            } else {
+                pageData.forEach((supp, idx) => {
+                    let sno = start + idx + 1;
+                    let balanceDisplay = formatBalance(supp.outstandingBalance);
+                    let balanceStyle = getBalanceBadgeStyle(supp.outstandingBalance);
+                    let row = `<tr>
+            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${supp.id}"></td>
+            <td>${sno}</td>
+            <td><span class="supplier-link" data-id="${supp.supplierId}" style="cursor:pointer; font-weight:600; color:#2a3b82;">${supp.supplierId}</span></td>
+            <td class="fw-medium">${supp.name}</td>
+            <td>${supp.phone}</td>
+            <td>${supp.email}</td>
+            <td>${supp.gstin || '-'}</td>
+            <td><span class="status-badge ${getStatusClass(supp.status)}">${supp.status}</span></td>
+            <td><span style="${balanceStyle}">${balanceDisplay}</span></td>
+            <td>${supp.createdOn}</td>
+            <td>${supp.lastUpdated}</td>
+            <td>${supp.createdBy}</td>
+            <td><div class="dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#" onclick="viewSupplier('${supp.supplierId}')"> View</a></li>
+                <li><a class="dropdown-item" href="#" onclick="editSupplier(${supp.id})"> Edit</a></li>
+                <li><a class="dropdown-item" href="#" onclick="generatePurchaseBill(${supp.id})"> Generate Bill</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="deleteSupplier(${supp.id})"> Delete</a></li>
+              </ul></div></td>
+          </tr>`;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            const rowStartElem = document.getElementById('rowStart');
+            const rowEndElem = document.getElementById('rowEnd');
+            const totalRowsElem = document.getElementById('totalRows');
+
+            if (rowStartElem) rowStartElem.innerText = total ? start + 1 : 0;
+            if (rowEndElem) rowEndElem.innerText = end;
+            if (totalRowsElem) totalRowsElem.innerText = total;
+
+            // Pagination UI
+            let pagination = document.getElementById('pagination');
+            if (pagination) {
+                pagination.innerHTML = '';
+                if (totalPages > 1) {
+                    pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+                    for (let i = 1; i <= totalPages; i++) {
+                        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+                            pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+                        else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                    }
+                    pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
+                }
+            }
+
+            // Attach click events for supplier links
+            document.querySelectorAll('.supplier-link').forEach(el => {
+                el.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    viewSupplier(el.getAttribute('data-id'));
+                });
+            });
+
+            const selectAll = document.getElementById('selectAllCheckbox');
+            if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
+        }
+
+        function changePage(p) {
+            let filtered = filterSuppliers();
+            let pages = Math.ceil(filtered.length / rowsPerPage);
+            if (p >= 1 && p <= pages) {
+                currentPage = p;
+                renderTable();
+            }
+        }
+
+        // Search handler
+        const searchInput = document.getElementById('globalSearchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                currentSearchTerm = this.value;
+                currentPage = 1;
+                renderTable();
+            });
+        }
+
+        // View Supplier - Redirect to supplier-detail.html
+        window.viewSupplier = function (supplierId) {
+            window.location.href = `supplier-detail.html?id=${supplierId}`;
+        };
+
+        // Edit Supplier
+        window.editSupplier = function (id) {
+            const supplier = suppliers.find(s => s.id === id);
+            if (supplier) {
+                window.location.href = `edit-supplier.html?id=${supplier.supplierId}`;
+            } else {
+                showToast(`Edit supplier ID ${id}`);
+            }
+        };
+
+        // Generate Purchase Bill
+        window.generatePurchaseBill = function (id) {
+            const supplier = suppliers.find(s => s.id === id);
+            if (supplier) {
+                showToast(`Creating purchase bill for ${supplier.name}...`);
+                setTimeout(() => {
+                    window.location.href = `create-purchase-bill.html?supplier=${supplier.supplierId}`;
+                }, 1000);
+            }
+        };
+
+        // Delete Supplier
+        window.deleteSupplier = function (id) {
+            if (confirm('Permanently delete this supplier? Outstanding data will be removed.')) {
+                suppliers = suppliers.filter(s => s.id !== id);
+                updateKPIs();
+                let filteredAfter = filterSuppliers();
+                let maxPage = Math.ceil(filteredAfter.length / rowsPerPage);
+                if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
+                if (filteredAfter.length === 0) currentPage = 1;
+                renderTable();
+                showToast('Supplier deleted successfully');
+            }
+        };
+
+        // Tab switching
+        const supplierTabs = document.querySelectorAll('.supplier-tab');
+        if (supplierTabs.length) {
+            supplierTabs.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.supplier-tab').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentTab = btn.dataset.tab;
+                    currentPage = 1;
+                    renderTable();
+                });
+            });
+        }
+
+        // Logout function
+        window.handleLogout = function () {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        };
+
+        // Initial load
+        updateKPIs();
+        renderTable();
+
+        // Expose functions globally
+        window.changePage = changePage;
+        window.editSupplier = editSupplier;
+        window.deleteSupplier = deleteSupplier;
+        window.viewSupplier = viewSupplier;
+        window.generatePurchaseBill = generatePurchaseBill;
+    </script>
+</body>
+
+</html>

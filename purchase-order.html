@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Purchase Order Management</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        /* Pagination - Clean & Below Table */
+        .pagination-container {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #eef2f6;
+        }
+
+        .page-link {
+            border-radius: 8px;
+            margin: 0 3px;
+            border: 1px solid #e2e8f0;
+            color: #475569;
+            font-weight: 500;
+            padding: 8px 14px;
+            font-size: 13px;
+            transition: all 0.2s;
+            background: white;
+        }
+
+        .page-link:hover {
+            background-color: #f8fafc;
+            border-color: #cbd5e1;
+            color: #2a3b82;
+        }
+
+        .page-item.active .page-link {
+            background: #2a3b82;
+            color: white;
+            border-color: #2a3b82;
+        }
+
+        .page-item.disabled .page-link {
+            background: #f8fafc;
+            color: #94a3b8;
+            border-color: #e2e8f0;
+            cursor: not-allowed;
+        }
+
+        .pagination {
+            gap: 5px;
+            margin-bottom: 0;
+            flex-wrap: wrap;
+        }
+
+        .pagination-info {
+            background: #f8fafc;
+            padding: 6px 14px;
+            border-radius: 30px;
+            font-size: 12px;
+        }
+
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .status-draft {
+            background: #f1f5f9;
+            color: #64748b;
+        }
+
+        .status-issued {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .status-cancelled {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .po-link {
+            cursor: pointer;
+            font-weight: 600;
+            color: #2a3b82;
+            font-family: monospace;
+            letter-spacing: 0.3px;
+            text-decoration: none;
+        }
+
+        .po-link:hover {
+            text-decoration: underline;
+        }
+
+        .po-table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .po-table {
+            min-width: 1300px;
+            font-size: 0.85rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .po-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .po-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            white-space: nowrap;
+        }
+
+        .po-table th:last-child,
+        .po-table td:last-child {
+            position: sticky;
+            right: 0;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .po-table th:last-child {
+            background-color: #f8fafc;
+            z-index: 11;
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown-item {
+            font-size: 0.8rem;
+            padding: 8px 18px;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+        .dashboard-container {
+            display: flex;
+            gap: 20px;
+            background: white;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+            padding: 20px 24px;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .kpi-card-new {
+            background: white;
+            border: 1px solid #e9eef3;
+            border-radius: 20px;
+            flex: 1;
+            padding: 18px 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .kpi-card-new:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #5b6e8c;
+            letter-spacing: 0.3px;
+        }
+
+        .icon-small {
+            width: 36px;
+            height: 36px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-amount-main {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .kpi-sub {
+            font-size: 13px;
+            font-weight: 500;
+            color: #5f7f9e;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .count-badge {
+            background: #eff3f8;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-weight: 700;
+            color: #2a3b82;
+        }
+
+        .unified-actions-card {
+            background: white;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            border: 1px solid #edf2f7;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .search-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 6px 18px;
+            min-width: 260px;
+        }
+
+        .search-inline:focus-within {
+            border-color: #2a3b82;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
+        }
+
+        .search-inline input {
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            width: 100%;
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        .tabs-centered {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .po-tab {
+            padding: 8px 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #64748b;
+            background: transparent;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .po-tab.active {
+            color: #2a3b82;
+            background: #eef2ff;
+        }
+
+        .tab-count {
+            background: #e2e8f0;
+            color: #475569;
+            border-radius: 30px;
+            padding: 2px 9px;
+            font-size: 0.7rem;
+            font-weight: 700;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+        }
+
+        .toast-notify {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 992px) {
+            .unified-actions-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .tabs-centered {
+                order: 2;
+                justify-content: center;
+            }
+
+            .btn-create-right {
+                order: 3;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <!-- Sidebar Start -->
+        <aside class="side-mini-panel with-vertical">
+            <div class="iconbar">
+                <div class="sidebarmenu">
+                    <div class="brand-logo d-flex align-items-center nav-logo">
+                        <a href="../main/index.html" class="text-nowrap logo-img">
+                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                        </a>
+                    </div>
+
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <li class="sidebar-item mt-4">
+                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Inbox</span>
+                                </a>
+                            </li>
+
+                            <!-- Items -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Items</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="items.html">
+                                            <span class="icon-small"></span> Inventory
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Purchase -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Purchase</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier.html">
+                                            <span class="icon-small"></span> Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="purchase-order.html">
+                                            <span class="icon-small"></span> Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="purchase-bill.html">
+                                            <span class="icon-small"></span> Purchase Bill
+                                        </a>
+                                    </li>
+                                     <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Sales -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Sales</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span> Customer
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="enquiry.html">
+                                            <span class="icon-small"></span> Enquiry
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="quotation.html">
+                                            <span class="icon-small"></span> Quotation
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="invoice.html">
+                                            <span class="icon-small"></span> Invoice
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Accounts -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Accounts</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Account Master
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Journals
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Vouchers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Bank Payments
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> General Ledger
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Balance Sheets
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><span class="sidebar-divider"></span></li>
+                        </ul>
+
+                        <div class="sidebar-footer">
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Settings</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item logout-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-purchase-order.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Purchase Order</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <div class="card card-body py-3 mb-2">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Purchase Order Management</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="#">Purchase</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Purchase Orders</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="dashboard-container col-lg-12">
+                        <div class="kpi-card-new col-lg-3">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> Total Orders</span>
+                                <div class="icon-small bg-light-primary" style="background:#eef2ff;"><i
+                                        class="fas fa-file-invoice text-primary"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="totalOrdersKPI">0</div>
+                            <div class="kpi-sub">All purchase orders</div>
+                        </div>
+
+                        <div class="kpi-card-new col-lg-3">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> Draft Orders</span>
+                                <div class="icon-small" style="background:#f1f5f9;"><i class="fas fa-pen text-secondary"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="draftOrdersKPI">0</div>
+                            <div class="kpi-sub">In progress</div>
+                        </div>
+
+                        <div class="kpi-card-new col-lg-3">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> Issued Orders</span>
+                                <div class="icon-small" style="background:#e6f7e6;"><i class="fas fa-check-circle text-success"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="issuedOrdersKPI">0</div>
+                            <div class="kpi-sub">Sent to suppliers</div>
+                        </div>
+
+                        <div class="kpi-card-new col-lg-3">
+                            <div class="kpi-header">
+                                <span class="kpi-label"> Cancelled Orders</span>
+                                <div class="icon-small" style="background:#fee2e2;"><i class="fas fa-times-circle text-danger"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="cancelledOrdersKPI">0</div>
+                            <div class="kpi-sub">Cancelled/Rejected</div>
+                        </div>
+                    </div>
+
+                    <!-- Table actions -->
+                    <div class="card overflow-hidden p-4">
+                        <div class="unified-actions-card">
+                            <div class="search-inline">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="globalSearchInput" placeholder="Search by PO ID, supplier, reference...">
+                            </div>
+                            <div class="tabs-centered">
+                                <button class="po-tab active" data-tab="all"><i class="fas fa-list"></i> All <span
+                                        class="tab-count" id="countAll">0</span></button>
+                                <button class="po-tab" data-tab="draft"><i class="fas fa-pen"></i> Draft <span
+                                        class="tab-count" id="countDraft">0</span></button>
+                                <button class="po-tab" data-tab="issued"><i class="fas fa-check-circle"></i> Issued <span
+                                        class="tab-count" id="countIssued">0</span></button>
+                                <button class="po-tab" data-tab="cancelled"><i class="fas fa-times-circle"></i> Cancelled <span
+                                        class="tab-count" id="countCancelled">0</span></button>
+                            </div>
+                            <div class="btn-create-right">
+                                <button class="btn btn-primary shadow-sm" onclick="location.href='create-purchase-order.html'">
+                                    <i class="fas fa-plus me-2"></i>New Purchase Order
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="po-table-wrapper">
+                            <table class="po-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
+                                        <th>S.No</th>
+                                        <th>Status</th>
+                                        <th>Purchase ID</th>
+                                        <th>Reference</th>
+                                        <th>Supplier Name</th>
+                                        <th>Purchase Date</th>
+                                        <th>Delivery Date</th>
+                                        <th>Created On</th>
+                                        <th>Last Updated On</th>
+                                        <th>Created By</th>
+                                        <th style="width:100px; position:sticky; right:0;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="purchaseOrderTableBody"></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Pagination Below Table -->
+                        <div class="pagination-container">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                                <div class="pagination-info">
+                                    <i class="fas fa-table me-1 text-muted"></i>
+                                    <span>Showing <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span>
+                                    <span class="mx-1 text-muted">of</span>
+                                    <strong id="totalRows">0</strong>
+                                    <span class="text-muted">purchase orders</span>
+                                </div>
+                                <nav>
+                                    <ul class="pagination" id="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Convert to Bill Modal -->
+    <div class="modal fade" id="convertToBillModal" tabindex="-1" aria-labelledby="convertToBillModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="convertToBillModalLabel"><i class="fas fa-exchange-alt me-2"></i>Convert to Purchase Bill</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="poInfo" class="mb-3 p-2 bg-light rounded"></div>
+                    <div class="alert alert-info">
+                        <i class="fas fa-info-circle me-2"></i>
+                        This will create a purchase bill from this purchase order. The bill will be linked to the same supplier.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirmConvertBtn">Convert to Bill</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mark as Cancelled Modal -->
+    <div class="modal fade" id="cancelModal" tabindex="-1" aria-labelledby="cancelModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="cancelModalLabel"><i class="fas fa-ban me-2"></i>Cancel Purchase Order</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to cancel this purchase order?</p>
+                    <div id="cancelPOInfo" class="mb-2"></div>
+                    <div class="mb-3">
+                        <label class="form-label">Cancellation Reason</label>
+                        <textarea class="form-control" id="cancelReason" rows="2" placeholder="Enter reason for cancellation..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Go Back</button>
+                    <button type="button" class="btn btn-danger" id="confirmCancelBtn">Yes, Cancel Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveToastMsg" class="toast-notify" style="display: none;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Purchase Orders Data
+        let purchaseOrders = [
+            { id: 1, poId: 'PO-2024-001', reference: 'REQ-001', supplier: 'ABC Enterprises', purchaseDate: '2025-03-25', deliveryDate: '2025-04-05', createdOn: '2025-03-25', lastUpdated: '2025-03-25', status: 'Issued', createdBy: 'John Doe' },
+            { id: 2, poId: 'PO-2024-002', reference: 'REQ-002', supplier: 'XYZ Solutions', purchaseDate: '2025-03-18', deliveryDate: '2025-03-30', createdOn: '2025-03-18', lastUpdated: '2025-03-28', status: 'Issued', createdBy: 'Jane Smith' },
+            { id: 3, poId: 'PO-2024-003', reference: 'REQ-003', supplier: 'Global Traders', purchaseDate: '2025-03-10', deliveryDate: '2025-03-22', createdOn: '2025-03-10', lastUpdated: '2025-03-10', status: 'Draft', createdBy: 'Mike Johnson' },
+            { id: 4, poId: 'PO-2024-004', reference: 'REQ-004', supplier: 'Sunrise Industries', purchaseDate: '2025-03-05', deliveryDate: '2025-03-18', createdOn: '2025-03-05', lastUpdated: '2025-03-05', status: 'Issued', createdBy: 'Sarah Wilson' },
+            { id: 5, poId: 'PO-2024-005', reference: 'REQ-005', supplier: 'Metro Corp', purchaseDate: '2025-02-25', deliveryDate: '2025-03-10', createdOn: '2025-02-25', lastUpdated: '2025-02-25', status: 'Cancelled', createdBy: 'David Brown' },
+            { id: 6, poId: 'PO-2024-006', reference: 'REQ-006', supplier: 'Aster Innovations', purchaseDate: '2025-02-20', deliveryDate: '2025-03-05', createdOn: '2025-02-20', lastUpdated: '2025-02-20', status: 'Issued', createdBy: 'Emily Davis' },
+            { id: 7, poId: 'PO-2024-007', reference: 'REQ-007', supplier: 'Tech Solutions Ltd', purchaseDate: '2025-02-15', deliveryDate: '2025-02-28', createdOn: '2025-02-15', lastUpdated: '2025-02-15', status: 'Draft', createdBy: 'Robert Lee' },
+            { id: 8, poId: 'PO-2024-008', reference: 'REQ-008', supplier: 'Visionary Retail', purchaseDate: '2025-02-10', deliveryDate: '2025-02-25', createdOn: '2025-02-10', lastUpdated: '2025-02-10', status: 'Cancelled', createdBy: 'Priya Mehta' },
+            { id: 9, poId: 'PO-2024-009', reference: 'REQ-009', supplier: 'NexGen Media', purchaseDate: '2025-02-05', deliveryDate: '2025-02-20', createdOn: '2025-02-05', lastUpdated: '2025-02-05', status: 'Issued', createdBy: 'Arjun Nair' },
+            { id: 10, poId: 'PO-2024-010', reference: 'REQ-010', supplier: 'Prime Logistics', purchaseDate: '2025-01-28', deliveryDate: '2025-02-12', createdOn: '2025-01-28', lastUpdated: '2025-01-28', status: 'Cancelled', createdBy: 'Neha Gupta' }
+        ];
+
+        let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
+        let currentSearchTerm = '';
+        let currentOrderForAction = null;
+
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            const icon = document.querySelector('#liveToastMsg i');
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle me-2';
+                toastDiv.style.background = '#10b981';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-triangle me-2';
+                toastDiv.style.background = '#ef4444';
+            } else {
+                icon.className = 'fas fa-info-circle me-2';
+                toastDiv.style.background = '#1e293b';
+            }
+            
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'flex';
+            setTimeout(() => toastDiv.style.display = 'none', 3000);
+        }
+
+        function getStatusBadgeClass(status) {
+            if (status === 'Issued') return 'status-issued';
+            if (status === 'Cancelled') return 'status-cancelled';
+            return 'status-draft';
+        }
+
+        function updateKPIs() {
+            const total = purchaseOrders.length;
+            const draft = purchaseOrders.filter(p => p.status === 'Draft').length;
+            const issued = purchaseOrders.filter(p => p.status === 'Issued').length;
+            const cancelled = purchaseOrders.filter(p => p.status === 'Cancelled').length;
+
+            document.getElementById('totalOrdersKPI').innerText = total;
+            document.getElementById('draftOrdersKPI').innerText = draft;
+            document.getElementById('issuedOrdersKPI').innerText = issued;
+            document.getElementById('cancelledOrdersKPI').innerText = cancelled;
+
+            document.getElementById('countAll').innerText = total;
+            document.getElementById('countDraft').innerText = draft;
+            document.getElementById('countIssued').innerText = issued;
+            document.getElementById('countCancelled').innerText = cancelled;
+        }
+
+        function filterOrders() {
+            let search = currentSearchTerm.toLowerCase().trim();
+            let filtered = purchaseOrders.filter(order => {
+                let matchSearch = search === '' ||
+                    order.poId.toLowerCase().includes(search) ||
+                    order.supplier.toLowerCase().includes(search) ||
+                    (order.reference && order.reference.toLowerCase().includes(search));
+
+                if (currentTab === 'all') return matchSearch;
+                if (currentTab === 'draft') return order.status === 'Draft' && matchSearch;
+                if (currentTab === 'issued') return order.status === 'Issued' && matchSearch;
+                if (currentTab === 'cancelled') return order.status === 'Cancelled' && matchSearch;
+                return matchSearch;
+            });
+            return filtered;
+        }
+
+        function renderTable() {
+            updateKPIs();
+
+            let filtered = filterOrders();
+            let total = filtered.length;
+            let totalPages = Math.ceil(total / rowsPerPage);
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            let start = (currentPage - 1) * rowsPerPage;
+            let end = Math.min(start + rowsPerPage, total);
+            let pageData = filtered.slice(start, end);
+            let tbody = document.getElementById('purchaseOrderTableBody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+
+            if (pageData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="12" class="text-center py-5 text-muted">No purchase orders found</td></tr>';
+            } else {
+                pageData.forEach((order, idx) => {
+                    let sno = start + idx + 1;
+                    let statusClass = getStatusBadgeClass(order.status);
+
+                    let row = `<tr>
+                        <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${order.id}"></td>
+                        <td>${sno}</td>
+                        <td><span class="status-badge ${statusClass}">${order.status}</span></td>
+                        <td><span class="po-link" onclick="viewPurchaseOrder('${order.poId}')">${order.poId}</span></td>
+                        <td>${order.reference || '-'}</td>
+                        <td>${order.supplier}</td>
+                        <td>${order.purchaseDate}</td>
+                        <td>${order.deliveryDate || '-'}</td>
+                        <td>${order.createdOn}</td>
+                        <td>${order.lastUpdated}</td>
+                        <td>${order.createdBy}</td>
+                        <td>
+                            <div class="dropdown">
+                                <button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                    <li><a class="dropdown-item" href="purchase.html" onclick="viewPurchaseOrder('${order.poId}')"><i class="fas fa-eye me-2"></i> View</a></li>
+                                    ${order.status !== 'Cancelled' ? `<li><a class="dropdown-item" href="#" onclick="markAsCancelled(${order.id})"><i class="fas fa-ban me-2"></i> Mark as Cancelled</a></li>` : ''}
+                                    ${order.status === 'Issued' ? `<li><a class="dropdown-item" href="#" onclick="openConvertModal(${order.id})"><i class="fas fa-exchange-alt me-2"></i> Convert to Bill</a></li>` : ''}
+                                    <li><a class="dropdown-item" href="#" onclick="downloadPO('${order.poId}')"><i class="fas fa-download me-2"></i> Download</a></li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>`;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            document.getElementById('rowStart').innerText = total ? start + 1 : 0;
+            document.getElementById('rowEnd').innerText = end;
+            document.getElementById('totalRows').innerText = total;
+
+            let pagination = document.getElementById('pagination');
+            if (pagination) {
+                pagination.innerHTML = '';
+                if (totalPages > 1) {
+                    pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+                    for (let i = 1; i <= totalPages; i++) {
+                        if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+                            pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+                        else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                    }
+                    pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
+                }
+            }
+
+            const selectAll = document.getElementById('selectAllCheckbox');
+            if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
+        }
+
+        function changePage(p) {
+            let filtered = filterOrders();
+            let pages = Math.ceil(filtered.length / rowsPerPage);
+            if (p >= 1 && p <= pages) {
+                currentPage = p;
+                renderTable();
+            }
+        }
+
+        const searchInput = document.getElementById('globalSearchInput');
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                currentSearchTerm = this.value;
+                currentPage = 1;
+                renderTable();
+            });
+        }
+
+        const poTabs = document.querySelectorAll('.po-tab');
+        if (poTabs.length) {
+            poTabs.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.po-tab').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentTab = btn.dataset.tab;
+                    currentPage = 1;
+                    renderTable();
+                });
+            });
+        }
+
+        function viewPurchaseOrder(poId) {
+            window.location.href = `purchase-order-detail.html?id=${poId}`;
+        }
+
+        function markAsCancelled(orderId) {
+            const order = purchaseOrders.find(o => o.id === orderId);
+            if (order) {
+                currentOrderForAction = order;
+                document.getElementById('cancelPOInfo').innerHTML = `<strong>${order.poId}</strong> - ${order.supplier}`;
+                document.getElementById('cancelReason').value = '';
+                new bootstrap.Modal(document.getElementById('cancelModal')).show();
+            }
+        }
+
+        document.getElementById('confirmCancelBtn')?.addEventListener('click', function() {
+            if (currentOrderForAction) {
+                const reason = document.getElementById('cancelReason').value;
+                currentOrderForAction.status = 'Cancelled';
+                currentOrderForAction.lastUpdated = new Date().toISOString().split('T')[0];
+                renderTable();
+                showToast(`Purchase Order ${currentOrderForAction.poId} has been cancelled${reason ? ' - Reason: ' + reason : ''}`, 'info');
+                bootstrap.Modal.getInstance(document.getElementById('cancelModal')).hide();
+                currentOrderForAction = null;
+            }
+        });
+
+        function openConvertModal(orderId) {
+            const order = purchaseOrders.find(o => o.id === orderId);
+            if (order) {
+                currentOrderForAction = order;
+                document.getElementById('poInfo').innerHTML = `
+                    <strong>PO: ${order.poId}</strong><br>
+                    Supplier: ${order.supplier}<br>
+                    Purchase Date: ${order.purchaseDate}<br>
+                    Delivery Date: ${order.deliveryDate || 'Not specified'}
+                `;
+                new bootstrap.Modal(document.getElementById('convertToBillModal')).show();
+            }
+        }
+
+        document.getElementById('confirmConvertBtn')?.addEventListener('click', function() {
+            if (currentOrderForAction) {
+                // Create a new purchase bill from this PO
+                const newBill = {
+                    id: Date.now(),
+                    billId: `PB-${new Date().getFullYear()}-${String(Math.floor(Math.random() * 1000)).padStart(3, '0')}`,
+                    poId: currentOrderForAction.poId,
+                    supplier: currentOrderForAction.supplier,
+                    purchaseDate: currentOrderForAction.purchaseDate,
+                    deliveryDate: currentOrderForAction.deliveryDate,
+                    createdOn: new Date().toISOString().split('T')[0],
+                    status: 'Unpaid',
+                    createdBy: 'System'
+                };
+                
+                // Save to localStorage
+                let purchaseBills = JSON.parse(localStorage.getItem('purchaseBills') || '[]');
+                purchaseBills.push(newBill);
+                localStorage.setItem('purchaseBills', JSON.stringify(purchaseBills));
+                
+                showToast(`Purchase Bill ${newBill.billId} created from PO ${currentOrderForAction.poId}!`, 'success');
+                bootstrap.Modal.getInstance(document.getElementById('convertToBillModal')).hide();
+                currentOrderForAction = null;
+                
+                // Redirect to purchase bills page
+                setTimeout(() => {
+                    if (confirm('View the newly created purchase bill?')) {
+                        window.location.href = 'purchase-bill.html';
+                    }
+                }, 1000);
+            }
+        });
+
+        function downloadPO(poId) {
+            const order = purchaseOrders.find(o => o.poId === poId);
+            if (order) {
+                showToast(`Downloading Purchase Order ${poId}...`, 'info');
+                setTimeout(() => {
+                    showToast(`Purchase Order ${poId} downloaded successfully!`, 'success');
+                }, 1500);
+            }
+        }
+
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Initialize
+        renderTable();
+
+        // Expose functions globally
+        window.changePage = changePage;
+        window.viewPurchaseOrder = viewPurchaseOrder;
+        window.markAsCancelled = markAsCancelled;
+        window.openConvertModal = openConvertModal;
+        window.downloadPO = downloadPO;
+        window.handleLogout = handleLogout;
+    </script>
+</body>
+
+</html>

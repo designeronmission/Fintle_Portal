@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Quotation Details</title>
+    <title>Fintle | Purchase Order Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -13,20 +13,17 @@
     <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
     <style>
-
-        /* Enhanced Quotation Info Card */
-        .quotation-info-card {
+        /* Purchase Order Detail Styles */
+        .po-info-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 24px;
             padding: 28px 32px;
             margin-bottom: 28px;
             border: none;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03), 0 1px 2px rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
         }
 
-        .quotation-avatar {
+        .po-avatar {
             width: 72px;
             height: 72px;
             background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
@@ -40,7 +37,7 @@
             box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
         }
 
-        .quotation-number {
+        .po-name {
             font-size: 22px;
             font-weight: 700;
             color: #0f172a;
@@ -48,7 +45,7 @@
             letter-spacing: -0.3px;
         }
 
-        .quotation-detail {
+        .po-detail {
             font-size: 13px;
             color: #5b6e8c;
             margin-bottom: 6px;
@@ -57,7 +54,7 @@
             gap: 8px;
         }
 
-        .quotation-detail i {
+        .po-detail i {
             width: 18px;
             color: #2a3b82;
             font-size: 12px;
@@ -73,17 +70,17 @@
             gap: 8px;
         }
 
-        .status-open-custom {
-            background: #fff3e3;
-            color: #d97706;
+        .status-draft-custom {
+            background: #f1f5f9;
+            color: #64748b;
         }
 
-        .status-closed-custom {
+        .status-issued-custom {
             background: #e6f7e6;
             color: #10b981;
         }
 
-        .status-expired-custom {
+        .status-cancelled-custom {
             background: #fee2e2;
             color: #ef4444;
         }
@@ -99,7 +96,6 @@
             gap: 6px;
         }
 
-        /* KPI Cards inside quotation detail */
         .kpi-grid {
             display: flex;
             gap: 16px;
@@ -163,7 +159,6 @@
             margin-bottom: 0;
         }
 
-        /* Tabs with Action Button */
         .tabs-header-wrapper {
             display: flex;
             flex-wrap: wrap;
@@ -259,7 +254,6 @@
             background: #f8fafc;
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             background: white;
@@ -273,7 +267,56 @@
             animation: fadeIn 0.3s ease;
         }
 
-          /* Activity Timeline */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .items-table-wrapper {
+            overflow-x: auto;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .items-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            font-size: 13px;
+        }
+
+        .items-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            font-size: 13px;
+        }
+
+        .address-card {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid #eef2f6;
+            margin-bottom: 20px;
+        }
+
+        .address-card h6 {
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 12px;
+        }
+
         .timeline-item {
             display: flex;
             gap: 16px;
@@ -303,118 +346,43 @@
             font-size: 11px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(5px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Quotation Items Table */
-        .items-table-wrapper {
-            overflow-x: auto;
-        }
-
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-
-        .items-table th {
+        .summary-box {
             background: #f8fafc;
-            font-weight: 600;
-            color: #1e293b;
-            padding: 14px 12px;
-            border-bottom: 1px solid #e2e8f0;
-            font-size: 13px;
-        }
-
-        .items-table td {
-            padding: 14px 12px;
-            vertical-align: middle;
-            border-bottom: 1px solid #eef2f6;
-            font-size: 13px;
-        }
-
-        /* Summary Section */
-        .summary-section {
-            margin-top: 24px;
-            border-top: 1px solid #eef2f6;
-            padding-top: 20px;
+            border-radius: 16px;
+            padding: 20px;
         }
 
         .summary-row {
             display: flex;
-            justify-content: flex-end;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .summary-box {
-            width: 300px;
-            background: #f8fafc;
-            border-radius: 16px;
-            padding: 16px 20px;
-        }
-
-        .summary-line {
-            display: flex;
             justify-content: space-between;
-            padding: 8px 0;
+            padding: 10px 0;
             border-bottom: 1px solid #e2e8f0;
         }
 
-        .summary-line.total {
-            font-weight: 700;
-            font-size: 16px;
-            color: #1e293b;
+        .summary-row:last-child {
             border-bottom: none;
-            padding-top: 12px;
         }
 
-        .action-icon-btn {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            border: 1px solid #e2e8f0;
-            background: white;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            margin: 0 2px;
+        .summary-label {
+            font-weight: 600;
+            color: #5b6e8c;
         }
 
-        .action-icon-btn:hover {
-            background: #f1f5f9;
-            border-color: #cbd5e1;
-        }
-
-        /* Terms Card */
-        .terms-card {
-            background: #f8fafc;
-            border-radius: 20px;
-            padding: 20px;
-            border: 1px solid #eef2f6;
-            margin-top: 20px;
-        }
-
-        .terms-card h6 {
+        .summary-value {
             font-weight: 700;
             color: #1e293b;
-            margin-bottom: 12px;
+        }
+
+        .summary-total {
+            font-size: 1.2rem;
+            color: #2a3b82;
         }
 
         @media (max-width: 768px) {
-            .quotation-info-card {
+            .po-info-card {
                 padding: 20px;
             }
-            .quotation-avatar {
+            .po-avatar {
                 width: 56px;
                 height: 56px;
                 font-size: 22px;
@@ -433,17 +401,14 @@
             .kpi-mini-card {
                 min-width: calc(50% - 16px);
             }
-            .summary-row {
-                justify-content: center;
-            }
         }
     </style>
 </head>
 
 <body>
-    <div id="main-wrapper">
 
-   <!-- Sidebar Start -->
+    <div id="main-wrapper">
+    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -487,7 +452,7 @@
 
               <!-- Purchase -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Purchase</span>
                 </a>
@@ -519,7 +484,7 @@
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu active">Sales</span>
+                  <span class="hide-menu">Sales</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
@@ -615,52 +580,92 @@
     </aside>
     <!-- Sidebar End -->
 
-
-
-
         <div class="page-wrapper">
-            <header class="topbar">
-                <div class="with-vertical">
-                    <nav class="navbar navbar-expand-lg p-0">
-                        <ul class="navbar-nav">
-                            <li class="nav-item d-flex d-xl-none"><a
-                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
-                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                                        class="fs-6"></iconify-icon></a></li>
-                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                                    href="javascript:void(0)" data-bs-toggle="modal"
-                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
-                                        class="fs-6"></iconify-icon></a></li>
-                            <li class="nav-item d-none d-lg-flex dropdown">
-                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                                        onclick="location.href='create-quotation.html'"><iconify-icon
-                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Quotation</button></div>
-                            </li>
-                        </ul>
-                        <div class="d-flex align-items-center gap-3 ms-auto">
-                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
-                        </div>
-                    </nav>
+                  <!-- Header Start -->
+      <header class="topbar">
+        <div class="with-vertical">
+          <nav class="navbar navbar-expand-lg p-0">
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex d-xl-none">
+                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                  href="javascript:void(0)">
+                  <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
+                </a>
+              </li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle">
+                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                  <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
+                </a>
+              </li>
+              <li class="nav-item d-none d-lg-flex dropdown">
+                <div class="hover-dd">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    onclick="location.href='create-invoice.html'"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                    <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
+                    Create Sales Invoice
+                  </button>
                 </div>
-            </header>
-
-            <div class="body-wrapper">
-                <div class="container-fluid p-4">
+              </li>
+            </ul>
+            <div class="d-block d-lg-none py-9 py-xl-0">
+              <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+            </div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+              aria-label="Toggle navigation">
+              <iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon>
+            </a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <div class="d-flex align-items-center justify-content-between">
+                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                  <li class="nav-item dropdown">
+                    <a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar">
+                      <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item d-block d-xl-none">
+                    <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                      data-bs-toggle="modal" data-bs-target="#exampleModal">
+                      <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
+                    <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
+                      <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
+                    </a>
+                  </li>
+                  <li class="nav-item dropdown">
+                    <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
+                      <div class="d-flex align-items-center gap-2 lh-base">
+                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35"
+                          alt="Fintle-img" />
+                      </div>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+      <!-- Header End -->
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
                     <div class="card card-body py-3">
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="quotation.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Quotation Details</h4>
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="purchase-order.html"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path
+                                                        fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z" /></svg></a></span>Purchase
+                                        Order Details</h4>
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb">
-                                            <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                                                </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="quotation.html">Quotations</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Quotation Details</li>
+                                            <li class="breadcrumb-item"><a href="purchase-order.html">Purchase Orders</a></li>
+                                            <li class="breadcrumb-item active">Purchase Order Details</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -668,30 +673,30 @@
                         </div>
                     </div>
 
-                    <!-- Quotation Info Card -->
-                    <div class="quotation-info-card" id="quotationInfoCard"></div>
+                    <!-- Purchase Order Info Card -->
+                    <div class="po-info-card" id="poInfoCard"></div>
 
                     <!-- KPI Cards Row -->
                     <div class="kpi-grid">
                         <div class="kpi-mini-card">
-                            <div class="kpi-icon blue-light"><i class="fas fa-file-alt fa-lg"></i></div>
+                            <div class="kpi-icon blue-light"><i class="fas fa-file-invoice fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Quote Amount</h6>
-                                <h3 id="quoteAmount">₹0</h3>
+                                <h6>Total Items</h6>
+                                <h3 id="totalItems">0</h3>
                             </div>
                         </div>
                         <div class="kpi-mini-card">
-                            <div class="kpi-icon orange-light"><i class="fas fa-hourglass-half fa-lg"></i></div>
+                            <div class="kpi-icon green-light"><i class="fas fa-rupee-sign fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Valid Until</h6>
-                                <h3 id="validUntil">-</h3>
+                                <h6>Total Amount</h6>
+                                <h3 id="totalAmount">₹0</h3>
                             </div>
                         </div>
                         <div class="kpi-mini-card">
-                            <div class="kpi-icon green-light"><i class="fas fa-percent fa-lg"></i></div>
+                            <div class="kpi-icon orange-light"><i class="fas fa-calendar fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Tax Rate</h6>
-                                <h3 id="taxRate">0%</h3>
+                                <h6>Delivery Status</h6>
+                                <h3 id="deliveryStatus">Pending</h3>
                             </div>
                         </div>
                     </div>
@@ -699,8 +704,8 @@
                     <!-- Tabs Header with Settings Dropdown -->
                     <div class="tabs-header-wrapper">
                         <div class="detail-tabs">
-                            <button class="detail-tab active" data-tab="items"><i class="fas fa-list"></i> Items</button>
-                            <button class="detail-tab" data-tab="terms"><i class="fas fa-file-contract"></i> Terms & Conditions</button>
+                            <button class="detail-tab active" data-tab="items"><i class="fas fa-list"></i> Order Items</button>
+                            <button class="detail-tab" data-tab="shipping"><i class="fas fa-truck"></i> Shipping Info</button>
                             <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity Log</button>
                             <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
                         </div>
@@ -710,77 +715,113 @@
                                 <i class="fas fa-cog"></i> Actions
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
-                                <li><a class="dropdown-item" href="#" onclick="editQuotation()"> Edit Quotation</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="cloneQuotation()">Clone Quotation</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="convertToInvoice()"> Convert to Invoice</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="editPO()"> Edit PO</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="convertToBill()"> Convert to Bill</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="markAsCancelled()"> Cancel PO</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="downloadQuotation()"> Download PDF</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="shareQuotation()"> Share</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteQuotation()"> Delete Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="downloadPO()">Download PDF</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="emailPO()"> Email to Supplier</a></li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Tab Content: Items -->
+                    <!-- Tab Content: Order Items -->
                     <div id="items" class="tab-content active-content">
-                        <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                            <h5 class="mb-0 fw-semibold">Quotation Items</h5>
-                            <button class="btn btn-outline-primary rounded-pill px-4" onclick="editQuotation()"><i class="fas fa-plus me-2"></i>Add/Edit Items</button>
-                        </div>
+                        <h5 class="fw-semibold mb-4">Order Items List</h5>
                         <div class="items-table-wrapper">
                             <table class="items-table">
                                 <thead>
                                     <tr>
                                         <th>#</th>
-                                        <th>Item / Description</th>
+                                        <th>Item Name</th>
+                                        <th>HSN/SAC</th>
                                         <th>Quantity</th>
-                                        <th>Unit Price</th>
-                                        <th>Discount</th>
-                                        <th>Tax</th>
-                                        <th>Amount</th>
+                                        <th>Unit</th>
+                                        <th>Unit Price (₹)</th>
+                                        <th>Discount (%)</th>
+                                        <th>Taxable Value (₹)</th>
+                                        <th>Tax (₹)</th>
+                                        <th>Total (₹)</th>
                                     </tr>
                                 </thead>
                                 <tbody id="itemsTableBody"></tbody>
                             </table>
                         </div>
-                        
+
                         <!-- Summary Section -->
-                        <div class="summary-section">
-                            <div class="summary-row">
+                        <div class="row mt-4 justify-content-end">
+                            <div class="col-md-6">
                                 <div class="summary-box">
-                                    <div class="summary-line">
-                                        <span>Subtotal</span>
-                                        <span id="subtotalAmount">₹0</span>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Subtotal</span>
+                                        <span class="summary-value" id="summarySubtotal">₹0.00</span>
                                     </div>
-                                    <div class="summary-line">
-                                        <span>Tax (GST)</span>
-                                        <span id="taxAmount">₹0</span>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Total Discount</span>
+                                        <span class="summary-value" id="summaryDiscount">₹0.00</span>
                                     </div>
-                                    <div class="summary-line">
-                                        <span>Discount</span>
-                                        <span id="discountAmount">₹0</span>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Total Tax (GST)</span>
+                                        <span class="summary-value" id="summaryTax">₹0.00</span>
                                     </div>
-                                    <div class="summary-line total">
-                                        <span>Total Amount</span>
-                                        <span id="totalAmount">₹0</span>
+                                    <div class="summary-row">
+                                        <span class="summary-label">Shipping Charge</span>
+                                        <span class="summary-value" id="summaryShipping">₹0.00</span>
+                                    </div>
+                                    <div class="summary-row border-top pt-2 mt-2">
+                                        <span class="summary-label fw-bold summary-total">Grand Total</span>
+                                        <span class="summary-value fw-bold summary-total" id="summaryGrandTotal">₹0.00</span>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Tab Content: Terms & Conditions -->
-                    <div id="terms" class="tab-content">
-                        <div class="terms-card">
-                            <h6>Terms & Conditions</h6>
-                            <div id="termsContent" class="text-muted" style="line-height: 1.6;"></div>
+                    <!-- Tab Content: Shipping Info -->
+                    <div id="shipping" class="tab-content">
+                        <div class="row g-4">
+                            <div class="col-md-6">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-building me-2 text-primary"></i>Supplier Information</h6>
+                                    <p class="mb-1" id="supplierName">-</p>
+                                    <p class="mb-1" id="supplierEmail">-</p>
+                                    <p class="mb-1" id="supplierPhone">-</p>
+                                    <p class="mb-1" id="supplierGst">-</p>
+                                    <p class="mb-0" id="supplierAddress">-</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-truck me-2 text-primary"></i>Shipping Details</h6>
+                                    <p class="mb-1"><strong>Purchase Date:</strong> <span id="shippingPurchaseDate">-</span></p>
+                                    <p class="mb-1"><strong>Delivery Date:</strong> <span id="shippingDeliveryDate">-</span></p>
+                                    <p class="mb-1"><strong>Expected By:</strong> <span id="shippingExpectedDate">-</span></p>
+                                    <p class="mb-1"><strong>Shipping Method:</strong> <span id="shippingMethod">Standard Delivery</span></p>
+                                    <p class="mb-0"><strong>Shipping Address:</strong><br><span id="shippingAddress">-</span></p>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-info-circle me-2 text-primary"></i>Order Information</h6>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <p class="mb-1"><strong>PO Number:</strong> <span id="infoPONumber">-</span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="mb-1"><strong>Reference #:</strong> <span id="infoReference">-</span></p>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <p class="mb-1"><strong>Currency:</strong> <span id="infoCurrency">INR</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <!-- Tab Content: Activity Log -->
                     <div id="activity" class="tab-content">
-                        <h5 class="fw-semibold mb-4">Recent Activities</h5>
+                        <h5 class="fw-semibold mb-4">Order Timeline</h5>
                         <div id="activityTimeline"></div>
                     </div>
 
@@ -788,7 +829,7 @@
                     <div id="notes" class="tab-content">
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Internal Notes</label>
-                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this quotation..."></textarea>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this purchase order..."></textarea>
                             <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
                         </div>
                     </div>
@@ -797,9 +838,8 @@
         </div>
     </div>
 
-    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
-        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
-    </div>
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
+        style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
 
     <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/js/simplebar.min.js"></script>
@@ -810,38 +850,50 @@
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
     <script>
+        // Get PO ID from URL
         const urlParams = new URLSearchParams(window.location.search);
-        const quotationId = urlParams.get('id') || 'QT-2404-001';
+        const poId = urlParams.get('id') || 'PO-2024-001';
 
-        // Quotation Data
-        const quotationData = {
-            id: quotationId,
-            date: '2026-04-01',
-            validUntil: '2026-05-01',
-            customerName: 'ABC Enterprises',
-            customerEmail: 'contact@abc.com',
-            customerPhone: '+91 9876543210',
-            status: 'Open',
+        // Purchase Order Data
+        const poData = {
+            poId: 'PO-2024-001',
+            reference: 'REQ-001',
+            status: 'Issued',
+            currency: 'INR',
+            purchaseDate: '2025-03-25',
+            deliveryDate: '2025-04-05',
+            expectedDelivery: '2025-04-10',
+            shippingMethod: 'Express Delivery',
+            shippingAddress: '123 Business Park, Andheri East, Mumbai - 400093',
+            supplier: {
+                name: 'ABC Enterprises',
+                email: 'contact@abc.com',
+                phone: '+91 9876543210',
+                gst: '29AAACA1234A1Z',
+                address: '456 Industrial Area, Bhiwandi, Maharashtra - 421302'
+            },
+            createdOn: '2025-03-25',
             createdBy: 'John Doe',
-            createdOn: '2026-04-01',
-            subtotal: 29800,
-            taxRate: 18,
-            taxAmount: 5364,
-            discount: 0,
-            total: 35164,
-            terms: '1. Payment due within 15 days of invoice date.\n2. Goods once sold will not be taken back.\n3. This is a system generated quotation and requires no signature.\n4. All disputes subject to local jurisdiction.',
+            lastUpdated: '2025-03-25',
+            notes: 'Please ensure timely delivery as per schedule.',
             items: [
-                { id: 1, name: 'Web Development Services', description: 'Complete website development with admin panel', quantity: 1, unitPrice: 25000, discount: 0, tax: 18, amount: 25000 },
-                { id: 2, name: 'Hosting Package', description: 'Annual hosting + domain registration', quantity: 1, unitPrice: 4800, discount: 0, tax: 18, amount: 4800 }
-            ]
+                { id: 1, name: 'Laptop Pro', hsn: '84713000', qty: 5, unit: 'PCS', price: 45000, discount: 0, taxable: 225000, tax: 40500, total: 265500 },
+                { id: 2, name: 'Wireless Mouse', hsn: '84716000', qty: 10, unit: 'PCS', price: 800, discount: 5, taxable: 7600, tax: 1368, total: 8968 },
+                { id: 3, name: 'USB Cable', hsn: '85444299', qty: 20, unit: 'PCS', price: 150, discount: 0, taxable: 3000, tax: 540, total: 3540 }
+            ],
+            subtotal: 235600,
+            totalDiscount: 400,
+            totalTax: 42408,
+            shippingCharge: 500,
+            grandTotal: 278108
         };
 
-        // Activity Log
+        // Activities
         let activities = [
-            { action: 'Quotation created', date: '2026-04-01 10:30 AM', user: 'John Doe' },
-            { action: 'Quotation sent to customer', date: '2026-04-02 02:15 PM', user: 'Admin' },
-            { action: 'Customer viewed quotation', date: '2026-04-03 09:45 AM', user: 'Customer Portal' },
-            { action: 'Follow-up email sent', date: '2026-04-10 11:30 AM', user: 'Sarah Wilson' }
+            { action: 'Purchase Order Created', date: '2025-03-25 10:30 AM', user: 'John Doe' },
+            { action: 'PO Sent to Supplier', date: '2025-03-25 11:45 AM', user: 'System' },
+            { action: 'Supplier Acknowledged', date: '2025-03-26 09:15 AM', user: 'ABC Enterprises' },
+            { action: 'Order Status Updated to Issued', date: '2025-03-26 02:30 PM', user: 'Admin' }
         ];
 
         function formatCurrency(amt) {
@@ -849,39 +901,39 @@
         }
 
         function getStatusClass(status) {
-            if (status === 'Open') return 'status-open-custom';
-            if (status === 'Closed') return 'status-closed-custom';
-            return 'status-expired-custom';
+            if (status === 'Issued') return 'status-issued-custom';
+            if (status === 'Cancelled') return 'status-cancelled-custom';
+            return 'status-draft-custom';
         }
 
         function getStatusIcon(status) {
-            if (status === 'Open') return 'fa-clock';
-            if (status === 'Closed') return 'fa-check-circle';
-            return 'fa-exclamation-triangle';
+            if (status === 'Issued') return 'fa-check-circle';
+            if (status === 'Cancelled') return 'fa-times-circle';
+            return 'fa-pen';
         }
 
-        function renderQuotationInfo() {
-            const container = document.getElementById('quotationInfoCard');
-            const statusClass = getStatusClass(quotationData.status);
-            const statusIcon = getStatusIcon(quotationData.status);
+        function renderPOInfo() {
+            const container = document.getElementById('poInfoCard');
+            const statusClass = getStatusClass(poData.status);
+            const statusIcon = getStatusIcon(poData.status);
 
             container.innerHTML = `
                 <div class="row align-items-center g-4">
-                    <div class="col-auto"><div class="quotation-avatar"><i class="fas fa-file-alt"></i></div></div>
+                    <div class="col-auto"><div class="po-avatar"><i class="fas fa-file-pdf"></i></div></div>
                     <div class="col">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h3 class="quotation-number">${quotationData.id}</h3>
-                                <div class="quotation-detail"><i class="fas fa-building"></i> ${quotationData.customerName}</div>
-                                <div class="quotation-detail"><i class="fas fa-envelope"></i> ${quotationData.customerEmail}</div>
-                                <div class="quotation-detail"><i class="fas fa-phone"></i> ${quotationData.customerPhone}</div>
+                                <h3 class="po-name">Purchase Order ${poData.poId}</h3>
+                                <div class="po-detail"><i class="fas fa-tag"></i> Reference: ${poData.reference || '-'}</div>
+                                <div class="po-detail"><i class="fas fa-building"></i> Supplier: ${poData.supplier.name}</div>
+                                <div class="po-detail"><i class="fas fa-calendar"></i> Created: ${poData.createdOn} by ${poData.createdBy}</div>
                             </div>
                             <div class="col-md-4">
                                 <div class="text-md-end">
-                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${quotationData.status}</span></div>
-                                    <div class="d-flex gap-2 justify-content-md-end">
-                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Created: ${quotationData.createdOn}</span>
-                                        <span class="date-chip"><i class="fas fa-user"></i> ${quotationData.createdBy}</span>
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${poData.status}</span></div>
+                                    <div class="d-flex gap-2 justify-content-md-end flex-wrap">
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> PO Date: ${poData.purchaseDate}</span>
+                                        <span class="date-chip"><i class="fas fa-truck"></i> Delivery: ${poData.deliveryDate}</span>
                                     </div>
                                 </div>
                             </div>
@@ -889,59 +941,68 @@
                     </div>
                 </div>
             `;
-
-            document.getElementById('quoteAmount').innerHTML = formatCurrency(quotationData.total);
-            document.getElementById('validUntil').innerHTML = `<small>${quotationData.validUntil}</small>`;
-            document.getElementById('taxRate').innerHTML = `${quotationData.taxRate}%`;
-        }
-
-        function updateKPIs() {
-            document.getElementById('quoteAmount').innerHTML = formatCurrency(quotationData.total);
-            document.getElementById('validUntil').innerHTML = quotationData.validUntil;
-            document.getElementById('taxRate').innerHTML = `${quotationData.taxRate}%`;
         }
 
         function renderItems() {
             const tbody = document.getElementById('itemsTableBody');
-            if (quotationData.items.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-5">No items added<td></tr>';
-                return;
-            }
-            tbody.innerHTML = quotationData.items.map((item, idx) => `
+            tbody.innerHTML = poData.items.map((item, idx) => `
                 <tr>
-                    <td>${idx + 1}</td>
-                    <td>
-                        <div class="fw-semibold">${item.name}</div>
-                        <div class="text-muted small">${item.description || '-'}</div>
-                    </td>
-                    <td class="text-center">${item.quantity}</td>
-                    <td class="text-end">${formatCurrency(item.unitPrice)}</td>
-                    <td class="text-center">${item.discount > 0 ? item.discount + '%' : '-'}</td>
-                    <td class="text-center">${item.tax}%</td>
-                    <td class="text-end fw-semibold">${formatCurrency(item.amount)}</td>
+                    <td class="fw-semibold">${idx + 1}</td>
+                    <td>${item.name}</td>
+                    <td>${item.hsn}</td>
+                    <td>${item.qty} ${item.unit}</td>
+                    <td>${item.unit}</td>
+                    <td>${formatCurrency(item.price)}</td>
+                    <td>${item.discount}%</td>
+                    <td>${formatCurrency(item.taxable)}</td>
+                    <td>${formatCurrency(item.tax)}</td>
+                    <td class="fw-semibold">${formatCurrency(item.total)}</td>
                 </tr>
             `).join('');
 
-            document.getElementById('subtotalAmount').innerHTML = formatCurrency(quotationData.subtotal);
-            document.getElementById('taxAmount').innerHTML = formatCurrency(quotationData.taxAmount);
-            document.getElementById('discountAmount').innerHTML = formatCurrency(quotationData.discount);
-            document.getElementById('totalAmount').innerHTML = formatCurrency(quotationData.total);
+            document.getElementById('totalItems').innerText = poData.items.length;
+            document.getElementById('totalAmount').innerHTML = formatCurrency(poData.grandTotal);
+            document.getElementById('deliveryStatus').innerText = new Date(poData.deliveryDate) > new Date() ? 'Scheduled' : 'Delivered';
+
+            document.getElementById('summarySubtotal').innerHTML = formatCurrency(poData.subtotal);
+            document.getElementById('summaryDiscount').innerHTML = formatCurrency(poData.totalDiscount);
+            document.getElementById('summaryTax').innerHTML = formatCurrency(poData.totalTax);
+            document.getElementById('summaryShipping').innerHTML = formatCurrency(poData.shippingCharge);
+            document.getElementById('summaryGrandTotal').innerHTML = formatCurrency(poData.grandTotal);
         }
 
-        function renderTerms() {
-            const container = document.getElementById('termsContent');
-            const termsHtml = quotationData.terms.split('\n').map(line => `<p class="mb-2">${line}</p>`).join('');
-            container.innerHTML = termsHtml || '<p class="text-muted">No terms and conditions defined.</p>';
+        function renderShippingInfo() {
+            document.getElementById('supplierName').innerText = poData.supplier.name;
+            document.getElementById('supplierEmail').innerText = poData.supplier.email;
+            document.getElementById('supplierPhone').innerText = poData.supplier.phone;
+            document.getElementById('supplierGst').innerText = `GST: ${poData.supplier.gst}`;
+            document.getElementById('supplierAddress').innerText = poData.supplier.address;
+            
+            document.getElementById('shippingPurchaseDate').innerText = poData.purchaseDate;
+            document.getElementById('shippingDeliveryDate').innerText = poData.deliveryDate;
+            document.getElementById('shippingExpectedDate').innerText = poData.expectedDelivery;
+            document.getElementById('shippingMethod').innerText = poData.shippingMethod;
+            document.getElementById('shippingAddress').innerHTML = poData.shippingAddress;
+            
+            document.getElementById('infoPONumber').innerText = poData.poId;
+            document.getElementById('infoReference').innerText = poData.reference || '-';
+            document.getElementById('infoCurrency').innerText = poData.currency;
         }
 
         function renderActivityTimeline() {
             const container = document.getElementById('activityTimeline');
+            const iconMap = {
+                'Created': 'fa-file-invoice',
+                'Sent': 'fa-paper-plane',
+                'Acknowledged': 'fa-check-circle',
+                'Updated': 'fa-edit'
+            };
             container.innerHTML = activities.map(act => {
                 let icon = 'fa-info-circle';
-                if (act.action.includes('created')) icon = 'fa-plus-circle';
-                else if (act.action.includes('sent')) icon = 'fa-paper-plane';
-                else if (act.action.includes('viewed')) icon = 'fa-eye';
-                else if (act.action.includes('email')) icon = 'fa-envelope';
+                if (act.action.includes('Created')) icon = 'fa-file-invoice';
+                else if (act.action.includes('Sent')) icon = 'fa-paper-plane';
+                else if (act.action.includes('Acknowledged')) icon = 'fa-check-circle';
+                else if (act.action.includes('Updated')) icon = 'fa-edit';
                 
                 return `
                     <div class="timeline-item">
@@ -956,14 +1017,15 @@
         }
 
         function loadNotes() {
-            const saved = localStorage.getItem(`quotation_notes_${quotationData.id}`);
+            const saved = localStorage.getItem(`po_notes_${poData.poId}`);
             if (saved) document.getElementById('internalNotes').value = saved;
+            else document.getElementById('internalNotes').value = poData.notes;
         }
 
         function saveNotes() {
             const notes = document.getElementById('internalNotes').value;
-            localStorage.setItem(`quotation_notes_${quotationData.id}`, notes);
-            showToast('Notes saved successfully');
+            localStorage.setItem(`po_notes_${poData.poId}`, notes);
+            showToast('Notes saved successfully', 'success');
             addActivity('Internal notes updated', 'System');
         }
 
@@ -974,40 +1036,47 @@
             renderActivityTimeline();
         }
 
-        function showToast(msg) {
-            const toast = document.getElementById('liveToastMsg');
-            document.getElementById('toastText').innerText = msg;
-            toast.style.display = 'block';
-            setTimeout(() => toast.style.display = 'none', 2200);
+        function editPO() {
+            window.location.href = `edit-purchase-order.html?id=${poData.poId}`;
         }
 
-        function editQuotation() {
-            window.location.href = `edit-quotation.html?id=${quotationData.id}`;
+        function convertToBill() {
+            showToast('Converting PO to Purchase Bill...', 'info');
+            setTimeout(() => {
+                window.location.href = `create-purchase-bill.html?po=${poData.poId}`;
+            }, 1000);
         }
 
-        function cloneQuotation() {
-            showToast(`Cloning quotation ${quotationData.id}`);
-            setTimeout(() => window.location.href = `create-quotation.html?clone=${quotationData.id}`, 1000);
-        }
-
-        function convertToInvoice() {
-            showToast(`Converting quotation ${quotationData.id} to invoice`);
-            setTimeout(() => window.location.href = `create-invoice.html?quotation=${quotationData.id}`, 1000);
-        }
-
-        function downloadQuotation() {
-            showToast(`Downloading PDF for ${quotationData.id}`);
-        }
-
-        function shareQuotation() {
-            showToast(`Share link copied for ${quotationData.id}`);
-        }
-
-        function deleteQuotation() {
-            if (confirm(`Delete quotation "${quotationData.id}"? This action cannot be undone.`)) {
-                showToast('Quotation deleted successfully');
-                setTimeout(() => window.location.href = 'quotation-list.html', 1500);
+        function markAsCancelled() {
+            if (confirm(`Cancel Purchase Order ${poData.poId}? This action cannot be undone.`)) {
+                poData.status = 'Cancelled';
+                renderPOInfo();
+                addActivity(`Purchase Order ${poData.poId} cancelled`, 'Admin');
+                showToast(`PO ${poData.poId} has been cancelled`, 'info');
             }
+        }
+
+        function downloadPO() {
+            showToast(`Downloading Purchase Order ${poData.poId}...`, 'info');
+            setTimeout(() => {
+                showToast(`PO ${poData.poId} downloaded successfully!`, 'success');
+            }, 1500);
+        }
+
+        function emailPO() {
+            showToast(`Sending PO ${poData.poId} to ${poData.supplier.email}...`, 'info');
+            setTimeout(() => {
+                showToast(`PO sent successfully to ${poData.supplier.name}!`, 'success');
+                addActivity(`PO ${poData.poId} emailed to supplier`, 'System');
+            }, 1500);
+        }
+
+        function showToast(msg, type) {
+            const toast = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            toastText.innerText = msg;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2500);
         }
 
         function initTabs() {
@@ -1024,23 +1093,28 @@
             });
         }
 
-        // Initialize everything
-        renderQuotationInfo();
-        updateKPIs();
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Initialize
+        renderPOInfo();
         renderItems();
-        renderTerms();
+        renderShippingInfo();
         renderActivityTimeline();
         loadNotes();
         initTabs();
 
         // Expose functions globally
-        window.editQuotation = editQuotation;
-        window.cloneQuotation = cloneQuotation;
-        window.convertToInvoice = convertToInvoice;
-        window.downloadQuotation = downloadQuotation;
-        window.shareQuotation = shareQuotation;
-        window.deleteQuotation = deleteQuotation;
+        window.editPO = editPO;
+        window.convertToBill = convertToBill;
+        window.markAsCancelled = markAsCancelled;
+        window.downloadPO = downloadPO;
+        window.emailPO = emailPO;
         window.saveNotes = saveNotes;
+        window.handleLogout = handleLogout;
     </script>
 </body>
 

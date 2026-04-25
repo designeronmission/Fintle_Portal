@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Create Purchase Order</title>
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+    <style>
+        /* Additional styles for the form components */
+        .card-custom {
+            border: none;
+            border-radius: 4px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-header-custom {
+            background: white;
+            border-bottom: 1px solid #eef2f8;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e293b;
+        }
+
+        .card-header-custom i {
+            color: #2a3b82;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.03em;
+            color: #5b6e8c;
+            margin-bottom: 6px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+            outline: none;
+        }
+
+        .input-group-text {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary {
+            background: #2a3b82;
+            border: none;
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary:hover {
+            background: #1f5e7a;
+        }
+
+        .btn-outline-primary {
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #ef4444;
+        }
+
+        .form-text-small {
+            font-size: 0.7rem;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+
+        .supplier-select-group {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .supplier-select-group .form-select {
+            flex: 1;
+        }
+
+        .btn-add-supplier {
+            white-space: nowrap;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        /* Item Table Styles */
+        .items-table-wrapper {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        .items-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .items-table th {
+            background: #f8fafc;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+            color: #1e293b;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .items-table td {
+            padding: 10px;
+            border-bottom: 1px solid #eef2f6;
+            vertical-align: middle;
+        }
+
+        .item-input {
+            width: 100%;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 6px 10px;
+            font-size: 0.85rem;
+        }
+
+        .item-input:focus {
+            outline: none;
+            border-color: #2a3b82;
+        }
+
+        .remove-item-btn {
+            background: none;
+            border: none;
+            color: #ef4444;
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px 8px;
+        }
+
+        .remove-item-btn:hover {
+            background: #fee2e2;
+            border-radius: 4px;
+        }
+
+        .btn-add-item {
+            background: none;
+            color: #2a3b82;
+            border: 1px dashed #2a3b82;
+            padding: 8px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 500;
+            border-radius: 4px;
+            transition: all 0.2s;
+        }
+
+        .btn-add-item:hover {
+            background: #eef2ff;
+        }
+
+        .custom-select-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .custom-select-wrapper select {
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            padding-right: 35px !important;
+            cursor: pointer;
+        }
+
+        .custom-select-wrapper svg {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        .toast-notify {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Item dropdown with create option */
+        .item-select-with-create {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .item-select-with-create select {
+            flex: 1;
+        }
+
+        .btn-create-item {
+            background: #f1f5f9;
+            border: 1px solid #e2e8f0;
+            border-radius: 4px;
+            padding: 6px 12px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.2s;
+        }
+
+        .btn-create-item:hover {
+            background: #e2e8f0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+          <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier.html">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-order.html">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                 <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu active">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+               <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="quotation.html">
+                      <span class="icon-small"></span> Quotation
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)" data-bs-toggle="modal"
+                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-quotation.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Quotation</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper">
+                <div class="container-fluid p-4">
+                    <!-- Breadcrumb card -->
+                    <div class="card card-body py-3 mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="purchase-order.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Purchase Order</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb mb-0">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="purchase-order.html">Purchase Orders</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Create Purchase Order</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="purchaseOrderForm">
+                        <!-- Order Details -->
+                        <div class="card-custom">
+                            <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Order Details</div>
+                            <div class="card-body p-4">
+                                <div class="row g-4">
+                                    <!-- Supplier Selection -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Supplier</label>
+                                        <div class="supplier-select-group">
+                                            <select class="form-select" id="supplierSelect" required>
+                                                <option value="">Select Supplier</option>
+                                                <option value="1">ABC Enterprises</option>
+                                                <option value="2">XYZ Solutions</option>
+                                                <option value="3">Global Traders</option>
+                                                <option value="4">Sunrise Industries</option>
+                                                <option value="5">Metro Corp</option>
+                                            </select>
+                                            <button type="button" class="btn btn-primary btn-add-supplier" id="addSupplierBtn">
+                                                <i class="fas fa-plus me-1"></i> Add
+                                            </button>
+                                        </div>
+                                        <div class="form-text-small">Select existing supplier or add a new one</div>
+                                    </div>
+
+                                    <!-- Currency -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Currency</label>
+                                        <select class="form-select" id="currency" required>
+                                            <option value="USD">USD - US Dollar ($)</option>
+                                            <option value="EUR">EUR - Euro (€)</option>
+                                            <option value="GBP">GBP - British Pound (£)</option>
+                                            <option value="INR" selected>INR - Indian Rupee (₹)</option>
+                                            <option value="AED">AED - UAE Dirham</option>
+                                            <option value="SAR">SAR - Saudi Riyal</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Reference # -->
+                                    <div class="col-md-4">
+                                        <label class="form-label">Reference #</label>
+                                        <input type="text" class="form-control" id="referenceNo" placeholder="Optional reference number">
+                                    </div>
+
+                                    <!-- Purchase Date -->
+                                    <div class="col-md-4">
+                                        <label class="form-label required-field">Purchase Date</label>
+                                        <input type="date" class="form-control" id="purchaseDate" required>
+                                    </div>
+
+                                    <!-- Delivery Date -->
+                                    <div class="col-md-4">
+                                        <label class="form-label">Delivery Date</label>
+                                        <input type="date" class="form-control" id="deliveryDate">
+                                    </div>
+
+                                    <!-- Description -->
+                                    <div class="col-md-12">
+                                        <label class="form-label">Description</label>
+                                        <textarea class="form-control" id="description" rows="3" placeholder="Enter order description or notes..."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Line Items Section -->
+                        <div class="card-custom">
+                            <div class="card-header-custom"><i class="fas fa-list me-2"></i> Line Items</div>
+                            <div class="card-body p-4">
+                                <div class="items-table-wrapper">
+                                    <table class="items-table" id="itemsTable">
+                                        <thead>
+                                            <tr>
+                                                <th style="width:55%">Item</th>
+                                                <th style="width:20%">Quantity</th>
+                                                <th style="width:20%">Unit</th>
+                                                <th style="width:5%"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="itemsTableBody">
+                                            <!-- Item rows will be added here -->
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <button type="button" class="btn-add-item" id="addItemBtn">
+                                    <i class="fas fa-plus me-2"></i>Add Line Item
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-3 mt-4 mb-5">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="cancelBtn">
+                                <i class="fas fa-times me-2"></i>Cancel
+                            </button>
+                            <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">
+                                <i class="fas fa-undo-alt me-2"></i>Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-5">
+                                <i class="fas fa-save me-2"></i>Save & Send
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" id="successMessage">Purchase Order created successfully!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="viewOrderBtn">View Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveToastMsg" class="toast-notify" style="display: none;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+    </div>
+
+    <!-- Import Js Files -->
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        let itemCounter = 0;
+        let poCounter = 1;
+
+        // Items list for dropdown
+        let itemsList = [
+            { id: 1, name: 'Laptop Pro', unit: 'PCS' },
+            { id: 2, name: 'Wireless Mouse', unit: 'PCS' },
+            { id: 3, name: 'USB Cable', unit: 'PCS' },
+            { id: 4, name: 'Keyboard', unit: 'PCS' },
+            { id: 5, name: 'Monitor', unit: 'PCS' },
+            { id: 6, name: 'Printer', unit: 'PCS' }
+        ];
+
+        // Set default dates
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('purchaseDate').value = today;
+        
+        const nextWeek = new Date();
+        nextWeek.setDate(nextWeek.getDate() + 7);
+        document.getElementById('deliveryDate').value = nextWeek.toISOString().split('T')[0];
+
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            const icon = document.querySelector('#liveToastMsg i');
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle me-2';
+                toastDiv.style.background = '#10b981';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-triangle me-2';
+                toastDiv.style.background = '#ef4444';
+            } else {
+                icon.className = 'fas fa-info-circle me-2';
+                toastDiv.style.background = '#1e293b';
+            }
+            
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'flex';
+            setTimeout(() => {
+                toastDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Escape HTML
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+        }
+
+        // Render item dropdown options
+        function renderItemOptions(selectedValue = '') {
+            let options = '<option value="">Select Item</option>';
+            itemsList.forEach(item => {
+                options += `<option value="${escapeHtml(item.name)}" data-unit="${escapeHtml(item.unit)}" ${selectedValue === item.name ? 'selected' : ''}>${escapeHtml(item.name)}</option>`;
+            });
+            return options;
+        }
+
+        // Add Line Item with item dropdown
+        function addLineItem() {
+            const tbody = document.getElementById('itemsTableBody');
+            const rowId = Date.now();
+            const newRow = document.createElement('tr');
+            newRow.id = `row_${rowId}`;
+            newRow.innerHTML = `
+                <td>
+                    <div class="item-select-with-create" style="display: flex; gap: 8px; align-items: center;">
+                        <select class="form-select item-select" data-row-id="${rowId}" style="flex: 1;">
+                            ${renderItemOptions()}
+                        </select>
+                        <button type="button" class="btn-create-item create-item-btn" data-row-id="${rowId}" title="Create New Item">
+                            <i class="fas fa-plus"></i> New
+                        </button>
+                    </div>
+                </td>
+                <td><input type="number" class="form-control item-qty" value="1" step="0.01" style="width:100%"></td>
+                <td><input type="text" class="form-control item-unit" value="PCS" placeholder="Unit" style="width:100%"></td>
+                <td class="text-center"><button type="button" class="remove-item-btn" data-id="${rowId}"><i class="fas fa-trash-alt"></i></button></td>
+            `;
+            
+            tbody.appendChild(newRow);
+            
+            // Add event listener to the select dropdown
+            const selectEl = newRow.querySelector('.item-select');
+            selectEl.addEventListener('change', function() {
+                const selectedOption = this.options[this.selectedIndex];
+                const unit = selectedOption.getAttribute('data-unit');
+                const unitInput = newRow.querySelector('.item-unit');
+                if (unit && unitInput && unitInput.value === 'PCS') {
+                    unitInput.value = unit;
+                }
+            });
+            
+            // Add event listener to create item button
+            const createBtn = newRow.querySelector('.create-item-btn');
+            createBtn.addEventListener('click', () => {
+                // Store current row ID to return data
+                sessionStorage.setItem('returnRowId', rowId);
+                sessionStorage.setItem('returnUrl', window.location.pathname);
+                window.location.href = 'create-item.html';
+            });
+            
+            // Add remove button event
+            newRow.querySelector('.remove-item-btn').addEventListener('click', () => {
+                newRow.remove();
+                showToast('Item removed', 'info');
+            });
+        }
+
+        // Check if returning from item creation
+        function checkForNewItem() {
+            const newItem = sessionStorage.getItem('newItem');
+            const returnRowId = sessionStorage.getItem('returnRowId');
+            const returnUrl = sessionStorage.getItem('returnUrl');
+            
+            if (newItem && returnUrl === window.location.pathname && returnRowId) {
+                try {
+                    const itemData = JSON.parse(newItem);
+                    const newItemObj = {
+                        id: itemsList.length + 1,
+                        name: itemData.itemName || itemData.name,
+                        unit: itemData.unit || 'PCS'
+                    };
+                    
+                    // Add to global items list
+                    itemsList.push(newItemObj);
+                    
+                    // Update all select dropdowns with new item
+                    const allSelects = document.querySelectorAll('.item-select');
+                    allSelects.forEach(select => {
+                        const currentValue = select.value;
+                        const options = renderItemOptions(currentValue);
+                        select.innerHTML = options;
+                        
+                        // Reattach data-unit attributes
+                        const newOption = select.querySelector(`option[value="${escapeHtml(newItemObj.name)}"]`);
+                        if (newOption) {
+                            newOption.setAttribute('data-unit', newItemObj.unit);
+                        }
+                    });
+                    
+                    // Set the value for the specific row that triggered creation
+                    const targetRow = document.getElementById(`row_${returnRowId}`);
+                    if (targetRow) {
+                        const targetSelect = targetRow.querySelector('.item-select');
+                        if (targetSelect) {
+                            targetSelect.value = newItemObj.name;
+                            const unitInput = targetRow.querySelector('.item-unit');
+                            if (unitInput) {
+                                unitInput.value = newItemObj.unit;
+                            }
+                        }
+                    }
+                    
+                    showToast(`Item "${newItemObj.name}" created successfully!`, 'success');
+                    sessionStorage.removeItem('newItem');
+                    sessionStorage.removeItem('returnRowId');
+                    sessionStorage.removeItem('returnUrl');
+                } catch(e) {
+                    console.error('Error loading item data:', e);
+                }
+            }
+        }
+
+        // Add item button
+        document.getElementById('addItemBtn').addEventListener('click', addLineItem);
+
+        // Initialize with 2 empty rows
+        for (let i = 0; i < 2; i++) {
+            addLineItem();
+        }
+        
+        // Check for new item on page load
+        checkForNewItem();
+
+        // Add Supplier button - redirect to create-supplier.html
+        document.getElementById('addSupplierBtn').addEventListener('click', () => {
+            sessionStorage.setItem('returnUrl', window.location.pathname);
+            window.location.href = 'create-supplier.html';
+        });
+
+        // Check if returning from supplier creation
+        window.addEventListener('load', function() {
+            const newSupplier = sessionStorage.getItem('newSupplier');
+            const returnUrl = sessionStorage.getItem('returnUrl');
+            
+            if (newSupplier && returnUrl === window.location.pathname) {
+                try {
+                    const supplierData = JSON.parse(newSupplier);
+                    const supplierSelect = document.getElementById('supplierSelect');
+                    const option = document.createElement('option');
+                    option.value = 'new_' + Date.now();
+                    option.textContent = supplierData.supplierName || supplierData.name;
+                    supplierSelect.appendChild(option);
+                    supplierSelect.value = option.value;
+                    showToast(`Supplier "${supplierData.supplierName || supplierData.name}" added successfully!`, 'success');
+                    sessionStorage.removeItem('newSupplier');
+                    sessionStorage.removeItem('returnUrl');
+                } catch(e) {
+                    console.error('Error loading supplier data:', e);
+                }
+            }
+        });
+
+        // Form submission
+        document.getElementById('purchaseOrderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required fields
+            const supplier = document.getElementById('supplierSelect').value;
+            const currency = document.getElementById('currency').value;
+            const purchaseDate = document.getElementById('purchaseDate').value;
+            
+            if (!supplier) {
+                showToast('Please select a supplier', 'error');
+                return;
+            }
+            
+            if (!purchaseDate) {
+                showToast('Please select purchase date', 'error');
+                return;
+            }
+            
+            // Collect line items
+            const items = [];
+            const rows = document.querySelectorAll('#itemsTableBody tr');
+            let hasValidItems = false;
+            
+            rows.forEach(row => {
+                const itemSelect = row.querySelector('.item-select');
+                const itemName = itemSelect?.value;
+                if (itemName && itemName !== '') {
+                    hasValidItems = true;
+                    items.push({
+                        name: itemName,
+                        quantity: parseFloat(row.querySelector('.item-qty')?.value) || 0,
+                        unit: row.querySelector('.item-unit')?.value || 'PCS'
+                    });
+                }
+            });
+            
+            if (!hasValidItems) {
+                showToast('Please add at least one line item', 'error');
+                return;
+            }
+            
+            // Get supplier name
+            const supplierSelect = document.getElementById('supplierSelect');
+            const supplierName = supplierSelect.options[supplierSelect.selectedIndex]?.text || 'Supplier';
+            
+            // Generate PO ID
+            const poId = `PO-${new Date().getFullYear()}-${String(poCounter).padStart(3, '0')}`;
+            poCounter++;
+            
+            // Collect all form data
+            const formData = {
+                poId: poId,
+                supplierId: supplier,
+                supplierName: supplierName,
+                currency: currency,
+                referenceNo: document.getElementById('referenceNo').value,
+                purchaseDate: purchaseDate,
+                deliveryDate: document.getElementById('deliveryDate').value,
+                description: document.getElementById('description').value,
+                items: items,
+                status: 'Draft',
+                createdOn: new Date().toISOString().split('T')[0],
+                createdBy: 'Admin User',
+                lastUpdated: new Date().toISOString().split('T')[0]
+            };
+            
+            console.log('Purchase Order Data:', formData);
+            
+            // Store in localStorage for demo
+            let purchaseOrders = JSON.parse(localStorage.getItem('purchaseOrders') || '[]');
+            purchaseOrders.push(formData);
+            localStorage.setItem('purchaseOrders', JSON.stringify(purchaseOrders));
+            
+            // Show success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            document.getElementById('successMessage').innerHTML = `Purchase Order ${poId} created successfully and sent to ${supplierName}!`;
+            successModal.show();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('purchaseDate').value = today;
+            document.getElementById('deliveryDate').value = nextWeek.toISOString().split('T')[0];
+            document.getElementById('itemsTableBody').innerHTML = '';
+            for (let i = 0; i < 2; i++) addLineItem();
+            document.getElementById('supplierSelect').value = '';
+            document.getElementById('currency').value = 'INR';
+            document.getElementById('referenceNo').value = '';
+            document.getElementById('description').value = '';
+        });
+        
+        // View Order button in modal
+        document.getElementById('viewOrderBtn')?.addEventListener('click', function() {
+            window.location.href = 'purchase-order.html';
+        });
+        
+        // Cancel button
+        document.getElementById('cancelBtn')?.addEventListener('click', function() {
+            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
+                window.location.href = 'purchase-order.html';
+            }
+        });
+        
+        // Reset form confirmation
+        document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
+            if (confirm('Are you sure you want to reset all form fields?')) {
+                setTimeout(() => {
+                    document.getElementById('purchaseDate').value = today;
+                    document.getElementById('deliveryDate').value = nextWeek.toISOString().split('T')[0];
+                    document.getElementById('itemsTableBody').innerHTML = '';
+                    for (let i = 0; i < 2; i++) addLineItem();
+                    showToast('Form has been reset', 'info');
+                }, 10);
+            } else {
+                e.preventDefault();
+            }
+        });
+        
+        // Logout function
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

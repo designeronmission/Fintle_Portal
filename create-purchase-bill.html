@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fintle | Create Invoice · Enhanced</title>
+  <title>Fintle | Create Purchase Bill · Enhanced</title>
   <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
@@ -295,13 +295,13 @@
       gap: 8px;
     }
 
-    .customer-input-group {
+    .supplier-input-group {
       display: flex;
       gap: 12px;
       align-items: center;
     }
 
-    .customer-input-group select {
+    .supplier-input-group select {
       flex: 1;
       border-radius: 4px;
       border: 1px solid #e2e8f0;
@@ -359,92 +359,7 @@
       border: 1px solid #e2e8f0;
     }
 
-    /* Customer Modal Styles - Restored */
-    .customer-modal .modal-content {
-      border-radius: 10px;
-    }
-
-    .customer-modal .modal-header {
-      background: white;
-      color: black;
-      border-bottom: none;
-    }
-
-    .step-indicator {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .step-circle {
-      width: 40px;
-      height: 40px;
-      background: #e2e8f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      font-weight: bold;
-      transition: all 0.3s;
-    }
-
-    .step-item.active .step-circle {
-      background: #233578;
-      color: white;
-      box-shadow: 0 4px 10px rgba(35, 53, 120, 0.3);
-    }
-
-    .step-item.completed .step-circle {
-      background: #10b981;
-      color: white;
-    }
-
-    .form-step {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .form-step.active-step {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateX(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    @media (max-width: 768px) {
-      .customer-input-group {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .btn-icon-add {
-        justify-content: center;
-      }
-    }
-
-    /* NEW STYLES */
-    .item-description-box {
-      margin-top: 6px;
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      padding: 6px 10px;
-      font-size: 0.85rem;
-      background: #fff;
-    }
-
-    /* ENHANCED: Textarea style for item description (like the form-group textarea) */
+    /* Item row styles */
     .item-description-textarea {
       width: 100%;
       border-radius: 12px;
@@ -458,6 +373,7 @@
       line-height: 1.5;
       margin-top: 8px;
     }
+
     .item-description-textarea:focus {
       border-color: #233578;
       box-shadow: 0 0 0 0.2rem rgba(35, 53, 120, 0.15);
@@ -471,29 +387,6 @@
       font-size: 0.8rem;
       background: white;
       font-weight: 500;
-    }
-
-    .tax-mode-dropdown .dropdown-toggle {
-      background: white;
-      border: none;
-      padding: 0;
-      font-weight: 500;
-    }
-
-    .tax-mode-dropdown .dropdown-menu {
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    .tax-mode-dropdown .dropdown-item {
-      font-size: 0.8rem;
-      padding: 8px 16px;
-    }
-
-    .tax-mode-dropdown .dropdown-item:hover {
-      background: #eef2ff;
-      color: #233578;
     }
 
     .edit-columns-btn {
@@ -510,12 +403,13 @@
       background: #f1f5f9;
     }
 
-    /* ENHANCED COLUMN CUSTOMIZATION MODAL - More user friendly */
+    /* Column Customization Modal */
     .column-customization-panel {
       background: #f8fafc;
       border-radius: 20px;
       padding: 8px;
     }
+
     .column-toggle-card {
       background: white;
       border-radius: 14px;
@@ -527,11 +421,13 @@
       justify-content: space-between;
       align-items: center;
     }
+
     .column-toggle-card:hover {
       border-color: #cbd5e1;
       background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     }
+
     .column-toggle-label {
       font-weight: 600;
       color: #1e293b;
@@ -540,49 +436,40 @@
       gap: 12px;
       font-size: 0.95rem;
     }
+
     .column-toggle-label iconify-icon {
       font-size: 1.2rem;
       color: #233578;
     }
+
     .form-switch .form-check-input {
       width: 2.2rem;
       height: 1.2rem;
       cursor: pointer;
     }
+
     .form-switch .form-check-input:checked {
       background-color: #233578;
       border-color: #233578;
     }
 
-    /* Fix for modal search spacing */
-    .modal-item-search {
-      margin-bottom: 1.5rem;
-    }
-    .modal-item-search .form-control {
-      height: 48px;
-      font-size: 0.95rem;
-      padding-left: 2.8rem;
-    }
-    .modal-item-search iconify-icon {
-      font-size: 1.3rem;
-      left: 16px;
-    }
-    
-    /* Make table cells align properly */
-    #itemsTableBody td {
-      vertical-align: top;
-      padding: 12px 8px;
-    }
-    .item-row .form-select-sm, .item-row .form-control-sm {
-      height: 38px;
+    @media (max-width: 768px) {
+      .supplier-input-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .btn-icon-add {
+        justify-content: center;
+      }
     }
   </style>
 </head>
 
 <body>
   <div id="main-wrapper">
-    <!-- Sidebar Start -->
-   <!-- Sidebar Start -->
+
+       <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -596,7 +483,7 @@
             <ul class="sidebar-menu" id="sidebarnav">
               <!-- Dashboard -->
               <li class="sidebar-item mt-4">
-                <a class="sidebar-link " href="index.html" id="get-url" aria-expanded="false">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
@@ -626,7 +513,7 @@
 
               <!-- Purchase -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Purchase</span>
                 </a>
@@ -641,7 +528,7 @@
                       <span class="icon-small"></span> Purchase Order
                     </a>
                   </li>
-                 <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="purchase-bill.html">
                       <span class="icon-small"></span> Purchase Bill
                     </a>
@@ -656,7 +543,7 @@
 
               <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
@@ -754,54 +641,146 @@
     </aside>
     <!-- Sidebar End -->
 
-    <!-- Sidebar End -->
-
     <div class="page-wrapper">
-    <!-- Header Start -->
+        <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none">
-                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)">
-                  <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
-                </a>
-              </li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle">
-                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
-                </a>
-              </li>
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
+                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                    class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
               <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd">
-                  <button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
-                    <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon> Create Sales Invoice
-                  </button>
-                </div>
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
+                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
               </li>
             </ul>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+            </div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                class="fs-6"></iconify-icon></a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
               <div class="d-flex align-items-center justify-content-between">
                 <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
-                    <a class="nav-link position-relative" href="javascript:void(0)">
-                      <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="javascript:void(0)">
-                      <div class="d-flex align-items-center gap-2 lh-base">
-                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" />
+                  <li class="nav-item dropdown"><a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
+                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
+                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
+                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
+                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
+                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
+                          class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
                       </div>
+                      <div class="message-body" data-simplebar><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
+                              icon="solar:widget-3-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just see the my new
+                              admin!</span>
+                          </div>
+                        </a><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
+                              icon="solar:calendar-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
+                              event</span>
+                          </div>
+                        </a></div>
+                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
+                      aria-expanded="false">
+                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
+                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
                     </a>
+                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="position-relative px-4 pt-3 pb-2">
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img
+                            src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
+                            alt="Fintle-img" />
+                          <div>
+                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
+                            <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
+                                class="__cf_email__">[email&#160;protected]</a></p>
+                          </div>
+                        </div>
+                        <div class="message-body"><a href="../main/page-user-profile.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Invoice <span
+                              class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
+                            href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account
+                            Settings</a><a href="../main/authentication-login2.html"
+                            class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
+                      </div>
+                    </div>
                   </li>
                 </ul>
               </div>
             </div>
           </nav>
+          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
+            <nav class="sidebar-nav scroll-sidebar">
+              <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
+                  class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo"
+                    class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button></div>
+              <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
+                <ul id="sidebarnav">
+                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
+                      aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone"
+                          class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
+                    <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
+                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center">
+                          <div
+                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
+                              class="fs-11 d-block text-body-color">New messages arrived</span>
+                          </div>
+                        </a></li>
+                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
+                          class="d-flex align-items-center">
+                          <div
+                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:bill-list-bold-duotone"
+                              class="fs-7 text-secondary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
+                              class="fs-11 d-block text-body-color">Get latest invoice</span>
+                          </div>
+                        </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
         </div>
       </header>
-      <!-- Header End -->
 
       <div class="body-wrapper">
         <div class="container-fluid p-4">
@@ -809,11 +788,10 @@
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="invoice.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Invoice</h4>
+                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="purchase-bill.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Purchase Bill</h4>
                   <nav aria-label="breadcrumb" class="ms-auto">
                     <ol class="breadcrumb">
-                      <button type="button"
-                        class="btn bg-danger-subtle text-danger fw-semibold px-4 rounded-pill">INV-2012001</button>
+                      <button type="button" class="btn bg-danger-subtle text-danger fw-semibold px-4 rounded-pill" id="billNumberDisplay">PB-2024-001</button>
                     </ol>
                   </nav>
                 </div>
@@ -827,17 +805,17 @@
                 <div class="card-body p-4">
                   <div class="row g-3 mt-1">
                     <div class="col-md-6">
-                      <label class="form-label fw-semibold">Customer <span class="text-danger">*</span></label>
-                      <div class="customer-input-group">
-                        <select class="form-select" id="customerSelect">
-                          <option value="">-- Select Customer --</option>
+                      <label class="form-label fw-semibold">Supplier <span class="text-danger">*</span></label>
+                      <div class="supplier-input-group">
+                        <select class="form-select" id="supplierSelect">
+                          <option value="">-- Select Supplier --</option>
                         </select>
-                        <button type="button" class="btn-icon-add" id="createCustomerBtn">
+                        <button type="button" class="btn-icon-add" id="createSupplierBtn">
                           <iconify-icon icon="solar:user-plus-bold" width="16"></iconify-icon>
                           Create
                         </button>
                       </div>
-                      <p class="text-muted small mt-1">Search or select customer</p>
+                      <p class="text-muted small mt-1">Search or select supplier</p>
                     </div>
                     <div class="col-md-6">
                       <label class="form-label fw-semibold">Currency</label>
@@ -849,41 +827,28 @@
                       <p class="text-muted small mt-1">Select billing currency</p>
                     </div>
                     <div class="col-md-6">
-                      <label class="form-label fw-semibold">Issue Date</label>
-                      <input type="date" class="form-control" id="issueDate" value="2026-04-20"
-                        style="border-radius: 4px;">
-                        <p class="text-muted small mt-1">Choose issue date</p>
+                      <label class="form-label fw-semibold">Purchase Date</label>
+                      <input type="date" class="form-control" id="purchaseDate" value="2026-04-20" style="border-radius: 4px;">
+                      <p class="text-muted small mt-1">Choose purchase date</p>
                     </div>
-
-                   <div class="col-md-6">
-                      <label class="form-label fw-semibold">Due Date</label>
-                      <select class="form-select" id="dueDateTerms" style="border-radius: 4px; margin-bottom: 10px;">
-                        <option value="eom">Due end of the month</option>
-                        <option value="receipt">Due on Receipt</option>
-                        <option value="15">Net 15</option>
-                        <option value="30" selected>Net 30</option>
-                        <option value="45">Net 45</option>
-                        <option value="60">Net 60</option>
-                        <option value="custom">Custom</option>
-                      </select>
-                      <div id="customDateWrapper" style="display: none;">
-                        <div class="input-group">
-                          <input type="date" class="form-control" id="dueDate" value="2026-05-20" style="border-radius: 12px 0 0 12px;">
-                        </div>
-                      </div>
-                      <div id="dueDateDisplay" class="mt-2">
-                        <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-                          <iconify-icon icon="solar:calendar-mark-bold" width="16" class="me-1"></iconify-icon>
-                          <span id="calculatedDueDate">2026-05-20</span>
-                        </span>
-                      </div>
-                      <small class="text-muted mt-1 d-block" id="dueDateHint">Due 30 days from issue date</small>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Delivery Date</label>
+                      <input type="date" class="form-control" id="deliveryDate" value="2026-04-22" style="border-radius: 4px;">
+                      <p class="text-muted small mt-1">Expected delivery date</p>
                     </div>
-
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Reference #</label>
+                      <input type="text" class="form-control" id="referenceNo" placeholder="PO-2024-001" style="border-radius: 4px;">
+                      <p class="text-muted small mt-1">Purchase order reference</p>
+                    </div>
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold">Bill Number</label>
+                      <input type="text" class="form-control" id="billNumber" placeholder="Supplier Bill #" style="border-radius: 4px;">
+                      <p class="text-muted small mt-1">Supplier's bill/invoice number</p>
+                    </div>
                     <div class="col-md-12">
                       <label class="form-label fw-semibold">Description / Notes</label>
-                      <textarea class="form-control" id="invoiceDescription" rows="2"
-                        style="border-radius: 4px;">Thank you for your business. Payment due within 30 days.</textarea>
+                      <textarea class="form-control" id="billDescription" rows="2" style="border-radius: 4px;">Thank you for your business. Payment due within 30 days.</textarea>
                     </div>
                   </div>
 
@@ -892,14 +857,10 @@
                     <div class="col-12">
                       <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                         <div class="d-flex align-items-center gap-3">
-                          <h5 class="fw-semibold mb-0"><iconify-icon
-                              icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
-                          <button class="edit-columns-btn" type="button" data-bs-toggle="modal"
-                            data-bs-target="#editColumnsModal">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
-                              <path fill="currentColor"
-                                d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5"
-                                style="color: grey" />
+                          <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
+                          <button class="edit-columns-btn" type="button" data-bs-toggle="modal" data-bs-target="#editColumnsModal">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24">
+                              <path fill="currentColor" d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5" style="color: grey" />
                             </svg> 
                             Edit columns
                           </button>
@@ -917,16 +878,13 @@
                           </div>
                           <span class="scanner-badge" id="showScannerBtn">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <path fill="currentColor"
-                                d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2" />
-                              <path fill="currentColor"
-                                d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
+                              <path fill="currentColor" d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2z" />
+                              <path fill="currentColor" d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
                             </svg> Scan Barcode
                           </span>
                           <button class="btn btn-primary px-4" id="openAddItemsModalBtn" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                              <path fill="currentColor"
-                                d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
+                              <path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
                             </svg> Add Line Item
                           </button>
                         </div>
@@ -934,15 +892,12 @@
                       <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
                         <div class="input-group">
                           <span class="input-group-text bg-white">
-                           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                              <path fill="currentColor"
-                                d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2" />
-                              <path fill="currentColor"
-                                d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                              <path fill="currentColor" d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2z" />
+                              <path fill="currentColor" d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
                             </svg>
                           </span>
-                          <input type="text" id="barcodeInput" class="form-control"
-                            placeholder="Scan or type barcode / item code" autofocus>
+                          <input type="text" id="barcodeInput" class="form-control" placeholder="Scan or type barcode / item code" autofocus>
                           <button class="btn btn-outline-secondary" id="closeScannerBtn">Close</button>
                         </div>
                         <small class="text-muted">Press Enter to find and add item by code or name</small>
@@ -953,7 +908,7 @@
                             <tr>
                               <th class="col-item" style="width: 30%;padding-left:10px">Item / Description</th>
                               <th class="col-code" style="width: 10%">Code</th>
-                              <th class="col-price" style="width: 10%">Price</th>
+                              <th class="col-price" style="width: 10%">Cost Price</th>
                               <th class="col-qty" style="width: 8%">Qty</th>
                               <th class="col-unit" style="width: 10%">Unit</th>
                               <th class="col-tax" style="width: 12%">Tax Rate</th>
@@ -977,8 +932,7 @@
                           <span class="summary-value" id="taxableAmountDisplay">₹ 0.00</span>
                         </div>
                         <div class="mt-2">
-                          <button class="tax-accordion-btn" type="button" data-bs-toggle="collapse"
-                            data-bs-target="#taxDetailsCollapse" aria-expanded="false">
+                          <button class="tax-accordion-btn" type="button" data-bs-toggle="collapse" data-bs-target="#taxDetailsCollapse" aria-expanded="false">
                             <span>View Tax Breakdown (CGST + SGST)</span>
                             <iconify-icon icon="solar:alt-arrow-down-bold" width="14"></iconify-icon>
                           </button>
@@ -993,8 +947,7 @@
                           <div style="width: 160px;">
                             <div class="input-group">
                               <span class="input-group-text bg-white border-end-0" id="shippingSymbol">₹</span>
-                              <input type="number" id="shippingCharge" class="form-control form-control-sm text-end"
-                                value="50" style="border-left: none;">
+                              <input type="number" id="shippingCharge" class="form-control form-control-sm text-end" value="50" style="border-left: none;">
                             </div>
                           </div>
                         </div>
@@ -1008,18 +961,19 @@
                         </div>
                         <div class="payment-section">
                           <div class="payment-row d-flex gap-3 flex-wrap">
-                            <span class="payment-label mt-2">Amount Received</span>
+                            <span class="payment-label mt-2">Amount Paid</span>
                             <div class="payment-input-wrapper flex-grow-1">
                               <div class="input-group">
-                                <span class="input-group-text bg-white" id="receivedSymbol">₹</span>
-                                <input type="number" id="amountReceived" class="form-control" value="0" step="any">
+                                <span class="input-group-text bg-white" id="paidSymbol">₹</span>
+                                <input type="number" id="amountPaid" class="form-control" value="0" step="any">
                               </div>
                             </div>
                             <div class="payment-input-wrapper">
                               <select id="paymentMethod" class="payment-method-select form-select">
+                                <option value="Bank Transfer">Bank Transfer</option>
+                                <option value="Cheque">Cheque</option>
                                 <option value="Cash">Cash</option>
                                 <option value="UPI">UPI</option>
-                                <option value="Card">Card</option>
                               </select>
                             </div>
                           </div>
@@ -1028,11 +982,9 @@
                           <span class="summary-label">Payment Status</span>
                           <div class="d-flex align-items-center gap-3">
                             <div class="form-check form-switch">
-                              <input class="form-check-input" type="checkbox" id="markAsPaidToggle"
-                                style="cursor: pointer;">
+                              <input class="form-check-input" type="checkbox" id="markAsPaidToggle" style="cursor: pointer;">
                             </div>
-                            <span id="paidStatusLabel"
-                              class="badge bg-warning-subtle text-warning px-3 py-1 rounded-pill">Unpaid</span>
+                            <span id="paidStatusLabel" class="badge bg-warning-subtle text-warning px-3 py-1 rounded-pill">Unpaid</span>
                           </div>
                         </div>
                         <div class="summary-row">
@@ -1041,8 +993,7 @@
                         </div>
                         <div class="summary-total">
                           <div class="d-flex justify-content-between align-items-center">
-                            <span class="summary-label text-white">Total Amount Due <br><small
-                                style="color: rgba(255,255,255,0.65);">Including all taxes & charges</small></span>
+                            <span class="summary-label text-white">Total Amount Due <br><small style="color: rgba(255,255,255,0.65);">Including all taxes & charges</small></span>
                             <span class="summary-value" id="netTotalDisplay">₹ 0.00</span>
                           </div>
                         </div>
@@ -1053,10 +1004,8 @@
                   <div class="row mt-4">
                     <div class="col-12">
                       <div class="d-flex justify-content-end gap-3">
-                        <button class="btn btn-outline-primary px-4 rounded-pill" id="recordPaymentBtn">Save & Record
-                          Payment</button>
-                        <button class="btn btn-primary px-4 rounded-pill"
-                          onclick="location.href='invoice-preview.html'">Preview Invoice</button>
+                        <button class="btn btn-outline-primary px-4 rounded-pill" id="recordPaymentBtn">Save & Record Payment</button>
+                        <button class="btn btn-primary px-4 rounded-pill" id="savePurchaseBillBtn">Save Purchase Bill</button>
                       </div>
                     </div>
                   </div>
@@ -1069,12 +1018,12 @@
     </div>
   </div>
 
-  <!-- Add Items Modal (FIXED SEARCH SPACING) -->
+  <!-- Add Items Modal -->
   <div class="modal fade" id="addItemsModal" tabindex="-1" aria-labelledby="addItemsModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header px-4 py-3">
-          <h5 class="modal-title fw-bold" id="addItemsModalLabel">Add Items to Bill</h5>
+          <h5 class="modal-title fw-bold" id="addItemsModalLabel">Add Items to Purchase Bill</h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body px-4 pb-3">
@@ -1093,8 +1042,7 @@
               <button type="button" class="btn btn-rounded btn-dark" id="goToCreateItemBtn"> 
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
                   <path fill="currentColor" d="M13 7h-2v4H7v2h4v4h2v-4h4v-2h-4z" />
-                  <path fill="currentColor"
-                    d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
+                  <path fill="currentColor" d="M12 2C6.49 2 2 6.49 2 12s4.49 10 10 10s10-4.49 10-10S17.51 2 12 2m0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8s8 3.59 8 8s-3.59 8-8 8" />
                 </svg>
                 Create New Item
               </button>
@@ -1108,7 +1056,7 @@
                   <th>Item Name</th>
                   <th>Type</th>
                   <th>Stock</th>
-                  <th>Sales Price</th>
+                  <th>Purchase Price</th>
                   <th>Unit</th>
                   <th>Quantity</th>
                   <th>Amount</th>
@@ -1133,74 +1081,26 @@
     </div>
   </div>
 
-  <!-- ENHANCED COLUMN CUSTOMIZATION MODAL - User Friendly -->
+  <!-- Column Customization Modal -->
   <div class="modal fade" id="editColumnsModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header bg-light">
           <h5 class="modal-title fw-bold">
             <iconify-icon icon="solar:settings-bold" class="me-2"></iconify-icon>
-            Customize Invoice Columns
+            Customize Purchase Bill Columns
           </h5>
           <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body p-4">
-          <p class="text-muted small mb-3">Toggle visibility of columns in the items table. Choose which fields to display.</p>
+          <p class="text-muted small mb-3">Toggle visibility of columns in the items table.</p>
           <div class="column-customization-panel">
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">
-                <iconify-icon icon="solar:clipboard-text-line-duotone"></iconify-icon>
-                Item / Description
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input column-toggle" type="checkbox" id="toggleItem" checked>
-              </div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">
-               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M1 19V5h2v14zm3 0V5h2v14zm3 0V5h1v14zm3 0V5h2v14zm3 0V5h3v14zm4 0V5h1v14zm3 0V5h3v14z" style="color: #45548c;"/></svg>
-                Code
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input column-toggle" type="checkbox" id="toggleCode" checked>
-              </div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">
-                <iconify-icon icon="solar:tag-price-line-duotone"></iconify-icon>
-                Price
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input column-toggle" type="checkbox" id="togglePrice" checked>
-              </div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">
-                <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                Quantity
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input column-toggle" type="checkbox" id="toggleQty" checked>
-              </div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">
-                <iconify-icon icon="solar:box-line-duotone"></iconify-icon>
-                Unit
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input column-toggle" type="checkbox" id="toggleUnit" checked>
-              </div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">
-                <iconify-icon icon="solar:calculator-line-duotone"></iconify-icon>
-                Tax Rate
-              </div>
-              <div class="form-check form-switch">
-                <input class="form-check-input column-toggle" type="checkbox" id="toggleTax" checked>
-              </div>
-            </div>
+            <div class="column-toggle-card"><div class="column-toggle-label"><iconify-icon icon="solar:clipboard-text-line-duotone"></iconify-icon>Item / Description</div><div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleItem" checked></div></div>
+            <div class="column-toggle-card"><div class="column-toggle-label"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M1 19V5h2v14zm3 0V5h2v14zm3 0V5h1v14zm3 0V5h2v14zm3 0V5h3v14zm4 0V5h1v14zm3 0V5h3v14z"/></svg>Code</div><div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleCode" checked></div></div>
+            <div class="column-toggle-card"><div class="column-toggle-label"><iconify-icon icon="solar:tag-price-line-duotone"></iconify-icon>Cost Price</div><div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox" id="togglePrice" checked></div></div>
+            <div class="column-toggle-card"><div class="column-toggle-label"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon>Quantity</div><div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleQty" checked></div></div>
+            <div class="column-toggle-card"><div class="column-toggle-label"><iconify-icon icon="solar:box-line-duotone"></iconify-icon>Unit</div><div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleUnit" checked></div></div>
+            <div class="column-toggle-card"><div class="column-toggle-label"><iconify-icon icon="solar:calculator-line-duotone"></iconify-icon>Tax Rate</div><div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleTax" checked></div></div>
           </div>
         </div>
         <div class="modal-footer">
@@ -1211,34 +1111,31 @@
     </div>
   </div>
 
-  <!-- Customer Creation Modal (unchanged, preserved) -->
-  <div class="modal fade customer-modal" id="addCustomerModal" tabindex="-1" data-bs-backdrop="static">
+  <!-- Supplier Creation Modal -->
+  <div class="modal fade" id="addSupplierModal" tabindex="-1" data-bs-backdrop="static">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
         <div class="modal-header mt-3">
-          <h5 class="modal-title fw-bold">Create New Customer</h5>
+          <h5 class="modal-title fw-bold">Create New Supplier</h5>
           <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body p-4">
-          <div class="step-indicator">
-            <div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Basic Info</div></div>
-            <div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Billing Address</div></div>
-            <div class="step-item" data-step="3"><div class="step-circle">3</div><div class="step-label">Shipping Address</div></div>
+          <div class="row g-3">
+            <div class="col-md-12"><label class="form-label fw-semibold">Supplier Name *</label><input type="text" id="supplierName" class="form-control"></div>
+            <div class="col-md-6"><label class="form-label fw-semibold">Phone Number *</label><input type="tel" id="supplierPhone" class="form-control"></div>
+            <div class="col-md-6"><label class="form-label fw-semibold">Email Address</label><input type="email" id="supplierEmail" class="form-control"></div>
+            <div class="col-md-12"><label class="form-label fw-semibold">GST Number</label><input type="text" id="supplierGst" class="form-control"></div>
+            <div class="col-md-12"><label class="form-label fw-semibold">Address</label><textarea id="supplierAddress" class="form-control" rows="2"></textarea></div>
           </div>
-          <div id="step1" class="form-step active-step"><div class="section-title-step fw-bold mb-3">Basic Information</div><div class="row g-3"><div class="col-md-12"><label class="form-label fw-semibold">Full Name *</label><input type="text" id="custName" class="form-control"></div><div class="col-md-6"><label class="form-label fw-semibold">Phone Number *</label><input type="tel" id="custPhone" class="form-control"></div><div class="col-md-6"><label class="form-label fw-semibold">Email Address</label><input type="email" id="custEmail" class="form-control"></div></div></div>
-          <div id="step2" class="form-step"><div class="section-title-step fw-bold mb-3">Billing Address</div><div class="row g-3"><div class="col-12"><label class="form-label fw-semibold">Address Line</label><textarea id="billAddress" class="form-control" rows="2"></textarea></div><div class="col-md-4"><label class="form-label">City</label><input id="billCity" class="form-control"></div><div class="col-md-4"><label class="form-label">State</label><input id="billState" class="form-control"></div><div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip" class="form-control"></div></div></div>
-          <div id="step3" class="form-step"><div class="section-title-step fw-bold mb-3">Shipping Address</div><div class="form-check mb-3"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label class="form-check-label fw-semibold"> Same as Billing Address</label></div><div class="row g-3"><div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress" class="form-control" rows="2"></textarea></div><div class="col-md-4"><label class="form-label">City</label><input id="shipCity" class="form-control"></div><div class="col-md-4"><label class="form-label">State</label><input id="shipState" class="form-control"></div><div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip" class="form-control"></div></div></div>
         </div>
         <div class="modal-footer border-0 px-4 pb-4">
-          <button class="btn btn-secondary" id="prevStepBtn" disabled>Previous</button>
-          <button class="btn btn-primary" id="nextStepBtn">Next</button>
-          <button class="btn btn-success" id="submitCustomerBtn" style="display:none;">Create Customer</button>
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="submitSupplierBtn">Create Supplier</button>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Scripts -->
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
   <script src="assets/libs/js/app.init.js"></script>
@@ -1246,22 +1143,25 @@
   <script src="assets/libs/js/app.min.js"></script>
   <script src="assets/libs/js/sidebarmenu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-  <script src="assets/libs/js/apexcharts.min.js"></script>
-  <script src="assets/libs/js/dashboard1.js"></script>
 
-<script>
+  <script>
     (function () {
       // ========== DATA ==========
-      let customers = [
-        { id: "CUST-001", name: "ABC Enterprises", phone: "+91 9876543210", email: "contact@abc.com", billing: { address: "123 MG Road", city: "Mumbai", state: "Maharashtra", zip: "400001" }, shipping: {} }
+      let suppliers = [
+        { id: "SUP-001", name: "ABC Enterprises", phone: "+91 9876543210", email: "contact@abc.com", gst: "29AAACA1234A1Z", address: "123 Business Park, Mumbai" },
+        { id: "SUP-002", name: "XYZ Solutions", phone: "+91 9876543211", email: "info@xyz.com", gst: "29AAACA5678B2Z", address: "456 Tech Park, Bangalore" }
       ];
+      
       let inventory = [
         { id: "i1", name: "Laptop Pro", type: "product", code: "LAP123", stock: 15, unit: "PCS", price: 1200, taxRate: 18 },
         { id: "i2", name: "Web Design Service", type: "service", code: "WEB01", stock: 999, unit: "Hour", price: 2500, taxRate: 12 },
-        { id: "i3", name: "Cloud Hosting", type: "service", code: "CLD99", unit: "Year", price: 4800, taxRate: 5, stock: 100 }
+        { id: "i3", name: "Cloud Hosting", type: "service", code: "CLD99", unit: "Year", price: 4800, taxRate: 5, stock: 100 },
+        { id: "i4", name: "Office Chair", type: "product", code: "CHR001", unit: "PCS", price: 3500, taxRate: 18, stock: 50 }
       ];
+      
       let modalSelectedItems = [];
       let globalTaxMode = 'exclusive';
+      let billCounter = 1;
 
       // ========== HELPERS ==========
       function getSymbol() { const m = { INR: '₹', USD: '$', EUR: '€' }; return m[document.getElementById('currencySelect')?.value] || '₹'; }
@@ -1274,29 +1174,35 @@
         document.body.appendChild(toastDiv);
         setTimeout(() => toastDiv.remove(), 2500);
       }
-      function populateCustomerDropdown() {
-        const sel = document.getElementById('customerSelect');
-        sel.innerHTML = '<option value="">-- Select Customer --</option>';
-        customers.forEach(c => { sel.innerHTML += `<option value="${c.id}">${c.name} (${c.id})</option>`; });
-        if (customers.length) sel.value = customers[0].id;
+      
+      function populateSupplierDropdown() {
+        const sel = document.getElementById('supplierSelect');
+        sel.innerHTML = '<option value="">-- Select Supplier --</option>';
+        suppliers.forEach(s => { sel.innerHTML += `<option value="${s.id}">${s.name} (${s.id})</option>`; });
+        if (suppliers.length) sel.value = suppliers[0].id;
+        
+        // Generate bill number
+        const billNum = `PB-${new Date().getFullYear()}-${String(billCounter).padStart(3, '0')}`;
+        document.getElementById('billNumberDisplay').innerText = billNum;
+        billCounter++;
       }
+      
       function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])); }
 
-      // ========== CREATE ITEM ROW WITH VISIBLE DROPDOWN ICON ==========
+      // ========== CREATE ITEM ROW ==========
       function createItemRow(itemObj, qty = 1) {
         const tr = document.createElement('tr'); tr.className = 'item-row';
         
-        // Styled dropdown with custom arrow icon - using inline styles for better visibility
         const itemSelectHtml = `
           <div class="custom-select-wrapper" style="position: relative; width: 100%;">
-            <select class="form-select form-select item-select" style="margin-bottom:5px; appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px !important; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-size: 0.85rem;">
+            <select class="form-select form-select item-select" style="margin-bottom:5px; appearance: none; padding-right: 35px !important; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; font-size: 0.85rem;">
               ${inventory.map(inv => `<option value="${inv.id}" ${inv.id === itemObj.id ? 'selected' : ''}>${inv.name}</option>`).join('')}
             </select>
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 10;">
               <polyline points="6 9 12 15 18 9"></polyline>
             </svg>
           </div>
-          <textarea class="item-description-textarea" rows="2" placeholder="Item description / additional notes..." style="width: 100%; margin-top: 6px; padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.8rem; resize: vertical; font-family: inherit;">${escapeHtml(itemObj.description || '')}</textarea>
+          <textarea class="item-description-textarea" rows="2" placeholder="Item description / additional notes..." style="width: 100%; margin-top: 6px; padding: 8px 12px; border: 1px solid #e2e8f0; border-radius: 8px; font-size: 0.8rem; resize: vertical;">${escapeHtml(itemObj.description || '')}</textarea>
         `;
         
         tr.innerHTML = `
@@ -1307,14 +1213,14 @@
           <td class="col-unit"><input type="text" class="form-control form-control item-unit" value="${escapeHtml(itemObj.unit || 'PCS')}" style="border-radius: 8px;"></td>
           <td class="col-tax">
             <div class="custom-select-wrapper" style="position: relative; width: 100%;">
-              <select class="form-select form-select tax-rate-select" style="appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px !important; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%;">
+              <select class="form-select form-select tax-rate-select" style="appearance: none; padding-right: 35px !important; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%;">
                 ${[0, 5, 12, 18, 28].map(r => `<option value="${r}" ${r == itemObj.taxRate ? 'selected' : ''}>${r}%</option>`).join('')}
               </select>
               <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="position: absolute; right: 12px; top: 50%; transform: translateY(-50%); pointer-events: none; z-index: 10;">
                 <polyline points="6 9 12 15 18 9"></polyline>
               </svg>
             </div>
-           </td>
+          </td>
           <td class="row-amount fw-semibold text-dark pt-4" style="white-space: nowrap;">${formatMoney(itemObj.price * qty)}</td>
           <td class="text-center"><button type="button" class="btn btn-sm delete-row-btn" style="background: none; border: none; color: #ef4444; cursor: pointer;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg></button></td>
         `;
@@ -1382,15 +1288,10 @@
         const shipping = parseFloat(document.getElementById('shippingCharge')?.value) || 0;
         const netTotal = subtotal + totalTax + shipping;
 
-        const subtotalEl = document.getElementById('subtotalDisplay');
-        const taxableEl = document.getElementById('taxableAmountDisplay');
-        const taxEl = document.getElementById('taxDisplay');
-        const netEl = document.getElementById('netTotalDisplay');
-        
-        if (subtotalEl) subtotalEl.innerText = formatMoney(subtotal);
-        if (taxableEl) taxableEl.innerText = formatMoney(taxableAmt);
-        if (taxEl) taxEl.innerHTML = formatMoney(totalTax);
-        if (netEl) netEl.innerHTML = formatMoney(netTotal);
+        document.getElementById('subtotalDisplay').innerText = formatMoney(subtotal);
+        document.getElementById('taxableAmountDisplay').innerText = formatMoney(taxableAmt);
+        document.getElementById('taxDisplay').innerHTML = formatMoney(totalTax);
+        document.getElementById('netTotalDisplay').innerHTML = formatMoney(netTotal);
 
         const breakdownEl = document.getElementById('taxBreakdownDetails');
         if (breakdownEl) {
@@ -1409,12 +1310,11 @@
       }
 
       function updateBalance(totalDue) {
-        let rec = parseFloat(document.getElementById('amountReceived')?.value) || 0;
+        let paid = parseFloat(document.getElementById('amountPaid')?.value) || 0;
         const isPaid = document.getElementById('markAsPaidToggle')?.checked;
-        if (isPaid) { rec = totalDue; const recEl = document.getElementById('amountReceived'); if (recEl) recEl.value = totalDue; }
-        const balance = Math.max(0, totalDue - rec);
-        const balanceEl = document.getElementById('balanceDisplay');
-        if (balanceEl) balanceEl.innerText = formatMoney(balance);
+        if (isPaid) { paid = totalDue; const paidEl = document.getElementById('amountPaid'); if (paidEl) paidEl.value = totalDue; }
+        const balance = Math.max(0, totalDue - paid);
+        document.getElementById('balanceDisplay').innerText = formatMoney(balance);
         const paidLabel = document.getElementById('paidStatusLabel');
         if (paidLabel) {
           paidLabel.innerText = isPaid ? 'Paid' : 'Unpaid';
@@ -1480,20 +1380,18 @@
 
       function updateModalCount() {
         const total = modalSelectedItems.reduce((s, i) => s + i.quantity, 0);
-        const countEl = document.getElementById('selectedCountNumber');
-        const confirmBtn = document.getElementById('confirmAddToBillBtn');
-        if (countEl) countEl.innerText = total;
-        if (confirmBtn) confirmBtn.disabled = total === 0;
+        document.getElementById('selectedCountNumber').innerText = total;
+        document.getElementById('confirmAddToBillBtn').disabled = total === 0;
       }
 
-      function addSelectedToInvoice() {
+      function addSelectedToBill() {
         if (!modalSelectedItems.length) { showToast('No items selected', 'danger'); return false; }
         const tbody = document.getElementById('itemsTableBody');
         if (tbody) {
           modalSelectedItems.forEach(sel => { tbody.appendChild(createItemRow(sel.inventoryItem, sel.quantity)); });
         }
         recalcTotals();
-        showToast(`${modalSelectedItems.length} item(s) added to invoice!`, 'success');
+        showToast(`${modalSelectedItems.length} item(s) added to purchase bill!`, 'success');
         modalSelectedItems = [];
         renderModalLibrary();
         return true;
@@ -1521,11 +1419,11 @@
           if (idx < colMap.length) th.style.display = colMap[idx] ? '' : 'none';
         });
 
-        const modal = bootstrap.Modal.getInstance(document.getElementById('editColumnsModal'));
-        if (modal) modal.hide();
+        bootstrap.Modal.getInstance(document.getElementById('editColumnsModal'))?.hide();
         showToast('Column visibility updated', 'info');
       }
 
+      // ========== BARCODE SCANNING ==========
       function handleBarcodeScan(code) {
         const found = inventory.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase()));
         if (found) {
@@ -1533,13 +1431,12 @@
           if (tbody) tbody.appendChild(createItemRow(found, 1));
           recalcTotals();
           showToast(`Scanned: ${found.name} added`, 'success');
-          const panel = document.getElementById('barcodeScannerPanel');
-          if (panel) panel.style.display = 'none';
+          document.getElementById('barcodeScannerPanel').style.display = 'none';
         } else { showToast('Item not found', 'danger'); }
       }
 
       // ========== DUE DATE LOGIC ==========
-      const issueDateInput = document.getElementById('issueDate');
+      const purchaseDateInput = document.getElementById('purchaseDate');
       const dueDateTerms = document.getElementById('dueDateTerms');
       const dueDateInput = document.getElementById('dueDate');
       const customDateWrapper = document.getElementById('customDateWrapper');
@@ -1554,9 +1451,9 @@
       }
 
       function calculateDueDate(term) {
-        const issueDate = issueDateInput?.value;
-        if (!issueDate) return null;
-        const date = new Date(issueDate);
+        const purchaseDate = purchaseDateInput?.value;
+        if (!purchaseDate) return null;
+        const date = new Date(purchaseDate);
         switch(term) {
           case 'eom': return getEndOfMonth(date);
           case 'receipt': return date;
@@ -1593,15 +1490,81 @@
             const formattedDate = formatDateForDisplay(calculatedDate);
             calculatedDueDateSpan.textContent = formattedDate;
             if (dueDateInput) dueDateInput.value = formattedDate;
-            const hintText = { 'eom': 'Due at the end of this month', 'receipt': 'Due immediately upon receipt', '15': 'Due 15 days from issue date', '30': 'Due 30 days from issue date', '45': 'Due 45 days from issue date', '60': 'Due 60 days from issue date' };
+            const hintText = { 'eom': 'Due at the end of this month', 'receipt': 'Due immediately upon receipt', '15': 'Due 15 days from purchase date', '30': 'Due 30 days from purchase date', '45': 'Due 45 days from purchase date', '60': 'Due 60 days from purchase date' };
             if (dueDateHint) dueDateHint.textContent = hintText[term] || '';
           }
         }
       }
 
+      // ========== SAVE PURCHASE BILL ==========
+      function savePurchaseBill() {
+        const supplier = document.getElementById('supplierSelect').value;
+        const supplierName = document.getElementById('supplierSelect').options[document.getElementById('supplierSelect').selectedIndex]?.text;
+        const currency = document.getElementById('currencySelect').value;
+        const purchaseDate = document.getElementById('purchaseDate').value;
+        const dueDate = document.getElementById('dueDate').value || calculatedDueDateSpan?.textContent;
+        const deliveryDate = document.getElementById('deliveryDate').value;
+        const referenceNo = document.getElementById('referenceNo').value;
+        const billNumber = document.getElementById('billNumber').value;
+        const description = document.getElementById('billDescription').value;
+        
+        if (!supplier) { showToast('Please select a supplier', 'danger'); return; }
+        if (!purchaseDate) { showToast('Please select purchase date', 'danger'); return; }
+        
+        const rows = document.querySelectorAll('#itemsTableBody .item-row');
+        const items = [];
+        rows.forEach(row => {
+          const name = row.querySelector('.item-select option:checked')?.text;
+          if (name) {
+            items.push({
+              name: name,
+              code: row.querySelector('.item-code')?.value,
+              quantity: parseFloat(row.querySelector('.item-qty')?.value) || 0,
+              unit: row.querySelector('.item-unit')?.value,
+              price: parseFloat(row.querySelector('.item-price')?.value) || 0,
+              taxRate: parseFloat(row.querySelector('.tax-rate-select')?.value) || 0,
+              amount: parseFloat(row.querySelector('.row-amount')?.innerText.replace(/[^0-9.-]/g, '')) || 0
+            });
+          }
+        });
+        
+        if (items.length === 0) { showToast('Please add at least one line item', 'danger'); return; }
+        
+        const billData = {
+          billId: document.getElementById('billNumberDisplay').innerText,
+          supplierId: supplier,
+          supplierName: supplierName,
+          currency: currency,
+          purchaseDate: purchaseDate,
+          dueDate: dueDate,
+          deliveryDate: deliveryDate,
+          referenceNo: referenceNo,
+          billNumber: billNumber,
+          description: description,
+          items: items,
+          subtotal: parseFloat(document.getElementById('subtotalDisplay').innerText.replace(/[^0-9.-]/g, '')) || 0,
+          totalTax: parseFloat(document.getElementById('taxDisplay').innerText.replace(/[^0-9.-]/g, '')) || 0,
+          shippingCharge: parseFloat(document.getElementById('shippingCharge').value) || 0,
+          totalAmount: parseFloat(document.getElementById('netTotalDisplay').innerText.replace(/[^0-9.-]/g, '')) || 0,
+          amountPaid: parseFloat(document.getElementById('amountPaid').value) || 0,
+          paymentMethod: document.getElementById('paymentMethod').value,
+          status: document.getElementById('markAsPaidToggle').checked ? 'Paid' : 'Unpaid',
+          createdOn: new Date().toISOString().split('T')[0],
+          createdBy: 'Admin User'
+        };
+        
+        let purchaseBills = JSON.parse(localStorage.getItem('purchaseBills') || '[]');
+        purchaseBills.push(billData);
+        localStorage.setItem('purchaseBills', JSON.stringify(purchaseBills));
+        
+        console.log('Purchase Bill Data:', billData);
+        showToast(`Purchase Bill ${billData.billId} created successfully!`);
+        setTimeout(() => window.location.href = 'purchase-bill.html', 1500);
+      }
+
       // ========== INIT ==========
       document.addEventListener('DOMContentLoaded', () => {
-        populateCustomerDropdown();
+        populateSupplierDropdown();
         const tbody = document.getElementById('itemsTableBody');
         if (tbody) {
           tbody.appendChild(createItemRow({ id: 'i2', name: 'Web Development Services', price: 2500, unit: 'Project', taxRate: 18, code: 'WEB01' }, 1));
@@ -1610,208 +1573,83 @@
         recalcTotals();
 
         const itemsModal = new bootstrap.Modal(document.getElementById('addItemsModal'));
-
-        const openModalBtn = document.getElementById('openAddItemsModalBtn');
-        if (openModalBtn) {
-          openModalBtn.onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
-        }
+        document.getElementById('openAddItemsModalBtn').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
+        document.getElementById('addLineItemBtns').onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
+        document.getElementById('confirmAddToBillBtn').onclick = () => { addSelectedToBill(); itemsModal.hide(); };
         
-        const addLineBtn = document.getElementById('addLineItemBtns');
-        if (addLineBtn) {
-          addLineBtn.onclick = () => { modalSelectedItems = []; renderModalLibrary(); itemsModal.show(); };
-        }
-        
-        const confirmBtn = document.getElementById('confirmAddToBillBtn');
-        if (confirmBtn) {
-          confirmBtn.onclick = () => { addSelectedToInvoice(); itemsModal.hide(); };
-        }
-        
-        const modalSearch = document.getElementById('modalSearchInput');
-        if (modalSearch) modalSearch.addEventListener('input', () => renderModalLibrary());
-
+        document.getElementById('modalSearchInput')?.addEventListener('input', () => renderModalLibrary());
         document.querySelectorAll('.category-chip').forEach(c => c.addEventListener('click', function () {
           document.querySelectorAll('.category-chip').forEach(x => x.classList.remove('active'));
           this.classList.add('active');
           renderModalLibrary();
         }));
 
-        const goToCreateBtn = document.getElementById('goToCreateItemBtn');
-        if (goToCreateBtn) {
-          goToCreateBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            window.open('create-item.html', '_blank');
-            showToast('Opening Create Item page in new tab', 'info');
-          });
-        }
+        document.getElementById('goToCreateItemBtn')?.addEventListener('click', () => { window.open('create-item.html', '_blank'); showToast('Opening Create Item page in new tab', 'info'); });
 
-        // TAX MODE DROPDOWN
         document.querySelectorAll('.tax-mode-option').forEach(option => {
           option.addEventListener('click', function(e) {
             e.preventDefault();
-            const mode = this.dataset.mode;
-            globalTaxMode = mode;
+            globalTaxMode = this.dataset.mode;
             const modeText = { 'exclusive': 'Tax Exclusive', 'inclusive': 'Tax Inclusive', 'none': 'No Tax' };
-            const selectedText = document.getElementById('selectedTaxModeText');
-            if (selectedText) selectedText.textContent = modeText[mode];
+            document.getElementById('selectedTaxModeText').textContent = modeText[globalTaxMode];
             recalcTotals();
-            showToast(`Tax mode set to ${modeText[mode]}`, 'info');
+            showToast(`Tax mode set to ${modeText[globalTaxMode]}`, 'info');
           });
         });
 
-        const currencySelect = document.getElementById('currencySelect');
-        if (currencySelect) currencySelect.addEventListener('change', () => recalcTotals());
+        document.getElementById('currencySelect')?.addEventListener('change', () => recalcTotals());
+        document.getElementById('shippingCharge')?.addEventListener('input', () => recalcTotals());
+        document.getElementById('amountPaid')?.addEventListener('input', () => { const net = parseFloat(document.getElementById('netTotalDisplay').innerText.replace(/[^0-9.-]/g, '')) || 0; updateBalance(net); });
+        document.getElementById('markAsPaidToggle')?.addEventListener('change', function () { const net = parseFloat(document.getElementById('netTotalDisplay').innerText.replace(/[^0-9.-]/g, '')) || 0; if (this.checked) document.getElementById('amountPaid').value = net; updateBalance(net); });
+        document.getElementById('savePurchaseBillBtn')?.addEventListener('click', savePurchaseBill);
         
-        const shippingCharge = document.getElementById('shippingCharge');
-        if (shippingCharge) shippingCharge.addEventListener('input', () => recalcTotals());
-        
-        const amountReceived = document.getElementById('amountReceived');
-        if (amountReceived) {
-          amountReceived.addEventListener('input', () => {
-            const netEl = document.getElementById('netTotalDisplay');
-            const net = netEl ? parseFloat(netEl.innerText.replace(/[^0-9.-]/g, '')) || 0 : 0;
-            updateBalance(net);
-          });
-        }
-        
-        const markAsPaid = document.getElementById('markAsPaidToggle');
-        if (markAsPaid) {
-          markAsPaid.addEventListener('change', function () {
-            const netEl = document.getElementById('netTotalDisplay');
-            const net = netEl ? parseFloat(netEl.innerText.replace(/[^0-9.-]/g, '')) || 0 : 0;
-            if (this.checked) {
-              const recEl = document.getElementById('amountReceived');
-              if (recEl) recEl.value = net;
-            }
-            updateBalance(net);
-          });
-        }
-
-        const recordPaymentBtn = document.getElementById('recordPaymentBtn');
-        if (recordPaymentBtn) recordPaymentBtn.addEventListener('click', () => showToast('Payment recorded successfully', 'success'));
-
         // Barcode
-        const scannerBtn = document.getElementById('showScannerBtn');
-        const scannerPanel = document.getElementById('barcodeScannerPanel');
-        const closeScanner = document.getElementById('closeScannerBtn');
-        const barcodeInput = document.getElementById('barcodeInput');
+        document.getElementById('showScannerBtn')?.addEventListener('click', () => { document.getElementById('barcodeScannerPanel').style.display = 'block'; document.getElementById('barcodeInput').focus(); });
+        document.getElementById('closeScannerBtn')?.addEventListener('click', () => { document.getElementById('barcodeScannerPanel').style.display = 'none'; });
+        document.getElementById('barcodeInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { handleBarcodeScan(e.target.value); e.target.value = ''; } });
         
-        if (scannerBtn) {
-          scannerBtn.addEventListener('click', () => { 
-            if (scannerPanel) scannerPanel.style.display = 'block'; 
-            if (barcodeInput) barcodeInput.focus(); 
-          });
-        }
-        if (closeScanner) {
-          closeScanner.addEventListener('click', () => { if (scannerPanel) scannerPanel.style.display = 'none'; });
-        }
-        if (barcodeInput) {
-          barcodeInput.addEventListener('keypress', (e) => { if (e.key === 'Enter') { handleBarcodeScan(e.target.value); e.target.value = ''; } });
-        }
-
         // Column visibility
-        const applyVisBtn = document.getElementById('applyColumnVisibility');
-        if (applyVisBtn) applyVisBtn.addEventListener('click', applyColumnVisibility);
-
+        document.getElementById('applyColumnVisibility')?.addEventListener('click', applyColumnVisibility);
+        
         // Due Date Logic
-        if (issueDateInput) {
-          issueDateInput.addEventListener('change', function() { if (dueDateInput) dueDateInput.min = this.value; updateDueDateDisplay(); });
-        }
-        if (dueDateTerms) dueDateTerms.addEventListener('change', function() { updateDueDateDisplay(); });
-        if (dueDateInput) {
-          dueDateInput.addEventListener('change', function() { 
-            if (dueDateTerms && dueDateTerms.value === 'custom' && calculatedDueDateSpan) {
-              calculatedDueDateSpan.textContent = this.value;
-              if (dueDateHint) dueDateHint.textContent = 'Custom due date selected';
-            }
-          });
-        }
+        purchaseDateInput?.addEventListener('change', () => { if (dueDateInput) dueDateInput.min = purchaseDateInput.value; updateDueDateDisplay(); });
+        dueDateTerms?.addEventListener('change', () => updateDueDateDisplay());
+        dueDateInput?.addEventListener('change', () => { if (dueDateTerms?.value === 'custom' && calculatedDueDateSpan) { calculatedDueDateSpan.textContent = dueDateInput.value; if (dueDateHint) dueDateHint.textContent = 'Custom due date selected'; } });
         updateDueDateDisplay();
-
-        // Customer Modal Logic
-        let step = 1;
-        const custModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
-        const createCustomerBtn = document.getElementById('createCustomerBtn');
-        if (createCustomerBtn) createCustomerBtn.addEventListener('click', () => custModal.show());
-
-        function updateStepUI() {
-          document.querySelectorAll('.step-item').forEach((el, i) => { 
-            if (i + 1 < step) el.classList.add('completed'); 
-            else el.classList.remove('completed'); 
-            if (i + 1 === step) el.classList.add('active'); 
-            else el.classList.remove('active'); 
-          });
-          document.querySelectorAll('.form-step').forEach((el, i) => { 
-            if (i + 1 === step) el.classList.add('active-step'); 
-            else el.classList.remove('active-step'); 
-          });
-          const prevBtn = document.getElementById('prevStepBtn');
-          if (prevBtn) prevBtn.disabled = (step === 1);
-          const nextBtn = document.getElementById('nextStepBtn');
-          const submitBtn = document.getElementById('submitCustomerBtn');
-          if (step === 3) { 
-            if (nextBtn) nextBtn.style.display = 'none'; 
-            if (submitBtn) submitBtn.style.display = 'inline-flex'; 
-          } else { 
-            if (nextBtn) nextBtn.style.display = 'inline-flex'; 
-            if (submitBtn) submitBtn.style.display = 'none'; 
-          }
-        }
-
-        const nextStep = document.getElementById('nextStepBtn');
-        if (nextStep) nextStep.addEventListener('click', () => { if (step < 3) { step++; updateStepUI(); } });
         
-        const prevStep = document.getElementById('prevStepBtn');
-        if (prevStep) prevStep.addEventListener('click', () => { if (step > 1) { step--; updateStepUI(); } });
-        
-        const submitCustomer = document.getElementById('submitCustomerBtn');
-        if (submitCustomer) {
-          submitCustomer.addEventListener('click', () => {
-            const name = document.getElementById('custName')?.value;
-            if (!name) { showToast('Customer name required', 'danger'); return; }
-            const newCust = { 
-              id: `CUST-${customers.length + 1}`, 
-              name, 
-              email: document.getElementById('custEmail')?.value || '', 
-              phone: document.getElementById('custPhone')?.value || '', 
-              billing: { 
-                address: document.getElementById('billAddress')?.value || '', 
-                city: document.getElementById('billCity')?.value || '', 
-                state: document.getElementById('billState')?.value || '', 
-                zip: document.getElementById('billZip')?.value || '' 
-              } 
-            };
-            customers.push(newCust);
-            populateCustomerDropdown();
-            custModal.hide();
-            showToast(`Customer ${name} created`);
-            step = 1;
-            updateStepUI();
-            ['custName', 'custPhone', 'custEmail', 'billAddress', 'billCity', 'billState', 'billZip', 'shipAddress', 'shipCity', 'shipState', 'shipZip'].forEach(id => { 
-              const el = document.getElementById(id); 
-              if (el) el.value = ''; 
-            });
-          });
-        }
-        
-        const sameAsBilling = document.getElementById('sameAsBilling');
-        if (sameAsBilling) {
-          sameAsBilling.addEventListener('change', (e) => {
-            if (e.target.checked) {
-              const shipAdd = document.getElementById('shipAddress');
-              const shipCity = document.getElementById('shipCity');
-              const shipState = document.getElementById('shipState');
-              const shipZip = document.getElementById('shipZip');
-              if (shipAdd) shipAdd.value = document.getElementById('billAddress')?.value || '';
-              if (shipCity) shipCity.value = document.getElementById('billCity')?.value || '';
-              if (shipState) shipState.value = document.getElementById('billState')?.value || '';
-              if (shipZip) shipZip.value = document.getElementById('billZip')?.value || '';
-            }
-          });
-        }
-        updateStepUI();
+        // Supplier Modal
+        const supplierModal = new bootstrap.Modal(document.getElementById('addSupplierModal'));
+        document.getElementById('createSupplierBtn')?.addEventListener('click', () => supplierModal.show());
+        document.getElementById('submitSupplierBtn')?.addEventListener('click', () => {
+          const name = document.getElementById('supplierName')?.value;
+          if (!name) { showToast('Supplier name required', 'danger'); return; }
+          const newSupplier = {
+            id: `SUP-${String(suppliers.length + 1).padStart(3, '0')}`,
+            name: name,
+            phone: document.getElementById('supplierPhone')?.value || '',
+            email: document.getElementById('supplierEmail')?.value || '',
+            gst: document.getElementById('supplierGst')?.value || '',
+            address: document.getElementById('supplierAddress')?.value || ''
+          };
+          suppliers.push(newSupplier);
+          populateSupplierDropdown();
+          supplierModal.hide();
+          showToast(`Supplier ${name} created`);
+          document.getElementById('supplierName').value = '';
+          document.getElementById('supplierPhone').value = '';
+          document.getElementById('supplierEmail').value = '';
+          document.getElementById('supplierGst').value = '';
+          document.getElementById('supplierAddress').value = '';
+        });
       });
     })();
-  </script>
 
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
 </body>
+
 </html>

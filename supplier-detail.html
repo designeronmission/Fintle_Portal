@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Customer Details</title>
+    <title>Fintle | Supplier Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -20,8 +20,8 @@
             --text-muted: #64748b;
         }
 
-        /* Enhanced Customer Info Card */
-        .customer-info-card {
+        /* Enhanced Supplier Info Card */
+        .supplier-info-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 24px;
             padding: 28px 32px;
@@ -32,7 +32,7 @@
             overflow: hidden;
         }
 
-        .customer-avatar {
+        .supplier-avatar {
             width: 72px;
             height: 72px;
             background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
@@ -46,7 +46,7 @@
             box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
         }
 
-        .customer-name {
+        .supplier-name {
             font-size: 22px;
             font-weight: 700;
             color: #0f172a;
@@ -54,7 +54,7 @@
             letter-spacing: -0.3px;
         }
 
-        .customer-detail {
+        .supplier-detail {
             font-size: 13px;
             color: #5b6e8c;
             margin-bottom: 6px;
@@ -63,7 +63,7 @@
             gap: 8px;
         }
 
-        .customer-detail i {
+        .supplier-detail i {
             width: 18px;
             color: #2a3b82;
             font-size: 12px;
@@ -89,6 +89,11 @@
             color: #ef4444;
         }
 
+        .status-suspended-custom {
+            background: #fff0e5;
+            color: #b85c1a;
+        }
+
         .date-chip {
             background: #f1f5f9;
             padding: 6px 14px;
@@ -100,7 +105,7 @@
             gap: 6px;
         }
 
-        /* KPI Cards inside customer detail */
+        /* KPI Cards inside supplier detail */
         .kpi-grid {
             display: flex;
             gap: 16px;
@@ -285,17 +290,17 @@
             }
         }
 
-        /* Invoices Table */
-        .invoices-table-wrapper {
+        /* Purchase Bills Table */
+        .bills-table-wrapper {
             overflow-x: auto;
         }
 
-        .invoices-table {
+        .bills-table {
             width: 100%;
             border-collapse: collapse;
         }
 
-        .invoices-table th {
+        .bills-table th {
             background: #f8fafc;
             font-weight: 600;
             color: #1e293b;
@@ -304,21 +309,21 @@
             font-size: 13px;
         }
 
-        .invoices-table td {
+        .bills-table td {
             padding: 14px 12px;
             vertical-align: middle;
             border-bottom: 1px solid #eef2f6;
             font-size: 13px;
         }
 
-        .invoice-link {
+        .bill-link {
             color: #2a3b82;
             font-weight: 600;
             text-decoration: none;
             cursor: pointer;
         }
 
-        .invoice-link:hover {
+        .bill-link:hover {
             text-decoration: underline;
         }
 
@@ -335,7 +340,7 @@
             color: #10b981;
         }
 
-        .status-unpaid {
+        .status-pending {
             background: #fff3e3;
             color: #d97706;
         }
@@ -410,10 +415,10 @@
         }
 
         @media (max-width: 768px) {
-            .customer-info-card {
+            .supplier-info-card {
                 padding: 20px;
             }
-            .customer-avatar {
+            .supplier-avatar {
                 width: 56px;
                 height: 56px;
                 font-size: 22px;
@@ -438,180 +443,171 @@
 
 <body>
     <div id="main-wrapper">
-    <!-- Sidebar Start -->
-   <!-- Sidebar Start -->
-    <aside class="side-mini-panel with-vertical">
-      <div class="iconbar">
-        <div class="sidebarmenu">
-          <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img">
-              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-            </a>
-          </div>
-          
-          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-            <ul class="sidebar-menu" id="sidebarnav">
-              <!-- Dashboard -->
-              <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Dashboard</span>
-                </a>
-              </li>
+        <!-- Sidebar Start -->
+        <aside class="side-mini-panel with-vertical">
+            <div class="iconbar">
+                <div class="sidebarmenu">
+                    <div class="brand-logo d-flex align-items-center nav-logo">
+                        <a href="../main/index.html" class="text-nowrap logo-img">
+                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                        </a>
+                    </div>
 
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Inbox</span>
-                </a>
-              </li>
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <li class="sidebar-item mt-4">
+                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
 
-              <!-- Items -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Items</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="items.html">
-                      <span class="icon-small"></span> Inventory
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Inbox</span>
+                                </a>
+                            </li>
 
-              <!-- Purchase -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Purchase</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier.html">
-                      <span class="icon-small"></span> Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-order.html">
-                      <span class="icon-small"></span> Purchase Order
-                    </a>
-                  </li>
-                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-bill.html">
-                      <span class="icon-small"></span> Purchase Bill
-                    </a>
-                  </li>
-                 <li class="sidebar-item">
+                            <!-- Items -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Items</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="items.html">
+                                            <span class="icon-small"></span> Inventory
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Purchase -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Purchase</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier.html">
+                                            <span class="icon-small"></span> Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Purchase Bill
+                                        </a>
+                                    </li>
+                                     <li class="sidebar-item">
                                         <a class="sidebar-link" href="supplier-statement.html">
                                             <span class="icon-small"></span> Supplier Statement
                                         </a>
                                     </li>
-                </ul>
-              </li>
+                                </ul>
+                            </li>
 
-              <!-- Sales -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Sales</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span> Customer
-                    </a>
-                  </li>
-               <li class="sidebar-item">
-                    <a class="sidebar-link" href="enquiry.html">
-                      <span class="icon-small"></span> Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="quotation.html">
-                      <span class="icon-small"></span> Quotation
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span> Invoice
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                            <!-- Sales -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Sales</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span> Customer
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="enquiry.html">
+                                            <span class="icon-small"></span> Enquiry
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="quotation.html">
+                                            <span class="icon-small"></span> Quotation
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="invoice.html">
+                                            <span class="icon-small"></span> Invoice
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
+                            <!-- Accounts -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Accounts</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Account Master
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Journals
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Vouchers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Bank Payments
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> General Ledger
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Balance Sheets
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
 
-                 <!-- Sales -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Accounts</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Account Master
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Journals
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Vouchers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Bank Payments
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> General Ledger
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Balance Sheets
-                    </a>
-                  </li>
-                </ul>
-              </li>
+                            <li><span class="sidebar-divider"></span></li>
+                        </ul>
 
-              <li><span class="sidebar-divider"></span></li>
-            </ul>
-            
-            <!-- Logout Option at Bottom -->
-            <div class="sidebar-footer">
-              <ul class="sidebar-menu">
-
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Settings</span>
-                  </a>
-                </li>
-
-
-                <li class="sidebar-item logout-item">
-                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Logout</span>
-                  </a>
-                </li>
-              </ul>
+                        <div class="sidebar-footer">
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Settings</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item logout-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
-          </nav>
-        </div>
-      </div>
-    </aside>
-    <!-- Sidebar End -->
-
-    <!-- Sidebar End -->
+        </aside>
+        <!-- Sidebar End -->
 
         <div class="page-wrapper">
             <header class="topbar">
@@ -629,8 +625,8 @@
                             <li class="nav-item d-none d-lg-flex dropdown">
                                 <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
                                         style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                                        onclick="location.href='create-customer.html'"><iconify-icon
-                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Customer</button></div>
+                                        onclick="location.href='create-supplier.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Supplier</button></div>
                             </li>
                         </ul>
                         <div class="d-flex align-items-center gap-3 ms-auto">
@@ -646,7 +642,7 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="customer.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Customer Details</h4>
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="supplier.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Supplier Details</h4>
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item d-flex align-items-center">
@@ -654,8 +650,8 @@
                                                     <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
                                                 </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="customer.html">Customers</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Customer Details</li>
+                                            <li class="breadcrumb-item"><a href="supplier.html">Suppliers</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Supplier Details</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -663,30 +659,30 @@
                         </div>
                     </div>
 
-                    <!-- Customer Info Card -->
-                    <div class="customer-info-card" id="customerInfoCard"></div>
+                    <!-- Supplier Info Card -->
+                    <div class="supplier-info-card" id="supplierInfoCard"></div>
 
                     <!-- KPI Cards Row -->
                     <div class="kpi-grid">
                         <div class="kpi-mini-card">
                             <div class="kpi-icon blue-light"><i class="fas fa-file-invoice fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Total Invoices</h6>
-                                <h3 id="totalInvoices">0</h3>
+                                <h6>Total Purchase Bills</h6>
+                                <h3 id="totalBills">0</h3>
                             </div>
                         </div>
                         <div class="kpi-mini-card">
                             <div class="kpi-icon green-light"><i class="fas fa-check-circle fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Paid Invoices</h6>
-                                <h3 id="paidInvoices">0</h3>
+                                <h6>Paid Bills</h6>
+                                <h3 id="paidBills">0</h3>
                             </div>
                         </div>
                         <div class="kpi-mini-card">
                             <div class="kpi-icon orange-light"><i class="fas fa-clock fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Outstanding Balance</h6>
-                                <h3 id="outstandingBalance">₹0</h3>
+                                <h6>Outstanding Payable</h6>
+                                <h3 id="outstandingPayable">₹0</h3>
                             </div>
                         </div>
                     </div>
@@ -694,7 +690,7 @@
                     <!-- Tabs Header with Settings Dropdown -->
                     <div class="tabs-header-wrapper">
                         <div class="detail-tabs">
-                            <button class="detail-tab active" data-tab="invoices"><i class="fas fa-receipt"></i> Invoices</button>
+                            <button class="detail-tab active" data-tab="bills"><i class="fas fa-receipt"></i> Purchase Bills</button>
                             <button class="detail-tab" data-tab="address"><i class="fas fa-map-marker-alt"></i> Address & Contact</button>
                             <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity Log</button>
                             <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
@@ -705,34 +701,34 @@
                                 <i class="fas fa-cog"></i> Actions
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
-                                <li><a class="dropdown-item" href="#" onclick="editCustomer()"> Edit Customer</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="createInvoice()"> Create Invoice</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="editSupplier()"> Edit Supplier</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="createPurchaseBill()"> Create Purchase Bill</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteCustomer()"> Delete Customer</a></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteSupplier()"> Delete Supplier</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="exportStatement()"> Export Statement</a></li>
                             </ul>
                         </div>
                     </div>
 
-                    <!-- Tab Content: Invoices -->
-                    <div id="invoices" class="tab-content active-content">
+                    <!-- Tab Content: Purchase Bills -->
+                    <div id="bills" class="tab-content active-content">
                         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                            <h5 class="mb-0 fw-semibold">Invoice History</h5>
-                            <button class="btn btn-primary rounded-pill px-4" onclick="createInvoice()"><i class="fas fa-plus me-2"></i>New Invoice</button>
+                            <h5 class="mb-0 fw-semibold">Purchase Bill History</h5>
+                            <button class="btn btn-primary rounded-pill px-4" onclick="createPurchaseBill()"><i class="fas fa-plus me-2"></i>New Purchase Bill</button>
                         </div>
-                        <div class="invoices-table-wrapper">
-                            <table class="invoices-table">
+                        <div class="bills-table-wrapper">
+                            <table class="bills-table">
                                 <thead>
                                     <tr>
-                                        <th>Invoice ID</th>
-                                        <th>Issue Date</th>
+                                        <th>Bill No.</th>
+                                        <th>Bill Date</th>
                                         <th>Due Date</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
-                                <tbody id="invoicesTableBody"></tbody>
+                                <tbody id="billsTableBody"></tbody>
                             </table>
                         </div>
                     </div>
@@ -759,10 +755,27 @@
                                         <div class="col-md-6">
                                             <p class="mb-2"><strong>Email:</strong> <span id="contactEmail">-</span></p>
                                             <p class="mb-2"><strong>Phone:</strong> <span id="contactPhone">-</span></p>
+                                            <p class="mb-2"><strong>Alternate Phone:</strong> <span id="altPhone">-</span></p>
                                         </div>
                                         <div class="col-md-6">
                                             <p class="mb-2"><strong>GST Number:</strong> <span id="gstNumber">-</span></p>
                                             <p class="mb-2"><strong>PAN Number:</strong> <span id="panNumber">-</span></p>
+                                            <p class="mb-2"><strong>CIN Number:</strong> <span id="cinNumber">-</span></p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="address-card">
+                                    <h6><i class="fas fa-university me-2 text-primary"></i>Banking Information</h6>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>Bank Name:</strong> <span id="bankName">-</span></p>
+                                            <p class="mb-2"><strong>Account Number:</strong> <span id="accountNumber">-</span></p>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <p class="mb-2"><strong>IFSC Code:</strong> <span id="ifscCode">-</span></p>
+                                            <p class="mb-2"><strong>Account Holder:</strong> <span id="accountHolder">-</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -780,7 +793,7 @@
                     <div id="notes" class="tab-content">
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Internal Notes</label>
-                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this customer..."></textarea>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this supplier..."></textarea>
                             <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
                         </div>
                     </div>
@@ -799,36 +812,50 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const customerId = urlParams.get('id') || 'CUST-001';
+        const supplierId = urlParams.get('id') || 'SUP-001';
 
-        // Customer Data
-        const customerData = {
-            id: customerId,
+        // Supplier Data
+        const supplierData = {
+            id: supplierId,
             name: 'ABC Enterprises',
             email: 'contact@abc.com',
             phone: '+91 9876543210',
-            gst: '29AAACF1234D1Z',
-            pan: 'ABCDE1234F',
+            altPhone: '+91 9876543211',
+            gst: '29AAACA1234A1Z',
+            pan: 'AAACA1234A',
+            cin: 'U12345DL2020PTC123456',
             status: 'Active',
             billingAddress: '123, Business Park, Andheri East, Mumbai - 400093, Maharashtra',
             shippingAddress: '123, Business Park, Andheri East, Mumbai - 400093, Maharashtra',
-            createdOn: '2026-01-15',
-            createdBy: 'John Doe'
+            bankName: 'HDFC Bank',
+            accountNumber: 'XXXX1234',
+            ifscCode: 'HDFC0001234',
+            accountHolder: 'ABC Enterprises',
+            creditPeriod: '30 days',
+            creditLimit: 500000,
+            createdOn: '2024-01-15',
+            createdBy: 'John Doe',
+            lastUpdated: '2025-04-10'
         };
 
-        // Invoices Data
-        let customerInvoices = [
-            { id: 'INV-2404-001', issueDate: '2026-04-01', dueDate: '2026-05-01', amount: 5404, status: 'Paid', paidAmount: 5404 },
-            { id: 'INV-2404-005', issueDate: '2026-04-15', dueDate: '2026-05-15', amount: 2100, status: 'Unpaid', paidAmount: 0 },
-            { id: 'INV-2403-045', issueDate: '2026-03-01', dueDate: '2026-04-01', amount: 890, status: 'Overdue', paidAmount: 0 }
+        // Purchase Bills Data
+        let purchaseBills = [
+            { id: 'PO-2404-001', billDate: '2025-03-25', dueDate: '2025-04-24', amount: 25000, status: 'Paid', paidAmount: 25000 },
+            { id: 'PO-2404-002', billDate: '2025-03-18', dueDate: '2025-04-17', amount: 32000, status: 'Paid', paidAmount: 32000 },
+            { id: 'PO-2404-003', billDate: '2025-03-10', dueDate: '2025-04-09', amount: 18000, status: 'Pending', paidAmount: 0 },
+            { id: 'PO-2404-004', billDate: '2025-03-05', dueDate: '2025-04-04', amount: 45000, status: 'Paid', paidAmount: 45000 },
+            { id: 'PO-2404-005', billDate: '2025-02-25', dueDate: '2025-03-27', amount: 28000, status: 'Overdue', paidAmount: 0 },
+            { id: 'PO-2404-006', billDate: '2025-02-20', dueDate: '2025-03-22', amount: 35000, status: 'Paid', paidAmount: 35000 },
+            { id: 'PO-2404-007', billDate: '2025-02-15', dueDate: '2025-03-17', amount: 22000, status: 'Pending', paidAmount: 0 }
         ];
 
         // Activity Log
         let activities = [
-            { action: 'Customer created', date: '2026-01-15 10:30 AM', user: 'John Doe' },
-            { action: 'Invoice INV-2404-001 created', date: '2026-04-01 02:15 PM', user: 'Admin' },
-            { action: 'Payment received for INV-2404-001', date: '2026-04-10 11:45 AM', user: 'System' },
-            { action: 'Customer profile updated', date: '2026-04-15 09:20 AM', user: 'Sarah Wilson' }
+            { action: 'Supplier created', date: '2024-01-15 10:30 AM', user: 'John Doe' },
+            { action: 'Purchase Bill PO-2404-001 created', date: '2025-03-25 02:15 PM', user: 'Admin' },
+            { action: 'Payment made for PO-2404-001', date: '2025-03-28 11:45 AM', user: 'System' },
+            { action: 'Supplier profile updated', date: '2025-04-10 09:20 AM', user: 'Sarah Wilson' },
+            { action: 'Purchase Bill PO-2404-003 created', date: '2025-03-10 01:30 PM', user: 'Admin' }
         ];
 
         function formatCurrency(amt) {
@@ -838,31 +865,37 @@
         function getStatusBadgeClass(status) {
             if (status === 'Paid') return 'status-paid';
             if (status === 'Overdue') return 'status-overdue';
-            return 'status-unpaid';
+            return 'status-pending';
         }
 
-        function renderCustomerInfo() {
-            const container = document.getElementById('customerInfoCard');
-            const statusClass = customerData.status === 'Active' ? 'status-active-custom' : 'status-inactive-custom';
-            const statusIcon = customerData.status === 'Active' ? 'fa-check-circle' : 'fa-times-circle';
+        function getStatusClass(status) {
+            if (status === 'Active') return 'status-active-custom';
+            if (status === 'Inactive') return 'status-inactive-custom';
+            return 'status-suspended-custom';
+        }
+
+        function renderSupplierInfo() {
+            const container = document.getElementById('supplierInfoCard');
+            const statusClass = getStatusClass(supplierData.status);
+            const statusIcon = supplierData.status === 'Active' ? 'fa-check-circle' : (supplierData.status === 'Inactive' ? 'fa-times-circle' : 'fa-pause-circle');
 
             container.innerHTML = `
                 <div class="row align-items-center g-4">
-                    <div class="col-auto"><div class="customer-avatar">${customerData.name.charAt(0)}</div></div>
+                    <div class="col-auto"><div class="supplier-avatar"><i class="fas fa-truck"></i></div></div>
                     <div class="col">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h3 class="customer-name">${customerData.name}</h3>
-                                <div class="customer-detail"><i class="fas fa-envelope"></i> ${customerData.email}</div>
-                                <div class="customer-detail"><i class="fas fa-phone"></i> ${customerData.phone}</div>
-                                <div class="customer-detail"><i class="fas fa-id-card"></i> GST: ${customerData.gst} | PAN: ${customerData.pan}</div>
+                                <h3 class="supplier-name">${supplierData.name}</h3>
+                                <div class="supplier-detail"><i class="fas fa-envelope"></i> ${supplierData.email}</div>
+                                <div class="supplier-detail"><i class="fas fa-phone"></i> ${supplierData.phone} ${supplierData.altPhone ? '| ' + supplierData.altPhone : ''}</div>
+                                <div class="supplier-detail"><i class="fas fa-id-card"></i> GST: ${supplierData.gst} | PAN: ${supplierData.pan}</div>
                             </div>
                             <div class="col-md-4">
                                 <div class="text-md-end">
-                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${customerData.status}</span></div>
-                                    <div class="d-flex gap-2 justify-content-md-end">
-                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Since: ${customerData.createdOn}</span>
-                                        <span class="date-chip"><i class="fas fa-user"></i> ${customerData.createdBy}</span>
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${supplierData.status}</span></div>
+                                    <div class="d-flex gap-2 justify-content-md-end flex-wrap">
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Since: ${supplierData.createdOn}</span>
+                                        <span class="date-chip"><i class="fas fa-user"></i> ${supplierData.createdBy}</span>
                                     </div>
                                 </div>
                             </div>
@@ -871,40 +904,47 @@
                 </div>
             `;
 
-            document.getElementById('billingAddress').innerText = customerData.billingAddress;
-            document.getElementById('shippingAddress').innerText = customerData.shippingAddress;
-            document.getElementById('contactEmail').innerText = customerData.email;
-            document.getElementById('contactPhone').innerText = customerData.phone;
-            document.getElementById('gstNumber').innerText = customerData.gst;
-            document.getElementById('panNumber').innerText = customerData.pan;
+            // Address & Contact tab
+            document.getElementById('billingAddress').innerText = supplierData.billingAddress;
+            document.getElementById('shippingAddress').innerText = supplierData.shippingAddress;
+            document.getElementById('contactEmail').innerText = supplierData.email;
+            document.getElementById('contactPhone').innerText = supplierData.phone;
+            document.getElementById('altPhone').innerText = supplierData.altPhone || '-';
+            document.getElementById('gstNumber').innerText = supplierData.gst;
+            document.getElementById('panNumber').innerText = supplierData.pan;
+            document.getElementById('cinNumber').innerText = supplierData.cin || '-';
+            document.getElementById('bankName').innerText = supplierData.bankName;
+            document.getElementById('accountNumber').innerText = supplierData.accountNumber;
+            document.getElementById('ifscCode').innerText = supplierData.ifscCode;
+            document.getElementById('accountHolder').innerText = supplierData.accountHolder;
         }
 
         function updateKPIs() {
-            const total = customerInvoices.length;
-            const paid = customerInvoices.filter(i => i.status === 'Paid').length;
-            const outstanding = customerInvoices.reduce((sum, i) => sum + (i.amount - i.paidAmount), 0);
+            const total = purchaseBills.length;
+            const paid = purchaseBills.filter(b => b.status === 'Paid').length;
+            const outstanding = purchaseBills.reduce((sum, b) => sum + (b.amount - b.paidAmount), 0);
             
-            document.getElementById('totalInvoices').innerText = total;
-            document.getElementById('paidInvoices').innerText = paid;
-            document.getElementById('outstandingBalance').innerHTML = formatCurrency(outstanding);
+            document.getElementById('totalBills').innerText = total;
+            document.getElementById('paidBills').innerText = paid;
+            document.getElementById('outstandingPayable').innerHTML = formatCurrency(outstanding);
         }
 
-        function renderInvoices() {
-            const tbody = document.getElementById('invoicesTableBody');
-            if (customerInvoices.length === 0) {
-                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-5">No invoices found</td></tr>';
+        function renderBills() {
+            const tbody = document.getElementById('billsTableBody');
+            if (purchaseBills.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-5">No purchase bills found</td></tr>';
                 return;
             }
-            tbody.innerHTML = customerInvoices.map(inv => `
+            tbody.innerHTML = purchaseBills.map(bill => `
                 <tr>
-                    <td><a class="invoice-link" onclick="viewInvoice('${inv.id}')">${inv.id}</a></td>
-                    <td>${inv.issueDate}</td>
-                    <td>${inv.dueDate}</td>
-                    <td class="fw-semibold">${formatCurrency(inv.amount)}</td>
-                    <td><span class="status-badge ${getStatusBadgeClass(inv.status)}">${inv.status}</span></td>
+                    <td><a class="bill-link" onclick="viewPurchaseBill('${bill.id}')">${bill.id}</a></td>
+                    <td>${bill.billDate}</td>
+                    <td>${bill.dueDate}</td>
+                    <td class="fw-semibold">${formatCurrency(bill.amount)}</td>
+                    <td><span class="status-badge ${getStatusBadgeClass(bill.status)}">${bill.status}</span></td>
                     <td>
-                        <button class="action-icon-btn" onclick="viewInvoice('${inv.id}')" title="View"><i class="fas fa-eye text-primary"></i></button>
-                        <button class="action-icon-btn" onclick="markAsPaid('${inv.id}')" title="Mark as Paid"><i class="fas fa-check-circle text-success"></i></button>
+                        <button class="action-icon-btn" onclick="viewPurchaseBill('${bill.id}')" title="View Bill"><i class="fas fa-eye text-primary"></i></button>
+                        ${bill.status !== 'Paid' ? `<button class="action-icon-btn" onclick="makePayment('${bill.id}')" title="Make Payment"><i class="fas fa-rupee-sign text-success"></i></button>` : ''}
                     </td>
                 </tr>
             `).join('');
@@ -912,16 +952,10 @@
 
         function renderActivityTimeline() {
             const container = document.getElementById('activityTimeline');
-            const iconMap = {
-                'Customer created': 'fa-user-plus',
-                'Invoice': 'fa-file-invoice',
-                'Payment': 'fa-credit-card',
-                'updated': 'fa-edit'
-            };
             container.innerHTML = activities.map(act => {
                 let icon = 'fa-info-circle';
                 if (act.action.includes('created')) icon = 'fa-user-plus';
-                else if (act.action.includes('Invoice')) icon = 'fa-file-invoice';
+                else if (act.action.includes('Purchase Bill')) icon = 'fa-file-invoice';
                 else if (act.action.includes('Payment')) icon = 'fa-credit-card';
                 else if (act.action.includes('updated')) icon = 'fa-edit';
                 
@@ -938,13 +972,13 @@
         }
 
         function loadNotes() {
-            const saved = localStorage.getItem(`customer_notes_${customerData.id}`);
+            const saved = localStorage.getItem(`supplier_notes_${supplierData.id}`);
             if (saved) document.getElementById('internalNotes').value = saved;
         }
 
         function saveNotes() {
             const notes = document.getElementById('internalNotes').value;
-            localStorage.setItem(`customer_notes_${customerData.id}`, notes);
+            localStorage.setItem(`supplier_notes_${supplierData.id}`, notes);
             showToast('Notes saved successfully', 'success');
             addActivity('Internal notes updated', 'System');
         }
@@ -956,39 +990,43 @@
             renderActivityTimeline();
         }
 
-        function viewInvoice(invoiceId) {
-            window.location.href = `invoice-detail.html?id=${invoiceId}`;
+        function viewPurchaseBill(billId) {
+            window.location.href = `purchase-bill-detail.html?id=${billId}`;
         }
 
-        function markAsPaid(invoiceId) {
-            const inv = customerInvoices.find(i => i.id === invoiceId);
-            if (inv && inv.status !== 'Paid') {
-                inv.status = 'Paid';
-                inv.paidAmount = inv.amount;
-                updateKPIs();
-                renderInvoices();
-                addActivity(`Invoice ${invoiceId} marked as paid`, 'Admin');
-                showToast(`Invoice ${invoiceId} marked as paid`, 'success');
+        function makePayment(billId) {
+            const bill = purchaseBills.find(b => b.id === billId);
+            if (bill && bill.status !== 'Paid') {
+                showToast(`Processing payment for bill ${billId}...`, 'info');
+                setTimeout(() => {
+                    bill.status = 'Paid';
+                    bill.paidAmount = bill.amount;
+                    updateKPIs();
+                    renderBills();
+                    addActivity(`Payment made for purchase bill ${billId}`, 'System');
+                    showToast(`Payment completed for bill ${billId}`, 'success');
+                }, 1000);
             }
         }
 
-        function editCustomer() {
-            window.location.href = `edit-customer.html?id=${customerData.id}`;
+        function editSupplier() {
+            window.location.href = `edit-supplier.html?id=${supplierData.id}`;
         }
 
-        function createInvoice() {
-            window.location.href = `create-invoice.html?customer=${customerData.id}`;
+        function createPurchaseBill() {
+            window.location.href = `create-purchase-bill.html?supplier=${supplierData.id}`;
         }
 
-        function deleteCustomer() {
-            if (confirm(`Delete customer "${customerData.name}"? This action cannot be undone.`)) {
-                showToast('Customer deleted successfully', 'info');
-                setTimeout(() => window.location.href = 'customer.html', 1500);
+        function deleteSupplier() {
+            if (confirm(`Delete supplier "${supplierData.name}"? This action cannot be undone.`)) {
+                showToast('Supplier deleted successfully', 'info');
+                setTimeout(() => window.location.href = 'supplier.html', 1500);
             }
         }
 
         function exportStatement() {
-            showToast('Customer statement exported', 'success');
+            showToast('Supplier statement exported successfully', 'success');
+            addActivity('Supplier statement exported', 'Admin');
         }
 
         function showToast(msg, type) {
@@ -1016,22 +1054,29 @@
             });
         }
 
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+
         // Initialize everything
-        renderCustomerInfo();
+        renderSupplierInfo();
         updateKPIs();
-        renderInvoices();
+        renderBills();
         renderActivityTimeline();
         loadNotes();
         initTabs();
 
         // Expose functions globally
-        window.viewInvoice = viewInvoice;
-        window.markAsPaid = markAsPaid;
-        window.editCustomer = editCustomer;
-        window.createInvoice = createInvoice;
-        window.deleteCustomer = deleteCustomer;
+        window.viewPurchaseBill = viewPurchaseBill;
+        window.makePayment = makePayment;
+        window.editSupplier = editSupplier;
+        window.createPurchaseBill = createPurchaseBill;
+        window.deleteSupplier = deleteSupplier;
         window.exportStatement = exportStatement;
         window.saveNotes = saveNotes;
+        window.handleLogout = handleLogout;
     </script>
 </body>
 

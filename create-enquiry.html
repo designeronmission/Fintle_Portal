@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Fintle | Create Enquiry</title>
+    <!-- Bootstrap 5 + Icons + Fonts -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+    <style>
+        /* Additional styles for the form components (matching fintle design system) */
+        .card-custom {
+            border: none;
+            border-radius: 4px;
+            background: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+            margin-bottom: 24px;
+        }
+
+        .card-header-custom {
+            background: white;
+            border-bottom: 1px solid #eef2f8;
+            padding: 1rem 1.5rem;
+            font-weight: 700;
+            font-size: 1rem;
+            color: #1e293b;
+        }
+
+        .card-header-custom i {
+            color: #2a3b82;
+        }
+
+        .form-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.03em;
+            color: #5b6e8c;
+            margin-bottom: 6px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 4px;
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2c7da0;
+            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+            outline: none;
+        }
+
+        .input-group-text {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary {
+            border: none;
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary:hover {
+            background: #1f5e7a;
+        }
+
+        .btn-outline-primary {
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .toast-notify {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .customer-select-group {
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .customer-select-group .form-select {
+            flex: 1;
+        }
+
+        .btn-add-customer {
+            white-space: nowrap;
+            padding: 0.6rem 1.2rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #ef4444;
+        }
+
+        .form-text-small {
+            font-size: 0.7rem;
+            color: #6c757d;
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+        <!-- Sidebar Start -->
+        <aside class="side-mini-panel with-vertical">
+            <div class="iconbar">
+                <div class="sidebarmenu">
+                    <div class="brand-logo d-flex align-items-center nav-logo">
+                        <a href="../main/index.html" class="text-nowrap logo-img">
+                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                        </a>
+                    </div>
+
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <!-- Dashboard -->
+                            <li class="sidebar-item mt-4">
+                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Inbox</span>
+                                </a>
+                            </li>
+
+                            <!-- Items -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Items</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="items.html">
+                                            <span class="icon-small"></span> Inventory
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Purchase -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Purchase</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Purchase Bill
+                                        </a>
+                                    </li>
+                                     <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Sales -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Sales</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span> Customer
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="enquiry.html">
+                                            <span class="icon-small"></span> Enquiry
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="quotation.html">
+                                            <span class="icon-small"></span> Quotation
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="invoice.html">
+                                            <span class="icon-small"></span> Invoice
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Accounts -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Accounts</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Account Master
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Journals
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Vouchers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Bank Payments
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> General Ledger
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Balance Sheets
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><span class="sidebar-divider"></span></li>
+                        </ul>
+
+                        <!-- Logout Option at Bottom -->
+                        <div class="sidebar-footer">
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Settings</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item logout-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </aside>
+        <!-- Sidebar End -->
+
+        <div class="page-wrapper">
+            <!-- Header Start -->
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none">
+                                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)">
+                                    <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
+                                </a>
+                            </li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle">
+                                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
+                                </a>
+                            </li>
+                        </ul>
+
+                        <div class="d-block d-lg-none py-9 py-xl-0">
+                            <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+                        </div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                            data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                            aria-label="Toggle navigation">
+                            <iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown">
+                                        <a href="javascript:void(0)"
+                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                                            type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
+                                            aria-controls="offcanvasWithBothOptions">
+                                            <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item d-block d-xl-none">
+                                        <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                                            data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                            <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
+                                        </a>
+                                    </li>
+
+                                    <!-- notification Dropdown -->
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
+                                        <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
+                                            <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
+                                        </a>
+                                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop2">
+                                            <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                                                <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
+                                                <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                                            </div>
+                                            <div class="message-body" data-simplebar>
+                                                <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
+                                                    <span class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
+                                                        <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
+                                                    </span>
+                                                    <div class="w-75">
+                                                        <div class="d-flex align-items-center justify-content-between">
+                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6>
+                                                            <span class="d-block fs-2">9:30 AM</span>
+                                                        </div>
+                                                        <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="py-6 px-7 mb-1">
+                                                <button class="btn btn-primary w-100">See All Notifications</button>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                    <!-- profile Dropdown -->
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
+                                            <div class="d-flex align-items-center gap-2 lh-base">
+                                                <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" />
+                                            </div>
+                                        </a>
+                                        <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up"
+                                            aria-labelledby="drop1">
+                                            <div class="position-relative px-4 pt-3 pb-2">
+                                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
+                                                    <img src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56" alt="Fintle-img" />
+                                                    <div>
+                                                        <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
+                                                        <p class="mb-0 text-dark">david@fintle.com</p>
+                                                    </div>
+                                                </div>
+                                                <div class="message-body">
+                                                    <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">My Profile</a>
+                                                    <a href="../main/page-pricing.html" class="p-2 dropdown-item h6 rounded-1">My Subscription</a>
+                                                    <a href="../main/app-invoice.html" class="p-2 dropdown-item h6 rounded-1">My Invoice</a>
+                                                    <a href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account Settings</a>
+                                                    <a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">Sign Out</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+            <!-- Header End -->
+
+            <div class="body-wrapper">
+                <div class="container-fluid p-4">
+                    <!-- Breadcrumb card (Fintle style) -->
+                    <div class="card card-body py-3 mb-4">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-content-between">
+                                              <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="enquiry.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Enquiry</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb mb-0">
+                                              <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                                            <li class="breadcrumb-item"><a href="enquiry.html">Enquiry</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Create Enquiry</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <form id="enquiryForm">
+                        <!-- Enquiry Details -->
+                        <div class="card-custom">
+                            <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Enquiry Details</div>
+                            <div class="card-body p-4">
+                                <div class="row g-4">
+                                    <!-- Customer Selection with Add Button -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Customer</label>
+                                        <div class="customer-select-group">
+                                            <select class="form-select" id="customerSelect" required>
+                                                <option value="">Select Customer</option> 
+                                                <option value="1">Acme Corporation</option>
+                                                <option value="2">Tech Solutions Pvt Ltd</option>
+                                                <option value="3">Global Enterprises</option>
+                                                <option value="4">Innovative Systems</option>
+                                                <option value="5">Premium Traders</option>
+                                            </select>
+                                            <button type="button" class="btn btn-primary btn-add-customer" id="addCustomerBtn">
+                                                <i class="fas fa-plus me-1"></i> Add Customer
+                                            </button>
+                                        </div>
+                                        <div class="form-text-small">Select existing customer or add a new one</div>
+                                    </div>
+
+                                    <!-- Currency -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Currency</label>
+                                        <select class="form-select" id="currency" required>
+                                            <option value="USD">USD - US Dollar ($)</option>
+                                            <option value="EUR">EUR - Euro (€)</option>
+                                            <option value="GBP">GBP - British Pound (£)</option>
+                                            <option value="INR" selected>INR - Indian Rupee (₹)</option>
+                                            <option value="AED">AED - UAE Dirham</option>
+                                            <option value="SAR">SAR - Saudi Riyal</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Enquiry Date -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Enquiry Date</label>
+                                        <input type="date" class="form-control" id="enquiryDate" required>
+                                    </div>
+
+                                    <!-- Title -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Title</label>
+                                        <input type="text" class="form-control" id="title" placeholder="Enter enquiry title/subject" required>
+                                    </div>
+
+                                    <!-- Enquiry Source -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Enquiry Source</label>
+                                        <select class="form-select" id="enquirySource" required>
+                                            <option value="">Select Source</option>
+                                            <option value="webform"> Web Form</option>
+                                            <option value="email"> Email</option>
+                                            <option value="phone"> Phone</option>
+                                            <option value="referral"> Referral</option>
+                                            <option value="social"> Social Media</option>
+                                            <option value="walkin"> Walk-in</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Customer Information -->
+                        <div class="card-custom">
+                            <div class="card-header-custom"><i class="fas fa-user-circle me-2"></i> Customer Information</div>
+                            <div class="card-body p-4">
+                                <div class="row g-4">
+                                    <!-- Company Name -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Company Name</label>
+                                        <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
+                                    </div>
+
+                                    <!-- Email Address -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Email Address</label>
+                                        <input type="email" class="form-control" id="emailAddress" placeholder="customer@example.com" required>
+                                    </div>
+
+                                    <!-- Phone Number -->
+                                    <div class="col-md-6">
+                                        <label class="form-label required-field">Phone Number</label>
+                                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Additional Information (Optional) -->
+                        <div class="card-custom">
+                            <div class="card-header-custom"><i class="fas fa-info-circle me-2"></i> Additional Information</div>
+                            <div class="card-body p-4">
+                                <div class="row g-4">
+                                    <div class="col-md-12">
+                                        <label class="form-label">Description / Requirements</label>
+                                        <textarea class="form-control" id="description" rows="4" placeholder="Enter detailed enquiry description, product requirements, specifications etc."></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
+                            <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">
+                                <i class="fas fa-undo-alt me-2"></i>Reset
+                            </button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-5">
+                                <i class="fas fa-save me-2"></i>Save Enquiry
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="mb-0" id="successMessage">Enquiry created successfully!</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="viewEnquiryBtn">View Enquiry</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveToastMsg" class="toast-notify" style="display: none;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+    </div>
+
+    <!-- Import Js Files -->
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+
+    <!-- solar icons -->
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Set today's date as default for enquiry date
+        document.addEventListener('DOMContentLoaded', function() {
+            const today = new Date().toISOString().split('T')[0];
+            const enquiryDateInput = document.getElementById('enquiryDate');
+            if (enquiryDateInput) {
+                enquiryDateInput.value = today;
+            }
+        });
+
+        // Toast notification function
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            const icon = document.querySelector('#liveToastMsg i');
+            
+            if (type === 'success') {
+                icon.className = 'fas fa-check-circle me-2';
+                toastDiv.style.background = '#10b981';
+            } else if (type === 'error') {
+                icon.className = 'fas fa-exclamation-triangle me-2';
+                toastDiv.style.background = '#ef4444';
+            } else {
+                icon.className = 'fas fa-info-circle me-2';
+                toastDiv.style.background = '#1e293b';
+            }
+            
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'flex';
+            setTimeout(() => {
+                toastDiv.style.display = 'none';
+            }, 3000);
+        }
+
+        // Currency symbol update
+        document.getElementById('currency')?.addEventListener('change', function() {
+            const currencySymbols = {
+                'USD': '$',
+                'EUR': '€',
+                'GBP': '£',
+                'INR': '₹',
+                'AED': 'د.إ',
+                'SAR': '﷼'
+            };
+            const symbol = currencySymbols[this.value] || '₹';
+            const currencySymbolSpan = document.getElementById('currencySymbol');
+            if (currencySymbolSpan) {
+                currencySymbolSpan.textContent = symbol;
+            }
+        });
+
+        // Add Customer button - redirect to create-customer.html
+        document.getElementById('addCustomerBtn')?.addEventListener('click', function() {
+            // Store current form data in sessionStorage before redirect
+            const formData = {
+                companyName: document.getElementById('companyName')?.value || '',
+                emailAddress: document.getElementById('emailAddress')?.value || '',
+                phoneNumber: document.getElementById('phoneNumber')?.value || ''
+            };
+            sessionStorage.setItem('enquiryFormData', JSON.stringify(formData));
+            sessionStorage.setItem('returnUrl', window.location.pathname);
+            window.location.href = 'create-customer.html';
+        });
+
+        // Check if returning from customer creation
+        window.addEventListener('load', function() {
+            const newCustomer = sessionStorage.getItem('newCustomer');
+            const returnUrl = sessionStorage.getItem('returnUrl');
+            
+            if (newCustomer && returnUrl === window.location.pathname) {
+                try {
+                    const customerData = JSON.parse(newCustomer);
+                    // Add new customer to dropdown
+                    const customerSelect = document.getElementById('customerSelect');
+                    const option = document.createElement('option');
+                    option.value = 'new_' + Date.now();
+                    option.textContent = customerData.companyName || customerData.name || 'New Customer';
+                    customerSelect.appendChild(option);
+                    customerSelect.value = option.value;
+                    
+                    // Fill customer information
+                    if (customerData.companyName) document.getElementById('companyName').value = customerData.companyName;
+                    if (customerData.email) document.getElementById('emailAddress').value = customerData.email;
+                    if (customerData.phone) document.getElementById('phoneNumber').value = customerData.phone;
+                    
+                    showToast(`Customer "${customerData.companyName || 'New Customer'}" added successfully!`, 'success');
+                    
+                    // Clear session storage
+                    sessionStorage.removeItem('newCustomer');
+                    sessionStorage.removeItem('returnUrl');
+                } catch(e) {
+                    console.error('Error loading customer data:', e);
+                }
+            }
+            
+            // Load form data from session storage (if any)
+            const savedFormData = sessionStorage.getItem('enquiryFormData');
+            if (savedFormData && !newCustomer) {
+                const formData = JSON.parse(savedFormData);
+                if (formData.companyName && !document.getElementById('companyName').value) 
+                    document.getElementById('companyName').value = formData.companyName;
+                if (formData.emailAddress && !document.getElementById('emailAddress').value) 
+                    document.getElementById('emailAddress').value = formData.emailAddress;
+                if (formData.phoneNumber && !document.getElementById('phoneNumber').value) 
+                    document.getElementById('phoneNumber').value = formData.phoneNumber;
+                sessionStorage.removeItem('enquiryFormData');
+            }
+        });
+
+        // Handle customer selection - auto-fill customer information
+        // This would typically fetch from database, demo implementation
+        const customerData = {
+            '1': { company: 'Acme Corporation', email: 'contact@acme.com', phone: '+1 234-567-8900' },
+            '2': { company: 'Tech Solutions Pvt Ltd', email: 'info@techsolutions.com', phone: '+91 98765 43210' },
+            '3': { company: 'Global Enterprises', email: 'sales@global.com', phone: '+44 20 7946 0123' },
+            '4': { company: 'Innovative Systems', email: 'support@innovative.com', phone: '+1 555-123-4567' },
+            '5': { company: 'Premium Traders', email: 'orders@premium.com', phone: '+91 22 1234 5678' }
+        };
+
+        document.getElementById('customerSelect')?.addEventListener('change', function() {
+            const customerId = this.value;
+            if (customerId && customerData[customerId]) {
+                const data = customerData[customerId];
+                document.getElementById('companyName').value = data.company;
+                document.getElementById('emailAddress').value = data.email;
+                document.getElementById('phoneNumber').value = data.phone;
+                showToast(`Customer "${data.company}" selected`, 'info');
+            } else if (!customerId) {
+                // Clear fields if no customer selected
+                if (!document.getElementById('companyName').value) document.getElementById('companyName').value = '';
+                if (!document.getElementById('emailAddress').value) document.getElementById('emailAddress').value = '';
+                if (!document.getElementById('phoneNumber').value) document.getElementById('phoneNumber').value = '';
+            }
+        });
+
+        // Form submission
+        document.getElementById('enquiryForm')?.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required fields
+            const customer = document.getElementById('customerSelect').value;
+            const currency = document.getElementById('currency').value;
+            const enquiryDate = document.getElementById('enquiryDate').value;
+            const title = document.getElementById('title').value;
+            const enquirySource = document.getElementById('enquirySource').value;
+            const companyName = document.getElementById('companyName').value;
+            const emailAddress = document.getElementById('emailAddress').value;
+            const phoneNumber = document.getElementById('phoneNumber').value;
+            
+            if (!customer) {
+                showToast('Please select or add a customer', 'error');
+                return;
+            }
+            
+            if (!title) {
+                showToast('Please enter enquiry title', 'error');
+                return;
+            }
+            
+            if (!enquirySource) {
+                showToast('Please select enquiry source', 'error');
+                return;
+            }
+            
+            if (!companyName) {
+                showToast('Please enter company name', 'error');
+                return;
+            }
+            
+            if (!emailAddress) {
+                showToast('Please enter email address', 'error');
+                return;
+            }
+            
+            if (!phoneNumber) {
+                showToast('Please enter phone number', 'error');
+                return;
+            }
+            
+            // Get selected customer name for display
+            const customerSelect = document.getElementById('customerSelect');
+            const customerName = customerSelect.options[customerSelect.selectedIndex]?.text || 'Customer';
+            
+            // Collect all form data
+            const formData = {
+                enquiryId: 'ENQ-' + Date.now(),
+                customerId: customer,
+                customerName: customerName,
+                currency: currency,
+                enquiryDate: enquiryDate,
+                title: title,
+                enquirySource: enquirySource,
+                companyName: companyName,
+                emailAddress: emailAddress,
+                phoneNumber: phoneNumber,
+                description: document.getElementById('description').value,
+                expectedValue: document.getElementById('expectedValue').value,
+                expectedClosureDate: document.getElementById('expectedClosureDate').value,
+                assignedTo: document.getElementById('assignedTo').value,
+                priority: document.querySelector('input[name="priority"]:checked')?.value || 'medium',
+                createdAt: new Date().toISOString()
+            };
+            
+            console.log('Enquiry Data:', formData);
+            
+            // Store in localStorage for demo
+            let enquiries = JSON.parse(localStorage.getItem('enquiries') || '[]');
+            enquiries.push(formData);
+            localStorage.setItem('enquiries', JSON.stringify(enquiries));
+            
+            // Show success modal
+            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            document.getElementById('successMessage').innerHTML = `Enquiry "${title}" created successfully for ${companyName}!`;
+            successModal.show();
+            
+            // Reset form
+            this.reset();
+            document.getElementById('enquiryDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('currency').value = 'INR';
+            
+            // Clear customer selection
+            document.getElementById('customerSelect').value = '';
+            document.getElementById('companyName').value = '';
+            document.getElementById('emailAddress').value = '';
+            document.getElementById('phoneNumber').value = '';
+        });
+        
+        // View Enquiry button in modal
+        document.getElementById('viewEnquiryBtn')?.addEventListener('click', function() {
+            window.location.href = 'enquiries-list.html';
+        });
+        
+        // Reset form confirmation
+        document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
+            if (confirm('Are you sure you want to reset all form fields?')) {
+                setTimeout(() => {
+                    document.getElementById('enquiryDate').value = new Date().toISOString().split('T')[0];
+                    showToast('Form has been reset', 'info');
+                }, 10);
+            } else {
+                e.preventDefault();
+            }
+        });
+        
+        // Logout function
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+
+</html>

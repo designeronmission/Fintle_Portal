@@ -457,25 +457,25 @@
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="supplier.html">
                       <span class="icon-small"></span> Suppliers
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                    <a class="sidebar-link" href="purchase-order.html">
                       <span class="icon-small"></span> Purchase Order
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
                       <span class="icon-small"></span> Purchase Bill
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Supplier Statement
-                    </a>
-                  </li>
+                 <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
                 </ul>
               </li>
 
@@ -1506,9 +1506,9 @@
                         <button class="btn btn-primary rounded-pill px-4" id="openAddItemsModalBtn" type="button"> <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Add Line Item</button>
                       </div>
                       <div class="table-responsive">
-                        <table class="table table-hover" id="itemsTable" style="border-radius: 16px; overflow: hidden;">
+                        <table class="table table-hover" id="itemsTable" style="overflow: hidden;">
                           <thead class="table-light">
-                            <tr><th style="width: 28%">Item / Description</th><th style="width: 10%">Price</th><th style="width: 8%">Qty</th><th style="width: 10%">Unit</th><th style="width: 18%">Tax Rate</th><th style="width: 15%">Amount</th><th style="width: 11%">Action</th></tr>
+                          <tr><th style="width: 30%;padding-left:10px">Item / Description</th><th style="width: 10%">Price</th><th style="width: 8%">Qty</th><th style="width: 10%">Unit</th><th style="width: 18%">Tax Rate</th><th style="width: 15%">Amount</th><th style="width: 11%">Action</th></tr>
                           </thead>
                           <tbody id="itemsTableBody"></tbody>
                         </table>
@@ -1655,7 +1655,7 @@
               <span class="category-chip" data-cat="goods">Goods</span>
               <span class="category-chip" data-cat="sample">Sample Items</span>
             </div>
-              <button type="button" id="createNewItemFromModal" class="btn btn-outline-primary">
+              <button type="button" onclick="location.href='create-item.html'" class="btn btn-outline-primary">
        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Create New Item
     </button>
 
@@ -1726,7 +1726,10 @@
 
     function getCurrencySymbol() { const select = document.getElementById('currencySelect'); const map = { USD: '$', EUR: '€', INR: '₹' }; return map[select?.value] || '₹'; }
     function formatMoney(amount) { return `${getCurrencySymbol()} ${amount.toFixed(2)}`; }
-    function getTaxDropdownHTML(selectedValue = 18) { return `<select class="tax-select tax-rate-select">${taxOptions.map(t => `<option value="${t.value}" ${t.value === selectedValue ? 'selected' : ''}>${t.label}</option>`).join('')}</select>`; }
+
+    function getTaxDropdownHTML(selectedValue = 18) { return `<select class="form-select form-select-sm tax-rate-select"style="appearance: none; -webkit-appearance: none; -moz-appearance: none; padding-right: 35px !important; cursor: pointer; border: 1px solid #e2e8f0; border-radius: 8px; width: 100%; height: 41px;">${taxOptions.map(t => `<option value="${t.value}" ${t.value === selectedValue ? 'selected' : ''}>${t.label}</option>`).join('')}</select> `; }
+
+
     function escapeHtml(str) { return str?.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m])) || ''; }
     
     function showToast(message, type = 'success') {
@@ -1811,7 +1814,7 @@
     
     function createMainItemRow(desc, price, qty, unit, taxRateValue = 18) {
       const tr = document.createElement('tr'); tr.className = 'item-row';
-      tr.innerHTML = `<td><input type="text" class="form-control form-control-sm item-desc" value="${escapeHtml(desc)}"></td><td><input type="number" step="any" class="form-control form-control-sm item-price" value="${price}"></td><td><input type="number" step="any" class="form-control form-control-sm item-qty" value="${qty}"></td><td><input type="text" class="form-control form-control-sm item-unit" value="${escapeHtml(unit)}"></td><td>${getTaxDropdownHTML(taxRateValue)}</td><td class="row-amount fw-semibold text-primary">${formatMoney(price * qty)}</td><td class="text-center"><button class="btn btn-sm delete-row-btn"><iconify-icon icon="solar:trash-bin-trash-linear" width="16"></iconify-icon></button></td>`;
+      tr.innerHTML = `<td><input type="text" class="form-control form-control item-desc" value="${escapeHtml(desc)}"></td><td><input type="number" step="any" class="form-control form-control item-price" value="${price}"></td><td><input type="number" step="any" class="form-control form-control item-qty" value="${qty}"></td><td><input type="text" class="form-control form-control item-unit" value="${escapeHtml(unit)}"></td><td>${getTaxDropdownHTML(taxRateValue)}</td><td class="row-amount fw-semibold text-dark pt-4">${formatMoney(price * qty)}</td><td class="text-center"><button class="btn btn-sm delete-row-btn" style="background: none; border: none; color: #ef4444; cursor: pointer;"><iconify-icon icon="solar:trash-bin-trash-linear" width="16"></iconify-icon></button></td>`;
       tr.querySelectorAll('.item-price, .item-qty').forEach(inp => inp.addEventListener('input', () => recalcTotals()));
       tr.querySelector('.tax-rate-select')?.addEventListener('change', () => recalcTotals());
       tr.querySelector('.delete-row-btn')?.addEventListener('click', () => { tr.remove(); recalcTotals(); showToast('Item removed', 'info'); });

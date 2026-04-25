@@ -1,0 +1,253 @@
+/* Sidebar Styles - Fixed Scrolling */
+.side-mini-panel {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 265px;
+  background: #fff;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+}
+
+.iconbar {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sidebarmenu {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  position: relative;
+}
+
+.brand-logo {
+  padding: 20px 24px;
+  border-bottom: 1px solid #eef2f8;
+  flex-shrink: 0;
+}
+
+/* Scrollable Menu Area */
+.sidebar-menu-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  margin-bottom: 0;
+}
+
+.sidebar-menu-wrapper::-webkit-scrollbar {
+  width: 4px;
+}
+
+.sidebar-menu-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.sidebar-menu-wrapper::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+.sidebar-menu-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* Sidebar Navigation */
+.sidebar-nav {
+  padding: 16px 0;
+}
+
+.sidebar-menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.sidebar-item {
+  margin: 2px 12px;
+  border-radius: 8px;
+  transition: all 0.2s;
+}
+
+.sidebar-item .sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #5b6e8c;
+  text-decoration: none;
+  border-radius: 8px;
+  transition: all 0.2s;
+  gap: 12px;
+}
+
+.sidebar-item .sidebar-link:hover {
+  background: #f0f7ff;
+  color: #2c7da0;
+}
+
+.sidebar-item.active > .sidebar-link {
+  background: #2c7da0;
+  color: #fff;
+}
+
+.sidebar-item.active > .sidebar-link iconify-icon {
+  color: #fff;
+}
+
+.sidebar-item .sidebar-link iconify-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.hide-menu {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Has Arrow (Dropdown indicator) */
+.has-arrow {
+  position: relative;
+}
+
+.has-arrow::after {
+  content: '\f107';
+  font-family: 'Font Awesome 6 Free';
+  font-weight: 900;
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s;
+  font-size: 12px;
+}
+
+.has-arrow[aria-expanded="true"]::after {
+  transform: translateY(-50%) rotate(180deg);
+}
+
+/* First Level Submenu */
+.first-level {
+  list-style: none;
+  padding-left: 48px;
+  margin: 4px 0;
+}
+
+.first-level .sidebar-item {
+  margin: 2px 0;
+}
+
+.first-level .sidebar-link {
+  padding: 8px 16px;
+  font-size: 13px;
+}
+
+.first-level .sidebar-link .icon-small {
+  width: 6px;
+  height: 6px;
+  background: #cbd5e1;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.first-level .sidebar-item.active .sidebar-link {
+  background: rgba(44, 125, 160, 0.1);
+  color: #2c7da0;
+}
+
+.first-level .sidebar-item.active .sidebar-link .icon-small {
+  background: #2c7da0;
+}
+
+/* Fixed Footer with Settings and Logout */
+.sidebar-footer-fixed {
+  flex-shrink: 0;
+  border-top: 1px solid #eef2f8;
+  padding: 12px;
+  background: #fff;
+}
+
+.sidebar-footer-fixed .sidebar-menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.sidebar-footer-fixed .sidebar-item {
+  margin: 4px 0;
+}
+
+.sidebar-footer-fixed .sidebar-item .sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  color: #5b6e8c;
+  text-decoration: none;
+  border-radius: 8px;
+  gap: 12px;
+  transition: all 0.2s;
+}
+
+.sidebar-footer-fixed .sidebar-item .sidebar-link:hover {
+  background: #f0f7ff;
+  color: #2c7da0;
+}
+
+.sidebar-footer-fixed .logout-item .sidebar-link {
+  color: #ef4444;
+}
+
+.sidebar-footer-fixed .logout-item .sidebar-link:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+/* Page Wrapper - Adjust for sidebar */
+.page-wrapper {
+  margin-left: 265px;
+  transition: all 0.3s;
+  min-height: 100vh;
+}
+
+@media (max-width: 1200px) {
+  .page-wrapper {
+    margin-left: 0;
+  }
+  
+  .side-mini-panel {
+    transform: translateX(-100%);
+    transition: transform 0.3s;
+  }
+  
+  .side-mini-panel.open {
+    transform: translateX(0);
+  }
+}
+
+/* Optional: Mini Sidebar Mode */
+.mini-sidebar .side-mini-panel {
+  width: 80px;
+}
+
+.mini-sidebar .hide-menu {
+  display: none;
+}
+
+.mini-sidebar .sidebar-item .sidebar-link {
+  justify-content: center;
+  padding: 12px;
+}
+
+.mini-sidebar .has-arrow::after {
+  display: none;
+}
+
+.mini-sidebar .page-wrapper {
+  margin-left: 80px;
+}
