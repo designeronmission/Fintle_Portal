@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle | Quotation & Estimate Management</title>
+  <title>Fintle | Estimate & Estimate Management</title>
   <!-- Bootstrap 5 + Icons + Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -12,7 +12,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
 
-      <link rel="stylesheet" href="assets/libs/css/styles.css" />
+    <link rel="stylesheet" href="assets/libs/css/styles.css"/>
 
   <style>
 
@@ -58,7 +58,7 @@
       color: #ef4444;
     }
 
-    .quotation-link {
+    .Estimate-link {
       cursor: pointer;
       font-weight: 600;
       color: #2a3b82;
@@ -66,25 +66,25 @@
       letter-spacing: 0.3px;
     }
 
-    .quotation-link:hover {
+    .Estimate-link:hover {
       text-decoration: underline;
     }
 
     /* Table Styling */
-    .quotation-table-wrapper {
+    .Estimate-table-wrapper {
       overflow-x: auto;
       border-radius: 12px;
       position: relative;
     }
 
-    .quotation-table {
+    .Estimate-table {
       min-width: 900px;
       font-size: 0.85rem;
       width: 100%;
       border-collapse: collapse;
     }
 
-    .quotation-table th {
+    .Estimate-table th {
       background: #f8fafc;
       font-weight: 600;
       color: #1e293b;
@@ -93,7 +93,7 @@
       white-space: nowrap;
     }
 
-    .quotation-table td {
+    .Estimate-table td {
       padding: 14px 12px;
       vertical-align: middle;
       border-bottom: 1px solid #eef2f6;
@@ -101,21 +101,21 @@
     }
 
     /* Sticky Action column */
-    .quotation-table th:last-child,
-    .quotation-table td:last-child {
+    .Estimate-table th:last-child,
+    .Estimate-table td:last-child {
       position: sticky;
       right: 0;
       background-color: white;
       z-index: 5;
     }
     
-    .quotation-table th:last-child {
+    .Estimate-table th:last-child {
       background-color: #f8fafc;
       z-index: 6;
     }
 
     /* Ensure table cells can contain dropdowns properly */
-    .quotation-table td:last-child {
+    .Estimate-table td:last-child {
       overflow: visible;
     }
 
@@ -220,7 +220,7 @@
     }
 
     /* KPI Cards */
-    .dashboard-container {
+  .dashboard-container {
       display: flex;
       gap: 20px;
       background: white;
@@ -346,7 +346,7 @@
       flex: 1;
     }
 
-    .quotation-tab {
+    .Estimate-tab {
       padding: 8px 20px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -361,12 +361,12 @@
       gap: 8px;
     }
 
-    .quotation-tab:hover {
+    .Estimate-tab:hover {
       color: #2a3b82;
       background: #f8fafc;
     }
 
-    .quotation-tab.active {
+    .Estimate-tab.active {
       color: #2a3b82;
       background: #eef2ff;
     }
@@ -380,7 +380,7 @@
       font-weight: 700;
     }
 
-    .quotation-tab.active .tab-count {
+    .Estimate-tab.active .tab-count {
       background: #2a3b82;
       color: white;
     }
@@ -433,7 +433,7 @@
 <body>
 
   <div id="main-wrapper">
-    <!-- Sidebar Start -->
+
    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
@@ -448,7 +448,7 @@
             <ul class="sidebar-menu" id="sidebarnav">
               <!-- Dashboard -->
               <li class="sidebar-item mt-4">
-                <a class="sidebar-link active" href="index.html" id="get-url" aria-expanded="false">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
@@ -508,7 +508,7 @@
 
               <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
@@ -524,8 +524,8 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="quotation.html">
-                      <span class="icon-small"></span> Quotation
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
                     </a>
                   </li>
                   <li class="sidebar-item">
@@ -606,11 +606,12 @@
     </aside>
     <!-- Sidebar End -->
 
-    <!-- Sidebar End -->
+
 
 
     <div class="page-wrapper">
-        <!-- Header Start -->
+
+      <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -756,7 +757,7 @@
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title">Quotations & Estimates</h4>
+                  <h4 class="mb-4 mb-sm-0 card-title">Estimates</h4>
                   <nav aria-label="breadcrumb" class="ms-auto">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item d-flex align-items-center">
@@ -764,7 +765,7 @@
                           <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
                         </a>
                       </li>
-                      <li class="breadcrumb-item active">Quotations</li>
+                      <li class="breadcrumb-item active">Estimates</li>
                     </ol>
                   </nav>
                 </div>
@@ -776,28 +777,28 @@
           <div class="dashboard-container">
             <div class="kpi-card">
               <div class="kpi-header">
-                <span class="kpi-label">Total Quotations</span>
+                <span class="kpi-label">Total Estimates</span>
                 <div class="icon-circle" style="background:#eef2ff;"><i class="fas fa-file-alt text-primary"></i></div>
               </div>
-              <div class="kpi-amount-main" id="totalQuotations">0</div>
+              <div class="kpi-amount-main" id="totalEstimates">0</div>
               <div class="kpi-sub">Total estimates created</div>
             </div>
 
             <div class="kpi-card">
               <div class="kpi-header">
-                <span class="kpi-label">Open Quotations</span>
+                <span class="kpi-label">Open Estimates</span>
                 <div class="icon-circle" style="background:#fff0e6;"><i class="fas fa-clock" style="color:#d97706"></i></div>
               </div>
-              <div class="kpi-amount-main" id="openQuotations">0</div>
+              <div class="kpi-amount-main" id="openEstimates">0</div>
               <div class="kpi-sub"><span><i class="far fa-hourglass"></i> Pending response</span><span class="count-badge" id="openCountBadge">0</span></div>
             </div>
 
             <div class="kpi-card">
               <div class="kpi-header">
-                <span class="kpi-label">Closed Quotations</span>
+                <span class="kpi-label">Closed Estimates</span>
                 <div class="icon-circle" style="background:#e3f7ec;"><i class="fas fa-check-circle" style="color:#10b981"></i></div>
               </div>
-              <div class="kpi-amount-main" id="closedQuotations">0</div>
+              <div class="kpi-amount-main" id="closedEstimates">0</div>
               <div class="kpi-sub"><span><i class="fas fa-file-invoice-dollar"></i> Converted/Closed</span><span class="count-badge" id="closedCountBadge">0</span></div>
             </div>
           </div>
@@ -807,25 +808,25 @@
             <div class="unified-actions-card">
               <div class="search-inline">
                 <i class="fas fa-search"></i>
-                <input type="text" id="globalSearchInput" placeholder="Search by quotation number or customer name...">
+                <input type="text" id="globalSearchInput" placeholder="Search by Estimate number or customer name...">
               </div>
               <div class="tabs-centered">
-                <button class="quotation-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
-                <button class="quotation-tab" data-tab="open"><i class="fas fa-clock"></i> Open <span class="tab-count" id="countOpen">0</span></button>
-                <button class="quotation-tab" data-tab="closed"><i class="fas fa-check-circle"></i> Closed <span class="tab-count" id="countClosed">0</span></button>
+                <button class="Estimate-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
+                <button class="Estimate-tab" data-tab="open"><i class="fas fa-clock"></i> Open <span class="tab-count" id="countOpen">0</span></button>
+                <button class="Estimate-tab" data-tab="closed"><i class="fas fa-check-circle"></i> Closed <span class="tab-count" id="countClosed">0</span></button>
               </div>
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-quotation.html'"><i class="fas fa-plus me-2"></i>New Quotation</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-estimate.html'"><i class="fas fa-plus me-2"></i>New Estimate</button>
               </div>
             </div>
 
-            <div class="quotation-table-wrapper">
-              <table class="quotation-table align-middle">
+            <div class="Estimate-table-wrapper">
+              <table class="Estimate-table align-middle">
                 <thead>
                   <tr>
                     <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
                     <th>Date</th>
-                    <th>Quotation Number</th>
+                    <th>Estimate Number</th>
                     <th>Customer Name</th>
                     <th>Due In</th>
                     <th>Amount</th>
@@ -833,7 +834,7 @@
                     <th style="width:90px;">Action</th>
                   </tr>
                 </thead>
-                <tbody id="quotationTableBody"></tbody>
+                <tbody id="EstimateTableBody"></tbody>
               </table>
             </div>
             
@@ -845,7 +846,7 @@
                   <span>Showing <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span>
                   <span class="mx-1 text-muted">of</span>
                   <strong id="totalRows">0</strong>
-                  <span class="text-muted">quotations</span>
+                  <span class="text-muted">Estimates</span>
                 </div>
                 <nav>
                   <ul class="pagination" id="pagination"></ul>
@@ -873,20 +874,20 @@
 
 
   <script>
-    // Quotation Data
-    let quotations = [
-      { id: 1, date: '2026-04-01', quotationNo: 'QT-2404-001', customerName: 'ABC Enterprises', dueIn: 5, amount: 12500, status: 'Open' },
-      { id: 2, date: '2026-04-05', quotationNo: 'QT-2404-002', customerName: 'XYZ Solutions', dueIn: 12, amount: 8500, status: 'Open' },
-      { id: 3, date: '2026-03-28', quotationNo: 'QT-2403-089', customerName: 'Global Traders', dueIn: -3, amount: 3200, status: 'Expired' },
-      { id: 4, date: '2026-03-15', quotationNo: 'QT-2403-045', customerName: 'Sunrise Industries', dueIn: -15, amount: 18900, status: 'Closed' },
-      { id: 5, date: '2026-04-10', quotationNo: 'QT-2404-003', customerName: 'Metro Corp', dueIn: 8, amount: 4300, status: 'Open' },
-      { id: 6, date: '2026-03-20', quotationNo: 'QT-2403-067', customerName: 'Aster Innovations', dueIn: -8, amount: 6750, status: 'Closed' },
-      { id: 7, date: '2026-04-12', quotationNo: 'QT-2404-004', customerName: 'Tech Solutions Ltd', dueIn: 15, amount: 22300, status: 'Open' },
-      { id: 8, date: '2026-04-08', quotationNo: 'QT-2404-005', customerName: 'Visionary Retail', dueIn: 3, amount: 5600, status: 'Open' },
-      { id: 9, date: '2026-03-25', quotationNo: 'QT-2403-092', customerName: 'NexGen Media', dueIn: -5, amount: 9800, status: 'Expired' },
-      { id: 10, date: '2026-04-02', quotationNo: 'QT-2404-006', customerName: 'Digital Solutions', dueIn: 10, amount: 15750, status: 'Open' },
-      { id: 11, date: '2026-04-14', quotationNo: 'QT-2404-007', customerName: 'Blue Ocean Corp', dueIn: 20, amount: 34200, status: 'Open' },
-      { id: 12, date: '2026-04-11', quotationNo: 'QT-2404-008', customerName: 'Red Apple Stores', dueIn: 6, amount: 8200, status: 'Open' }
+    // Estimate Data
+    let Estimates = [
+      { id: 1, date: '2026-04-01', EstimateNo: 'QT-2404-001', customerName: 'ABC Enterprises', dueIn: 5, amount: 12500, status: 'Open' },
+      { id: 2, date: '2026-04-05', EstimateNo: 'QT-2404-002', customerName: 'XYZ Solutions', dueIn: 12, amount: 8500, status: 'Open' },
+      { id: 3, date: '2026-03-28', EstimateNo: 'QT-2403-089', customerName: 'Global Traders', dueIn: -3, amount: 3200, status: 'Expired' },
+      { id: 4, date: '2026-03-15', EstimateNo: 'QT-2403-045', customerName: 'Sunrise Industries', dueIn: -15, amount: 18900, status: 'Closed' },
+      { id: 5, date: '2026-04-10', EstimateNo: 'QT-2404-003', customerName: 'Metro Corp', dueIn: 8, amount: 4300, status: 'Open' },
+      { id: 6, date: '2026-03-20', EstimateNo: 'QT-2403-067', customerName: 'Aster Innovations', dueIn: -8, amount: 6750, status: 'Closed' },
+      { id: 7, date: '2026-04-12', EstimateNo: 'QT-2404-004', customerName: 'Tech Solutions Ltd', dueIn: 15, amount: 22300, status: 'Open' },
+      { id: 8, date: '2026-04-08', EstimateNo: 'QT-2404-005', customerName: 'Visionary Retail', dueIn: 3, amount: 5600, status: 'Open' },
+      { id: 9, date: '2026-03-25', EstimateNo: 'QT-2403-092', customerName: 'NexGen Media', dueIn: -5, amount: 9800, status: 'Expired' },
+      { id: 10, date: '2026-04-02', EstimateNo: 'QT-2404-006', customerName: 'Digital Solutions', dueIn: 10, amount: 15750, status: 'Open' },
+      { id: 11, date: '2026-04-14', EstimateNo: 'QT-2404-007', customerName: 'Blue Ocean Corp', dueIn: 20, amount: 34200, status: 'Open' },
+      { id: 12, date: '2026-04-11', EstimateNo: 'QT-2404-008', customerName: 'Red Apple Stores', dueIn: 6, amount: 8200, status: 'Open' }
     ];
 
     let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
@@ -917,10 +918,10 @@
       return `${dueIn} days`;
     }
 
-    function filterQuotations() {
+    function filterEstimates() {
       let search = currentSearchTerm.toLowerCase().trim();
-      return quotations.filter(q => {
-        let matchSearch = search === '' || q.quotationNo.toLowerCase().includes(search) || q.customerName.toLowerCase().includes(search);
+      return Estimates.filter(q => {
+        let matchSearch = search === '' || q.EstimateNo.toLowerCase().includes(search) || q.customerName.toLowerCase().includes(search);
         if (currentTab === 'all') return matchSearch;
         if (currentTab === 'open') return (q.status === 'Open') && matchSearch;
         if (currentTab === 'closed') return (q.status === 'Closed') && matchSearch;
@@ -929,15 +930,15 @@
     }
 
     function updateKPIs() {
-      const total = quotations.length;
-      const openCount = quotations.filter(q => q.status === 'Open').length;
-      const closedCount = quotations.filter(q => q.status === 'Closed').length;
-      const openAmount = quotations.filter(q => q.status === 'Open').reduce((sum, q) => sum + q.amount, 0);
-      const closedAmount = quotations.filter(q => q.status === 'Closed').reduce((sum, q) => sum + q.amount, 0);
+      const total = Estimates.length;
+      const openCount = Estimates.filter(q => q.status === 'Open').length;
+      const closedCount = Estimates.filter(q => q.status === 'Closed').length;
+      const openAmount = Estimates.filter(q => q.status === 'Open').reduce((sum, q) => sum + q.amount, 0);
+      const closedAmount = Estimates.filter(q => q.status === 'Closed').reduce((sum, q) => sum + q.amount, 0);
 
-      document.getElementById('totalQuotations').innerText = total;
-      document.getElementById('openQuotations').innerText = formatCurrency(openAmount);
-      document.getElementById('closedQuotations').innerText = formatCurrency(closedAmount);
+      document.getElementById('totalEstimates').innerText = total;
+      document.getElementById('openEstimates').innerText = formatCurrency(openAmount);
+      document.getElementById('closedEstimates').innerText = formatCurrency(closedAmount);
       
       document.getElementById('openCountBadge').innerText = openCount;
       document.getElementById('closedCountBadge').innerText = closedCount;
@@ -948,7 +949,7 @@
     }
 
     function renderTable() {
-      let filtered = filterQuotations();
+      let filtered = filterEstimates();
       let total = filtered.length;
       let totalPages = Math.ceil(total / rowsPerPage);
       
@@ -959,19 +960,19 @@
       let start = (currentPage - 1) * rowsPerPage;
       let end = Math.min(start + rowsPerPage, total);
       let pageData = filtered.slice(start, end);
-      let tbody = document.getElementById('quotationTableBody');
+      let tbody = document.getElementById('EstimateTableBody');
       if (!tbody) return;
       tbody.innerHTML = '';
 
       if (pageData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted">No quotations found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted">No Estimates found</td></tr>';
       } else {
         pageData.forEach((q) => {
           let statusClass = getStatusClass(q.status);
           let row = `<tr>
             <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${q.id}"></td>
             <td>${q.date}</td>
-            <td><span class="quotation-link" data-id="${q.quotationNo}">${q.quotationNo}</span></td>
+            <td><span class="Estimate-link" data-id="${q.EstimateNo}">${q.EstimateNo}</span></td>
             <td class="fw-medium">${q.customerName}</td>
             <td>${getDueInText(q.dueIn)}</td>
             <td class="fw-semibold">${formatCurrency(q.amount)}</td>
@@ -982,11 +983,11 @@
                   <i class="fas fa-ellipsis-v"></i>
                 </button>
                 <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#" onclick="viewQuotation('${q.quotationNo}')"> View</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="cloneQuotation(${q.id})"> Clone</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="downloadQuotation(${q.id})"> Download</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="viewEstimate('${q.EstimateNo}')"> View</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="cloneEstimate(${q.id})"> Clone</a></li>
+                  <li><a class="dropdown-item" href="#" onclick="downloadEstimate(${q.id})"> Download</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item text-danger" href="#" onclick="deleteQuotation(${q.id})"> Delete</a></li>
+                  <li><a class="dropdown-item text-danger" href="#" onclick="deleteEstimate(${q.id})"> Delete</a></li>
                 </ul>
               </div>
             </td>
@@ -1003,10 +1004,10 @@
       // Render Pagination
       renderPagination(totalPages);
 
-      // Attach click events for quotation links
-      document.querySelectorAll('.quotation-link').forEach(el => {
-        el.removeEventListener('click', quotationClickHandler);
-        el.addEventListener('click', quotationClickHandler);
+      // Attach click events for Estimate links
+      document.querySelectorAll('.Estimate-link').forEach(el => {
+        el.removeEventListener('click', EstimateClickHandler);
+        el.addEventListener('click', EstimateClickHandler);
       });
 
       const selectAll = document.getElementById('selectAllCheckbox');
@@ -1051,14 +1052,14 @@
       </li>`;
     }
 
-    function quotationClickHandler(e) {
+    function EstimateClickHandler(e) {
       e.preventDefault();
-      const quotationNo = this.getAttribute('data-id');
-      window.location.href = `quotation-detail.html?id=${quotationNo}`;
+      const EstimateNo = this.getAttribute('data-id');
+      window.location.href = `estimate-detail.html?id=${EstimateNo}`;
     }
 
     function changePage(p) {
-      let filtered = filterQuotations();
+      let filtered = filterEstimates();
       let pages = Math.ceil(filtered.length / rowsPerPage);
       if (p >= 1 && p <= pages) {
         currentPage = p;
@@ -1077,51 +1078,51 @@
     }
 
     // CRUD Operations
-    window.viewQuotation = function(quotationNo) {
-      window.location.href = `quotation-detail.html?id=${quotationNo}`;
+    window.viewEstimate = function(EstimateNo) {
+      window.location.href = `estimate-detail.html?id=${EstimateNo}`;
     };
 
-    window.cloneQuotation = function(id) {
-      const original = quotations.find(q => q.id === id);
+    window.cloneEstimate = function(id) {
+      const original = Estimates.find(q => q.id === id);
       if (original) {
-        const newId = Math.max(...quotations.map(q => q.id)) + 1;
-        const newQuotation = {
+        const newId = Math.max(...Estimates.map(q => q.id)) + 1;
+        const newEstimate = {
           ...original,
           id: newId,
-          quotationNo: `${original.quotationNo.split('-')[0]}-${String(parseInt(original.quotationNo.split('-')[1]) + 100).slice(-3)}`,
+          EstimateNo: `${original.EstimateNo.split('-')[0]}-${String(parseInt(original.EstimateNo.split('-')[1]) + 100).slice(-3)}`,
           date: new Date().toISOString().slice(0, 10),
           status: 'Open',
           dueIn: 7
         };
-        quotations.push(newQuotation);
+        Estimates.push(newEstimate);
         updateKPIs();
         renderTable();
-        showToast(`Cloned quotation to ${newQuotation.quotationNo}`);
+        showToast(`Cloned Estimate to ${newEstimate.EstimateNo}`);
       }
     };
 
-    window.downloadQuotation = function(id) {
-      const quotation = quotations.find(q => q.id === id);
-      showToast(`Downloading PDF for ${quotation?.quotationNo}`);
+    window.downloadEstimate = function(id) {
+      const Estimate = Estimates.find(q => q.id === id);
+      showToast(`Downloading PDF for ${Estimate?.EstimateNo}`);
     };
 
-    window.deleteQuotation = function(id) {
-      if (confirm('Permanently delete this quotation?')) {
-        quotations = quotations.filter(q => q.id !== id);
+    window.deleteEstimate = function(id) {
+      if (confirm('Permanently delete this Estimate?')) {
+        Estimates = Estimates.filter(q => q.id !== id);
         updateKPIs();
-        let filteredAfter = filterQuotations();
+        let filteredAfter = filterEstimates();
         let maxPage = Math.ceil(filteredAfter.length / rowsPerPage);
         if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
         if (filteredAfter.length === 0) currentPage = 1;
         renderTable();
-        showToast('Quotation deleted successfully');
+        showToast('Estimate deleted successfully');
       }
     };
 
     // Tab switching
-    document.querySelectorAll('.quotation-tab').forEach(btn => {
+    document.querySelectorAll('.Estimate-tab').forEach(btn => {
       btn.addEventListener('click', () => {
-        document.querySelectorAll('.quotation-tab').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.Estimate-tab').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         currentTab = btn.dataset.tab;
         currentPage = 1;
@@ -1135,10 +1136,10 @@
 
     // Expose globals
     window.changePage = changePage;
-    window.viewQuotation = viewQuotation;
-    window.cloneQuotation = cloneQuotation;
-    window.downloadQuotation = downloadQuotation;
-    window.deleteQuotation = deleteQuotation;
+    window.viewEstimate = viewEstimate;
+    window.cloneEstimate = cloneEstimate;
+    window.downloadEstimate = downloadEstimate;
+    window.deleteEstimate = deleteEstimate;
   </script>
 </body>
 

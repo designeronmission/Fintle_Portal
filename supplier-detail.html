@@ -284,6 +284,7 @@
                 opacity: 0;
                 transform: translateY(5px);
             }
+
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -418,22 +419,27 @@
             .supplier-info-card {
                 padding: 20px;
             }
+
             .supplier-avatar {
                 width: 56px;
                 height: 56px;
                 font-size: 22px;
             }
+
             .detail-tab {
                 padding: 8px 16px;
                 font-size: 12px;
             }
+
             .tabs-header-wrapper {
                 flex-direction: column;
                 align-items: stretch;
             }
+
             .settings-dropdown-btn {
                 justify-content: center;
             }
+
             .kpi-mini-card {
                 min-width: calc(50% - 16px);
             }
@@ -486,7 +492,8 @@
 
                             <!-- Purchase -->
                             <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                                <a class="sidebar-link has-arrow active" href="javascript:void(0)"
+                                    aria-expanded="false">
                                     <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
                                     <span class="hide-menu">Purchase</span>
                                 </a>
@@ -506,7 +513,7 @@
                                             <span class="icon-small"></span> Purchase Bill
                                         </a>
                                     </li>
-                                     <li class="sidebar-item">
+                                    <li class="sidebar-item">
                                         <a class="sidebar-link" href="supplier-statement.html">
                                             <span class="icon-small"></span> Supplier Statement
                                         </a>
@@ -532,8 +539,8 @@
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
-                                        <a class="sidebar-link" href="quotation.html">
-                                            <span class="icon-small"></span> Quotation
+                                        <a class="sidebar-link" href="Estimate.html">
+                                            <span class="icon-small"></span> Estimate
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
@@ -596,7 +603,8 @@
                                     </a>
                                 </li>
                                 <li class="sidebar-item logout-item">
-                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()"
+                                        aria-expanded="false">
                                         <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
                                         <span class="hide-menu">Logout</span>
                                     </a>
@@ -626,28 +634,36 @@
                                 <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
                                         style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
                                         onclick="location.href='create-supplier.html'"><iconify-icon
-                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Supplier</button></div>
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create
+                                        Supplier</button></div>
                             </li>
                         </ul>
                         <div class="d-flex align-items-center gap-3 ms-auto">
-                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35"
+                                alt="profile" />
                         </div>
                     </nav>
                 </div>
             </header>
 
             <div class="body-wrapper">
-                <div class="container-fluid p-4">
+                <div class="container-fluid p-3">
                     <div class="card card-body py-3">
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="supplier.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Supplier Details</h4>
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="supplier.html"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24">
+                                                    <path fill="currentColor"
+                                                        d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z" />
+                                                </svg></a></span>Supplier Details</h4>
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item d-flex align-items-center">
                                                 <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                    <iconify-icon icon="solar:home-2-line-duotone"
+                                                        class="fs-6"></iconify-icon>
                                                 </a>
                                             </li>
                                             <li class="breadcrumb-item"><a href="supplier.html">Suppliers</a></li>
@@ -690,22 +706,32 @@
                     <!-- Tabs Header with Settings Dropdown -->
                     <div class="tabs-header-wrapper">
                         <div class="detail-tabs">
-                            <button class="detail-tab active" data-tab="bills"><i class="fas fa-receipt"></i> Purchase Bills</button>
-                            <button class="detail-tab" data-tab="address"><i class="fas fa-map-marker-alt"></i> Address & Contact</button>
-                            <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity Log</button>
-                            <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i> Notes</button>
+                            <button class="detail-tab active" data-tab="bills"><i class="fas fa-receipt"></i> Purchase
+                                Bills</button>
+                            <button class="detail-tab" data-tab="address"><i class="fas fa-map-marker-alt"></i> Address
+                                & Contact</button>
+                            <button class="detail-tab" data-tab="activity"><i class="fas fa-history"></i> Activity
+                                Log</button>
+                            <button class="detail-tab" data-tab="notes"><i class="fas fa-sticky-note"></i>
+                                Notes</button>
                         </div>
 
                         <div class="dropdown">
-                            <button class="settings-dropdown-btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="settings-dropdown-btn dropdown-toggle" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-cog"></i> Actions
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
                                 <li><a class="dropdown-item" href="#" onclick="editSupplier()"> Edit Supplier</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="createPurchaseBill()"> Create Purchase Bill</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteSupplier()"> Delete Supplier</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="exportStatement()"> Export Statement</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="createPurchaseBill()"> Create Purchase
+                                        Bill</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteSupplier()"> Delete
+                                        Supplier</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="exportStatement()"> Export Statement</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -714,7 +740,8 @@
                     <div id="bills" class="tab-content active-content">
                         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
                             <h5 class="mb-0 fw-semibold">Purchase Bill History</h5>
-                            <button class="btn btn-primary rounded-pill px-4" onclick="createPurchaseBill()"><i class="fas fa-plus me-2"></i>New Purchase Bill</button>
+                            <button class="btn btn-primary rounded-pill px-4" onclick="createPurchaseBill()"><i
+                                    class="fas fa-plus me-2"></i>New Purchase Bill</button>
                         </div>
                         <div class="bills-table-wrapper">
                             <table class="bills-table">
@@ -755,12 +782,16 @@
                                         <div class="col-md-6">
                                             <p class="mb-2"><strong>Email:</strong> <span id="contactEmail">-</span></p>
                                             <p class="mb-2"><strong>Phone:</strong> <span id="contactPhone">-</span></p>
-                                            <p class="mb-2"><strong>Alternate Phone:</strong> <span id="altPhone">-</span></p>
+                                            <p class="mb-2"><strong>Alternate Phone:</strong> <span
+                                                    id="altPhone">-</span></p>
                                         </div>
                                         <div class="col-md-6">
-                                            <p class="mb-2"><strong>GST Number:</strong> <span id="gstNumber">-</span></p>
-                                            <p class="mb-2"><strong>PAN Number:</strong> <span id="panNumber">-</span></p>
-                                            <p class="mb-2"><strong>CIN Number:</strong> <span id="cinNumber">-</span></p>
+                                            <p class="mb-2"><strong>GST Number:</strong> <span id="gstNumber">-</span>
+                                            </p>
+                                            <p class="mb-2"><strong>PAN Number:</strong> <span id="panNumber">-</span>
+                                            </p>
+                                            <p class="mb-2"><strong>CIN Number:</strong> <span id="cinNumber">-</span>
+                                            </p>
                                         </div>
                                     </div>
                                 </div>
@@ -771,11 +802,13 @@
                                     <div class="row">
                                         <div class="col-md-6">
                                             <p class="mb-2"><strong>Bank Name:</strong> <span id="bankName">-</span></p>
-                                            <p class="mb-2"><strong>Account Number:</strong> <span id="accountNumber">-</span></p>
+                                            <p class="mb-2"><strong>Account Number:</strong> <span
+                                                    id="accountNumber">-</span></p>
                                         </div>
                                         <div class="col-md-6">
                                             <p class="mb-2"><strong>IFSC Code:</strong> <span id="ifscCode">-</span></p>
-                                            <p class="mb-2"><strong>Account Holder:</strong> <span id="accountHolder">-</span></p>
+                                            <p class="mb-2"><strong>Account Holder:</strong> <span
+                                                    id="accountHolder">-</span></p>
                                         </div>
                                     </div>
                                 </div>
@@ -793,8 +826,10 @@
                     <div id="notes" class="tab-content">
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Internal Notes</label>
-                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this supplier..."></textarea>
-                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
+                            <textarea class="form-control" rows="5" id="internalNotes"
+                                placeholder="Add internal notes about this supplier..."></textarea>
+                            <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i
+                                    class="fas fa-save me-2"></i>Save Notes</button>
                         </div>
                     </div>
                 </div>
@@ -923,7 +958,7 @@
             const total = purchaseBills.length;
             const paid = purchaseBills.filter(b => b.status === 'Paid').length;
             const outstanding = purchaseBills.reduce((sum, b) => sum + (b.amount - b.paidAmount), 0);
-            
+
             document.getElementById('totalBills').innerText = total;
             document.getElementById('paidBills').innerText = paid;
             document.getElementById('outstandingPayable').innerHTML = formatCurrency(outstanding);
@@ -958,7 +993,7 @@
                 else if (act.action.includes('Purchase Bill')) icon = 'fa-file-invoice';
                 else if (act.action.includes('Payment')) icon = 'fa-credit-card';
                 else if (act.action.includes('updated')) icon = 'fa-edit';
-                
+
                 return `
                     <div class="timeline-item">
                         <div class="timeline-icon blue-light"><i class="fas ${icon}"></i></div>

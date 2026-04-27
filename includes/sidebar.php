@@ -75,7 +75,7 @@
             </li>
 
             <!-- Sales -->
-            <li class="sidebar-item <?php echo isActive(['customer', 'enquiry', 'quotation', 'invoice', 'create-invoice', 'create-customer', 'create-enquiry'], $currentPage) ? 'active' : ''; ?>">
+            <li class="sidebar-item <?php echo isActive(['customer', 'enquiry', 'Estimate', 'invoice', 'create-invoice', 'create-customer', 'create-enquiry'], $currentPage) ? 'active' : ''; ?>">
               <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                 <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                 <span class="hide-menu">Sales</span>
@@ -91,9 +91,9 @@
                     <span class="icon-small"></span> Enquiry
                   </a>
                 </li>
-                <li class="sidebar-item <?php echo isActive('quotation', $currentPage); ?>">
-                  <a class="sidebar-link" href="quotation.php">
-                    <span class="icon-small"></span> Quotation
+                <li class="sidebar-item <?php echo isActive('Estimate', $currentPage); ?>">
+                  <a class="sidebar-link" href="Estimate.php">
+                    <span class="icon-small"></span> Estimate
                   </a>
                 </li>
                 <li class="sidebar-item <?php echo isActive(['invoice', 'create-invoice'], $currentPage); ?>">

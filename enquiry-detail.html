@@ -462,8 +462,8 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="quotation.html">
-                      <span class="icon-small"></span> Quotation
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
                     </a>
                   </li>
                   <li class="sidebar-item">
@@ -574,7 +574,7 @@
             </header>
 
             <div class="body-wrapper">
-                <div class="container-fluid p-4">
+                <div class="container-fluid p-3">
                     <div class="card card-body py-3">
                         <div class="row align-items-center">
                             <div class="col-12">
@@ -611,8 +611,8 @@
                         <div class="kpi-mini-card">
                             <div class="kpi-icon green-light"><i class="fas fa-file-invoice fa-lg"></i></div>
                             <div class="kpi-info">
-                                <h6>Quotation Status</h6>
-                                <h3 id="quotationStatus">-</h3>
+                                <h6>Estimate Status</h6>
+                                <h3 id="EstimateStatus">-</h3>
                             </div>
                         </div>
                         <div class="kpi-mini-card">
@@ -639,7 +639,7 @@
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
                                 <li><a class="dropdown-item" href="#" onclick="editEnquiry()"> Edit Enquiry</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="createQuotation()">Create Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="createEstimate()">Create Estimate</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="changeStatus()"> Change Status</a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item text-danger" href="#" onclick="deleteEnquiry()"> Delete Enquiry</a></li>
@@ -797,7 +797,7 @@
             lastUpdatedOn: '2026-04-01',
             lastUpdatedBy: 'John Doe',
             assignedTo: 'Sarah Wilson',
-            quotationId: null
+            EstimateId: null
         };
 
         // Conversation Data
@@ -881,7 +881,7 @@
             // KPI Cards
             const responseTime = enquiryData.status === 'New' ? 'Pending' : '2 days';
             document.getElementById('responseTime').innerHTML = responseTime;
-            document.getElementById('quotationStatus').innerHTML = enquiryData.quotationId ? 'Created' : 'Not Created';
+            document.getElementById('EstimateStatus').innerHTML = enquiryData.EstimateId ? 'Created' : 'Not Created';
             document.getElementById('assignedTo').innerHTML = escapeHtml(enquiryData.assignedTo);
         }
 
@@ -965,8 +965,8 @@
             showToast('Edit enquiry feature coming soon');
         }
 
-        function createQuotation() {
-            window.location.href = `create-quotation.html?enquiry=${enquiryData.id}&customer=${encodeURIComponent(enquiryData.customerName)}`;
+        function createEstimate() {
+            window.location.href = `create-Estimate.html?enquiry=${enquiryData.id}&customer=${encodeURIComponent(enquiryData.customerName)}`;
         }
 
         function changeStatus() {
@@ -1022,7 +1022,7 @@
 
         // Expose functions globally
         window.editEnquiry = editEnquiry;
-        window.createQuotation = createQuotation;
+        window.createEstimate = createEstimate;
         window.changeStatus = changeStatus;
         window.deleteEnquiry = deleteEnquiry;
         window.saveNotes = saveNotes;

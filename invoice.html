@@ -14,6 +14,96 @@
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
   <style>
+    /* ========== KPI CARD STYLES - MATCHING CUSTOMER.HTML ========== */
+  .dashboard-container {
+      display: flex;
+      gap: 20px;
+      background: white;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding: 20px 24px;
+      border-radius: 20px;
+      border: 1px solid #edf2f7;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    }
+
+    .kpi-card-new {
+      background: white;
+      border: 1px solid #e9eef3;
+      border-radius: 20px;
+      flex: 1;
+      min-width: 200px;
+      padding: 18px 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .kpi-card-new:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+      border-color: #cbd5e1;
+    }
+
+    .kpi-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .kpi-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5b6e8c;
+      letter-spacing: 0.3px;
+    }
+
+    .icon-small {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .bg-light-primary { background: #eef2ff; }
+    .bg-light-success { background: #ecfdf5; }
+    .bg-light-warning { background: #fffbeb; }
+    .bg-light-danger { background: #fef2f2; }
+
+    .text-primary { color: #2a3b82; }
+    .text-success { color: #10b981; }
+    .text-warning { color: #f59e0b; }
+    .text-danger { color: #ef4444; }
+
+    .kpi-amount-main {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+
+    .kpi-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5f7f9e;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .count-badge {
+      background: #eff3f8;
+      border-radius: 40px;
+      padding: 4px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      color: #2a3b82;
+    }
+
     /* Pagination - Clean & Below Table */
     .pagination-container {
       margin-top: 20px;
@@ -52,13 +142,12 @@
       cursor: not-allowed;
     }
 
-    /* Pagination wrapper */
     .pagination {
       gap: 5px;
       margin-bottom: 0;
       flex-wrap: wrap;
     }
-        /* Info text styling */
+    
     .pagination-info {
       background: #f8fafc;
       padding: 6px 14px;
@@ -71,7 +160,7 @@
       border-color: #2a3b82;
       color: #fff;
       border-radius: 40px;
-      padding: 9px 12px;
+      padding: 9px 20px;
       font-weight: 600;
       transition: all 0.2s;
     }
@@ -91,40 +180,12 @@
       white-space: nowrap;
     }
 
-    .status-draft {
-      background: #f1f5f9;
-      color: #64748b;
-    }
-
-    .status-unsent {
-      background: #fef3c7;
-      color: #d97706;
-    }
-
-    .status-sent {
-      background: #e0f2fe;
-      color: #0284c7;
-    }
-
-    .status-paid {
-      background: #e6f7e6;
-      color: #10b981;
-    }
-
-    .status-overdue {
-      background: #fee2e2;
-      color: #ef4444;
-    }
-
-    .status-unpaid {
-      background: #fff3e3;
-      color: #c26b1a;
-    }
-
-    .status-Overdue {
-      background: #fee2e2;
-      color: #dc2626;
-    }
+    .status-draft { background: #f1f5f9; color: #64748b; }
+    .status-unsent { background: #fef3c7; color: #d97706; }
+    .status-sent { background: #e0f2fe; color: #0284c7; }
+    .status-paid { background: #e6f7e6; color: #10b981; }
+    .status-overdue { background: #fee2e2; color: #ef4444; }
+    .status-unpaid { background: #fff3e3; color: #c26b1a; }
 
     .invoice-number-link {
       cursor: pointer;
@@ -138,7 +199,7 @@
       text-decoration: underline;
     }
 
-    /* Fixed table wrapper with horizontal scroll - Action column sticky */
+    /* Fixed table wrapper with horizontal scroll */
     .invoice-table-wrapper {
       overflow-x: auto;
       position: relative;
@@ -146,7 +207,7 @@
     }
 
     .invoice-table {
-      min-width: 1400px;
+      min-width: 1300px;
       font-size: 0.85rem;
       width: 100%;
       border-collapse: collapse;
@@ -168,7 +229,7 @@
       white-space: nowrap;
     }
 
-    /* Sticky Action column - fixed on the right */
+    /* Sticky Action column */
     .invoice-table th:last-child,
     .invoice-table td:last-child {
       position: sticky;
@@ -183,33 +244,9 @@
       z-index: 11;
     }
 
-    /* Balance column styling */
-    .balance-positive {
-      color: #10b981;
-      font-weight: 700;
-    }
-
-    .balance-negative {
-      color: #ef4444;
-      font-weight: 700;
-    }
-
-    .balance-zero {
-      color: #64748b;
-    }
-
-    .page-link {
-      border-radius: 8px;
-      margin: 0 2px;
-      border: none;
-      color: #475569;
-      font-weight: 500;
-    }
-
-    .page-item.active .page-link {
-      background: #2a3b82;
-      color: white;
-    }
+    .balance-positive { color: #10b981; font-weight: 700; }
+    .balance-negative { color: #ef4444; font-weight: 700; }
+    .balance-zero { color: #64748b; }
 
     .dropdown-menu {
       border-radius: 12px;
@@ -227,112 +264,7 @@
       margin-right: 8px;
     }
 
-    /* KPI Section Heading */
-    .kpi-section-heading {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 16px;
-      padding: 0 4px;
-      background-color: white;
-      padding: 20px;
-    }
-    .kpi-section-heading h3 {
-      font-size: 18px;
-      font-weight: 600;
-      color: #1e293b;
-      margin: 0;
-    }
-    .kpi-section-heading p {
-      font-size: 13px;
-      color: #64748b;
-      margin: 0;
-    }
-
-    /* KPI CARDS - Clean design */
-    .dashboard-container {
-      display: flex;
-      gap: 16px;
-      background: white;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-      padding: 20px 24px;
-      border-radius: 16px;
-      border: 1px solid #edf2f7;
-    }
-
-    .kpi-card-new {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 16px;
-      width: 100%;
-      flex: 1;
-      padding: 18px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.2s ease;
-    }
-
-    .kpi-card-new.primary {
-      border-color: #2a3b82;
-    }
-
-    .kpi-card-new:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
-      border-color: #cbd5e1;
-    }
-
-    .icon-circle {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .icon-circle.blue {
-      background-color: #EEF4FF;
-    }
-
-    .icon-circle.green {
-      background-color: #F0FFEE;
-    }
-
-    .icon-circle.orange {
-      background-color: #FFF9EE;
-    }
-
-    .icon-circle.red {
-      background-color: #FFEEEE;
-    }
-
-    .card-content {
-      display: flex;
-      flex-direction: column;
-    }
-
-    .card-label {
-      font-size: 14px;
-      font-weight: 500;
-      margin-bottom: 4px;
-      color: #5c5c5c;
-      line-height: normal;
-    }
-
-    .card-amount {
-      font-size: 26px;
-      font-weight: 700;
-      color: #383838;
-      margin-bottom: 2px;
-      line-height: normal;
-    }
-
-    /* Unified actions card - with inline search */
+    /* Unified actions card */
     .unified-actions-card {
       background: white;
       border-radius: 16px;
@@ -346,7 +278,6 @@
       gap: 16px;
     }
 
-    /* Inline search bar (left side) */
     .search-inline {
       display: flex;
       align-items: center;
@@ -358,15 +289,18 @@
       min-width: 260px;
       transition: all 0.2s;
     }
+    
     .search-inline:focus-within {
       border-color: #2a3b82;
       background: white;
       box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
     }
+    
     .search-inline i {
       color: #94a3b8;
       font-size: 1rem;
     }
+    
     .search-inline input {
       border: none;
       background: transparent;
@@ -433,16 +367,6 @@
       flex-shrink: 0;
     }
 
-    /* Search Modal (hidden - we use inline search now) */
-    .search-modal-input {
-      width: 100%;
-      padding: 16px 20px;
-      font-size: 1rem;
-      border: 2px solid #e2e8f0;
-      border-radius: 60px;
-      outline: none;
-    }
-
     .action-btn {
       width: 32px;
       height: 32px;
@@ -466,27 +390,14 @@
         flex-direction: column;
         align-items: stretch;
       }
-      .search-inline {
-        width: 100%;
-      }
-      .tabs-centered {
-        order: 2;
-        justify-content: center;
-      }
-      .btn-create-right {
-        order: 3;
-        text-align: center;
-        width: 100%;
-      }
+      .search-inline { width: 100%; }
+      .tabs-centered { order: 2; justify-content: center; }
+      .btn-create-right { order: 3; text-align: center; width: 100%; }
     }
 
     @media (max-width: 768px) {
-      .kpi-card-new {
-        max-width: 100%;
-      }
-      .dashboard-container {
-        padding: 16px;
-      }
+      .kpi-card-new { min-width: calc(50% - 10px); }
+      .dashboard-container { gap: 12px; }
     }
   </style>
 </head>
@@ -494,7 +405,7 @@
 <body>
   <div id="main-wrapper">
 
-   <!-- Sidebar Start -->
+    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -506,158 +417,72 @@
           
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <!-- Dashboard -->
               <li class="sidebar-item mt-4">
                 <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
               </li>
-
               <li class="sidebar-item">
                 <a class="sidebar-link" href="#" aria-expanded="false">
                   <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Inbox</span>
                 </a>
               </li>
-
-              <!-- Items -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
                   <span class="hide-menu">Items</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="items.html">
-                      <span class="icon-small"></span> Inventory
-                    </a>
-                  </li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span> Inventory</a></li>
                 </ul>
               </li>
-
-              <!-- Purchase -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Purchase</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier.html">
-                      <span class="icon-small"></span> Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-order.html">
-                      <span class="icon-small"></span> Purchase Order
-                    </a>
-                  </li>
-                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-bill.html">
-                      <span class="icon-small"></span> Purchase Bill
-                    </a>
-                  </li>
-                 <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier-statement.html">
-                                            <span class="icon-small"></span> Supplier Statement
-                                        </a>
-                                    </li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="supplier.html"><span class="icon-small"></span> Suppliers</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="purchase-order.html"><span class="icon-small"></span> Purchase Order</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="purchase-bill.html"><span class="icon-small"></span> Purchase Bill</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="supplier-statement.html"><span class="icon-small"></span> Supplier Statement</a></li>
                 </ul>
               </li>
-
-              <!-- Sales -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span> Customer
-                    </a>
-                  </li>
-               <li class="sidebar-item">
-                    <a class="sidebar-link" href="enquiry.html">
-                      <span class="icon-small"></span> Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="quotation.html">
-                      <span class="icon-small"></span> Quotation
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span> Invoice
-                    </a>
-                  </li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span> Customer</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="enquiry.html"><span class="icon-small"></span> Enquiry</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="Estimate.html"><span class="icon-small"></span> Estimate</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span class="icon-small"></span> Invoice</a></li>
                 </ul>
               </li>
-
-
-                 <!-- Sales -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Accounts</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Account Master
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Journals
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Vouchers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Bank Payments
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> General Ledger
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Balance Sheets
-                    </a>
-                  </li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Account Master</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Journals</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Vouchers</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Bank Payments</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> General Ledger</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Balance Sheets</a></li>
                 </ul>
               </li>
-
               <li><span class="sidebar-divider"></span></li>
             </ul>
             
-            <!-- Logout Option at Bottom -->
             <div class="sidebar-footer">
               <ul class="sidebar-menu">
-
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Settings</span>
-                  </a>
-                </li>
-
-
-                <li class="sidebar-item logout-item">
-                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Logout</span>
-                  </a>
-                </li>
+                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
+                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
               </ul>
             </div>
           </nav>
@@ -666,100 +491,40 @@
     </aside>
     <!-- Sidebar End -->
 
-    <!-- Sidebar End -->
-
-
     <div class="page-wrapper">
       <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
-                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                    class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
               <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
-                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
               </li>
             </ul>
-            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-            </div>
-            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
-                class="fs-6"></iconify-icon></a>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
               <div class="d-flex align-items-center justify-content-between">
                 <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown"><a href="javascript:void(0)"
-                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
-                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
-                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
-                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
-                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
+                  <li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
                     <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
-                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
-                          class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                      <div class="d-flex align-items-center justify-content-between py-3 px-7"><h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span></div>
+                      <div class="message-body" data-simplebar>
+                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon></span><div class="w-75"><div class="d-flex align-items-center justify-content-between"><h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span></div><span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span></div></a>
+                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon icon="solar:calendar-line-duotone"></iconify-icon></span><div class="w-75"><div class="d-flex align-items-center justify-content-between"><h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span></div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have event</span></div></a>
                       </div>
-                      <div class="message-body" data-simplebar><a href="javascript:void(0)"
-                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
-                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
-                              icon="solar:widget-3-line-duotone"></iconify-icon></span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span>
-                            </div><span class="d-block text-truncate text-truncate fs-11">Just see the my new
-                              admin!</span>
-                          </div>
-                        </a><a href="javascript:void(0)"
-                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
-                              icon="solar:calendar-line-duotone"></iconify-icon></span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span>
-                            </div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a></div>
-                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button>
-                      </div>
+                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button></div>
                     </div>
                   </li>
-                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
-                      aria-expanded="false">
-                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
-                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
-                    </a>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a>
                     <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
                       <div class="position-relative px-4 pt-3 pb-2">
-                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img
-                            src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
-                            alt="Fintle-img" />
-                          <div>
-                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
-                            <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
-                                class="__cf_email__">[email&#160;protected]</a></p>
-                          </div>
-                        </div>
-                        <div class="message-body"><a href="../main/page-user-profile.html"
-                            class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html"
-                            class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html"
-                            class="p-2 dropdown-item h6 rounded-1">My Invoice <span
-                              class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
-                            href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account
-                            Settings</a><a href="../main/authentication-login2.html"
-                            class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56" alt="Fintle-img" /><div><h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5><p class="mb-0 text-dark">david@fintle.com</p></div></div>
+                        <div class="message-body"><a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html" class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html" class="p-2 dropdown-item h6 rounded-1">My Invoice <span class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account Settings</a><a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
                       </div>
                     </div>
                   </li>
@@ -769,37 +534,13 @@
           </nav>
           <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
             <nav class="sidebar-nav scroll-sidebar">
-              <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
-                  class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo"
-                    class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                  aria-label="Close"></button></div>
+              <div class="offcanvas-header justify-content-between"><a href="../main/index.html" class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button></div>
               <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
                 <ul id="sidebarnav">
-                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
-                      aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone"
-                          class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
+                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)" aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone" class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
                     <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
-                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
-                              class="fs-11 d-block text-body-color">New messages arrived</span>
-                          </div>
-                        </a></li>
-                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
-                          class="d-flex align-items-center">
-                          <div
-                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:bill-list-bold-duotone"
-                              class="fs-7 text-secondary"></iconify-icon></div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
-                              class="fs-11 d-block text-body-color">Get latest invoice</span>
-                          </div>
-                        </a></li>
+                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center"><div class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center"><iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon></div><div><h6 class="mb-0 bg-hover-primary">Chat Application</h6><span class="fs-11 d-block text-body-color">New messages arrived</span></div></a></li>
+                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html" class="d-flex align-items-center"><div class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center"><iconify-icon icon="solar:bill-list-bold-duotone" class="fs-7 text-secondary"></iconify-icon></div><div><h6 class="mb-0 bg-hover-primary">Invoice App</h6><span class="fs-11 d-block text-body-color">Get latest invoice</span></div></a></li>
                     </ul>
                   </li>
                 </ul>
@@ -811,128 +552,106 @@
 
       <div class="body-wrapper p-3">
         <div class="container-fluid p-0">
-               <div class="card card-body py-3 mb-2">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title">Invoice Overview</h4>
-                                    <nav aria-label="breadcrumb" class="ms-auto">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                                                </a>
-                                            </li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-          <!-- KPI CARDS -->
-          <div class="dashboard-container col-lg-12">
-            <!-- Total Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle blue">
-                <svg width="19" height="19" viewBox="0 0 19 19" fill="none">
-                  <path
-                    d="M3.325 4.75C2.9471 4.75 2.5846 4.5999 2.3174 4.3326C2.0501 4.0654 1.9 3.7029 1.9 3.325C1.9 2.9471 2.0501 2.5846 2.3174 2.3174C2.5846 2.0501 2.9471 1.9 3.325 1.9C3.7029 1.9 4.0654 2.0501 4.3326 2.3174C4.5999 2.5846 4.75 2.9471 4.75 3.325C4.75 3.7029 4.5999 4.0654 4.3326 4.3326C4.0654 4.5999 3.7029 4.75 3.325 4.75ZM18.4395 9.101L9.8895 0.551C9.5475 0.209 9.0725 0 8.55 0H1.9C0.8455 0 0 0.8455 0 1.9V8.55C0 9.0725 0.209 9.5475 0.5605 9.8895L9.101 18.4395C9.4525 18.7815 9.9275 19 10.45 19C10.9725 19 11.4475 18.7815 11.7895 18.4395L18.4395 11.7895C18.791 11.4475 19 10.9725 19 10.45C19 9.918 18.7815 9.443 18.4395 9.101Z"
-                    fill="#1D3562" />
-                </svg>
+          <div class="card card-body py-3 mb-2">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Invoice Overview</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                    </ol>
+                  </nav>
+                </div>
               </div>
-              <div class="card-content">
-                <p class="card-label">Total Invoice</p>
-                <p class="card-amount" id="totalInvoiceAmount">$0.00</p>
+            </div>
+          </div>
+
+          <!-- KPI CARDS - Using Customer.html Style -->
+          <div class="dashboard-container">
+            <!-- Total Invoice Card -->
+            <div class="kpi-card-new">
+              <div class="kpi-header">
+                <span class="kpi-label">Total Invoice</span>
+                <div class="icon-small bg-light-primary">
+                  <i class="fas fa-file-invoice-dollar text-primary"></i>
+                </div>
+              </div>
+              <div class="kpi-amount-main" id="totalInvoiceAmount">$0.00</div>
+              <div class="kpi-sub">
+                <span>All invoice amounts</span>
+                <span class="count-badge" id="totalInvoiceCount">0</span>
               </div>
             </div>
 
             <!-- Paid Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle green">
-                <svg width="16" height="15" viewBox="0 0 16 15" fill="none">
-                  <path
-                    d="M9.0542 1.2167C8.7375 0.9 8.2625 0.9 7.9458 1.2167L3.1958 5.9667C2.8792 6.2833 2.8792 6.7583 3.1958 7.075C3.3542 7.2333 3.5521 7.3125 3.75 7.3125C3.9479 7.3125 4.1458 7.2333 4.3042 7.075L9.0542 2.325C9.3708 2.0083 9.3708 1.5333 9.0542 1.2167Z"
-                    fill="#2E7D32" />
-                  <path
-                    d="M13.8042 5.9667L9.0542 1.2167C8.7375 0.9 8.2625 0.9 7.9458 1.2167C7.6292 1.5333 7.6292 2.0083 7.9458 2.325L12.6958 7.075C12.8542 7.2333 13.0521 7.3125 13.25 7.3125C13.4479 7.3125 13.6458 7.2333 13.8042 7.075C14.1208 6.7583 14.1208 6.2833 13.8042 5.9667Z"
-                    fill="#1B5E20" />
-                  <path
-                    d="M13.8042 15.2292H3.1958C2.8 15.2292 2.4833 14.9521 2.4042 14.5958L0.9792 7.3125H16.0208L14.5563 14.5958C14.4771 14.9521 14.1604 15.2292 13.8042 15.2292Z"
-                    fill="#388E3C" />
-                  <path
-                    d="M16.0208 8.1042H0.9792C0.5437 8.1042 0.1875 7.7479 0.1875 7.3125V6.5208C0.1875 6.0854 0.5437 5.7292 0.9792 5.7292H16.0208C16.4563 5.7292 16.8125 6.0854 16.8125 6.5208V7.3125C16.8125 7.7479 16.4563 8.1042 16.0208 8.1042Z"
-                    fill="#4CAF50" />
-                  <path
-                    d="M11.1917 8.8167L8.0646 11.9437L6.6 10.4396L5.7292 11.3104L8.0646 13.6458L12.0625 9.6479L11.1917 8.8167Z"
-                    fill="#DCEDC8" />
-                </svg>
+            <div class="kpi-card-new">
+              <div class="kpi-header">
+                <span class="kpi-label">Paid Invoice</span>
+                <div class="icon-small bg-light-success">
+                  <i class="fas fa-check-circle text-success"></i>
+                </div>
               </div>
-              <div class="card-content">
-                <p class="card-label">Paid Invoice</p>
-                <p class="card-amount" id="paidInvoiceAmount">$0.00</p>
+              <div class="kpi-amount-main" id="paidInvoiceAmount">$0.00</div>
+              <div class="kpi-sub">
+                <span>Completed payments</span>
+                <span class="count-badge" id="paidInvoiceCount">0</span>
               </div>
             </div>
 
             <!-- Unpaid Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle orange">
-                <svg width="20" height="23" viewBox="0 0 20 23" fill="none">
-                  <path
-                    d="M3 18V16C3 14.9391 3.4214 13.9217 4.1716 13.1716C4.9217 12.4214 5.9391 12 7 12H10.5M14 18L18 14M5 4C5 5.0609 5.4214 6.0783 5.1716 6.8284C5.9217 7.5786 6.9391 8 8 8C9.0609 8 10.0783 7.5786 10.8284 6.8284C11.5786 6.0783 12 5.0609 12 4C12 2.9391 11.5786 1.9217 10.8284 1.1716C10.0783 0.4214 9.0609 0 8 0C6.9391 0 5.9217 0.4214 5.1716 1.1716C4.4214 1.9217 4 2.9391 4 4ZM13 16C13 16.7956 13.3161 17.5587 13.8787 18.1213C14.4413 18.6839 15.2044 19 16 19C16.7956 19 17.5587 18.6839 18.1213 18.1213C18.6839 17.5587 19 16.7956 19 16C19 15.2044 18.6839 14.4413 18.1213 13.8787C17.5587 13.3161 15.2044 13 16 13C15.2044 13 14.4413 13.3161 13.8787 13.8787C13.3161 14.4413 13 15.2044 13 16Z"
-                    stroke="#BB7628" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-                </svg>
+            <div class="kpi-card-new">
+              <div class="kpi-header">
+                <span class="kpi-label">Unpaid Invoice</span>
+                <div class="icon-small bg-light-warning">
+                  <i class="fas fa-clock text-warning"></i>
+                </div>
               </div>
-              <div class="card-content">
-                <p class="card-label">Unpaid Invoice</p>
-                <p class="card-amount" id="unpaidInvoiceAmount">$0.00</p>
+              <div class="kpi-amount-main" id="unpaidInvoiceAmount">$0.00</div>
+              <div class="kpi-sub">
+                <span>Pending balance</span>
+                <span class="count-badge" id="unpaidInvoiceCount">0</span>
               </div>
             </div>
 
             <!-- Overdue Invoice Card -->
-            <div class="kpi-card-new col-lg-3">
-              <div class="icon-circle red">
-                <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
-                  <path
-                    d="M8.5 0.4065C4.0309 0.4065 0.4065 4.029 0.4065 8.5C0.4065 12.971 4.0309 16.5935 8.5 16.5935C12.9704 16.5935 16.5935 12.971 16.5935 8.5C16.5935 4.029 12.971 0.4065 8.5 0.4065ZM8.5 2.3752C9.7141 2.3752 10.8441 2.7348 11.797 3.3465L3.3465 11.797C2.7122 10.8144 2.375 9.6696 2.3752 8.5C2.3752 5.1229 5.1229 2.3752 8.5 2.3752ZM8.5 14.6248C7.3305 14.6247 6.1858 14.2875 5.203 13.6535L13.6529 5.203C14.2872 6.1856 14.6244 7.3304 14.6241 8.5C14.6241 11.8771 11.8771 14.6248 8.5 14.6248Z"
-                    fill="#BB2828" />
-                </svg>
+            <div class="kpi-card-new">
+              <div class="kpi-header">
+                <span class="kpi-label">Overdue Invoice</span>
+                <div class="icon-small bg-light-danger">
+                  <i class="fas fa-exclamation-triangle text-danger"></i>
+                </div>
               </div>
-              <div class="card-content">
-                <p class="card-label">Overdue Invoice</p>
-                <p class="card-amount" id="OverdueInvoiceAmount">$0.00</p>
+              <div class="kpi-amount-main" id="overdueInvoiceAmount">$0.00</div>
+              <div class="kpi-sub">
+                <span>Past due date</span>
+                <span class="count-badge" id="overdueInvoiceCount">0</span>
               </div>
             </div>
           </div>
 
           <!-- Invoice Table Section -->
           <div class="card overflow-hidden p-4">
-            <!-- Unified Card: Inline Search | Tabs | CTA -->
             <div class="unified-actions-card">
-              <!-- LEFT: Inline Search Bar (replaces modal search) -->
               <div class="search-inline">
                 <i class="fas fa-search"></i>
                 <input type="text" id="globalSearchInput" placeholder="Search by customer, invoice ID, reference..." autocomplete="off">
               </div>
-              <!-- CENTER: Tabs -->
               <div class="tabs-centered">
-                <button class="invoice-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span
-                    class="tab-count" id="countAll">0</span></button>
-                <button class="invoice-tab" data-tab="paid"><i class="fas fa-check-circle"></i> Paid <span
-                    class="tab-count" id="countPaidTab">0</span></button>
-                <button class="invoice-tab" data-tab="unpaid"><i class="fas fa-clock"></i> Unpaid <span class="tab-count"
-                    id="countUnpaidTab">0</span></button>
-                <button class="invoice-tab" data-tab="Overdue"><i class="fas fa-times-circle"></i> Overdue <span
-                    class="tab-count" id="countOverdueTab">0</span></button>
+                <button class="invoice-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
+                <button class="invoice-tab" data-tab="paid"><i class="fas fa-check-circle"></i> Paid <span class="tab-count" id="countPaidTab">0</span></button>
+                <button class="invoice-tab" data-tab="unpaid"><i class="fas fa-clock"></i> Unpaid <span class="tab-count" id="countUnpaidTab">0</span></button>
+                <button class="invoice-tab" data-tab="overdue"><i class="fas fa-times-circle"></i> Overdue <span class="tab-count" id="countOverdueTab">0</span></button>
               </div>
-              <!-- RIGHT: Create Button -->
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-invoice.html'"><i class="fas fa-plus me-2"></i>New Invoice</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-invoice.html'"><i class="fas fa-plus me-2"></i>Create Invoice</button>
               </div>
             </div>
 
-            <!-- Invoice Table -->
             <div class="invoice-table-wrapper">
               <table class="invoice-table align-middle mb-0 w-100">
                 <thead>
@@ -949,13 +668,13 @@
                     <th>Amount</th>
                     <th>Paid</th>
                     <th>Balance</th>
-                    <th style="width:80px; position:sticky; right:0; background:#f8fafc;">Action</th>
+                    <th style="width:80px;">Action</th>
                   </tr>
                 </thead>
                 <tbody id="invoiceTableBody"></tbody>
               </table>
             </div>
-                       <!-- Pagination Below Table - Clean Design -->
+            
             <div class="pagination-container">
               <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div class="pagination-info">
@@ -963,7 +682,7 @@
                   <span>Showing <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span>
                   <span class="mx-1 text-muted">of</span>
                   <strong id="totalRows">0</strong>
-                  <span class="text-muted">quotations</span>
+                  <span class="text-muted">Invoices</span>
                 </div>
                 <nav>
                   <ul class="pagination" id="pagination"></ul>
@@ -976,21 +695,8 @@
     </div>
   </div>
 
-  <!-- Invoice Preview Modal -->
-  <div class="modal fade" id="invoicePreviewModal" tabindex="-1" data-bs-backdrop="static">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content border-0 rounded-4">
-        <div class="modal-header bg-white border-0 pt-4 px-4">
-          <h5 class="modal-title fw-bold">Invoice Preview</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body px-4 pb-4" id="previewModalBody"></div>
-      </div>
-    </div>
-  </div>
-
-  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
-    style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
+  <!-- Toast Message -->
+  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
 
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
@@ -1017,18 +723,28 @@
 
     function formatCurrency(amt) { return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; }
     function formatUSD(amt) { return `$${amt.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`; }
+    
     function getBalanceClass(balance) {
       if (balance > 0) return 'balance-negative';
       if (balance === 0) return 'balance-zero';
       return 'balance-positive';
     }
+    
     function getStatusClass(status) {
-      const map = { 'Paid': 'status-paid', 'Unpaid': 'status-unpaid', 'Draft': 'status-draft', 'Sent': 'status-sent', 'Unsent': 'status-unsent', 'Overdue': 'status-overdue', 'Overdue': 'status-Overdue' };
+      const map = { 'Paid': 'status-paid', 'Unpaid': 'status-unpaid', 'Draft': 'status-draft', 'Sent': 'status-sent', 'Unsent': 'status-unsent', 'Overdue': 'status-overdue' };
       return map[status] || 'status-draft';
     }
-    function showToast(msg) { const t = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerText = msg; t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 2200); }
+    
+    function showToast(msg) { 
+      const t = document.getElementById('liveToastMsg'); 
+      document.getElementById('toastText').innerText = msg; 
+      t.style.display = 'block'; 
+      setTimeout(() => t.style.display = 'none', 2200); 
+    }
 
-    function redirectToInvoiceDetail(invoiceId) { window.location.href = `invoice-detail.html?id=${invoiceId}`; }
+    function redirectToInvoiceDetail(invoiceId) { 
+      window.location.href = `invoice-detail.html?id=${invoiceId}`; 
+    }
 
     function filterInvoices() {
       let search = currentSearchTerm.toLowerCase();
@@ -1037,7 +753,7 @@
         if (currentTab === 'all') return matchSearch;
         if (currentTab === 'paid') return inv.status === 'Paid' && matchSearch;
         if (currentTab === 'unpaid') return (inv.status === 'Unpaid' || inv.status === 'Overdue') && matchSearch;
-        if (currentTab === 'Overdue') return inv.status === 'Overdue' && matchSearch;
+        if (currentTab === 'overdue') return inv.status === 'Overdue' && matchSearch;
         return matchSearch;
       });
     }
@@ -1046,17 +762,30 @@
       let totalAmount = invoices.reduce((s, i) => s + i.amount, 0);
       let paidAmount = invoices.filter(i => i.status === 'Paid').reduce((s, i) => s + i.amount, 0);
       let unpaidAmount = invoices.filter(i => i.status === 'Unpaid' || i.status === 'Overdue').reduce((s, i) => s + i.balance, 0);
-      let OverdueAmount = invoices.filter(i => i.status === 'Overdue').reduce((s, i) => s + i.amount, 0);
+      let overdueAmount = invoices.filter(i => i.status === 'Overdue').reduce((s, i) => s + i.amount, 0);
+      
+      let totalCount = invoices.length;
+      let paidCount = invoices.filter(i => i.status === 'Paid').length;
+      let unpaidCount = invoices.filter(i => i.status === 'Unpaid' || i.status === 'Overdue').length;
+      let overdueCount = invoices.filter(i => i.status === 'Overdue').length;
 
+      // Update KPI amounts
       document.getElementById('totalInvoiceAmount').innerText = formatUSD(totalAmount);
       document.getElementById('paidInvoiceAmount').innerText = formatUSD(paidAmount);
       document.getElementById('unpaidInvoiceAmount').innerText = formatUSD(unpaidAmount);
-      document.getElementById('OverdueInvoiceAmount').innerText = formatUSD(OverdueAmount);
+      document.getElementById('overdueInvoiceAmount').innerText = formatUSD(overdueAmount);
 
-      document.getElementById('countAll').innerText = invoices.length;
-      document.getElementById('countPaidTab').innerText = invoices.filter(i => i.status === 'Paid').length;
-      document.getElementById('countUnpaidTab').innerText = invoices.filter(i => i.status === 'Unpaid' || i.status === 'Overdue').length;
-      document.getElementById('countOverdueTab').innerText = invoices.filter(i => i.status === 'Overdue').length;
+      // Update KPI count badges
+      document.getElementById('totalInvoiceCount').innerText = totalCount;
+      document.getElementById('paidInvoiceCount').innerText = paidCount;
+      document.getElementById('unpaidInvoiceCount').innerText = unpaidCount;
+      document.getElementById('overdueInvoiceCount').innerText = overdueCount;
+
+      // Update tab counts
+      document.getElementById('countAll').innerText = totalCount;
+      document.getElementById('countPaidTab').innerText = paidCount;
+      document.getElementById('countUnpaidTab').innerText = unpaidCount;
+      document.getElementById('countOverdueTab').innerText = overdueCount;
     }
 
     function renderTable() {
@@ -1066,6 +795,7 @@
       let pageData = filtered.slice(start, end);
       let tbody = document.getElementById('invoiceTableBody');
       tbody.innerHTML = '';
+      
       if (pageData.length === 0) {
         tbody.innerHTML = '<tr><td colspan="13" class="text-center py-5 text-muted">No invoices found</td></tr>';
       } else {
@@ -1087,22 +817,23 @@
             <td class="${balanceClass}">${formatCurrency(inv.balance)}</td>
             <td><div class="dropdown action-dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick="redirectToInvoiceDetail('${inv.invoiceId}')">View</a></li>
-                <li><a class="dropdown-item" href="#" onclick="editInvoice(${inv.id})">Edit</a></li>
-                ${inv.status !== 'Paid' && inv.status !== 'Overdue' ? '<li><a class="dropdown-item" href="#" onclick="markAsPaid(' + inv.id + ')"> Mark as Paid</a></li>' : ''}
-                <li><a class="dropdown-item" href="#" onclick="cloneInvoice(${inv.id})">Mark as Paid</a></li>
-                <li><a class="dropdown-item" href="#" onclick="cloneInvoice(${inv.id})">Clone</a></li>
+                <li><a class="dropdown-item" href="#" onclick="redirectToInvoiceDetail('${inv.invoiceId}')"><i class="fas fa-eye"></i> View</a></li>
+                <li><a class="dropdown-item" href="#" onclick="editInvoice(${inv.id})"><i class="fas fa-edit"></i> Edit</a></li>
+                ${inv.status !== 'Paid' && inv.status !== 'Overdue' ? '<li><a class="dropdown-item" href="#" onclick="markAsPaid(' + inv.id + ')"><i class="fas fa-check-circle"></i> Mark as Paid</a></li>' : ''}
+                <li><a class="dropdown-item" href="#" onclick="cloneInvoice(${inv.id})"><i class="fas fa-copy"></i> Clone</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="deleteInvoice(${inv.id})"> Delete</a></li>
-                <li><a class="dropdown-item" href="#" onclick="downloadInvoice(${inv.id})">Download</a></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="deleteInvoice(${inv.id})"><i class="fas fa-trash"></i> Delete</a></li>
+                <li><a class="dropdown-item" href="#" onclick="downloadInvoice(${inv.id})"><i class="fas fa-download"></i> Download</a></li>
               </ul></div></td>
-          </tr>`;
+            </tr>`;
           tbody.insertAdjacentHTML('beforeend', row);
         });
       }
+      
       document.getElementById('rowStart').innerText = total ? start + 1 : 0;
       document.getElementById('rowEnd').innerText = end;
       document.getElementById('totalRows').innerText = total;
+      
       let pagination = document.getElementById('pagination');
       pagination.innerHTML = '';
       if (totalPages > 1) {
@@ -1114,14 +845,21 @@
         }
         pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
       }
+      
       document.querySelectorAll('.invoice-number-link').forEach(el => el.addEventListener('click', (e) => redirectToInvoiceDetail(el.getAttribute('data-id'))));
       const selectAll = document.getElementById('selectAllCheckbox');
       if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     }
 
-    function changePage(p) { let filtered = filterInvoices(); let pages = Math.ceil(filtered.length / rowsPerPage); if (p >= 1 && p <= pages) { currentPage = p; renderTable(); } }
+    function changePage(p) { 
+      let filtered = filterInvoices(); 
+      let pages = Math.ceil(filtered.length / rowsPerPage); 
+      if (p >= 1 && p <= pages) { 
+        currentPage = p; 
+        renderTable(); 
+      } 
+    }
 
-    // Inline search handler
     const globalSearchInput = document.getElementById('globalSearchInput');
     if (globalSearchInput) {
       globalSearchInput.addEventListener('input', function () {
@@ -1131,7 +869,11 @@
       });
     }
 
-    function editInvoice(id) { let inv = invoices.find(i => i.id === id); if (inv) window.location.href = `edit-invoice.html?id=${inv.invoiceId}`; }
+    function editInvoice(id) { 
+      let inv = invoices.find(i => i.id === id); 
+      if (inv) window.location.href = `edit-invoice.html?id=${inv.invoiceId}`; 
+    }
+    
     function markAsPaid(id) {
       let inv = invoices.find(i => i.id === id);
       if (inv && inv.status !== 'Paid') {
@@ -1143,6 +885,7 @@
         showToast(`Invoice ${inv.invoiceId} marked as paid`);
       }
     }
+    
     function cloneInvoice(id) {
       let inv = invoices.find(i => i.id === id);
       if (inv) {
@@ -1154,6 +897,7 @@
         showToast(`Cloned ${newInv.invoiceId}`);
       }
     }
+    
     function deleteInvoice(id) {
       if (confirm('Delete invoice?')) {
         invoices = invoices.filter(i => i.id !== id);
@@ -1165,7 +909,10 @@
         showToast('Invoice deleted');
       }
     }
-    function downloadInvoice(id) { showToast(`Downloading invoice #${id}`); }
+    
+    function downloadInvoice(id) { 
+      showToast(`Downloading invoice #${id}`); 
+    }
 
     document.querySelectorAll('.invoice-tab').forEach(btn => btn.addEventListener('click', () => {
       document.querySelectorAll('.invoice-tab').forEach(b => b.classList.remove('active'));
@@ -1175,9 +922,11 @@
       renderTable();
     }));
 
+    // Initialize
     updateKPIs();
     renderTable();
 
+    // Make functions global for onclick handlers
     window.editInvoice = editInvoice;
     window.markAsPaid = markAsPaid;
     window.cloneInvoice = cloneInvoice;
@@ -1185,6 +934,10 @@
     window.downloadInvoice = downloadInvoice;
     window.changePage = changePage;
     window.redirectToInvoiceDetail = redirectToInvoiceDetail;
+    
+    function handleLogout() { 
+      if (confirm('Logout?')) window.location.href = 'login.html'; 
+    }
   </script>
 </body>
 

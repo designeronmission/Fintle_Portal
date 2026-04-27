@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Quotation Details</title>
+    <title>Fintle | Estimate Details</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link
@@ -14,8 +14,8 @@
 
     <style>
 
-        /* Enhanced Quotation Info Card */
-        .quotation-info-card {
+        /* Enhanced Estimate Info Card */
+        .Estimate-info-card {
             background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
             border-radius: 24px;
             padding: 28px 32px;
@@ -26,7 +26,7 @@
             overflow: hidden;
         }
 
-        .quotation-avatar {
+        .Estimate-avatar {
             width: 72px;
             height: 72px;
             background: linear-gradient(135deg, #2a3b82 0%, #4f6bc7 100%);
@@ -40,7 +40,7 @@
             box-shadow: 0 8px 16px -8px rgba(42, 59, 130, 0.3);
         }
 
-        .quotation-number {
+        .Estimate-number {
             font-size: 22px;
             font-weight: 700;
             color: #0f172a;
@@ -48,7 +48,7 @@
             letter-spacing: -0.3px;
         }
 
-        .quotation-detail {
+        .Estimate-detail {
             font-size: 13px;
             color: #5b6e8c;
             margin-bottom: 6px;
@@ -57,7 +57,7 @@
             gap: 8px;
         }
 
-        .quotation-detail i {
+        .Estimate-detail i {
             width: 18px;
             color: #2a3b82;
             font-size: 12px;
@@ -99,7 +99,7 @@
             gap: 6px;
         }
 
-        /* KPI Cards inside quotation detail */
+        /* KPI Cards inside Estimate detail */
         .kpi-grid {
             display: flex;
             gap: 16px;
@@ -314,7 +314,7 @@
             }
         }
 
-        /* Quotation Items Table */
+        /* Estimate Items Table */
         .items-table-wrapper {
             overflow-x: auto;
         }
@@ -411,10 +411,10 @@
         }
 
         @media (max-width: 768px) {
-            .quotation-info-card {
+            .Estimate-info-card {
                 padding: 20px;
             }
-            .quotation-avatar {
+            .Estimate-avatar {
                 width: 56px;
                 height: 56px;
                 font-size: 22px;
@@ -533,8 +533,8 @@
                     </a>
                   </li>
                   <li class="sidebar-item">
-                    <a class="sidebar-link" href="quotation.html">
-                      <span class="icon-small"></span> Quotation
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
                     </a>
                   </li>
                   <li class="sidebar-item">
@@ -634,8 +634,8 @@
                             <li class="nav-item d-none d-lg-flex dropdown">
                                 <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
                                         style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                                        onclick="location.href='create-quotation.html'"><iconify-icon
-                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Quotation</button></div>
+                                        onclick="location.href='create-Estimate.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Estimate</button></div>
                             </li>
                         </ul>
                         <div class="d-flex align-items-center gap-3 ms-auto">
@@ -646,12 +646,12 @@
             </header>
 
             <div class="body-wrapper">
-                <div class="container-fluid p-4">
+                <div class="container-fluid p-3">
                     <div class="card card-body py-3">
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="quotation.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Quotation Details</h4>
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="Estimate.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Estimate Details</h4>
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item d-flex align-items-center">
@@ -659,8 +659,8 @@
                                                     <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
                                                 </a>
                                             </li>
-                                            <li class="breadcrumb-item"><a href="quotation.html">Quotations</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Quotation Details</li>
+                                            <li class="breadcrumb-item"><a href="Estimate.html">Estimates</a></li>
+                                            <li class="breadcrumb-item active" aria-current="page">Estimate Details</li>
                                         </ol>
                                     </nav>
                                 </div>
@@ -668,8 +668,8 @@
                         </div>
                     </div>
 
-                    <!-- Quotation Info Card -->
-                    <div class="quotation-info-card" id="quotationInfoCard"></div>
+                    <!-- Estimate Info Card -->
+                    <div class="Estimate-info-card" id="EstimateInfoCard"></div>
 
                     <!-- KPI Cards Row -->
                     <div class="kpi-grid">
@@ -710,14 +710,14 @@
                                 <i class="fas fa-cog"></i> Actions
                             </button>
                             <ul class="dropdown-menu dropdown-menu-end dropdown-menu-custom">
-                                <li><a class="dropdown-item" href="#" onclick="editQuotation()"> Edit Quotation</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="cloneQuotation()">Clone Quotation</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="editEstimate()"> Edit Estimate</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="cloneEstimate()">Clone Estimate</a></li>
                                 <li><a class="dropdown-item" href="#" onclick="convertToInvoice()"> Convert to Invoice</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#" onclick="downloadQuotation()"> Download PDF</a></li>
-                                <li><a class="dropdown-item" href="#" onclick="shareQuotation()"> Share</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="downloadEstimate()"> Download PDF</a></li>
+                                <li><a class="dropdown-item" href="#" onclick="shareEstimate()"> Share</a></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteQuotation()"> Delete Quotation</a></li>
+                                <li><a class="dropdown-item text-danger" href="#" onclick="deleteEstimate()"> Delete Estimate</a></li>
                             </ul>
                         </div>
                     </div>
@@ -725,8 +725,8 @@
                     <!-- Tab Content: Items -->
                     <div id="items" class="tab-content active-content">
                         <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
-                            <h5 class="mb-0 fw-semibold">Quotation Items</h5>
-                            <button class="btn btn-outline-primary rounded-pill px-4" onclick="editQuotation()"><i class="fas fa-plus me-2"></i>Add/Edit Items</button>
+                            <h5 class="mb-0 fw-semibold">Estimate Items</h5>
+                            <button class="btn btn-outline-primary rounded-pill px-4" onclick="editEstimate()"><i class="fas fa-plus me-2"></i>Add/Edit Items</button>
                         </div>
                         <div class="items-table-wrapper">
                             <table class="items-table">
@@ -788,7 +788,7 @@
                     <div id="notes" class="tab-content">
                         <div class="mb-4">
                             <label class="form-label fw-semibold">Internal Notes</label>
-                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this quotation..."></textarea>
+                            <textarea class="form-control" rows="5" id="internalNotes" placeholder="Add internal notes about this Estimate..."></textarea>
                             <button class="btn btn-primary rounded-pill mt-3 px-4" onclick="saveNotes()"><i class="fas fa-save me-2"></i>Save Notes</button>
                         </div>
                     </div>
@@ -811,11 +811,11 @@
 
     <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const quotationId = urlParams.get('id') || 'QT-2404-001';
+        const EstimateId = urlParams.get('id') || 'QT-2404-001';
 
-        // Quotation Data
-        const quotationData = {
-            id: quotationId,
+        // Estimate Data
+        const EstimateData = {
+            id: EstimateId,
             date: '2026-04-01',
             validUntil: '2026-05-01',
             customerName: 'ABC Enterprises',
@@ -829,7 +829,7 @@
             taxAmount: 5364,
             discount: 0,
             total: 35164,
-            terms: '1. Payment due within 15 days of invoice date.\n2. Goods once sold will not be taken back.\n3. This is a system generated quotation and requires no signature.\n4. All disputes subject to local jurisdiction.',
+            terms: '1. Payment due within 15 days of invoice date.\n2. Goods once sold will not be taken back.\n3. This is a system generated Estimate and requires no signature.\n4. All disputes subject to local jurisdiction.',
             items: [
                 { id: 1, name: 'Web Development Services', description: 'Complete website development with admin panel', quantity: 1, unitPrice: 25000, discount: 0, tax: 18, amount: 25000 },
                 { id: 2, name: 'Hosting Package', description: 'Annual hosting + domain registration', quantity: 1, unitPrice: 4800, discount: 0, tax: 18, amount: 4800 }
@@ -838,9 +838,9 @@
 
         // Activity Log
         let activities = [
-            { action: 'Quotation created', date: '2026-04-01 10:30 AM', user: 'John Doe' },
-            { action: 'Quotation sent to customer', date: '2026-04-02 02:15 PM', user: 'Admin' },
-            { action: 'Customer viewed quotation', date: '2026-04-03 09:45 AM', user: 'Customer Portal' },
+            { action: 'Estimate created', date: '2026-04-01 10:30 AM', user: 'John Doe' },
+            { action: 'Estimate sent to customer', date: '2026-04-02 02:15 PM', user: 'Admin' },
+            { action: 'Customer viewed Estimate', date: '2026-04-03 09:45 AM', user: 'Customer Portal' },
             { action: 'Follow-up email sent', date: '2026-04-10 11:30 AM', user: 'Sarah Wilson' }
         ];
 
@@ -860,28 +860,28 @@
             return 'fa-exclamation-triangle';
         }
 
-        function renderQuotationInfo() {
-            const container = document.getElementById('quotationInfoCard');
-            const statusClass = getStatusClass(quotationData.status);
-            const statusIcon = getStatusIcon(quotationData.status);
+        function renderEstimateInfo() {
+            const container = document.getElementById('EstimateInfoCard');
+            const statusClass = getStatusClass(EstimateData.status);
+            const statusIcon = getStatusIcon(EstimateData.status);
 
             container.innerHTML = `
                 <div class="row align-items-center g-4">
-                    <div class="col-auto"><div class="quotation-avatar"><i class="fas fa-file-alt"></i></div></div>
+                    <div class="col-auto"><div class="Estimate-avatar"><i class="fas fa-file-alt"></i></div></div>
                     <div class="col">
                         <div class="row align-items-center">
                             <div class="col-md-8">
-                                <h3 class="quotation-number">${quotationData.id}</h3>
-                                <div class="quotation-detail"><i class="fas fa-building"></i> ${quotationData.customerName}</div>
-                                <div class="quotation-detail"><i class="fas fa-envelope"></i> ${quotationData.customerEmail}</div>
-                                <div class="quotation-detail"><i class="fas fa-phone"></i> ${quotationData.customerPhone}</div>
+                                <h3 class="Estimate-number">${EstimateData.id}</h3>
+                                <div class="Estimate-detail"><i class="fas fa-building"></i> ${EstimateData.customerName}</div>
+                                <div class="Estimate-detail"><i class="fas fa-envelope"></i> ${EstimateData.customerEmail}</div>
+                                <div class="Estimate-detail"><i class="fas fa-phone"></i> ${EstimateData.customerPhone}</div>
                             </div>
                             <div class="col-md-4">
                                 <div class="text-md-end">
-                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${quotationData.status}</span></div>
+                                    <div class="mb-3"><span class="status-badge-custom ${statusClass}"><i class="fas ${statusIcon}"></i> ${EstimateData.status}</span></div>
                                     <div class="d-flex gap-2 justify-content-md-end">
-                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Created: ${quotationData.createdOn}</span>
-                                        <span class="date-chip"><i class="fas fa-user"></i> ${quotationData.createdBy}</span>
+                                        <span class="date-chip"><i class="far fa-calendar-alt"></i> Created: ${EstimateData.createdOn}</span>
+                                        <span class="date-chip"><i class="fas fa-user"></i> ${EstimateData.createdBy}</span>
                                     </div>
                                 </div>
                             </div>
@@ -890,24 +890,24 @@
                 </div>
             `;
 
-            document.getElementById('quoteAmount').innerHTML = formatCurrency(quotationData.total);
-            document.getElementById('validUntil').innerHTML = `<small>${quotationData.validUntil}</small>`;
-            document.getElementById('taxRate').innerHTML = `${quotationData.taxRate}%`;
+            document.getElementById('quoteAmount').innerHTML = formatCurrency(EstimateData.total);
+            document.getElementById('validUntil').innerHTML = `<small>${EstimateData.validUntil}</small>`;
+            document.getElementById('taxRate').innerHTML = `${EstimateData.taxRate}%`;
         }
 
         function updateKPIs() {
-            document.getElementById('quoteAmount').innerHTML = formatCurrency(quotationData.total);
-            document.getElementById('validUntil').innerHTML = quotationData.validUntil;
-            document.getElementById('taxRate').innerHTML = `${quotationData.taxRate}%`;
+            document.getElementById('quoteAmount').innerHTML = formatCurrency(EstimateData.total);
+            document.getElementById('validUntil').innerHTML = EstimateData.validUntil;
+            document.getElementById('taxRate').innerHTML = `${EstimateData.taxRate}%`;
         }
 
         function renderItems() {
             const tbody = document.getElementById('itemsTableBody');
-            if (quotationData.items.length === 0) {
+            if (EstimateData.items.length === 0) {
                 tbody.innerHTML = '<tr><td colspan="7" class="text-center text-muted py-5">No items added<td></tr>';
                 return;
             }
-            tbody.innerHTML = quotationData.items.map((item, idx) => `
+            tbody.innerHTML = EstimateData.items.map((item, idx) => `
                 <tr>
                     <td>${idx + 1}</td>
                     <td>
@@ -922,15 +922,15 @@
                 </tr>
             `).join('');
 
-            document.getElementById('subtotalAmount').innerHTML = formatCurrency(quotationData.subtotal);
-            document.getElementById('taxAmount').innerHTML = formatCurrency(quotationData.taxAmount);
-            document.getElementById('discountAmount').innerHTML = formatCurrency(quotationData.discount);
-            document.getElementById('totalAmount').innerHTML = formatCurrency(quotationData.total);
+            document.getElementById('subtotalAmount').innerHTML = formatCurrency(EstimateData.subtotal);
+            document.getElementById('taxAmount').innerHTML = formatCurrency(EstimateData.taxAmount);
+            document.getElementById('discountAmount').innerHTML = formatCurrency(EstimateData.discount);
+            document.getElementById('totalAmount').innerHTML = formatCurrency(EstimateData.total);
         }
 
         function renderTerms() {
             const container = document.getElementById('termsContent');
-            const termsHtml = quotationData.terms.split('\n').map(line => `<p class="mb-2">${line}</p>`).join('');
+            const termsHtml = EstimateData.terms.split('\n').map(line => `<p class="mb-2">${line}</p>`).join('');
             container.innerHTML = termsHtml || '<p class="text-muted">No terms and conditions defined.</p>';
         }
 
@@ -956,13 +956,13 @@
         }
 
         function loadNotes() {
-            const saved = localStorage.getItem(`quotation_notes_${quotationData.id}`);
+            const saved = localStorage.getItem(`Estimate_notes_${EstimateData.id}`);
             if (saved) document.getElementById('internalNotes').value = saved;
         }
 
         function saveNotes() {
             const notes = document.getElementById('internalNotes').value;
-            localStorage.setItem(`quotation_notes_${quotationData.id}`, notes);
+            localStorage.setItem(`Estimate_notes_${EstimateData.id}`, notes);
             showToast('Notes saved successfully');
             addActivity('Internal notes updated', 'System');
         }
@@ -981,32 +981,32 @@
             setTimeout(() => toast.style.display = 'none', 2200);
         }
 
-        function editQuotation() {
-            window.location.href = `edit-quotation.html?id=${quotationData.id}`;
+        function editEstimate() {
+            window.location.href = `edit-Estimate.html?id=${EstimateData.id}`;
         }
 
-        function cloneQuotation() {
-            showToast(`Cloning quotation ${quotationData.id}`);
-            setTimeout(() => window.location.href = `create-quotation.html?clone=${quotationData.id}`, 1000);
+        function cloneEstimate() {
+            showToast(`Cloning Estimate ${EstimateData.id}`);
+            setTimeout(() => window.location.href = `create-Estimate.html?clone=${EstimateData.id}`, 1000);
         }
 
         function convertToInvoice() {
-            showToast(`Converting quotation ${quotationData.id} to invoice`);
-            setTimeout(() => window.location.href = `create-invoice.html?quotation=${quotationData.id}`, 1000);
+            showToast(`Converting Estimate ${EstimateData.id} to invoice`);
+            setTimeout(() => window.location.href = `create-invoice.html?Estimate=${EstimateData.id}`, 1000);
         }
 
-        function downloadQuotation() {
-            showToast(`Downloading PDF for ${quotationData.id}`);
+        function downloadEstimate() {
+            showToast(`Downloading PDF for ${EstimateData.id}`);
         }
 
-        function shareQuotation() {
-            showToast(`Share link copied for ${quotationData.id}`);
+        function shareEstimate() {
+            showToast(`Share link copied for ${EstimateData.id}`);
         }
 
-        function deleteQuotation() {
-            if (confirm(`Delete quotation "${quotationData.id}"? This action cannot be undone.`)) {
-                showToast('Quotation deleted successfully');
-                setTimeout(() => window.location.href = 'quotation-list.html', 1500);
+        function deleteEstimate() {
+            if (confirm(`Delete Estimate "${EstimateData.id}"? This action cannot be undone.`)) {
+                showToast('Estimate deleted successfully');
+                setTimeout(() => window.location.href = 'Estimate-list.html', 1500);
             }
         }
 
@@ -1025,7 +1025,7 @@
         }
 
         // Initialize everything
-        renderQuotationInfo();
+        renderEstimateInfo();
         updateKPIs();
         renderItems();
         renderTerms();
@@ -1034,12 +1034,12 @@
         initTabs();
 
         // Expose functions globally
-        window.editQuotation = editQuotation;
-        window.cloneQuotation = cloneQuotation;
+        window.editEstimate = editEstimate;
+        window.cloneEstimate = cloneEstimate;
         window.convertToInvoice = convertToInvoice;
-        window.downloadQuotation = downloadQuotation;
-        window.shareQuotation = shareQuotation;
-        window.deleteQuotation = deleteQuotation;
+        window.downloadEstimate = downloadEstimate;
+        window.shareEstimate = shareEstimate;
+        window.deleteEstimate = deleteEstimate;
         window.saveNotes = saveNotes;
     </script>
 </body>

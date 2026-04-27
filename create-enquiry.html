@@ -36,14 +36,6 @@
             color: #2a3b82;
         }
 
-        .form-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 0.03em;
-            color: #5b6e8c;
-            margin-bottom: 6px;
-        }
-
         .form-control,
         .form-select {
             border-radius: 4px;
@@ -226,8 +218,8 @@
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
-                                        <a class="sidebar-link" href="quotation.html">
-                                            <span class="icon-small"></span> Quotation
+                                        <a class="sidebar-link" href="Estimate.html">
+                                            <span class="icon-small"></span> Estimate
                                         </a>
                                     </li>
                                     <li class="sidebar-item">
@@ -417,9 +409,9 @@
             <!-- Header End -->
 
             <div class="body-wrapper">
-                <div class="container-fluid p-4">
+                <div class="container-fluid p-3">
                     <!-- Breadcrumb card (Fintle style) -->
-                    <div class="card card-body py-3 mb-4">
+                    <div class="card card-body py-3 mb-2">
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-content-between">
@@ -448,7 +440,7 @@
                                 <div class="row g-4">
                                     <!-- Customer Selection with Add Button -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Customer</label>
+                                        <label class="form-label required-field fw-semibold">Customer</label>
                                         <div class="customer-select-group">
                                             <select class="form-select" id="customerSelect" required>
                                                 <option value="">Select Customer</option> 
@@ -467,7 +459,7 @@
 
                                     <!-- Currency -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Currency</label>
+                                        <label class="form-label required-field fw-semibold">Currency</label>
                                         <select class="form-select" id="currency" required>
                                             <option value="USD">USD - US Dollar ($)</option>
                                             <option value="EUR">EUR - Euro (€)</option>
@@ -480,19 +472,19 @@
 
                                     <!-- Enquiry Date -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Enquiry Date</label>
+                                        <label class="form-label required-field fw-semibold">Enquiry Date</label>
                                         <input type="date" class="form-control" id="enquiryDate" required>
                                     </div>
 
                                     <!-- Title -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Title</label>
+                                        <label class="form-label fw-semibold">Title</label>
                                         <input type="text" class="form-control" id="title" placeholder="Enter enquiry title/subject" required>
                                     </div>
 
                                     <!-- Enquiry Source -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Enquiry Source</label>
+                                        <label class="form-label required-field fw-semibold">Enquiry Source</label>
                                         <select class="form-select" id="enquirySource" required>
                                             <option value="">Select Source</option>
                                             <option value="webform"> Web Form</option>
@@ -514,19 +506,19 @@
                                 <div class="row g-4">
                                     <!-- Company Name -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Company Name</label>
+                                        <label class="form-label required-field fw-semibold">Company Name</label>
                                         <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
                                     </div>
 
                                     <!-- Email Address -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Email Address</label>
+                                        <label class="form-label required-field fw-semibold">Email Address</label>
                                         <input type="email" class="form-control" id="emailAddress" placeholder="customer@example.com" required>
                                     </div>
 
                                     <!-- Phone Number -->
                                     <div class="col-md-6">
-                                        <label class="form-label required-field">Phone Number</label>
+                                        <label class="form-label required-field fw-semibold">Phone Number</label>
                                         <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
                                     </div>
                                 </div>
@@ -539,7 +531,7 @@
                             <div class="card-body p-4">
                                 <div class="row g-4">
                                     <div class="col-md-12">
-                                        <label class="form-label">Description / Requirements</label>
+                                        <label class="form-label fw-semibold">Description / Requirements</label>
                                         <textarea class="form-control" id="description" rows="4" placeholder="Enter detailed enquiry description, product requirements, specifications etc."></textarea>
                                     </div>
                                 </div>
