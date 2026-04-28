@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintle | Estimate Preview</title>
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <style>
+    :root {
+      --brand-blue: #eef2f8;
+      --border-color: #cbd5e1;
+      --text-main: #334155;
+      --text-muted: #64748b;
+    }
+
+    body {
+      background: #f1f5f9;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    .invoice-container {
+      background: #fff;
+      max-width: 1200px;
+      margin: 0px auto;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .logo-box {
+      border: 1px dashed var(--border-color);
+      width: 150px;
+      height: 70px;
+      background-color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border-radius: 8px;
+    }
+    
+    .logo-box:hover {
+      background-color: #eef2ff;
+      border-color: #3b82f6;
+    }
+    
+    .logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    
+    .upload-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0,0,0,0.6);
+      color: white;
+      font-size: 10px;
+      text-align: center;
+      padding: 2px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
+    
+    .logo-box:hover .upload-overlay {
+      opacity: 1;
+    }
+    
+    .upload-input-hidden {
+      display: none;
+    }
+
+    .invoice-title {
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: 1px;
+      color: #1e293b;
+      background: linear-gradient(135deg, #1e293b 0%, #2d3a4f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-bar {
+      background-color: var(--brand-blue);
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1e293b;
+    }
+
+    .table {
+      margin-bottom: 0;
+      border-color: var(--border-color);
+    }
+
+    .table thead th {
+      background-color: var(--brand-blue);
+      font-weight: 700;
+      font-size: 12px;
+      color: #1e293b;
+      text-transform: uppercase;
+      padding: 14px 12px;
+      border-bottom: 1px solid var(--border-color);
+      vertical-align: middle;
+    }
+
+    .table tbody td {
+      padding: 16px 12px;
+      font-size: 13px;
+      vertical-align: top;
+      border-right: 1px solid #e9edf2;
+    }
+
+    .table tbody td:last-child {
+      border-right: none;
+    }
+
+    .col-idx { width: 5%; text-align: center; }
+    .col-desc { width: 38%; }
+    .col-price { width: 12%; text-align: right; }
+    .col-qty { width: 8%; text-align: center; }
+    .col-unit { width: 8%; text-align: center; }
+    .col-tax { width: 10%; text-align: center; }
+    .col-amt { width: 14%; text-align: right; font-weight: 600; }
+
+    .footer-flex {
+      margin-top: auto;
+      display: flex;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .summary-wrapper {
+      width: 380px;
+      margin-left: auto;
+      border-left: 1px solid var(--border-color);
+    }
+
+    .summary-header {
+      background-color: var(--brand-blue);
+      padding: 12px 20px;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border-color);
+      color: #1e293b;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 12px 20px;
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .balance-due {
+      background-color: #f8fafc;
+      padding: 14px 20px;
+      font-weight: 700;
+      color: #0f172a;
+      border-top: 1px solid #e2e8f0;
+    }
+
+    .signatory-box {
+      background-color: var(--brand-blue);
+      min-height: 180px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      padding-bottom: 30px;
+      border-top: 1px solid var(--border-color);
+      position: relative;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    
+    .signatory-box:hover {
+      background-color: #e6edf5;
+    }
+    
+    .signature-image {
+      max-width: 70%;
+      max-height: 60px;
+      object-fit: contain;
+      margin-bottom: 8px;
+    }
+    
+    .sign-line {
+      width: 60%;
+      border-top: 1px dashed #94a3b8;
+      margin-bottom: 10px;
+    }
+    
+    .signature-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+    }
+
+    .qr-auth-container {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 70px;
+    }
+    
+    .qr-auth-container img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+
+    @media print {
+      body { background: white; padding: 0; margin: 0; }
+      .invoice-container { margin: 0; border: none; width: 100%; box-shadow: none; border-radius: 0; }
+      .no-print, .no-print-btn, .upload-overlay, .action-buttons { display: none !important; }
+      .logo-box, .signatory-box, .qr-auth-container { cursor: default; }
+      .sidebar-menu, .topbar, .side-mini-panel, .page-wrapper > header { display: none !important; }
+      #main-wrapper .page-wrapper { margin-left: 0 !important; }
+    }
+
+    .action-buttons {
+      position: sticky;
+      bottom: 20px;
+      z-index: 100;
+    }
+    
+    .company-details {
+      background: #fafcff;
+      padding: 12px 16px;
+      border-radius: 10px;
+      border-left: 3px solid #233578;
+    }
+    
+    .estimate-badge {
+      background: #fef3c7;
+      color: #d97706;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="main-wrapper">
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" /></a>
+          </div>
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <li class="sidebar-item mt-4"><a class="sidebar-link" href="index.html" aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="hide-menu">Dashboard</span></a></li>
+              <li class="sidebar-item"><a class="sidebar-link" href="#" aria-expanded="false"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon><span class="hide-menu">Inbox</span></a></li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="hide-menu">Items</span></a>
+                <ul class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="items.html">Inventory</a></li></ul>
+              </li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow active" href="javascript:void(0)"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="hide-menu">Sales</span></a>
+                <ul class="collapse first-level">
+                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html">Customer</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="Estimate.html">Estimate</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html">Invoice</a></li>
+                </ul>
+              </li>
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
+                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+
+    <div class="page-wrapper">
+      <header class="topbar">
+        <div class="with-vertical">
+          <nav class="navbar navbar-expand-lg p-0">
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+            </ul>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <div class="d-flex align-items-center justify-content-between">
+                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Profile" /></div></a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <div class="body-wrapper">
+        <div class="container-fluid p-3">
+          <div class="row">
+            <div class="col-12">
+              <div class="invoice-container" id="estimateContainer">
+                <div class="d-flex justify-content-between align-items-center p-4">
+                  <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()">
+                    <span id="logoPlaceholder">COMPANY LOGO</span>
+                    <img id="logoImage" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="Company Logo">
+                    <div class="upload-overlay">Click to upload logo</div>
+                    <input type="file" id="logoUpload" class="upload-input-hidden" accept="image/*" style="display:none">
+                  </div>
+                  <div class="invoice-title">TAX ESTIMATE</div>
+                  <div class="logo-box qr-auth-container" id="qrAuthBox" onclick="document.getElementById('qrUpload').click()">
+                    <span id="qrPlaceholder">QR / AUTH</span>
+                    <img id="qrImage" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="QR Code">
+                    <div class="upload-overlay">Click to upload</div>
+                    <input type="file" id="qrUpload" class="upload-input-hidden" accept="image/*" style="display:none">
+                  </div>
+                </div>
+
+                <div class="px-4 pb-3">
+                  <div class="company-details">
+                    <div class="row">
+                      <div class="col-md-8">
+                        <div contenteditable="true" class="fw-bold fs-6" id="companyName">Apex Solutions Ltd</div>
+                        <div contenteditable="true" class="small text-muted" id="companyAddress">#402, Business Bay, Mumbai - 400093</div>
+                        <div contenteditable="true" class="small text-muted" id="companyGst">GST: 27AAACA1234F1Z | hello@apex.co</div>
+                      </div>
+                      <div class="col-md-4 text-md-end">
+                        <div class="small text-muted">Estimate #: <strong id="estimateNumberDisplay">EST-2407-102</strong></div>
+                        <div class="mt-1"><span class="estimate-badge">VALID TILL: <span id="validTillDisplay">--</span></span></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row m-0">
+                  <div class="col-8 section-bar">Bill To</div>
+                  <div class="col-4 section-bar border-start">Estimate Details</div>
+                </div>
+
+                <div class="row m-0 border-bottom">
+                  <div class="col-8 p-4" id="customerInfoArea">
+                    <h5 class="fw-bold mb-1" id="customerNamePreview">--</h5>
+                    <p class="text-muted small mb-0" id="customerAddressPreview"></p>
+                    <div class="small fw-semibold text-primary mt-2" id="customerGstPreview"></div>
+                  </div>
+                  <div class="col-4 p-4 border-start">
+                    <table class="w-100 small">
+                      <tr><td class="text-muted pb-2">Estimate No:</td><td class="text-end fw-bold pb-2" id="estimateNoDisplay">--</td></tr>
+                      <tr><td class="text-muted pb-2">Issue Date:</td><td class="text-end fw-bold pb-2" id="issueDateDisplay">--</td></tr>
+                      <tr><td class="text-muted pb-2">Valid Till:</td><td class="text-end fw-bold pb-2" id="validTillDateDisplay">--</td></tr>
+                      <tr><td class="text-muted">Status:</td><td class="text-end" id="statusDisplay"><span class="badge bg-warning">Draft</span></td></tr>
+                    </table>
+                  </div>
+                </div>
+
+                <table class="table border-bottom" id="itemsPreviewTable">
+                  <thead>
+                    <tr><th class="col-idx">#</th><th class="col-desc text-start">Item / Description</th><th class="col-price">Price (₹)</th><th class="col-qty">Qty</th><th class="col-unit">Unit</th><th class="col-tax">Tax Rate</th><th class="col-amt">Amount (₹)</th></tr>
+                  </thead>
+                  <tbody id="itemsPreviewBody"><tr><td colspan="7" class="text-center py-4">Loading items...</td></tr></tbody>
+                追赶
+
+                <div class="footer-flex">
+                  <div class="p-4 small text-muted align-self-end" contenteditable="true" id="notesSection">
+                    * This estimate is valid for 30 days.<br>
+                    For any queries, please contact our sales team.
+                  </div>
+                  <div class="summary-wrapper">
+                    <div class="summary-header">Estimate Summary</div>
+                    <div class="summary-body">
+                      <div class="summary-item"><span class="text-muted">Subtotal</span><span class="fw-bold" id="subtotalPreview">₹ 0.00</span></div>
+                      <div class="summary-item"><span class="text-muted">Shipping Charge</span><span id="shippingPreview">₹ 0.00</span></div>
+                      <div class="summary-item"><span class="text-muted">Tax (GST)</span><span id="taxPreview">₹ 0.00</span></div>
+                      <div class="summary-item border-bottom-0"><span class="fw-bold">Total Estimate Amount</span><span class="fw-bold text-primary" id="totalPreview">₹ 0.00</span></div>
+                      
+                      <div class="signatory-box" id="signatoryBox" onclick="document.getElementById('signatureUpload').click()">
+                        <div id="signaturePreviewArea" class="signature-placeholder">
+                          <div class="sign-line" id="defaultSignLine"></div>
+                          <div class="small fw-bold text-uppercase">Authorized Signatory</div>
+                        </div>
+                        <img id="signatureImage" style="display:none; max-width:70%; max-height:60px; object-fit:contain; margin-bottom:8px;" alt="Signature">
+                        <div class="upload-overlay" style="position:relative; margin-top:5px; background:transparent; color:#3b82f6;">Click to upload signature</div>
+                        <input type="file" id="signatureUpload" class="upload-input-hidden" accept="image/*" style="display:none">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="row mt-4 action-buttons">
+              <div class="col-12">
+                <div class="d-flex justify-content-end gap-3">
+                  <button class="btn btn-outline-secondary rounded-pill px-4" onclick="window.history.back()">
+                    <iconify-icon icon="solar:arrow-left-linear" class="me-1"></iconify-icon> Back to Edit
+                  </button>
+                  <button class="btn btn-info rounded-pill px-4" onclick="window.print()">
+                    <iconify-icon icon="solar:printer-bold" class="me-1"></iconify-icon> Print Estimate
+                  </button>
+                  <button class="btn btn-primary rounded-pill px-4" id="shareEstimateBtn">
+                    <iconify-icon icon="solar:share-bold" class="me-1"></iconify-icon> Share Estimate
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="assets/libs/js/app.init.js"></script>
+  <script src="assets/libs/js/theme.js"></script>
+  <script src="assets/libs/js/app.min.js"></script>
+  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+  <script>
+    function loadEstimateData() {
+      try {
+        const savedData = localStorage.getItem('fintle_estimate_data');
+        let estimateData = savedData ? JSON.parse(savedData) : null;
+        
+        if (!estimateData) {
+          estimateData = {
+            company: { name: "Apex Solutions Ltd", address: "#402, Business Bay, Mumbai - 400093", gst: "GST: 27AAACA1234F1Z | hello@apex.co" },
+            customer: { name: "Aster Technologies", address: "42, Richmond Circle, Bangalore - 560025", gst: "GST: 29AAACB1234E1Z5" },
+            estimateNo: "EST-2407-102",
+            issueDate: "2026-04-28",
+            validTill: "2026-05-28",
+            status: "Draft",
+            items: [
+              { name: "Web Design Service", code: "WEB01", price: 2500, qty: 1, unit: "Hour", tax: 12, desc: "Custom responsive design, 5 pages" },
+              { name: "Cloud Hosting", code: "CLD99", price: 4800, qty: 1, unit: "Year", tax: 5, desc: "SSD 20GB + 1TB bandwidth" }
+            ],
+            shipping: 0,
+            notes: "* This estimate is valid for 30 days.\nFor any queries, please contact our sales team."
+          };
+        }
+        
+        document.getElementById('companyName').innerText = estimateData.company?.name || "Apex Solutions Ltd";
+        document.getElementById('companyAddress').innerText = estimateData.company?.address || "#402, Business Bay, Mumbai - 400093";
+        document.getElementById('companyGst').innerText = estimateData.company?.gst || "GST: 27AAACA1234F1Z | hello@apex.co";
+        
+        document.getElementById('customerNamePreview').innerHTML = estimateData.customer?.name || "--";
+        document.getElementById('customerAddressPreview').innerHTML = estimateData.customer?.address || "";
+        document.getElementById('customerGstPreview').innerHTML = estimateData.customer?.gst || "";
+        
+        document.getElementById('estimateNoDisplay').innerText = estimateData.estimateNo || "EST-2407-102";
+        document.getElementById('estimateNumberDisplay').innerText = estimateData.estimateNo || "EST-2407-102";
+        document.getElementById('issueDateDisplay').innerText = estimateData.issueDate ? new Date(estimateData.issueDate).toLocaleDateString('en-IN') : "28 Apr 2026";
+        document.getElementById('validTillDateDisplay').innerText = estimateData.validTill ? new Date(estimateData.validTill).toLocaleDateString('en-IN') : "28 May 2026";
+        document.getElementById('validTillDisplay').innerText = estimateData.validTill ? new Date(estimateData.validTill).toLocaleDateString('en-IN') : "28 May 2026";
+        
+        const statusBadge = document.getElementById('statusDisplay');
+        const status = estimateData.status || "Draft";
+        let statusClass = 'bg-warning';
+        if (status === 'Sent') statusClass = 'bg-info';
+        else if (status === 'Accepted') statusClass = 'bg-success';
+        else if (status === 'Expired') statusClass = 'bg-danger';
+        statusBadge.innerHTML = `<span class="badge ${statusClass}">${status}</span>`;
+        
+        const itemsBody = document.getElementById('itemsPreviewBody');
+        const items = estimateData.items || [];
+        let subtotal = 0, totalTax = 0;
+        
+        if (items.length === 0) {
+          itemsBody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">No items added</td></tr>';
+        } else {
+          itemsBody.innerHTML = items.map((item, idx) => {
+            const price = parseFloat(item.price) || 0;
+            const qty = parseFloat(item.qty) || 0;
+            const taxRate = parseFloat(item.tax) || 0;
+            const amount = price * qty;
+            const taxAmount = amount * taxRate / 100;
+            const total = amount + taxAmount;
+            subtotal += amount;
+            totalTax += taxAmount;
+            
+            return `<tr>
+              <td class="text-center text-muted">${idx + 1}</td>
+              <td><div class="fw-bold">${escapeHtml(item.name)}</div><div class="text-muted small">${escapeHtml(item.code || '')} ${item.desc ? ' - ' + escapeHtml(item.desc) : ''}</div></td>
+              <td class="text-end">₹ ${price.toFixed(2)}</td>
+              <td class="text-center">${qty}</td>
+              <td class="text-center text-muted">${escapeHtml(item.unit || 'PCS')}</td>
+              <td class="text-center">${taxRate}%</td>
+              <td class="text-end fw-bold">₹ ${total.toFixed(2)}</td>
+            </tr>`;
+          }).join('');
+        }
+        
+        itemsBody.innerHTML += `<tr class="table-light fw-bold"><td colspan="6" class="text-end py-2">Subtotal</td><td class="text-end py-2">₹ ${subtotal.toFixed(2)}</td></tr>`;
+        
+        const shipping = parseFloat(estimateData.shipping) || 0;
+        const grandTotal = subtotal + totalTax + shipping;
+        
+        document.getElementById('subtotalPreview').innerText = `₹ ${subtotal.toFixed(2)}`;
+        document.getElementById('shippingPreview').innerText = `₹ ${shipping.toFixed(2)}`;
+        document.getElementById('taxPreview').innerText = `₹ ${totalTax.toFixed(2)}`;
+        document.getElementById('totalPreview').innerText = `₹ ${grandTotal.toFixed(2)}`;
+        
+        document.getElementById('notesSection').innerHTML = estimateData.notes || "* This estimate is valid for 30 days.\nFor any queries, please contact our sales team.";
+        
+        window.currentEstimateData = estimateData;
+        
+      } catch (e) {
+        console.error("Error loading estimate data:", e);
+      }
+    }
+    
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+    
+    const logoUpload = document.getElementById('logoUpload');
+    const logoImage = document.getElementById('logoImage');
+    const logoPlaceholder = document.getElementById('logoPlaceholder');
+    if(logoUpload) {
+      logoUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            logoImage.src = event.target.result;
+            logoImage.style.display = 'block';
+            logoPlaceholder.style.display = 'none';
+            localStorage.setItem('fintle_estimate_logo', event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+    
+    const savedLogo = localStorage.getItem('fintle_estimate_logo');
+    if(savedLogo && logoImage) {
+      logoImage.src = savedLogo;
+      logoImage.style.display = 'block';
+      if(logoPlaceholder) logoPlaceholder.style.display = 'none';
+    }
+    
+    const qrUpload = document.getElementById('qrUpload');
+    const qrImage = document.getElementById('qrImage');
+    const qrPlaceholder = document.getElementById('qrPlaceholder');
+    if(qrUpload) {
+      qrUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            qrImage.src = event.target.result;
+            qrImage.style.display = 'block';
+            qrPlaceholder.style.display = 'none';
+            localStorage.setItem('fintle_estimate_qr', event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+    
+    const savedQr = localStorage.getItem('fintle_estimate_qr');
+    if(savedQr && qrImage) {
+      qrImage.src = savedQr;
+      qrImage.style.display = 'block';
+      if(qrPlaceholder) qrPlaceholder.style.display = 'none';
+    }
+    
+    const signatureUpload = document.getElementById('signatureUpload');
+    const signatureImage = document.getElementById('signatureImage');
+    const defaultSignLine = document.getElementById('defaultSignLine');
+    const signaturePreviewArea = document.getElementById('signaturePreviewArea');
+    if(signatureUpload) {
+      signatureUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            signatureImage.src = event.target.result;
+            signatureImage.style.display = 'block';
+            if(defaultSignLine) defaultSignLine.style.display = 'none';
+            const signatoryText = signaturePreviewArea?.querySelector('.small.fw-bold.text-uppercase');
+            if(signatoryText) signatoryText.style.display = 'none';
+            if(signaturePreviewArea) signaturePreviewArea.style.display = 'none';
+            signatureImage.style.display = 'block';
+            localStorage.setItem('fintle_estimate_signature', event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+    
+    const savedSignature = localStorage.getItem('fintle_estimate_signature');
+    if(savedSignature && signatureImage) {
+      signatureImage.src = savedSignature;
+      signatureImage.style.display = 'block';
+      if(signaturePreviewArea) signaturePreviewArea.style.display = 'none';
+    }
+    
+    const companyNameEl = document.getElementById('companyName');
+    const companyAddressEl = document.getElementById('companyAddress');
+    const companyGstEl = document.getElementById('companyGst');
+    const notesSection = document.getElementById('notesSection');
+    
+    function saveCompanyDetails() {
+      const estimateData = window.currentEstimateData || {};
+      estimateData.company = {
+        name: companyNameEl?.innerText || "",
+        address: companyAddressEl?.innerText || "",
+        gst: companyGstEl?.innerText || ""
+      };
+      estimateData.notes = notesSection?.innerHTML || "";
+      localStorage.setItem('fintle_estimate_data', JSON.stringify(estimateData));
+      window.currentEstimateData = estimateData;
+    }
+    
+    if(companyNameEl) companyNameEl.addEventListener('blur', saveCompanyDetails);
+    if(companyAddressEl) companyAddressEl.addEventListener('blur', saveCompanyDetails);
+    if(companyGstEl) companyGstEl.addEventListener('blur', saveCompanyDetails);
+    if(notesSection) notesSection.addEventListener('blur', saveCompanyDetails);
+    
+    document.getElementById('shareEstimateBtn')?.addEventListener('click', async () => {
+      const estimateData = window.currentEstimateData;
+      if(estimateData) {
+        const total = document.getElementById('totalPreview').innerText;
+        const shareText = `ESTIMATE\nCustomer: ${estimateData.customer?.name}\nTotal: ${total}\nEstimate: ${estimateData.estimateNo}\nValid Till: ${estimateData.validTill}`;
+        if(navigator.share) {
+          try {
+            await navigator.share({ title: 'Estimate', text: shareText });
+          } catch(e) { 
+            navigator.clipboard.writeText(shareText);
+            alert('Estimate details copied to clipboard!');
+          }
+        } else {
+          navigator.clipboard.writeText(shareText);
+          alert('Estimate details copied to clipboard!');
+        }
+      } else {
+        alert('No estimate data available');
+      }
+    });
+    
+    const signatoryBox = document.getElementById('signatoryBox');
+    if(signatoryBox) {
+      signatoryBox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('signatureUpload')?.click();
+      });
+    }
+    
+    function handleLogout() { if(confirm('Logout?')) window.location.href = 'login.html'; }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      loadEstimateData();
+    });
+  </script>
+</body>
+
+</html>
