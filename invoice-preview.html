@@ -267,7 +267,7 @@
 
 <body>
   <div id="main-wrapper">
-    <!-- Sidebar Start -->
+   <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -276,25 +276,161 @@
               <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
             </a>
           </div>
+          
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4"><a class="sidebar-link" href="index.html" aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="hide-menu">Dashboard</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#" aria-expanded="false"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon><span class="hide-menu">Inbox</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="hide-menu">Items</span></a>
-                <ul class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="items.html">Inventory</a></li></ul>
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
               </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow active" href="javascript:void(0)"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="hide-menu">Sales</span></a>
-                <ul class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html">Customer</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html">Invoice</a></li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
                 </ul>
               </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier.html">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-order.html">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                 <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
               <li><span class="sidebar-divider"></span></li>
             </ul>
+            
+            <!-- Logout Option at Bottom -->
             <div class="sidebar-footer">
               <ul class="sidebar-menu">
-                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
-                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </nav>
@@ -303,25 +439,25 @@
     </aside>
     <!-- Sidebar End -->
 
+
     <div class="page-wrapper">
-      <header class="topbar">
-        <div class="with-vertical">
-          <nav class="navbar navbar-expand-lg p-0">
-            <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
-            </ul>
-            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <div class="d-flex align-items-center justify-content-between">
-                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Profile" /></div></a></li>
-                </ul>
-              </div>
+
+     <header class="topbar">
+            <div class="with-vertical">
+                <nav class="navbar navbar-expand-lg p-0">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+                        <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+                        <li class="nav-item d-none d-lg-flex dropdown">
+                            <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px;" onclick="location.href='create-enquiry.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Enquiry</button></div>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3 ms-auto">
+                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                    </div>
+                </nav>
             </div>
-          </nav>
-        </div>
-      </header>
+        </header>
 
       <div class="body-wrapper">
         <div class="container-fluid p-3">
@@ -424,7 +560,7 @@
                   <button class="btn btn-outline-secondary rounded-pill px-4" onclick="window.history.back()">
                     <iconify-icon icon="solar:arrow-left-linear" class="me-1"></iconify-icon> Back to Edit
                   </button>
-                  <button class="btn btn-info rounded-pill px-4" onclick="window.print()">
+                  <button class="btn btn-dark rounded-pill px-4" onclick="window.print()">
                     <iconify-icon icon="solar:printer-bold" class="me-1"></iconify-icon> Print Invoice
                   </button>
                   <button class="btn btn-primary rounded-pill px-4" id="shareInvoiceBtn">
