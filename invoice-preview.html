@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fintle | Create Invoice - Complete Working System</title>
+  <title>Fintle | Invoice Preview</title>
   <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
@@ -13,10 +13,14 @@
   <style>
     :root {
       --brand-blue: #eef2f8;
-      /* Soft Professional Blue */
       --border-color: #cbd5e1;
       --text-main: #334155;
       --text-muted: #64748b;
+    }
+
+    body {
+      background: #f1f5f9;
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
     }
 
     .invoice-container {
@@ -26,14 +30,16 @@
       border: 1px solid var(--border-color);
       display: flex;
       flex-direction: column;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+      border-radius: 16px;
+      overflow: hidden;
     }
 
     /* Header Elements */
     .logo-box {
       border: 1px dashed var(--border-color);
       width: 150px;
-      height: 60px;
+      height: 70px;
       background-color: #f8fafc;
       display: flex;
       align-items: center;
@@ -44,6 +50,7 @@
       overflow: hidden;
       cursor: pointer;
       transition: all 0.2s ease;
+      border-radius: 8px;
     }
     
     .logo-box:hover {
@@ -81,10 +88,14 @@
     }
 
     .invoice-title {
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: 0.5px;
+      font-weight: 800;
+      font-size: 24px;
+      letter-spacing: 1px;
       color: #1e293b;
+      background: linear-gradient(135deg, #1e293b 0%, #2d3a4f 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
 
     /* Section Bars */
@@ -92,10 +103,12 @@
       background-color: var(--brand-blue);
       border-top: 1px solid var(--border-color);
       border-bottom: 1px solid var(--border-color);
-      padding: 8px 20px;
-      font-weight: 600;
-      font-size: 13px;
+      padding: 10px 20px;
+      font-weight: 700;
+      font-size: 12px;
       text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #1e293b;
     }
 
     /* Professional Table Styling */
@@ -106,20 +119,20 @@
 
     .table thead th {
       background-color: var(--brand-blue);
-      font-weight: 600;
+      font-weight: 700;
       font-size: 12px;
-      color: #475569;
+      color: #1e293b;
       text-transform: uppercase;
-      padding: 12px 10px;
+      padding: 14px 12px;
       border-bottom: 1px solid var(--border-color);
       vertical-align: middle;
     }
 
     .table tbody td {
-      padding: 15px 10px;
-      font-size: 14px;
+      padding: 16px 12px;
+      font-size: 13px;
       vertical-align: top;
-      border-right: 1px solid var(--border-color);
+      border-right: 1px solid #e9edf2;
     }
 
     .table tbody td:last-child {
@@ -127,44 +140,13 @@
     }
 
     /* Column Widths */
-    .col-idx {
-      width: 5%;
-      text-align: center;
-    }
-
-    .col-desc {
-      width: 35%;
-    }
-
-    .col-price {
-      width: 15%;
-      text-align: right;
-    }
-
-    .col-qty {
-      width: 10%;
-      text-align: center;
-    }
-
-    .col-unit {
-      width: 10%;
-      text-align: center;
-    }
-
-    .col-tax {
-      width: 10%;
-      text-align: center;
-    }
-
-    .col-amt {
-      width: 15%;
-      text-align: right;
-      font-weight: 600;
-    }
-
-    .empty-area {
-      height: 300px;
-    }
+    .col-idx { width: 5%; text-align: center; }
+    .col-desc { width: 38%; }
+    .col-price { width: 12%; text-align: right; }
+    .col-qty { width: 8%; text-align: center; }
+    .col-unit { width: 8%; text-align: center; }
+    .col-tax { width: 10%; text-align: center; }
+    .col-amt { width: 14%; text-align: right; font-weight: 600; }
 
     /* Summary & Signatory Section */
     .footer-flex {
@@ -174,7 +156,7 @@
     }
 
     .summary-wrapper {
-      width: 400px;
+      width: 380px;
       margin-left: auto;
       border-left: 1px solid var(--border-color);
     }
@@ -184,25 +166,27 @@
       padding: 12px 20px;
       font-weight: 700;
       border-bottom: 1px solid var(--border-color);
+      color: #1e293b;
     }
 
     .summary-item {
       display: flex;
       justify-content: space-between;
-      padding: 10px 20px;
+      padding: 12px 20px;
       border-bottom: 1px solid #f1f5f9;
     }
 
     .balance-due {
       background-color: #f8fafc;
-      padding: 12px 20px;
+      padding: 14px 20px;
       font-weight: 700;
       color: #0f172a;
+      border-top: 1px solid #e2e8f0;
     }
 
     .signatory-box {
       background-color: var(--brand-blue);
-      min-height: 160px;
+      min-height: 180px;
       display: flex;
       flex-direction: column;
       justify-content: flex-end;
@@ -219,8 +203,8 @@
     }
     
     .signature-image {
-      max-width: 80%;
-      max-height: 70px;
+      max-width: 70%;
+      max-height: 60px;
       object-fit: contain;
       margin-bottom: 8px;
     }
@@ -251,6 +235,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
+      width: 80px;
+      height: 70px;
     }
     
     .qr-auth-container img {
@@ -258,54 +244,23 @@
       max-height: 100%;
       object-fit: contain;
     }
-    
-    .upload-btn-icon {
-      position: absolute;
-      bottom: 2px;
-      right: 2px;
-      background: rgba(59,130,246,0.8);
-      border-radius: 50%;
-      width: 20px;
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: white;
-      font-size: 10px;
-      cursor: pointer;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-    
-    .logo-box:hover .upload-btn-icon,
-    .qr-auth-container:hover .upload-btn-icon {
-      opacity: 1;
-    }
 
     @media print {
-      body {
-        background: white;
-        padding: 0;
-      }
+      body { background: white; padding: 0; margin: 0; }
+      .invoice-container { margin: 0; border: none; width: 100%; box-shadow: none; border-radius: 0; }
+      .no-print-btn, .no-print { display: none !important; }
+      .upload-overlay, .upload-btn-icon, .logo-box:hover .upload-overlay { display: none; }
+      .logo-box, .signatory-box, .qr-auth-container { cursor: default; }
+      .action-buttons { display: none; }
+      .sidebar-menu, .topbar, .side-mini-panel, .page-wrapper > header { display: none !important; }
+      #main-wrapper .page-wrapper { margin-left: 0 !important; }
+      body { padding: 0; }
+    }
 
-      .invoice-container {
-        margin: 0;
-        border: none;
-        width: 100%;
-        box-shadow: none;
-      }
-
-      .no-print-btn {
-        display: none;
-      }
-      
-      .upload-overlay, .upload-btn-icon, .logo-box:hover .upload-overlay {
-        display: none;
-      }
-      
-      .logo-box, .signatory-box, .qr-auth-container {
-        cursor: default;
-      }
+    .action-buttons {
+      position: sticky;
+      bottom: 20px;
+      z-index: 100;
     }
   </style>
 </head>
@@ -323,383 +278,56 @@
           </div>
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="" id="get-url" aria-expanded="false">
-                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Dashboard</span>
-                </a>
+              <li class="sidebar-item mt-4"><a class="sidebar-link" href="index.html" aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="hide-menu">Dashboard</span></a></li>
+              <li class="sidebar-item"><a class="sidebar-link" href="#" aria-expanded="false"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon><span class="hide-menu">Inbox</span></a></li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="hide-menu">Items</span></a>
+                <ul class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="items.html">Inventory</a></li></ul>
               </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="../main/index2.html" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Inbox</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Items</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span>
-                      Inventory</a></li>
+              <li class="sidebar-item"><a class="sidebar-link has-arrow active" href="javascript:void(0)"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="hide-menu">Sales</span></a>
+                <ul class="collapse first-level">
+                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html">Customer</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html">Invoice</a></li>
                 </ul>
               </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Purchase</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="../main/frontend-landingpage.html">
-                      <span class="icon-small"></span>
-                      Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="../main/frontend-aboutpage.html">
-                      <span class="icon-small"></span>
-                      Purchase Order
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span>
-                      Purchase Bill
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span>
-                      Supplier Statement
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:home-angle-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Sales</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span>
-                      Customer
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="../main/frontend-aboutpage.html">
-                      <span class="icon-small"></span>
-                      Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span>
-                      Estimates
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span>
-                      Invoice
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span>
-                      Customer Statement
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <span class="sidebar-divider"></span>
-              </li>
+              <li><span class="sidebar-divider"></span></li>
             </ul>
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
+                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
+              </ul>
+            </div>
           </nav>
         </div>
       </div>
     </aside>
-    <!--  Sidebar End -->
+    <!-- Sidebar End -->
 
     <div class="page-wrapper">
-      <!--  Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none">
-                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
-                  href="javascript:void(0)">
-                  <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
-                </a>
-              </li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle">
-                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
-                </a>
-              </li>
-              <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd">
-                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                    onclick="location.href='create-invoice.html'"
-                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
-                    <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
-                    Create Sales Invoice
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-nav dropdown-menu-animate-up py-0 overflow-hidden"
-                    aria-labelledby="drop2">
-                    <div class="position-relative">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <div class="p-4 pb-3">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="position-relative">
-                                  <a href="../main/app-chat.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:chat-line-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0"> Create Party</h6>
-                                      <span class="fs-11 d-block text-body-color">Set up profiles for new customers or
-                                        vendors.</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-invoice.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:bill-list-bold-duotone"
-                                        class="fs-7 text-secondary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Create Item</h6>
-                                      <span class="fs-11 d-block text-body-color">Register new products or services into
-                                        your inventory.</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-contact2.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:phone-calling-rounded-bold-duotone"
-                                        class="fs-7 text-warning"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Estimate</h6>
-                                      <span class="fs-11 d-block text-body-color">Issue price estimates to potential
-                                        clients.</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-email.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:letter-bold-duotone"
-                                        class="fs-7 text-danger"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Payment In</h6>
-                                      <span class="fs-11 d-block text-body-color">Record money received from customers.
-                                      </span>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="position-relative">
-                                  <a href="../main/page-user-profile.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:user-bold-duotone"
-                                        class="fs-7 text-success"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Sales Return</h6>
-                                      <span class="fs-11 d-block text-body-color">learn more information</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-calendar.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:calendar-minimalistic-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Delivery Challan</h6>
-                                      <span class="fs-11 d-block text-body-color">Document the dispatch of goods for
-                                        delivery. </span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-contact.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:smartphone-2-bold-duotone"
-                                        class="fs-7 text-secondary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Purchase</h6>
-                                      <span class="fs-11 d-block text-body-color">Send official requests to suppliers
-                                        for goods</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-notes.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:notes-bold-duotone"
-                                        class="fs-7 text-warning"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Purchase Return</h6>
-                                      <span class="fs-11 d-block text-body-color">To-do and Daily tasks</span>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
             </ul>
-            <div class="d-block d-lg-none py-9 py-xl-0">
-              <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-            </div>
-            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-              data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-              aria-label="Toggle navigation">
-              <iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon>
-            </a>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
               <div class="d-flex align-items-center justify-content-between">
                 <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown">
-                    <a href="javascript:void(0)"
-                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
-                      aria-controls="offcanvasWithBothOptions">
-                      <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item d-block d-xl-none">
-                    <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-                      data-bs-toggle="modal" data-bs-target="#exampleModal">
-                      <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
-                    <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
-                      <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
-                      aria-labelledby="drop2">
-                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                        <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                      </div>
-                      <div class="message-body" data-simplebar>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
-                            <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6>
-                              <span class="d-block fs-2">9:30 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
-                            <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6>
-                              <span class="d-block fs-2">9:15 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="py-6 px-7 mb-1">
-                        <button class="btn btn-primary w-100">See All Notifications</button>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
-                      <div class="d-flex align-items-center gap-2 lh-base">
-                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35"
-                          alt="Fintle-img" />
-                      </div>
-                    </a>
-                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up"
-                      aria-labelledby="drop1">
-                      <div class="position-relative px-4 pt-3 pb-2">
-                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
-                          <img src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
-                            alt="Fintle-img" />
-                          <div>
-                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span>
-                            </h5>
-                            <p class="mb-0 text-dark">
-                              <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                data-cfemail="583c392e313c182f2a39282831203d34763b3735">[email&#160;protected]</a>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="message-body">
-                          <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Profile
-                          </a>
-                          <a href="../main/page-pricing.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Subscription
-                          </a>
-                          <a href="../main/app-invoice.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Invoice <span class="badge bg-danger-subtle text-danger rounded ms-8">4</span>
-                          </a>
-                          <a href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">
-                            Account Settings
-                          </a>
-                          <a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">
-                            Sign Out
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Profile" /></div></a></li>
                 </ul>
               </div>
             </div>
           </nav>
         </div>
       </header>
-      <!--  Header End -->
 
       <div class="body-wrapper">
         <div class="container-fluid p-3">
           <div class="row">
             <div class="col-12">
-              <div class="invoice-container">
+              <div class="invoice-container" id="invoiceContainer">
                 <div class="d-flex justify-content-between align-items-center p-4">
                   <!-- COMPANY LOGO with upload -->
                   <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()">
@@ -715,7 +343,7 @@
                   <div class="logo-box qr-auth-container" id="qrAuthBox" onclick="document.getElementById('qrUpload').click()">
                     <span id="qrPlaceholder">QR / AUTH</span>
                     <img id="qrImage" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="QR Code">
-                    <div class="upload-overlay">Click to upload QR/Auth</div>
+                    <div class="upload-overlay">Click to upload</div>
                     <input type="file" id="qrUpload" class="upload-input-hidden" accept="image/*" style="display:none">
                   </div>
                 </div>
@@ -726,82 +354,52 @@
                 </div>
 
                 <div class="row m-0 border-bottom">
-                  <div class="col-8 p-4">
-                    <h5 class="fw-bold mb-1">Guru</h5> 
-                    <p class="text-muted small mb-0">
-                      123 Business Avenue, Suite 500<br>
-                      Bangalore, Karnataka 560001
-                    </p>
+                  <div class="col-8 p-4" id="customerInfoArea">
+                    <h5 class="fw-bold mb-1" id="customerNamePreview">--</h5>
+                    <p class="text-muted small mb-0" id="customerAddressPreview"></p>
+                    <div class="small fw-semibold text-primary mt-2" id="customerGstPreview"></div>
                   </div>
                   <div class="col-4 p-4 border-start">
                     <table class="w-100 small">
-                      <tr>
-                        <td class="text-muted pb-1">Invoice No:</td>
-                        <td class="text-end fw-bold pb-1">3</td>
-                      </tr>
-                      <tr>
-                        <td class="text-muted">Date:</td>
-                        <td class="text-end fw-bold">05.08.2025</td>
-                      </tr>
+                      <tr><td class="text-muted pb-2">Invoice No:</td><td class="text-end fw-bold pb-2" id="invoiceNoDisplay">--</td></tr>
+                      <tr><td class="text-muted pb-2">Issue Date:</td><td class="text-end fw-bold pb-2" id="issueDateDisplay">--</td></tr>
+                      <tr><td class="text-muted pb-2">Due Date:</td><td class="text-end fw-bold pb-2" id="dueDateDisplay">--</td></tr>
+                      <tr><td class="text-muted">Status:</td><td class="text-end" id="statusDisplay"><span class="badge bg-warning">Unpaid</span></td></tr>
                     </table>
                   </div>
                 </div>
 
-                <table class="table border-bottom">
+                <!-- Items Table -->
+                <table class="table border-bottom" id="itemsPreviewTable">
                   <thead>
                     <tr>
                       <th class="col-idx">#</th>
                       <th class="col-desc text-start">Item / Description</th>
-                      <th class="col-price">Price</th>
+                      <th class="col-price">Price (₹)</th>
                       <th class="col-qty">Qty</th>
                       <th class="col-unit">Unit</th>
                       <th class="col-tax">Tax Rate</th>
-                      <th class="col-amt">Amount</th>
+                      <th class="col-amt">Amount (₹)</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td class="text-center text-muted">1</td>
-                      <td>
-                        <div class="fw-bold">UI/UX Design Services</div>
-                        <div class="text-muted small">Standard design sprint for mobile application...</div>
-                      </td>
-                      <td class="text-end">₹50,000.00</td>
-                      <td class="text-center">1</td>
-                      <td class="text-center text-muted">Project</td>
-                      <td class="text-center">18%</td>
-                      <td class="text-end">₹50,000.00</td>
-                    </tr>
-                    <tr class="empty-area">
-                      <td></td><td></td><td></td><td></td><td></td><td></td><td></td>
-                    </tr>
-                    <tr class="table-light fw-bold">
-                      <td colspan="6" class="text-end py-2">Total</td>
-                      <td class="text-end py-2">₹50,000.00</td>
-                    </tr>
+                  <tbody id="itemsPreviewBody">
+                    <tr><td colspan="7" class="text-center py-4">Loading items...</td></tr>
                   </tbody>
                 </table>
 
                 <div class="footer-flex">
-                  <div class="p-4 small text-muted align-self-end">
-                    * All disputes subject to local jurisdiction.
+                  <div class="p-4 small text-muted align-self-end" contenteditable="true" id="notesSection">
+                    * All disputes subject to local jurisdiction.<br>
+                    Payment due by due date. Bank: HDFC A/C 5020XXXXX
                   </div>
 
                   <div class="summary-wrapper">
-                    <div class="summary-header">Amounts</div>
+                    <div class="summary-header">Amount Summary</div>
                     <div class="summary-body">
-                      <div class="summary-item">
-                        <span class="text-muted">Total</span>
-                        <span class="fw-bold">₹50,000.00</span>
-                      </div>
-                      <div class="summary-item">
-                        <span class="text-muted">Received</span>
-                        <span>₹0.00</span>
-                      </div>
-                      <div class="balance-due d-flex justify-content-between">
-                        <span>Balance</span>
-                        <span>₹50,000.00</span>
-                      </div>
+                      <div class="summary-item"><span class="text-muted">Subtotal</span><span class="fw-bold" id="subtotalPreview">₹ 0.00</span></div>
+                      <div class="summary-item"><span class="text-muted">Shipping Charge</span><span id="shippingPreview">₹ 0.00</span></div>
+                      <div class="summary-item"><span class="text-muted">Tax (GST)</span><span id="taxPreview">₹ 0.00</span></div>
+                      <div class="summary-item border-bottom-0"><span class="fw-bold">Total Amount</span><span class="fw-bold text-primary" id="totalPreview">₹ 0.00</span></div>
                       
                       <!-- Authorized Signatory with upload capability -->
                       <div class="signatory-box" id="signatoryBox" onclick="document.getElementById('signatureUpload').click()">
@@ -809,8 +407,8 @@
                           <div class="sign-line" id="defaultSignLine"></div>
                           <div class="small fw-bold text-uppercase">Authorized Signatory</div>
                         </div>
-                        <img id="signatureImage" style="display:none; max-width:80%; max-height:70px; object-fit:contain; margin-bottom:8px;" alt="Signature">
-                        <div class="upload-overlay" style="position:relative; margin-top:5px; background:transparent; color:#3b82f6; font-size:10px;">Click to upload signature</div>
+                        <img id="signatureImage" style="display:none; max-width:70%; max-height:60px; object-fit:contain; margin-bottom:8px;" alt="Signature">
+                        <div class="upload-overlay" style="position:relative; margin-top:5px; background:transparent; color:#3b82f6;">Click to upload signature</div>
                         <input type="file" id="signatureUpload" class="upload-input-hidden" accept="image/*" style="display:none">
                       </div>
                     </div>
@@ -818,19 +416,19 @@
                 </div>
               </div>
             </div>
-            <div class="row mt-4">
+            
+            <!-- Action Buttons -->
+            <div class="row mt-4 action-buttons">
               <div class="col-12">
                 <div class="d-flex justify-content-end gap-3">
-                  <button class="btn btn-rounded btn-info px-4 rounded-pill" onclick="window.print()">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path fill="currentColor" d="M19 7h-1V2H6v5H5c-1.65 0-3 1.35-3 3v7c0 1.1.9 2 2 2h2v3h12v-3h2c1.1 0 2-.9 2-2v-7c0-1.65-1.35-3-3-3M8 4h8v3H8zm8 16H8v-4h8zm4-3h-2v-3H6v3H4v-7c0-.55.45-1 1-1h14c.55 0 1 .45 1 1z" />
-                      <path fill="currentColor" d="M14 11h4v1h-4z" />
-                    </svg> Print Invoice
+                  <button class="btn btn-outline-secondary rounded-pill px-4" onclick="window.history.back()">
+                    <iconify-icon icon="solar:arrow-left-linear" class="me-1"></iconify-icon> Back to Edit
                   </button>
-                  <button class="btn btn-primary px-4 rounded-pill" id="recordPaymentBtn">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                      <path fill="currentColor" d="M5.5 15.5c1.07 0 2.02-.5 2.67-1.26l6.87 3.87c-.01.13-.04.26-.04.39c0 1.93 1.57 3.5 3.5 3.5s3.5-1.57 3.5-3.5s-1.57-3.5-3.5-3.5c-1.07 0-2.02.5-2.67 1.26l-6.87-3.87c.01-.13.04-.26.04-.39s-.02-.26-.04-.39l6.87-3.87C16.47 8.5 17.42 9 18.5 9C20.43 9 22 7.43 22 5.5S20.43 2 18.5 2S15 3.57 15 5.5c0 .13.02.26.04.39L8.17 9.76A3.48 3.48 0 0 0 5.5 8.5C3.57 8.5 2 10.07 2 12s1.57 3.5 3.5 3.5m13 1.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5s-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5m0-13c.83 0 1.5.67 1.5 1.5S19.33 7 18.5 7S17 6.33 17 5.5S17.67 4 18.5 4m-13 6.5c.83 0 1.5.67 1.5 1.5s-.67 1.5-1.5 1.5S4 12.83 4 12s.67-1.5 1.5-1.5" />
-                    </svg> Share Invoice
+                  <button class="btn btn-info rounded-pill px-4" onclick="window.print()">
+                    <iconify-icon icon="solar:printer-bold" class="me-1"></iconify-icon> Print Invoice
+                  </button>
+                  <button class="btn btn-primary rounded-pill px-4" id="shareInvoiceBtn">
+                    <iconify-icon icon="solar:share-bold" class="me-1"></iconify-icon> Share Invoice
                   </button>
                 </div>
               </div>
@@ -850,100 +448,244 @@
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
   
   <script>
+    // Load data from localStorage or use defaults
+    function loadInvoiceData() {
+      try {
+        const savedData = localStorage.getItem('fintle_invoice_data');
+        let invoiceData = savedData ? JSON.parse(savedData) : null;
+        
+        if (!invoiceData) {
+          // Default demo data
+          invoiceData = {
+            customer: { name: "Aster Technologies", address: "42, Richmond Circle, Bangalore - 560025", gst: "GST: 29AAACB1234E1Z5" },
+            invoiceNo: "INV-2407-102",
+            issueDate: "2026-04-28",
+            dueDate: "2026-05-28",
+            status: "Unpaid",
+            items: [
+              { name: "Web Design Service", code: "WEB01", price: 2500, qty: 1, unit: "Hour", tax: 12, desc: "Custom responsive design, 5 pages" },
+              { name: "Cloud Hosting", code: "CLD99", price: 4800, qty: 1, unit: "Year", tax: 5, desc: "SSD 20GB + 1TB bandwidth" }
+            ],
+            shipping: 0,
+            notes: "* All disputes subject to local jurisdiction.\nPayment due by due date. Bank: HDFC A/C 5020XXXXX"
+          };
+        }
+        
+        // Populate Customer Details
+        document.getElementById('customerNamePreview').innerHTML = invoiceData.customer?.name || "--";
+        document.getElementById('customerAddressPreview').innerHTML = invoiceData.customer?.address || "";
+        document.getElementById('customerGstPreview').innerHTML = invoiceData.customer?.gst || "";
+        
+        // Populate Invoice Details
+        document.getElementById('invoiceNoDisplay').innerText = invoiceData.invoiceNo || "INV-2407-102";
+        document.getElementById('issueDateDisplay').innerText = invoiceData.issueDate ? new Date(invoiceData.issueDate).toLocaleDateString('en-IN') : "28 Apr 2026";
+        document.getElementById('dueDateDisplay').innerText = invoiceData.dueDate ? new Date(invoiceData.dueDate).toLocaleDateString('en-IN') : "28 May 2026";
+        
+        const statusBadge = document.getElementById('statusDisplay');
+        const status = invoiceData.status || "Unpaid";
+        statusBadge.innerHTML = `<span class="badge ${status === 'Paid' ? 'bg-success' : status === 'Partially Paid' ? 'bg-warning' : 'bg-danger'}">${status}</span>`;
+        
+        // Populate Items Table
+        const itemsBody = document.getElementById('itemsPreviewBody');
+        const items = invoiceData.items || [];
+        let subtotal = 0, totalTax = 0;
+        
+        if (items.length === 0) {
+          itemsBody.innerHTML = '<tr><td colspan="7" class="text-center py-4 text-muted">No items added</td></tr>';
+        } else {
+          itemsBody.innerHTML = items.map((item, idx) => {
+            const price = parseFloat(item.price) || 0;
+            const qty = parseFloat(item.qty) || 0;
+            const taxRate = parseFloat(item.tax) || 0;
+            const amount = price * qty;
+            const taxAmount = amount * taxRate / 100;
+            const total = amount + taxAmount;
+            subtotal += amount;
+            totalTax += taxAmount;
+            
+            return `<tr>
+              <td class="text-center text-muted">${idx + 1}</td>
+              <td>
+                <div class="fw-bold">${escapeHtml(item.name)}</div>
+                <div class="text-muted small">${escapeHtml(item.code || '')} ${item.desc ? ' - ' + escapeHtml(item.desc) : ''}</div>
+               </td>
+              <td class="text-end">₹ ${price.toFixed(2)}</td>
+              <td class="text-center">${qty}</td>
+              <td class="text-center text-muted">${escapeHtml(item.unit || 'PCS')}</td>
+              <td class="text-center">${taxRate}%</td>
+              <td class="text-end fw-bold">₹ ${total.toFixed(2)}</td>
+             </tr>`;
+          }).join('');
+        }
+        
+        // Add a total row
+        const shipping = parseFloat(invoiceData.shipping) || 0;
+        const grandTotal = subtotal + totalTax + shipping;
+        
+        itemsBody.innerHTML += `<tr class="table-light fw-bold">
+          <td colspan="6" class="text-end py-2">Subtotal</td>
+          <td class="text-end py-2">₹ ${subtotal.toFixed(2)}</td>
+         </tr>`;
+        
+        document.getElementById('subtotalPreview').innerText = `₹ ${subtotal.toFixed(2)}`;
+        document.getElementById('shippingPreview').innerText = `₹ ${shipping.toFixed(2)}`;
+        document.getElementById('taxPreview').innerText = `₹ ${totalTax.toFixed(2)}`;
+        document.getElementById('totalPreview').innerText = `₹ ${grandTotal.toFixed(2)}`;
+        
+        // Populate Notes
+        document.getElementById('notesSection').innerHTML = invoiceData.notes || "* All disputes subject to local jurisdiction.\nPayment due by due date. Bank: HDFC A/C 5020XXXXX";
+        
+        // Store current data for sharing
+        window.currentInvoiceData = invoiceData;
+        
+      } catch (e) {
+        console.error("Error loading invoice data:", e);
+      }
+    }
+    
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+    
     // Logo Upload Handler
     const logoUpload = document.getElementById('logoUpload');
     const logoImage = document.getElementById('logoImage');
     const logoPlaceholder = document.getElementById('logoPlaceholder');
     
-    logoUpload.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          logoImage.src = event.target.result;
-          logoImage.style.display = 'block';
-          logoPlaceholder.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+    if(logoUpload) {
+      logoUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            logoImage.src = event.target.result;
+            logoImage.style.display = 'block';
+            logoPlaceholder.style.display = 'none';
+            localStorage.setItem('fintle_logo', event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+    
+    // Load saved logo
+    const savedLogo = localStorage.getItem('fintle_logo');
+    if(savedLogo && logoImage) {
+      logoImage.src = savedLogo;
+      logoImage.style.display = 'block';
+      if(logoPlaceholder) logoPlaceholder.style.display = 'none';
+    }
     
     // QR/AUTH Upload Handler
     const qrUpload = document.getElementById('qrUpload');
     const qrImage = document.getElementById('qrImage');
     const qrPlaceholder = document.getElementById('qrPlaceholder');
     
-    qrUpload.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          qrImage.src = event.target.result;
-          qrImage.style.display = 'block';
-          qrPlaceholder.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
+    if(qrUpload) {
+      qrUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            qrImage.src = event.target.result;
+            qrImage.style.display = 'block';
+            qrPlaceholder.style.display = 'none';
+            localStorage.setItem('fintle_qr', event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+    
+    const savedQr = localStorage.getItem('fintle_qr');
+    if(savedQr && qrImage) {
+      qrImage.src = savedQr;
+      qrImage.style.display = 'block';
+      if(qrPlaceholder) qrPlaceholder.style.display = 'none';
+    }
     
     // Signature Upload Handler
     const signatureUpload = document.getElementById('signatureUpload');
     const signatureImage = document.getElementById('signatureImage');
-    const signatoryBox = document.getElementById('signatoryBox');
     const defaultSignLine = document.getElementById('defaultSignLine');
     const signaturePreviewArea = document.getElementById('signaturePreviewArea');
     
-    signatureUpload.addEventListener('change', function(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          signatureImage.src = event.target.result;
-          signatureImage.style.display = 'block';
-          // Hide the default sign line and text, keep only the signature image
-          if (defaultSignLine) defaultSignLine.style.display = 'none';
-          const signatoryText = signaturePreviewArea.querySelector('.small.fw-bold.text-uppercase');
-          if (signatoryText) signatoryText.style.display = 'none';
-          signaturePreviewArea.style.display = 'none';
-          signatureImage.style.display = 'block';
-        };
-        reader.readAsDataURL(file);
+    if(signatureUpload) {
+      signatureUpload.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function(event) {
+            signatureImage.src = event.target.result;
+            signatureImage.style.display = 'block';
+            if(defaultSignLine) defaultSignLine.style.display = 'none';
+            const signatoryText = signaturePreviewArea?.querySelector('.small.fw-bold.text-uppercase');
+            if(signatoryText) signatoryText.style.display = 'none';
+            if(signaturePreviewArea) signaturePreviewArea.style.display = 'none';
+            signatureImage.style.display = 'block';
+            localStorage.setItem('fintle_signature', event.target.result);
+          };
+          reader.readAsDataURL(file);
+        }
+      });
+    }
+    
+    const savedSignature = localStorage.getItem('fintle_signature');
+    if(savedSignature && signatureImage) {
+      signatureImage.src = savedSignature;
+      signatureImage.style.display = 'block';
+      if(defaultSignLine) defaultSignLine.style.display = 'none';
+      if(signaturePreviewArea) signaturePreviewArea.style.display = 'none';
+    }
+    
+    // Save notes when edited
+    const notesSection = document.getElementById('notesSection');
+    
+    function saveNotes() {
+      const invoiceData = window.currentInvoiceData || {};
+      invoiceData.notes = notesSection?.innerHTML || "";
+      localStorage.setItem('fintle_invoice_data', JSON.stringify(invoiceData));
+      window.currentInvoiceData = invoiceData;
+    }
+    
+    if(notesSection) notesSection.addEventListener('blur', saveNotes);
+    
+    // Share Invoice functionality
+    document.getElementById('shareInvoiceBtn')?.addEventListener('click', async () => {
+      const invoiceData = window.currentInvoiceData;
+      if(invoiceData) {
+        const total = document.getElementById('totalPreview').innerText;
+        const shareText = `INVOICE\nCustomer: ${invoiceData.customer?.name}\nTotal: ${total}\nInvoice: ${invoiceData.invoiceNo}\nDue Date: ${invoiceData.dueDate}`;
+        if(navigator.share) {
+          try {
+            await navigator.share({ title: 'Invoice', text: shareText });
+          } catch(e) { 
+            navigator.clipboard.writeText(shareText);
+            alert('Invoice details copied to clipboard!');
+          }
+        } else {
+          navigator.clipboard.writeText(shareText);
+          alert('Invoice details copied to clipboard!');
+        }
+      } else {
+        alert('No invoice data available');
       }
     });
     
-    // Ensure that if signature is uploaded, it shows correctly
-    // Also handle click on signature box to re-upload
-    document.getElementById('signatoryBox').addEventListener('click', function(e) {
-      // Prevent event bubbling to avoid conflicts
-      e.stopPropagation();
-      document.getElementById('signatureUpload').click();
-    });
+    // Make signatory box clickable
+    const signatoryBox = document.getElementById('signatoryBox');
+    if(signatoryBox) {
+      signatoryBox.addEventListener('click', function(e) {
+        e.stopPropagation();
+        document.getElementById('signatureUpload')?.click();
+      });
+    }
     
-    // Make logo and QR boxes clickable properly (already have onclick)
-    document.getElementById('companyLogoBox').addEventListener('click', function(e) {
-      e.stopPropagation();
-      document.getElementById('logoUpload').click();
-    });
+    // Handle logout
+    function handleLogout() { if(confirm('Logout?')) window.location.href = 'login.html'; }
     
-    document.getElementById('qrAuthBox').addEventListener('click', function(e) {
-      e.stopPropagation();
-      document.getElementById('qrUpload').click();
+    // Load data on page load
+    document.addEventListener('DOMContentLoaded', () => {
+      loadInvoiceData();
     });
-    
-    // Small fix to ensure the upload overlays are visible on hover
-    const style = document.createElement('style');
-    style.textContent = `
-      .logo-box:hover .upload-overlay {
-        opacity: 1 !important;
-      }
-      .signatory-box:hover .upload-overlay {
-        opacity: 1 !important;
-      }
-      .qr-auth-container:hover .upload-overlay {
-        opacity: 1 !important;
-      }
-    `;
-    document.head.appendChild(style);
   </script>
 </body>
 
