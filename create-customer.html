@@ -11,8 +11,8 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
-    <!-- Use the existing fintle theme styles (keeping all original classes) -->
     <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
     <style>
         /* Additional styles for the form components (matching fintle design system) */
         .card-custom {
@@ -1219,9 +1219,9 @@
                             </div>
                             <div class="card-body p-4">
                                 <div class="row g-4">
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Party Name *</label><input
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Customer Name*</label><input
                                             type="text" class="form-control" id="partyName"
-                                            placeholder="Enter party name" required></div>
+                                            placeholder="Enter customer name" required></div>
                                     <div class="col-md-6"><label class="form-label fw-semibold">Mobile Number</label><input
                                             type="tel" class="form-control" id="mobileNo"
                                             placeholder="Enter mobile number"></div>
@@ -1246,13 +1246,13 @@
                                     </div>
                                     <div class="col-md-6"><label class="form-label fw-semibold">PAN Number</label><input type="text"
                                             class="form-control" id="panNumber" placeholder="PAN Number"></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Party Type</label><select
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Customer Type</label><select
                                             class="form-select" id="partyType">
                                             <option value="customer">Customer</option>
                                             <option value="supplier">Supplier</option>
                                             <option value="both">Both</option>
                                         </select></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Party Category</label>
+                                    <div class="col-md-6"><label class="form-label fw-semibold">Customer Category</label>
                                         <div class="d-flex gap-2"><select class="form-select" id="partyCategory">
                                                 <option value="">Select Category</option>
                                                 <option value="Retail">Retail</option>
@@ -1385,7 +1385,7 @@
         billingAddr?.addEventListener('input', () => { if (sameAsBilling.checked) shippingAddr.value = billingAddr.value; });
         document.getElementById('addCategoryBtn')?.addEventListener('click', () => { const newCat = prompt('Enter new category name:'); if (newCat && newCat.trim()) { const select = document.getElementById('partyCategory'); const option = document.createElement('option'); option.value = newCat.trim(); option.textContent = newCat.trim(); select.appendChild(option); select.value = newCat.trim(); showToast(`Category "${newCat.trim()}" created`); } });
         document.getElementById('getGstDetails')?.addEventListener('click', () => { const gst = document.getElementById('gstin').value; if (gst.length >= 5) showToast(`🔍 Demo: Fetching details for GST: ${gst}`); else showToast('Please enter valid GSTIN'); });
-        document.getElementById('partyForm')?.addEventListener('submit', (e) => { e.preventDefault(); const partyName = document.getElementById('partyName').value.trim(); if (!partyName) { showToast('Party Name is required'); return; } const formData = { partyName, mobile: document.getElementById('mobileNo').value, email: document.getElementById('emailId').value, openingBalance: document.getElementById('openingBalance').value, balanceType: document.getElementById('balanceType').value, gstin: document.getElementById('gstin').value, pan: document.getElementById('panNumber').value, partyType: document.getElementById('partyType').value, partyCategory: document.getElementById('partyCategory').value, billingAddress: document.getElementById('billingAddress').value, shippingAddress: document.getElementById('shippingAddress').value, creditPeriod: document.getElementById('creditPeriod').value, creditLimit: document.getElementById('creditLimit').value, contactPerson: document.getElementById('contactPerson').value, contactDob: document.getElementById('contactDob').value, bankAccounts }; console.log('Party Data:', formData); showToast(`✅ Party "${partyName}" created successfully!`); });
+        document.getElementById('partyForm')?.addEventListener('submit', (e) => { e.preventDefault(); const partyName = document.getElementById('partyName').value.trim(); if (!partyName) { showToast('Customer Nameis required'); return; } const formData = { partyName, mobile: document.getElementById('mobileNo').value, email: document.getElementById('emailId').value, openingBalance: document.getElementById('openingBalance').value, balanceType: document.getElementById('balanceType').value, gstin: document.getElementById('gstin').value, pan: document.getElementById('panNumber').value, partyType: document.getElementById('partyType').value, partyCategory: document.getElementById('partyCategory').value, billingAddress: document.getElementById('billingAddress').value, shippingAddress: document.getElementById('shippingAddress').value, creditPeriod: document.getElementById('creditPeriod').value, creditLimit: document.getElementById('creditLimit').value, contactPerson: document.getElementById('contactPerson').value, contactDob: document.getElementById('contactDob').value, bankAccounts }; console.log('Party Data:', formData); showToast(`✅ Party "${partyName}" created successfully!`); });
         document.querySelector('button[type="reset"]')?.addEventListener('click', () => { setTimeout(() => { bankAccounts = []; renderBankAccounts(); showToast('Form reset'); }, 10); });
         renderBankAccounts();
     </script>

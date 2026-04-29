@@ -124,14 +124,25 @@
         }
 
         /* Customer Modal Styles */
-        .customer-modal .modal-content {
-            border-radius: 20px;
+        .modal-rounded .modal-content {
+            border-radius: 24px;
+            border: none;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
         }
 
         .step-indicator {
             display: flex;
             justify-content: space-between;
             margin-bottom: 30px;
+            position: relative;
+            background: #f8fafc;
+            padding: 12px 20px;
+            border-radius: 60px;
+        }
+
+        .step-item {
+            flex: 1;
+            text-align: center;
             position: relative;
         }
 
@@ -146,17 +157,33 @@
             margin: 0 auto 8px;
             font-weight: bold;
             transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: #64748b;
         }
 
         .step-item.active .step-circle {
             background: #2a3b82;
             color: white;
-            box-shadow: 0 4px 10px rgba(42, 59, 130, 0.3);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.3);
+        }
+
+        .step-item.active .step-label {
+            color: #2a3b82;
+            font-weight: 600;
         }
 
         .step-item.completed .step-circle {
             background: #10b981;
             color: white;
+        }
+
+        .step-item.completed .step-label {
+            color: #10b981;
         }
 
         .form-step {
@@ -173,10 +200,34 @@
                 opacity: 0;
                 transform: translateX(10px);
             }
+
             to {
                 opacity: 1;
                 transform: translateX(0);
             }
+        }
+
+        .form-sleek {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .form-sleek:focus {
+            border-color: #2c7da0;
+            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+        }
+
+        .section-title-step {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eef2f8;
+        }
+
+        .btn-close:focus {
+            box-shadow: none;
         }
     </style>
 </head>
@@ -184,193 +235,198 @@
 <body>
 
     <div id="main-wrapper">
-        <!-- Sidebar Start -->
-        <aside class="side-mini-panel with-vertical">
-            <div class="iconbar">
-                <div class="sidebarmenu">
-                    <div class="brand-logo d-flex align-items-center nav-logo">
-                        <a href="../main/index.html" class="text-nowrap logo-img">
-                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-                        </a>
-                    </div>
 
-                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-                        <ul class="sidebar-menu" id="sidebarnav">
-                            <li class="sidebar-item mt-4">
-                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Dashboard</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="#" aria-expanded="false">
-                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Inbox</span>
-                                </a>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Items</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="items.html">
-                                            <span class="icon-small"></span> Inventory
+   <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+          
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <!-- Dashboard -->
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+
+              <!-- Items -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <!-- Purchase -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier.html">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-order.html">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                 <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
                                         </a>
                                     </li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Purchase</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Suppliers</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="purchase-order.html"><span class="icon-small"></span> Purchase Order</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="purchase-bill.html"><span class="icon-small"></span> Purchase Bill</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="supplier-statement.html"><span class="icon-small"></span> Supplier Statement</a></li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Sales</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span> Customer</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="enquiry.html"><span class="icon-small"></span> Enquiry</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="Estimate.html"><span class="icon-small"></span> Estimate</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span class="icon-small"></span> Invoice</a></li>
-                                </ul>
-                            </li>
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Accounts</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Account Master</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Journals</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Vouchers</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Bank Payments</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> General Ledger</a></li>
-                                    <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Balance Sheets</a></li>
-                                </ul>
-                            </li>
-                            <li><span class="sidebar-divider"></span></li>
-                        </ul>
-                        <div class="sidebar-footer">
-                            <ul class="sidebar-menu">
-                                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
-                                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
-                            </ul>
-                        </div>
-                    </nav>
-                </div>
+                </ul>
+              </li>
+
+              <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+
+                 <!-- Sales -->
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            
+            <!-- Logout Option at Bottom -->
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+
+               <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+
+
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
             </div>
-        </aside>
-        <!-- Sidebar End -->
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
 
         <div class="page-wrapper">
-            <!-- Header Start -->
-            <header class="topbar">
-                <div class="with-vertical">
-                    <nav class="navbar navbar-expand-lg p-0">
-                        <ul class="navbar-nav">
-                            <li class="nav-item d-flex d-xl-none">
-                                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)">
-                                    <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
-                                </a>
-                            </li>
-                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle">
-                                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
-                                </a>
-                            </li>
-                        </ul>
-                        <div class="d-block d-lg-none py-9 py-xl-0">
-                            <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-                        </div>
-                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-                            data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                            aria-label="Toggle navigation">
-                            <iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon>
-                        </a>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                                    <li class="nav-item dropdown">
-                                        <a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar">
-                                            <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item d-block d-xl-none">
-                                        <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                            <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
-                                        <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
-                                            <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
-                                        </a>
-                                        <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                                            <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                                                <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                                                <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                                            </div>
-                                            <div class="message-body" data-simplebar>
-                                                <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                                                    <span class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
-                                                        <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
-                                                    </span>
-                                                    <div class="w-75">
-                                                        <div class="d-flex align-items-center justify-content-between">
-                                                            <h6 class="mb-1 fw-semibold">Launch Admin</h6>
-                                                            <span class="d-block fs-2">9:30 AM</span>
-                                                        </div>
-                                                        <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
-                                                    </div>
-                                                </a>
-                                            </div>
-                                            <div class="py-6 px-7 mb-1">
-                                                <button class="btn btn-primary w-100">See All Notifications</button>
-                                            </div>
-                                        </div>
-                                    </li>
-                                    <li class="nav-item dropdown">
-                                        <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
-                                            <div class="d-flex align-items-center gap-2 lh-base">
-                                                <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" />
-                                            </div>
-                                        </a>
-                                        <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop1">
-                                            <div class="position-relative px-4 pt-3 pb-2">
-                                                <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
-                                                    <img src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56" alt="Fintle-img" />
-                                                    <div>
-                                                        <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
-                                                        <p class="mb-0 text-dark">david@fintle.com</p>
-                                                    </div>
-                                                </div>
-                                                <div class="message-body">
-                                                    <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">My Profile</a>
-                                                    <a href="../main/page-pricing.html" class="p-2 dropdown-item h6 rounded-1">My Subscription</a>
-                                                    <a href="../main/app-invoice.html" class="p-2 dropdown-item h6 rounded-1">My Invoice</a>
-                                                    <a href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account Settings</a>
-                                                    <a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">Sign Out</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-            <!-- Header End -->
+              <header class="topbar">
+            <div class="with-vertical">
+                <nav class="navbar navbar-expand-lg p-0">
+                    <ul class="navbar-nav">
+                        <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+                        <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+                        <li class="nav-item d-none d-lg-flex dropdown">
+                            <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px;" onclick="location.href='create-enquiry.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Enquiry</button></div>
+                        </li>
+                    </ul>
+                    <div class="d-flex align-items-center gap-3 ms-auto">
+                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
+                    </div>
+                </nav>
+            </div>
+        </header>
+
 
             <div class="body-wrapper">
                 <div class="container-fluid p-3">
@@ -379,12 +435,18 @@
                         <div class="row align-items-center">
                             <div class="col-12">
                                 <div class="d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="enquiry.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Enquiry</h4>
+                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="enquiry.html"><svg
+                                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24">
+                                                    <path fill="currentColor"
+                                                        d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z" />
+                                                </svg></a></span>Create Enquiry</h4>
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb mb-0">
                                             <li class="breadcrumb-item d-flex align-items-center">
                                                 <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                    <iconify-icon icon="solar:home-2-line-duotone"
+                                                        class="fs-6"></iconify-icon>
                                                 </a>
                                             </li>
                                             <li class="breadcrumb-item"><a href="enquiry.html">Enquiry</a></li>
@@ -399,7 +461,8 @@
                     <form id="enquiryForm">
                         <!-- Enquiry Details -->
                         <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Enquiry Details</div>
+                            <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Enquiry Details
+                            </div>
                             <div class="card-body p-4">
                                 <div class="row g-4">
                                     <div class="col-md-6">
@@ -410,10 +473,9 @@
                                                 <option value="1">Acme Corporation</option>
                                                 <option value="2">Tech Solutions Pvt Ltd</option>
                                                 <option value="3">Global Enterprises</option>
-                                                <option value="4">Innovative Systems</option>
-                                                <option value="5">Premium Traders</option>
                                             </select>
-                                            <button type="button" class="btn btn-primary btn-add-customer" id="addCustomerBtn">
+                                            <button type="button" class="btn btn-primary btn-add-customer"
+                                                id="addCustomerBtn">
                                                 <i class="fas fa-plus me-1"></i> Add Customer
                                             </button>
                                         </div>
@@ -439,7 +501,8 @@
 
                                     <div class="col-md-6">
                                         <label class="form-label fw-semibold">Title</label>
-                                        <input type="text" class="form-control" id="title" placeholder="Enter enquiry title/subject" required>
+                                        <input type="text" class="form-control" id="title"
+                                            placeholder="Enter enquiry title/subject" required>
                                     </div>
 
                                     <div class="col-md-6">
@@ -460,22 +523,26 @@
 
                         <!-- Customer Information -->
                         <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-user-circle me-2"></i> Customer Information</div>
+                            <div class="card-header-custom"><i class="fas fa-user-circle me-2"></i> Customer Information
+                            </div>
                             <div class="card-body p-4">
                                 <div class="row g-4">
                                     <div class="col-md-6">
                                         <label class="form-label required-field fw-semibold">Company Name</label>
-                                        <input type="text" class="form-control" id="companyName" placeholder="Enter company name" required>
+                                        <input type="text" class="form-control" id="companyName"
+                                            placeholder="Enter company name" required>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label required-field fw-semibold">Email Address</label>
-                                        <input type="email" class="form-control" id="emailAddress" placeholder="customer@example.com" required>
+                                        <input type="email" class="form-control" id="emailAddress"
+                                            placeholder="customer@example.com" required>
                                     </div>
 
                                     <div class="col-md-6">
                                         <label class="form-label required-field fw-semibold">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phoneNumber" placeholder="Enter phone number" required>
+                                        <input type="tel" class="form-control" id="phoneNumber"
+                                            placeholder="Enter phone number" required>
                                     </div>
                                 </div>
                             </div>
@@ -483,12 +550,14 @@
 
                         <!-- Additional Information -->
                         <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-info-circle me-2"></i> Additional Information</div>
+                            <div class="card-header-custom"><i class="fas fa-info-circle me-2"></i> Additional
+                                Information</div>
                             <div class="card-body p-4">
                                 <div class="row g-4">
                                     <div class="col-md-12">
                                         <label class="form-label fw-semibold">Description / Requirements</label>
-                                        <textarea class="form-control" id="description" rows="4" placeholder="Enter detailed enquiry description, product requirements, specifications etc."></textarea>
+                                        <textarea class="form-control" id="description" rows="4"
+                                            placeholder="Enter detailed enquiry description, product requirements, specifications etc."></textarea>
                                     </div>
                                 </div>
                             </div>
@@ -509,15 +578,16 @@
         </div>
     </div>
 
-    <!-- Customer Creation Modal -->
-    <div class="modal fade customer-modal" id="addCustomerModal" tabindex="-1" data-bs-backdrop="static">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content p-3">
-                <div class="modal-header mt-3">
-                    <h5 class="modal-title fw-bold"><i class="fas fa-user-plus me-2"></i>Create New Customer</h5>
-                    <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
+    <!-- NEW Customer Creation Modal (2-step: Basic Info + Address Details with Billing & Shipping) -->
+    <div class="modal fade modal-rounded" id="customerCreateModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header border-0 pt-4">
+                    <h5 class="modal-title fw-bold"><i class="fas fa-user-plus me-2"></i> Create New Customer</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body p-4">
+                    <!-- Step Indicator -->
                     <div class="step-indicator">
                         <div class="step-item active" data-step="1">
                             <div class="step-circle">1</div>
@@ -525,112 +595,118 @@
                         </div>
                         <div class="step-item" data-step="2">
                             <div class="step-circle">2</div>
-                            <div class="step-label">Billing Address</div>
-                        </div>
-                        <div class="step-item" data-step="3">
-                            <div class="step-circle">3</div>
-                            <div class="step-label">Shipping Address</div>
+                            <div class="step-label">Address Details</div>
                         </div>
                     </div>
+
+                    <!-- Step 1: Basic Information -->
                     <div id="step1" class="form-step active-step">
-                        <div class="section-title-step fw-bold mb-3">Basic Information</div>
                         <div class="row g-3">
                             <div class="col-md-12">
-                                <label class="form-label fw-semibold">Full Name *</label>
-                                <input type="text" id="custName" class="form-control">
+                                <label class="form-label fw-semibold">Company Name <span
+                                        class="text-danger">*</span></label>
+                                <input type="text" id="newCustNameModal" class="form-control form-sleek"
+                                    placeholder="Enter company name">
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label fw-semibold">Phone Number *</label>
-                                <input type="tel" id="custPhone" class="form-control">
+                                <label class="form-label fw-semibold">Customer ID (Optional)</label>
+                                <input type="text" id="newCustIdModal" class="form-control form-sleek"
+                                    placeholder="Auto-generated if empty">
                             </div>
                             <div class="col-md-6">
+                                <label class="form-label fw-semibold">GST Number</label>
+                                <input type="text" id="newCustGstModal" class="form-control form-sleek"
+                                    placeholder="Enter GST number">
+                            </div>
+                            <div class="col-md-12">
                                 <label class="form-label fw-semibold">Email Address</label>
-                                <input type="email" id="custEmail" class="form-control">
+                                <input type="email" id="newCustEmail" class="form-control form-sleek"
+                                    placeholder="customer@example.com">
                             </div>
                             <div class="col-md-12">
-                                <label class="form-label fw-semibold">Company Name</label>
-                                <input type="text" id="custCompany" class="form-control" placeholder="Company name">
+                                <label class="form-label fw-semibold">Phone Number</label>
+                                <input type="tel" id="newCustPhone" class="form-control form-sleek"
+                                    placeholder="+91 XXXXX XXXXX">
                             </div>
                         </div>
                     </div>
+
+                    <!-- Step 2: Address Details (Billing & Shipping) -->
                     <div id="step2" class="form-step">
-                        <div class="section-title-step fw-bold mb-3">Billing Address</div>
                         <div class="row g-3">
+                            <!-- Billing Address Section -->
                             <div class="col-12">
-                                <label class="form-label fw-semibold">Address Line</label>
-                                <textarea id="billAddress" class="form-control" rows="2"></textarea>
+                                <h6 class="fw-bold mb-3"><i class="fas fa-building me-2"></i> Billing Address</h6>
                             </div>
-                            <div class="col-md-4">
-                                <label class="form-label">City</label>
-                                <input id="billCity" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">State</label>
-                                <input id="billState" class="form-control">
-                            </div>
-                            <div class="col-md-4">
-                                <label class="form-label">Zip Code</label>
-                                <input id="billZip" class="form-control">
-                            </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Country</label>
-                                <input id="billCountry" class="form-control" value="India">
-                            </div>
-                        </div>
-                    </div>
-                    <div id="step3" class="form-step">
-                        <div class="section-title-step fw-bold mb-3">Shipping Address</div>
-                        <div class="form-check mb-3">
-                            <input class="form-check-input" type="checkbox" id="sameAsBilling">
-                            <label class="form-check-label fw-semibold"> Same as Billing Address</label>
-                        </div>
-                        <div class="row g-3">
                             <div class="col-12">
                                 <label class="form-label">Address Line</label>
-                                <textarea id="shipAddress" class="form-control" rows="2"></textarea>
+                                <textarea id="billAddress" class="form-control form-sleek" rows="2"
+                                    placeholder="Street address, P.O. Box, etc."></textarea>
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">City</label>
-                                <input id="shipCity" class="form-control">
+                                <input id="billCity" class="form-control form-sleek" placeholder="City">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">State</label>
-                                <input id="shipState" class="form-control">
+                                <input id="billState" class="form-control form-sleek" placeholder="State">
                             </div>
                             <div class="col-md-4">
                                 <label class="form-label">Zip Code</label>
-                                <input id="shipZip" class="form-control">
+                                <input id="billZip" class="form-control form-sleek" placeholder="Postal code">
                             </div>
-                            <div class="col-md-12">
-                                <label class="form-label">Country</label>
-                                <input id="shipCountry" class="form-control" value="India">
+
+                            <!-- Shipping Address Section -->
+                            <div class="col-12 mt-3">
+                                <div class="form-check mb-2">
+                                    <input class="form-check-input" type="checkbox" id="sameAsBillingCheckbox">
+                                    <label class="form-check-label fw-semibold"> Same as Billing Address</label>
+                                </div>
+                                <h6 class="fw-bold mb-3"><i class="fas fa-truck me-2"></i> Shipping Address</h6>
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label">Address Line</label>
+                                <textarea id="shipAddress" class="form-control form-sleek" rows="2"
+                                    placeholder="Shipping address"></textarea>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">City</label>
+                                <input id="shipCity" class="form-control form-sleek" placeholder="City">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">State</label>
+                                <input id="shipState" class="form-control form-sleek" placeholder="State">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Zip Code</label>
+                                <input id="shipZip" class="form-control form-sleek" placeholder="Postal code">
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="modal-footer border-0 px-4 pb-4">
-                    <button class="btn btn-secondary" id="prevStepBtn" disabled>Previous</button>
-                    <button class="btn btn-primary" id="nextStepBtn">Next</button>
-                    <button class="btn btn-success" id="submitCustomerBtn" style="display:none;">Create Customer</button>
+                <div class="modal-footer border-0 pb-4">
+                    <button class="btn btn-secondary rounded-pill" id="prevStepBtn" disabled>Previous</button>
+                    <button class="btn btn-primary rounded-pill px-4" id="nextStepBtn">Next</button>
+                    <button class="btn btn-success rounded-pill px-4" id="submitCustomerBtn"
+                        style="display:none;">Create Customer</button>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal fade" id="successModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Success</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <p class="mb-0" id="successMessage">Enquiry created successfully!</p>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="viewEnquiryBtn">View Enquiry</button>
                 </div>
             </div>
         </div>
@@ -640,7 +716,6 @@
         <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
     </div>
 
-    <!-- Import Js Files -->
     <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
     <script src="assets/libs/js/simplebar.min.js"></script>
     <script src="assets/libs/js/app.init.js"></script>
@@ -650,29 +725,29 @@
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
     <script>
-        // Customer data array
+        // Customer data array (initial)
         let customers = [
             { id: 1, name: "Acme Corporation", company: "Acme Corporation", email: "contact@acme.com", phone: "+1 234-567-8900" },
             { id: 2, name: "Tech Solutions Pvt Ltd", company: "Tech Solutions Pvt Ltd", email: "info@techsolutions.com", phone: "+91 98765 43210" },
-            { id: 3, name: "Global Enterprises", company: "Global Enterprises", email: "sales@global.com", phone: "+44 20 7946 0123" },
-            { id: 4, name: "Innovative Systems", company: "Innovative Systems", email: "support@innovative.com", phone: "+1 555-123-4567" },
-            { id: 5, name: "Premium Traders", company: "Premium Traders", email: "orders@premium.com", phone: "+91 22 1234 5678" }
+            { id: 3, name: "Global Enterprises", company: "Global Enterprises", email: "sales@global.com", phone: "+44 20 7946 0123" }
         ];
 
-        // Set today's date as default for enquiry date
-        document.addEventListener('DOMContentLoaded', function() {
+        let currentStep = 1;
+        let customerModal;
+
+        document.addEventListener('DOMContentLoaded', function () {
             const today = new Date().toISOString().split('T')[0];
             const enquiryDateInput = document.getElementById('enquiryDate');
-            if (enquiryDateInput) {
-                enquiryDateInput.value = today;
-            }
+            if (enquiryDateInput) enquiryDateInput.value = today;
             populateCustomerDropdown();
+
+            customerModal = new bootstrap.Modal(document.getElementById('customerCreateModal'));
+            initCustomerModal();
         });
 
         function populateCustomerDropdown() {
             const customerSelect = document.getElementById('customerSelect');
             if (!customerSelect) return;
-            
             const currentValue = customerSelect.value;
             customerSelect.innerHTML = '<option value="">Select Customer</option>';
             customers.forEach(customer => {
@@ -681,43 +756,152 @@
                 option.textContent = customer.company;
                 customerSelect.appendChild(option);
             });
-            if (currentValue && customers.some(c => c.id == currentValue)) {
-                customerSelect.value = currentValue;
-            }
+            if (currentValue && customers.some(c => c.id == currentValue)) customerSelect.value = currentValue;
         }
 
-        // Toast notification function
         function showToast(message, type = 'success') {
             const toastDiv = document.getElementById('liveToastMsg');
             const toastText = document.getElementById('toastText');
-            const icon = document.querySelector('#liveToastMsg i');
-            
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle me-2';
-                toastDiv.style.background = '#10b981';
-            } else if (type === 'error') {
-                icon.className = 'fas fa-exclamation-triangle me-2';
-                toastDiv.style.background = '#ef4444';
-            } else {
-                icon.className = 'fas fa-info-circle me-2';
-                toastDiv.style.background = '#1e293b';
-            }
-            
+            const icon = toastDiv.querySelector('i');
+            if (type === 'success') { icon.className = 'fas fa-check-circle me-2'; toastDiv.style.background = '#10b981'; }
+            else if (type === 'error') { icon.className = 'fas fa-exclamation-triangle me-2'; toastDiv.style.background = '#ef4444'; }
+            else { icon.className = 'fas fa-info-circle me-2'; toastDiv.style.background = '#1e293b'; }
             toastText.innerHTML = message;
             toastDiv.style.display = 'flex';
-            setTimeout(() => {
-                toastDiv.style.display = 'none';
-            }, 3000);
+            setTimeout(() => toastDiv.style.display = 'none', 3000);
         }
 
-        // Add Customer button - opens modal
-        document.getElementById('addCustomerBtn')?.addEventListener('click', function() {
-            const custModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
-            custModal.show();
+        document.getElementById('addCustomerBtn')?.addEventListener('click', () => {
+            resetCustomerModalForm();
+            customerModal.show();
         });
 
-        // Handle customer selection - auto-fill customer information
-        document.getElementById('customerSelect')?.addEventListener('change', function() {
+        function initCustomerModal() {
+            const nextBtn = document.getElementById('nextStepBtn');
+            const prevBtn = document.getElementById('prevStepBtn');
+            const submitBtn = document.getElementById('submitCustomerBtn');
+
+            function updateStepUI() {
+                document.querySelectorAll('#customerCreateModal .step-item').forEach((el, i) => {
+                    if (i + 1 < currentStep) el.classList.add('completed');
+                    else el.classList.remove('completed');
+                    if (i + 1 === currentStep) el.classList.add('active');
+                    else el.classList.remove('active');
+                });
+                document.querySelectorAll('#customerCreateModal .form-step').forEach((el, i) => {
+                    if (i + 1 === currentStep) el.classList.add('active-step');
+                    else el.classList.remove('active-step');
+                });
+                prevBtn.disabled = (currentStep === 1);
+                if (currentStep === 2) {
+                    nextBtn.style.display = 'none';
+                    submitBtn.style.display = 'inline-flex';
+                } else {
+                    nextBtn.style.display = 'inline-flex';
+                    submitBtn.style.display = 'none';
+                }
+            }
+
+            nextBtn.onclick = () => { if (currentStep < 2) { currentStep++; updateStepUI(); } };
+            prevBtn.onclick = () => { if (currentStep > 1) { currentStep--; updateStepUI(); } };
+
+            document.getElementById('sameAsBillingCheckbox')?.addEventListener('change', (e) => {
+                if (e.target.checked) {
+                    document.getElementById('shipAddress').value = document.getElementById('billAddress')?.value || '';
+                    document.getElementById('shipCity').value = document.getElementById('billCity')?.value || '';
+                    document.getElementById('shipState').value = document.getElementById('billState')?.value || '';
+                    document.getElementById('shipZip').value = document.getElementById('billZip')?.value || '';
+                }
+            });
+
+            document.getElementById('billAddress')?.addEventListener('input', () => {
+                if (document.getElementById('sameAsBillingCheckbox')?.checked) {
+                    document.getElementById('shipAddress').value = document.getElementById('billAddress').value;
+                }
+            });
+            ['billCity', 'billState', 'billZip'].forEach(id => {
+                document.getElementById(id)?.addEventListener('input', () => {
+                    if (document.getElementById('sameAsBillingCheckbox')?.checked) {
+                        document.getElementById('ship' + id.charAt(0).toUpperCase() + id.slice(1)).value = document.getElementById(id).value;
+                    }
+                });
+            });
+
+            submitBtn.onclick = () => {
+                const companyName = document.getElementById('newCustNameModal')?.value.trim();
+                if (!companyName) {
+                    showToast('Please enter Company Name', 'error');
+                    return;
+                }
+                const email = document.getElementById('newCustEmail')?.value;
+                const phone = document.getElementById('newCustPhone')?.value;
+                const gst = document.getElementById('newCustGstModal')?.value;
+                const customerId = document.getElementById('newCustIdModal')?.value || ('CUST' + (customers.length + 1));
+
+                const newCustomer = {
+                    id: customers.length + 1,
+                    name: companyName,
+                    company: companyName,
+                    email: email || '',
+                    phone: phone || '',
+                    gst: gst,
+                    customerId: customerId,
+                    billingAddress: document.getElementById('billAddress')?.value || '',
+                    billingCity: document.getElementById('billCity')?.value || '',
+                    billingState: document.getElementById('billState')?.value || '',
+                    billingZip: document.getElementById('billZip')?.value || '',
+                    shippingAddress: document.getElementById('shipAddress')?.value || '',
+                    shippingCity: document.getElementById('shipCity')?.value || '',
+                    shippingState: document.getElementById('shipState')?.value || '',
+                    shippingZip: document.getElementById('shipZip')?.value || ''
+                };
+
+                customers.push(newCustomer);
+                populateCustomerDropdown();
+                document.getElementById('customerSelect').value = newCustomer.id;
+                document.getElementById('companyName').value = companyName;
+                document.getElementById('emailAddress').value = email || '';
+                document.getElementById('phoneNumber').value = phone || '';
+
+                customerModal.hide();
+                showToast(`Customer "${companyName}" created successfully!`, 'success');
+                resetCustomerModalForm();
+                currentStep = 1;
+                updateStepUI();
+            };
+            updateStepUI();
+        }
+
+        function resetCustomerModalForm() {
+            document.getElementById('newCustNameModal').value = '';
+            document.getElementById('newCustIdModal').value = '';
+            document.getElementById('newCustGstModal').value = '';
+            document.getElementById('newCustEmail').value = '';
+            document.getElementById('newCustPhone').value = '';
+            document.getElementById('billAddress').value = '';
+            document.getElementById('billCity').value = '';
+            document.getElementById('billState').value = '';
+            document.getElementById('billZip').value = '';
+            document.getElementById('shipAddress').value = '';
+            document.getElementById('shipCity').value = '';
+            document.getElementById('shipState').value = '';
+            document.getElementById('shipZip').value = '';
+            document.getElementById('sameAsBillingCheckbox').checked = false;
+            currentStep = 1;
+            document.getElementById('nextStepBtn').style.display = 'inline-flex';
+            document.getElementById('submitCustomerBtn').style.display = 'none';
+            document.getElementById('prevStepBtn').disabled = true;
+            document.querySelectorAll('#customerCreateModal .form-step').forEach((el, i) => {
+                if (i === 0) el.classList.add('active-step');
+                else el.classList.remove('active-step');
+            });
+            document.querySelectorAll('#customerCreateModal .step-item').forEach((el, i) => {
+                if (i === 0) el.classList.add('active');
+                else el.classList.remove('active', 'completed');
+            });
+        }
+
+        document.getElementById('customerSelect')?.addEventListener('change', function () {
             const customerId = parseInt(this.value);
             if (customerId && customers.find(c => c.id === customerId)) {
                 const customer = customers.find(c => c.id === customerId);
@@ -726,168 +910,31 @@
                 document.getElementById('phoneNumber').value = customer.phone;
                 showToast(`Customer "${customer.company}" selected`, 'info');
             } else if (!customerId) {
-                if (!document.getElementById('companyName').value) document.getElementById('companyName').value = '';
-                if (!document.getElementById('emailAddress').value) document.getElementById('emailAddress').value = '';
-                if (!document.getElementById('phoneNumber').value) document.getElementById('phoneNumber').value = '';
+                document.getElementById('companyName').value = '';
+                document.getElementById('emailAddress').value = '';
+                document.getElementById('phoneNumber').value = '';
             }
         });
 
-        // Customer Modal Logic
-        let step = 1;
-        const custModal = new bootstrap.Modal(document.getElementById('addCustomerModal'));
-        
-        function updateStepUI() {
-            document.querySelectorAll('.step-item').forEach((el, i) => {
-                if (i + 1 < step) el.classList.add('completed');
-                else el.classList.remove('completed');
-                if (i + 1 === step) el.classList.add('active');
-                else el.classList.remove('active');
-            });
-            document.querySelectorAll('.form-step').forEach((el, i) => {
-                if (i + 1 === step) el.classList.add('active-step');
-                else el.classList.remove('active-step');
-            });
-            document.getElementById('prevStepBtn').disabled = (step === 1);
-            if (step === 3) {
-                document.getElementById('nextStepBtn').style.display = 'none';
-                document.getElementById('submitCustomerBtn').style.display = 'inline-flex';
-            } else {
-                document.getElementById('nextStepBtn').style.display = 'inline-flex';
-                document.getElementById('submitCustomerBtn').style.display = 'none';
-            }
-        }
-        
-        document.getElementById('nextStepBtn')?.addEventListener('click', () => {
-            if (step < 3) { step++; updateStepUI(); }
-        });
-        
-        document.getElementById('prevStepBtn')?.addEventListener('click', () => {
-            if (step > 1) { step--; updateStepUI(); }
-        });
-        
-        document.getElementById('submitCustomerBtn')?.addEventListener('click', () => {
-            const name = document.getElementById('custName')?.value;
-            const company = document.getElementById('custCompany')?.value;
-            const email = document.getElementById('custEmail')?.value;
-            const phone = document.getElementById('custPhone')?.value;
-            
-            if (!name && !company) {
-                showToast('Please enter customer name or company name', 'danger');
-                return;
-            }
-            
-            const customerName = company || name;
-            const newId = customers.length + 1;
-            const newCustomer = {
-                id: newId,
-                name: customerName,
-                company: customerName,
-                email: email || '',
-                phone: phone || ''
-            };
-            
-            customers.push(newCustomer);
-            populateCustomerDropdown();
-            
-            // Auto-select the new customer
-            document.getElementById('customerSelect').value = newId;
-            document.getElementById('companyName').value = customerName;
-            document.getElementById('emailAddress').value = email || '';
-            document.getElementById('phoneNumber').value = phone || '';
-            
-            custModal.hide();
-            showToast(`Customer "${customerName}" created successfully!`, 'success');
-            
-            // Reset form fields
-            step = 1;
-            updateStepUI();
-            ['custName', 'custPhone', 'custEmail', 'custCompany', 'billAddress', 'billCity', 'billState', 'billZip', 'billCountry', 'shipAddress', 'shipCity', 'shipState', 'shipZip', 'shipCountry'].forEach(id => {
-                const el = document.getElementById(id);
-                if (el) el.value = (id === 'billCountry' || id === 'shipCountry') ? 'India' : '';
-            });
-        });
-        
-        document.getElementById('sameAsBilling')?.addEventListener('change', (e) => {
-            if (e.target.checked) {
-                document.getElementById('shipAddress').value = document.getElementById('billAddress')?.value || '';
-                document.getElementById('shipCity').value = document.getElementById('billCity')?.value || '';
-                document.getElementById('shipState').value = document.getElementById('billState')?.value || '';
-                document.getElementById('shipZip').value = document.getElementById('billZip')?.value || '';
-                document.getElementById('shipCountry').value = document.getElementById('billCountry')?.value || 'India';
-            }
-        });
-        
-        updateStepUI();
-
-        // Form submission
-        document.getElementById('enquiryForm')?.addEventListener('submit', function(e) {
+        document.getElementById('enquiryForm')?.addEventListener('submit', function (e) {
             e.preventDefault();
-            
             const customer = document.getElementById('customerSelect').value;
             const title = document.getElementById('title').value;
             const enquirySource = document.getElementById('enquirySource').value;
             const companyName = document.getElementById('companyName').value;
             const emailAddress = document.getElementById('emailAddress').value;
             const phoneNumber = document.getElementById('phoneNumber').value;
-            
-            if (!customer) {
-                showToast('Please select or add a customer', 'error');
-                return;
-            }
-            
-            if (!title) {
-                showToast('Please enter enquiry title', 'error');
-                return;
-            }
-            
-            if (!enquirySource) {
-                showToast('Please select enquiry source', 'error');
-                return;
-            }
-            
-            if (!companyName) {
-                showToast('Please enter company name', 'error');
-                return;
-            }
-            
-            if (!emailAddress) {
-                showToast('Please enter email address', 'error');
-                return;
-            }
-            
-            if (!phoneNumber) {
-                showToast('Please enter phone number', 'error');
-                return;
-            }
-            
-            const customerSelect = document.getElementById('customerSelect');
-            const customerName = customerSelect.options[customerSelect.selectedIndex]?.text || 'Customer';
-            
-            const formData = {
-                enquiryId: 'ENQ-' + Date.now(),
-                customerId: customer,
-                customerName: customerName,
-                currency: document.getElementById('currency').value,
-                enquiryDate: document.getElementById('enquiryDate').value,
-                title: title,
-                enquirySource: enquirySource,
-                companyName: companyName,
-                emailAddress: emailAddress,
-                phoneNumber: phoneNumber,
-                description: document.getElementById('description').value,
-                createdAt: new Date().toISOString()
-            };
-            
-            console.log('Enquiry Data:', formData);
-            
-            let enquiries = JSON.parse(localStorage.getItem('enquiries') || '[]');
-            enquiries.push(formData);
-            localStorage.setItem('enquiries', JSON.stringify(enquiries));
-            
+
+            if (!customer) { showToast('Please select or add a customer', 'error'); return; }
+            if (!title) { showToast('Please enter enquiry title', 'error'); return; }
+            if (!enquirySource) { showToast('Please select enquiry source', 'error'); return; }
+            if (!companyName) { showToast('Please enter company name', 'error'); return; }
+            if (!emailAddress) { showToast('Please enter email address', 'error'); return; }
+            if (!phoneNumber) { showToast('Please enter phone number', 'error'); return; }
+
             const successModal = new bootstrap.Modal(document.getElementById('successModal'));
             document.getElementById('successMessage').innerHTML = `Enquiry "${title}" created successfully for ${companyName}!`;
             successModal.show();
-            
             this.reset();
             document.getElementById('enquiryDate').value = new Date().toISOString().split('T')[0];
             document.getElementById('currency').value = 'INR';
@@ -896,27 +943,8 @@
             document.getElementById('emailAddress').value = '';
             document.getElementById('phoneNumber').value = '';
         });
-        
-        document.getElementById('viewEnquiryBtn')?.addEventListener('click', function() {
-            window.location.href = 'enquiries-list.html';
-        });
-        
-        document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
-            if (confirm('Are you sure you want to reset all form fields?')) {
-                setTimeout(() => {
-                    document.getElementById('enquiryDate').value = new Date().toISOString().split('T')[0];
-                    showToast('Form has been reset', 'info');
-                }, 10);
-            } else {
-                e.preventDefault();
-            }
-        });
-        
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                window.location.href = 'login.html';
-            }
-        }
+
+        function handleLogout() { if (confirm('Are you sure you want to logout?')) window.location.href = 'login.html'; }
     </script>
 </body>
 
