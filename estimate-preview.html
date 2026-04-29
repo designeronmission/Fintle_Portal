@@ -35,6 +35,7 @@
       overflow: hidden;
     }
 
+    /* Header Elements */
     .logo-box {
       border: 1px dashed var(--border-color);
       width: 150px;
@@ -97,6 +98,7 @@
       background-clip: text;
     }
 
+    /* Section Bars */
     .section-bar {
       background-color: var(--brand-blue);
       border-top: 1px solid var(--border-color);
@@ -109,6 +111,7 @@
       color: #1e293b;
     }
 
+    /* Professional Table Styling */
     .table {
       margin-bottom: 0;
       border-color: var(--border-color);
@@ -136,6 +139,7 @@
       border-right: none;
     }
 
+    /* Column Widths */
     .col-idx { width: 5%; text-align: center; }
     .col-desc { width: 38%; }
     .col-price { width: 12%; text-align: right; }
@@ -144,6 +148,7 @@
     .col-tax { width: 10%; text-align: center; }
     .col-amt { width: 14%; text-align: right; font-weight: 600; }
 
+    /* Summary & Signatory Section */
     .footer-flex {
       margin-top: auto;
       display: flex;
@@ -217,6 +222,14 @@
       width: 100%;
     }
 
+    .no-print-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 999;
+    }
+    
+    /* QR/AUTH specific styling */
     .qr-auth-container {
       position: relative;
       display: flex;
@@ -232,28 +245,6 @@
       object-fit: contain;
     }
 
-    @media print {
-      body { background: white; padding: 0; margin: 0; }
-      .invoice-container { margin: 0; border: none; width: 100%; box-shadow: none; border-radius: 0; }
-      .no-print, .no-print-btn, .upload-overlay, .action-buttons { display: none !important; }
-      .logo-box, .signatory-box, .qr-auth-container { cursor: default; }
-      .sidebar-menu, .topbar, .side-mini-panel, .page-wrapper > header { display: none !important; }
-      #main-wrapper .page-wrapper { margin-left: 0 !important; }
-    }
-
-    .action-buttons {
-      position: sticky;
-      bottom: 20px;
-      z-index: 100;
-    }
-    
-    .company-details {
-      background: #fafcff;
-      padding: 12px 16px;
-      border-radius: 10px;
-      border-left: 3px solid #233578;
-    }
-    
     .estimate-badge {
       background: #fef3c7;
       color: #d97706;
@@ -262,43 +253,130 @@
       font-size: 11px;
       font-weight: 600;
     }
+
+    @media print {
+      body { background: white; padding: 0; margin: 0; }
+      .invoice-container { margin: 0; border: none; width: 100%; box-shadow: none; border-radius: 0; }
+      .no-print-btn, .no-print { display: none !important; }
+      .upload-overlay, .upload-btn-icon, .logo-box:hover .upload-overlay { display: none; }
+      .logo-box, .signatory-box, .qr-auth-container { cursor: default; }
+      .action-buttons { display: none; }
+      .sidebar-menu, .topbar, .side-mini-panel, .page-wrapper > header { display: none !important; }
+      #main-wrapper .page-wrapper { margin-left: 0 !important; }
+      body { padding: 0; }
+    }
+
+    .action-buttons {
+      position: sticky;
+      bottom: 20px;
+      z-index: 100;
+    }
+    
+    [contenteditable="true"] {
+      outline: none;
+      border-radius: 4px;
+      transition: all 0.2s;
+      padding: 2px 4px;
+    }
+    
+    [contenteditable="true"]:hover {
+      background: #f1f5f9;
+      cursor: text;
+    }
+    
+    [contenteditable="true"]:focus {
+      background: #ffffff;
+      box-shadow: 0 0 0 2px #3b82f6;
+    }
   </style>
 </head>
 
 <body>
   <div id="main-wrapper">
+    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
           <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" /></a>
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
           </div>
+          
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4"><a class="sidebar-link" href="index.html" aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="hide-menu">Dashboard</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#" aria-expanded="false"><iconify-icon icon="solar:chart-line-duotone"></iconify-icon><span class="hide-menu">Inbox</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="hide-menu">Items</span></a>
-                <ul class="collapse first-level"><li class="sidebar-item"><a class="sidebar-link" href="items.html">Inventory</a></li></ul>
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
               </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow active" href="javascript:void(0)"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="hide-menu">Sales</span></a>
-                <ul class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html">Customer</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="Estimate.html">Estimate</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html">Invoice</a></li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span> Inventory</a></li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item"><a class="sidebar-link" href="supplier.html"><span class="icon-small"></span> Suppliers</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="purchase-order.html"><span class="icon-small"></span> Purchase Order</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="purchase-bill.html"><span class="icon-small"></span> Purchase Bill</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="supplier-statement.html"><span class="icon-small"></span> Supplier Statement</a></li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span> Customer</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="enquiry.html"><span class="icon-small"></span> Enquiry</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="Estimate.html"><span class="icon-small"></span> Estimate</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span class="icon-small"></span> Invoice</a></li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Account Master</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Journals</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Vouchers</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Bank Payments</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> General Ledger</a></li>
+                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Balance Sheets</a></li>
                 </ul>
               </li>
               <li><span class="sidebar-divider"></span></li>
             </ul>
             <div class="sidebar-footer">
               <ul class="sidebar-menu">
-                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
-                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
+                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)" aria-expanded="false"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="hide-menu">Settings</span></a></li>
+                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
               </ul>
             </div>
           </nav>
         </div>
       </div>
     </aside>
+    <!-- Sidebar End -->
 
     <div class="page-wrapper">
       <header class="topbar">
@@ -307,12 +385,16 @@
             <ul class="navbar-nav">
               <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
               <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-lg-flex dropdown">
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+              </li>
             </ul>
             <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
               <div class="d-flex align-items-center justify-content-between">
                 <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Profile" /></div></a></li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li>
                 </ul>
               </div>
             </div>
@@ -326,34 +408,22 @@
             <div class="col-12">
               <div class="invoice-container" id="estimateContainer">
                 <div class="d-flex justify-content-between align-items-center p-4">
+                  <!-- COMPANY LOGO with upload -->
                   <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()">
                     <span id="logoPlaceholder">COMPANY LOGO</span>
                     <img id="logoImage" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="Company Logo">
                     <div class="upload-overlay">Click to upload logo</div>
                     <input type="file" id="logoUpload" class="upload-input-hidden" accept="image/*" style="display:none">
                   </div>
+                  
                   <div class="invoice-title">TAX ESTIMATE</div>
+                  
+                  <!-- QR / AUTH with upload -->
                   <div class="logo-box qr-auth-container" id="qrAuthBox" onclick="document.getElementById('qrUpload').click()">
                     <span id="qrPlaceholder">QR / AUTH</span>
                     <img id="qrImage" style="display:none; max-width:100%; max-height:100%; object-fit:contain;" alt="QR Code">
                     <div class="upload-overlay">Click to upload</div>
                     <input type="file" id="qrUpload" class="upload-input-hidden" accept="image/*" style="display:none">
-                  </div>
-                </div>
-
-                <div class="px-4 pb-3">
-                  <div class="company-details">
-                    <div class="row">
-                      <div class="col-md-8">
-                        <div contenteditable="true" class="fw-bold fs-6" id="companyName">Apex Solutions Ltd</div>
-                        <div contenteditable="true" class="small text-muted" id="companyAddress">#402, Business Bay, Mumbai - 400093</div>
-                        <div contenteditable="true" class="small text-muted" id="companyGst">GST: 27AAACA1234F1Z | hello@apex.co</div>
-                      </div>
-                      <div class="col-md-4 text-md-end">
-                        <div class="small text-muted">Estimate #: <strong id="estimateNumberDisplay">EST-2407-102</strong></div>
-                        <div class="mt-1"><span class="estimate-badge">VALID TILL: <span id="validTillDisplay">--</span></span></div>
-                      </div>
-                    </div>
                   </div>
                 </div>
 
@@ -378,18 +448,30 @@
                   </div>
                 </div>
 
+                <!-- Items Table -->
                 <table class="table border-bottom" id="itemsPreviewTable">
                   <thead>
-                    <tr><th class="col-idx">#</th><th class="col-desc text-start">Item / Description</th><th class="col-price">Price (₹)</th><th class="col-qty">Qty</th><th class="col-unit">Unit</th><th class="col-tax">Tax Rate</th><th class="col-amt">Amount (₹)</th></tr>
+                    <tr>
+                      <th class="col-idx">#</th>
+                      <th class="col-desc text-start">Item / Description</th>
+                      <th class="col-price">Price (₹)</th>
+                      <th class="col-qty">Qty</th>
+                      <th class="col-unit">Unit</th>
+                      <th class="col-tax">Tax Rate</th>
+                      <th class="col-amt">Amount (₹)</th>
+                    </tr>
                   </thead>
-                  <tbody id="itemsPreviewBody"><tr><td colspan="7" class="text-center py-4">Loading items...</td></tr></tbody>
-                追赶
+                  <tbody id="itemsPreviewBody">
+                    <tr><td colspan="7" class="text-center py-4">Loading items......</td></tr>
+                  </tbody>
+                </table>
 
                 <div class="footer-flex">
                   <div class="p-4 small text-muted align-self-end" contenteditable="true" id="notesSection">
                     * This estimate is valid for 30 days.<br>
                     For any queries, please contact our sales team.
                   </div>
+
                   <div class="summary-wrapper">
                     <div class="summary-header">Estimate Summary</div>
                     <div class="summary-body">
@@ -398,6 +480,7 @@
                       <div class="summary-item"><span class="text-muted">Tax (GST)</span><span id="taxPreview">₹ 0.00</span></div>
                       <div class="summary-item border-bottom-0"><span class="fw-bold">Total Estimate Amount</span><span class="fw-bold text-primary" id="totalPreview">₹ 0.00</span></div>
                       
+                      <!-- Authorized Signatory with upload capability -->
                       <div class="signatory-box" id="signatoryBox" onclick="document.getElementById('signatureUpload').click()">
                         <div id="signaturePreviewArea" class="signature-placeholder">
                           <div class="sign-line" id="defaultSignLine"></div>
@@ -413,13 +496,14 @@
               </div>
             </div>
             
+            <!-- Action Buttons -->
             <div class="row mt-4 action-buttons">
               <div class="col-12">
                 <div class="d-flex justify-content-end gap-3">
                   <button class="btn btn-outline-secondary rounded-pill px-4" onclick="window.history.back()">
                     <iconify-icon icon="solar:arrow-left-linear" class="me-1"></iconify-icon> Back to Edit
                   </button>
-                  <button class="btn btn-info rounded-pill px-4" onclick="window.print()">
+                  <button class="btn btn-dark rounded-pill px-4" onclick="window.print()">
                     <iconify-icon icon="solar:printer-bold" class="me-1"></iconify-icon> Print Estimate
                   </button>
                   <button class="btn btn-primary rounded-pill px-4" id="shareEstimateBtn">
@@ -428,7 +512,6 @@
                 </div>
               </div>
             </div>
-            
           </div>
         </div>
       </div>
@@ -442,16 +525,17 @@
   <script src="assets/libs/js/app.min.js"></script>
   <script src="assets/libs/js/sidebarmenu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
+  
   <script>
+    // Load data from localStorage or use defaults
     function loadEstimateData() {
       try {
         const savedData = localStorage.getItem('fintle_estimate_data');
         let estimateData = savedData ? JSON.parse(savedData) : null;
         
         if (!estimateData) {
+          // Default demo data
           estimateData = {
-            company: { name: "Apex Solutions Ltd", address: "#402, Business Bay, Mumbai - 400093", gst: "GST: 27AAACA1234F1Z | hello@apex.co" },
             customer: { name: "Aster Technologies", address: "42, Richmond Circle, Bangalore - 560025", gst: "GST: 29AAACB1234E1Z5" },
             estimateNo: "EST-2407-102",
             issueDate: "2026-04-28",
@@ -466,19 +550,15 @@
           };
         }
         
-        document.getElementById('companyName').innerText = estimateData.company?.name || "Apex Solutions Ltd";
-        document.getElementById('companyAddress').innerText = estimateData.company?.address || "#402, Business Bay, Mumbai - 400093";
-        document.getElementById('companyGst').innerText = estimateData.company?.gst || "GST: 27AAACA1234F1Z | hello@apex.co";
-        
+        // Populate Customer Details
         document.getElementById('customerNamePreview').innerHTML = estimateData.customer?.name || "--";
         document.getElementById('customerAddressPreview').innerHTML = estimateData.customer?.address || "";
         document.getElementById('customerGstPreview').innerHTML = estimateData.customer?.gst || "";
         
+        // Populate Estimate Details
         document.getElementById('estimateNoDisplay').innerText = estimateData.estimateNo || "EST-2407-102";
-        document.getElementById('estimateNumberDisplay').innerText = estimateData.estimateNo || "EST-2407-102";
         document.getElementById('issueDateDisplay').innerText = estimateData.issueDate ? new Date(estimateData.issueDate).toLocaleDateString('en-IN') : "28 Apr 2026";
         document.getElementById('validTillDateDisplay').innerText = estimateData.validTill ? new Date(estimateData.validTill).toLocaleDateString('en-IN') : "28 May 2026";
-        document.getElementById('validTillDisplay').innerText = estimateData.validTill ? new Date(estimateData.validTill).toLocaleDateString('en-IN') : "28 May 2026";
         
         const statusBadge = document.getElementById('statusDisplay');
         const status = estimateData.status || "Draft";
@@ -488,6 +568,7 @@
         else if (status === 'Expired') statusClass = 'bg-danger';
         statusBadge.innerHTML = `<span class="badge ${statusClass}">${status}</span>`;
         
+        // Populate Items Table
         const itemsBody = document.getElementById('itemsPreviewBody');
         const items = estimateData.items || [];
         let subtotal = 0, totalTax = 0;
@@ -507,7 +588,10 @@
             
             return `<tr>
               <td class="text-center text-muted">${idx + 1}</td>
-              <td><div class="fw-bold">${escapeHtml(item.name)}</div><div class="text-muted small">${escapeHtml(item.code || '')} ${item.desc ? ' - ' + escapeHtml(item.desc) : ''}</div></td>
+              <td>
+                <div class="fw-bold">${escapeHtml(item.name)}</div>
+                <div class="text-muted small">${escapeHtml(item.code || '')} ${item.desc ? ' - ' + escapeHtml(item.desc) : ''}</div>
+              </td>
               <td class="text-end">₹ ${price.toFixed(2)}</td>
               <td class="text-center">${qty}</td>
               <td class="text-center text-muted">${escapeHtml(item.unit || 'PCS')}</td>
@@ -517,8 +601,6 @@
           }).join('');
         }
         
-        itemsBody.innerHTML += `<tr class="table-light fw-bold"><td colspan="6" class="text-end py-2">Subtotal</td><td class="text-end py-2">₹ ${subtotal.toFixed(2)}</td></tr>`;
-        
         const shipping = parseFloat(estimateData.shipping) || 0;
         const grandTotal = subtotal + totalTax + shipping;
         
@@ -527,8 +609,10 @@
         document.getElementById('taxPreview').innerText = `₹ ${totalTax.toFixed(2)}`;
         document.getElementById('totalPreview').innerText = `₹ ${grandTotal.toFixed(2)}`;
         
+        // Populate Notes
         document.getElementById('notesSection').innerHTML = estimateData.notes || "* This estimate is valid for 30 days.\nFor any queries, please contact our sales team.";
         
+        // Store current data for sharing and saving
         window.currentEstimateData = estimateData;
         
       } catch (e) {
@@ -538,9 +622,11 @@
     
     function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function(m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
     
+    // Logo Upload Handler
     const logoUpload = document.getElementById('logoUpload');
     const logoImage = document.getElementById('logoImage');
     const logoPlaceholder = document.getElementById('logoPlaceholder');
+    
     if(logoUpload) {
       logoUpload.addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -564,9 +650,11 @@
       if(logoPlaceholder) logoPlaceholder.style.display = 'none';
     }
     
+    // QR/AUTH Upload Handler
     const qrUpload = document.getElementById('qrUpload');
     const qrImage = document.getElementById('qrImage');
     const qrPlaceholder = document.getElementById('qrPlaceholder');
+    
     if(qrUpload) {
       qrUpload.addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -590,10 +678,12 @@
       if(qrPlaceholder) qrPlaceholder.style.display = 'none';
     }
     
+    // Signature Upload Handler
     const signatureUpload = document.getElementById('signatureUpload');
     const signatureImage = document.getElementById('signatureImage');
     const defaultSignLine = document.getElementById('defaultSignLine');
     const signaturePreviewArea = document.getElementById('signaturePreviewArea');
+    
     if(signatureUpload) {
       signatureUpload.addEventListener('change', function(e) {
         const file = e.target.files[0];
@@ -603,8 +693,6 @@
             signatureImage.src = event.target.result;
             signatureImage.style.display = 'block';
             if(defaultSignLine) defaultSignLine.style.display = 'none';
-            const signatoryText = signaturePreviewArea?.querySelector('.small.fw-bold.text-uppercase');
-            if(signatoryText) signatoryText.style.display = 'none';
             if(signaturePreviewArea) signaturePreviewArea.style.display = 'none';
             signatureImage.style.display = 'block';
             localStorage.setItem('fintle_estimate_signature', event.target.result);
@@ -618,31 +706,23 @@
     if(savedSignature && signatureImage) {
       signatureImage.src = savedSignature;
       signatureImage.style.display = 'block';
+      if(defaultSignLine) defaultSignLine.style.display = 'none';
       if(signaturePreviewArea) signaturePreviewArea.style.display = 'none';
     }
     
-    const companyNameEl = document.getElementById('companyName');
-    const companyAddressEl = document.getElementById('companyAddress');
-    const companyGstEl = document.getElementById('companyGst');
+    // Save notes when edited
     const notesSection = document.getElementById('notesSection');
     
-    function saveCompanyDetails() {
+    function saveNotes() {
       const estimateData = window.currentEstimateData || {};
-      estimateData.company = {
-        name: companyNameEl?.innerText || "",
-        address: companyAddressEl?.innerText || "",
-        gst: companyGstEl?.innerText || ""
-      };
       estimateData.notes = notesSection?.innerHTML || "";
       localStorage.setItem('fintle_estimate_data', JSON.stringify(estimateData));
       window.currentEstimateData = estimateData;
     }
     
-    if(companyNameEl) companyNameEl.addEventListener('blur', saveCompanyDetails);
-    if(companyAddressEl) companyAddressEl.addEventListener('blur', saveCompanyDetails);
-    if(companyGstEl) companyGstEl.addEventListener('blur', saveCompanyDetails);
-    if(notesSection) notesSection.addEventListener('blur', saveCompanyDetails);
+    if(notesSection) notesSection.addEventListener('blur', saveNotes);
     
+    // Share Estimate functionality
     document.getElementById('shareEstimateBtn')?.addEventListener('click', async () => {
       const estimateData = window.currentEstimateData;
       if(estimateData) {
@@ -664,6 +744,7 @@
       }
     });
     
+    // Make signatory box clickable
     const signatoryBox = document.getElementById('signatoryBox');
     if(signatoryBox) {
       signatoryBox.addEventListener('click', function(e) {
@@ -672,8 +753,10 @@
       });
     }
     
+    // Handle logout
     function handleLogout() { if(confirm('Logout?')) window.location.href = 'login.html'; }
     
+    // Load data on page load
     document.addEventListener('DOMContentLoaded', () => {
       loadEstimateData();
     });
