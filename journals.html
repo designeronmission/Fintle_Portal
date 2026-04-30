@@ -4,174 +4,103 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle | Estimate & Estimate Management</title>
+  <title>Fintle | Journal Vouchers</title>
   <!-- Bootstrap 5 + Icons + Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
     rel="stylesheet">
-
-    <link rel="stylesheet" href="assets/libs/css/styles.css"/>
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
   <style>
-
-
-    .btn-primary {
-      background-color: #2a3b82;
-      border-color: #2a3b82;
-      color: #fff;
-      border-radius: 40px;
-      padding: 9px 20px;
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .btn-primary:hover {
-      background-color: #1f2e6e;
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
-    }
-
-    /* Status Badges */
-    .status-badge {
-      display: inline-block;
-      padding: 4px 12px;
-      border-radius: 40px;
-      font-size: 0.75rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .status-open {
-      background: #fff3e3;
-      color: #d97706;
-    }
-
-    .status-closed {
-      background: #e6f7e6;
-      color: #10b981;
-    }
-
-    .status-expired {
-      background: #fee2e2;
-      color: #ef4444;
-    }
-
-    .Estimate-link {
-      cursor: pointer;
-      font-weight: 600;
-      color: #2a3b82;
-      font-family: monospace;
-      letter-spacing: 0.3px;
-    }
-
-    .Estimate-link:hover {
-      text-decoration: underline;
-    }
-
-    /* Table Styling */
-    .Estimate-table-wrapper {
-      overflow-x: auto;
-      border-radius: 12px;
-      position: relative;
-    }
-
-    .Estimate-table {
-      min-width: 900px;
-      font-size: 0.85rem;
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .Estimate-table th {
-      background: #f8fafc;
-      font-weight: 600;
-      color: #1e293b;
-      padding: 14px 12px;
-      border-bottom: 1px solid #e2e8f0;
-      white-space: nowrap;
-    }
-
-    .Estimate-table td {
-      padding: 14px 12px;
-      vertical-align: middle;
-      border-bottom: 1px solid #eef2f6;
-      white-space: nowrap;
-    }
-
-    /* Sticky Action column */
-    .Estimate-table th:last-child,
-    .Estimate-table td:last-child {
-      position: sticky;
-      right: 0;
-      background-color: white;
-      z-index: 5;
-    }
-    
-    .Estimate-table th:last-child {
-      background-color: #f8fafc;
-      z-index: 6;
-    }
-
-    /* Ensure table cells can contain dropdowns properly */
-    .Estimate-table td:last-child {
-      overflow: visible;
-    }
-
-    /* Dropdown styling - fully visible */
-    .action-dropdown {
-      position: relative;
-      display: inline-block;
-    }
-
-    .action-btn {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
+    /* ========== KPI CARD STYLES - MATCHING CUSTOMER.HTML ========== */
+    .dashboard-container {
+      display: flex;
+      gap: 20px;
       background: white;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+      padding: 20px 24px;
+      border-radius: 20px;
+      border: 1px solid #edf2f7;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
     }
 
-    .action-btn:hover {
-      background: #f1f5f9;
+    .kpi-card-new {
+      background: white;
+      border: 1px solid #e9eef3;
+      border-radius: 20px;
+      flex: 1;
+      min-width: 200px;
+      padding: 18px 20px;
+      transition: all 0.2s ease;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+    }
+
+    .kpi-card-new:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
       border-color: #cbd5e1;
     }
 
-    /* Clean dropdown menu */
-    .dropdown-menu {
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.02);
-      padding: 6px 0;
-      min-width: 160px;
-      z-index: 1060;
-    }
-
-    .dropdown-item {
-      font-size: 0.8rem;
-      padding: 8px 16px;
+    .kpi-header {
       display: flex;
       align-items: center;
-      gap: 8px;
+      justify-content: space-between;
     }
 
-    .dropdown-item i {
-      width: 18px;
-      font-size: 0.85rem;
+    .kpi-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: #5b6e8c;
+      letter-spacing: 0.3px;
     }
 
-    .dropdown-item:hover {
-      background-color: #f8fafc;
+    .icon-small {
+      width: 36px;
+      height: 36px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
-    .dropdown-divider {
-      margin: 6px 0;
+    .bg-light-primary { background: #eef2ff; }
+    .bg-light-success { background: #ecfdf5; }
+    .bg-light-warning { background: #fffbeb; }
+    .bg-light-danger { background: #fef2f2; }
+
+    .text-primary { color: #2a3b82; }
+    .text-success { color: #10b981; }
+    .text-warning { color: #f59e0b; }
+    .text-danger { color: #ef4444; }
+
+    .kpi-amount-main {
+      font-size: 28px;
+      font-weight: 700;
+      color: #1e293b;
+      line-height: 1.2;
+    }
+
+    .kpi-sub {
+      font-size: 13px;
+      font-weight: 500;
+      color: #5f7f9e;
+      padding-top: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .count-badge {
+      background: #eff3f8;
+      border-radius: 40px;
+      padding: 4px 12px;
+      font-weight: 700;
+      font-size: 12px;
+      color: #2a3b82;
     }
 
     /* Pagination - Clean & Below Table */
@@ -212,96 +141,112 @@
       cursor: not-allowed;
     }
 
-    /* Pagination wrapper */
     .pagination {
       gap: 5px;
       margin-bottom: 0;
       flex-wrap: wrap;
     }
-
-    /* KPI Cards */
-  .dashboard-container {
-      display: flex;
-      gap: 20px;
-      background: white;
-      justify-content: flex-start;
-      flex-wrap: wrap;
-      margin-bottom: 10px;
-      padding: 20px 24px;
-      border-radius: 20px;
-      border: 1px solid #edf2f7;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-    }
-
-    .kpi-card {
-      background: white;
-      border: 1px solid #e9eef3;
-      border-radius: 20px;
-      flex: 1;
-      min-width: 180px;
-      padding: 18px 20px;
-      transition: all 0.2s ease;
-      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
-    }
-
-    .kpi-card:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
-      border-color: #cbd5e1;
-    }
-
-    .kpi-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .kpi-label {
-      font-size: 14px;
-      font-weight: 600;
-      color: #5b6e8c;
-      letter-spacing: 0.3px;
-    }
-
-    .icon-circle {
-      width: 42px;
-      height: 42px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .kpi-amount-main {
-      font-size: 28px;
-      font-weight: 700;
-      color: #1e293b;
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    .kpi-sub {
+    
+    .pagination-info {
+      background: #f8fafc;
+      padding: 6px 14px;
+      border-radius: 30px;
       font-size: 12px;
-      font-weight: 500;
-      color: #5f7f9e;
-      padding-top: 10px;
-      display: flex;
-      justify-content: space-between;
     }
 
-    .count-badge {
-      background: #eff3f8;
+    .btn-primary {
+      background-color: #2a3b82;
+      border-color: #2a3b82;
+      color: #fff;
       border-radius: 40px;
-      padding: 2px 10px;
-      font-weight: 700;
-      color: #2a3b82;
-      font-size: 12px;
+      padding: 9px 20px;
+      font-weight: 600;
+      transition: all 0.2s;
     }
 
-    /* Unified Actions */
+    .btn-primary:hover {
+      background-color: #1f2e6e;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 12px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .status-active { background: #e6f7e6; color: #10b981; }
+    .status-inactive { background: #f1f5f9; color: #64748b; }
+
+    /* Fixed table wrapper with horizontal scroll */
+    .journal-table-wrapper {
+      overflow-x: auto;
+      position: relative;
+      border-radius: 12px;
+    }
+
+    .journal-table {
+      min-width: 1300px;
+      font-size: 0.85rem;
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .journal-table th {
+      background: #f8fafc;
+      font-weight: 600;
+      color: #1e293b;
+      padding: 14px 12px;
+      border-bottom: 1px solid #e2e8f0;
+      white-space: nowrap;
+    }
+
+    .journal-table td {
+      padding: 14px 12px;
+      vertical-align: middle;
+      border-bottom: 1px solid #eef2f6;
+      white-space: nowrap;
+    }
+
+    /* Sticky Action column */
+    .journal-table th:last-child,
+    .journal-table td:last-child {
+      position: sticky;
+      right: 0;
+      background-color: white;
+      box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+      z-index: 10;
+    }
+
+    .journal-table th:last-child {
+      background-color: #f8fafc;
+      z-index: 11;
+    }
+
+    .dropdown-menu {
+      border-radius: 12px;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .dropdown-item {
+      font-size: 0.8rem;
+      padding: 8px 18px;
+    }
+
+    .dropdown-item i {
+      width: 20px;
+      margin-right: 8px;
+    }
+
+    /* Unified actions card */
     .unified-actions-card {
       background: white;
-      border-radius: 20px;
+      border-radius: 16px;
       padding: 12px 20px;
       margin-bottom: 24px;
       border: 1px solid #edf2f7;
@@ -321,14 +266,20 @@
       border-radius: 40px;
       padding: 6px 18px;
       min-width: 260px;
+      transition: all 0.2s;
     }
-
+    
     .search-inline:focus-within {
       border-color: #2a3b82;
       background: white;
       box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
     }
-
+    
+    .search-inline i {
+      color: #94a3b8;
+      font-size: 1rem;
+    }
+    
     .search-inline input {
       border: none;
       background: transparent;
@@ -336,6 +287,24 @@
       width: 100%;
       outline: none;
       font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .filter-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .filter-select {
+      border-radius: 40px;
+      border: 1px solid #e2e8f0;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      background: white;
+      color: #1e293b;
+      font-weight: 500;
+      cursor: pointer;
     }
 
     .tabs-centered {
@@ -346,7 +315,7 @@
       flex: 1;
     }
 
-    .Estimate-tab {
+    .journal-tab {
       padding: 8px 20px;
       font-size: 0.85rem;
       font-weight: 600;
@@ -355,18 +324,23 @@
       border: none;
       border-radius: 40px;
       cursor: pointer;
-      transition: all 0.2s;
+      transition: all 0.2s ease;
       display: inline-flex;
       align-items: center;
       gap: 8px;
     }
 
-    .Estimate-tab:hover {
+    .journal-tab i {
+      font-size: 0.9rem;
+      opacity: 0.7;
+    }
+
+    .journal-tab:hover {
       color: #2a3b82;
       background: #f8fafc;
     }
 
-    .Estimate-tab.active {
+    .journal-tab.active {
       color: #2a3b82;
       background: #eef2ff;
     }
@@ -380,7 +354,7 @@
       font-weight: 700;
     }
 
-    .Estimate-tab.active .tab-count {
+    .journal-tab.active .tab-count {
       background: #2a3b82;
       color: white;
     }
@@ -389,12 +363,34 @@
       flex-shrink: 0;
     }
 
-    /* Info text styling */
-    .pagination-info {
-      background: #f8fafc;
-      padding: 6px 14px;
-      border-radius: 30px;
-      font-size: 12px;
+    .action-btn {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      background: white;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .action-btn:hover {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    .voucher-link {
+      cursor: pointer;
+      font-weight: 600;
+      color: #2a3b82;
+      font-family: monospace;
+      letter-spacing: 0.3px;
+    }
+
+    .voucher-link:hover {
+      text-decoration: underline;
     }
 
     @media (max-width: 992px) {
@@ -402,39 +398,24 @@
         flex-direction: column;
         align-items: stretch;
       }
-      .tabs-centered {
-        order: 2;
-        justify-content: center;
-      }
-      .btn-create-right {
-        order: 3;
-        text-align: center;
-      }
+      .search-inline { width: 100%; }
+      .filter-group { order: 1; justify-content: space-between; }
+      .tabs-centered { order: 2; justify-content: center; }
+      .btn-create-right { order: 3; text-align: center; width: 100%; }
     }
 
     @media (max-width: 768px) {
-      .kpi-card {
-        min-width: 100%;
-      }
-      .dashboard-container {
-        padding: 16px;
-      }
-      .pagination {
-        justify-content: center;
-      }
-      .page-link {
-        padding: 6px 10px;
-        font-size: 12px;
-      }
+      .kpi-card-new { min-width: calc(50% - 10px); }
+      .dashboard-container { gap: 12px; }
+      .filter-group { flex-direction: column; align-items: stretch; }
     }
   </style>
 </head>
 
 <body>
-
   <div id="main-wrapper">
 
-   <!-- Sidebar Start -->
+    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -443,25 +424,21 @@
               <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
             </a>
           </div>
-          
+
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <!-- Dashboard -->
               <li class="sidebar-item mt-4">
                 <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
               </li>
-
               <li class="sidebar-item">
                 <a class="sidebar-link" href="#" aria-expanded="false">
                   <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Inbox</span>
                 </a>
               </li>
-
-              <!-- Items -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
@@ -475,8 +452,6 @@
                   </li>
                 </ul>
               </li>
-
-              <!-- Purchase -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
@@ -493,22 +468,20 @@
                       <span class="icon-small"></span> Purchase Order
                     </a>
                   </li>
-                 <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="purchase-bill.html">
                       <span class="icon-small"></span> Purchase Bill
                     </a>
                   </li>
-                 <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier-statement.html">
-                                            <span class="icon-small"></span> Supplier Statement
-                                        </a>
-                                    </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier-statement.html">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
                 </ul>
               </li>
-
-              <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Sales</span>
                 </a>
@@ -518,7 +491,7 @@
                       <span class="icon-small"></span> Customer
                     </a>
                   </li>
-               <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="enquiry.html">
                       <span class="icon-small"></span> Enquiry
                     </a>
@@ -535,11 +508,8 @@
                   </li>
                 </ul>
               </li>
-
-
-                 <!-- Sales -->
               <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Accounts</span>
                 </a>
@@ -576,22 +546,16 @@
                   </li>
                 </ul>
               </li>
-
               <li><span class="sidebar-divider"></span></li>
             </ul>
-            
-            <!-- Logout Option at Bottom -->
             <div class="sidebar-footer">
               <ul class="sidebar-menu">
-
-               <li class="sidebar-item">
+                <li class="sidebar-item">
                   <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
                     <span class="hide-menu">Settings</span>
                   </a>
                 </li>
-
-
                 <li class="sidebar-item logout-item">
                   <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
                     <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
@@ -606,12 +570,7 @@
     </aside>
     <!-- Sidebar End -->
 
-
-
-
     <div class="page-wrapper">
-
-      <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -735,7 +694,8 @@
                           <div
                             class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
                             <iconify-icon icon="solar:bill-list-bold-duotone"
-                              class="fs-7 text-secondary"></iconify-icon></div>
+                              class="fs-7 text-secondary"></iconify-icon>
+                          </div>
                           <div>
                             <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
                               class="fs-11 d-block text-body-color">Get latest invoice</span>
@@ -752,12 +712,11 @@
 
       <div class="body-wrapper p-3">
         <div class="container-fluid p-0">
-          <!-- Breadcrumb -->
           <div class="card card-body py-3 mb-2">
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title">Estimates</h4>
+                  <h4 class="mb-4 mb-sm-0 card-title">Journal Vouchers</h4>
                   <nav aria-label="breadcrumb" class="ms-auto">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item d-flex align-items-center">
@@ -765,7 +724,8 @@
                           <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
                         </a>
                       </li>
-                      <li class="breadcrumb-item active">Estimates</li>
+                      <li class="breadcrumb-item"><a href="#">Accounts</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Journals</li>
                     </ol>
                   </nav>
                 </div>
@@ -775,70 +735,97 @@
 
           <!-- KPI CARDS -->
           <div class="dashboard-container">
-            <div class="kpi-card">
+            <div class="kpi-card-new">
               <div class="kpi-header">
-                <span class="kpi-label">Total Estimates</span>
-                <div class="icon-circle" style="background:#eef2ff;"><i class="fas fa-file-alt text-primary"></i></div>
+                <span class="kpi-label">Total Vouchers</span>
+                <div class="icon-small bg-light-primary">
+                  <i class="fas fa-file-alt text-primary"></i>
+                </div>
               </div>
-              <div class="kpi-amount-main" id="totalEstimates">0</div>
-              <div class="kpi-sub">Total estimates created</div>
+              <div class="kpi-amount-main" id="totalVouchers">0</div>
+              <div class="kpi-sub">
+                <span>Total journal entries</span>
+                <span class="count-badge" id="totalCount">0</span>
+              </div>
             </div>
 
-            <div class="kpi-card">
+            <div class="kpi-card-new">
               <div class="kpi-header">
-                <span class="kpi-label">Open Estimates</span>
-                <div class="icon-circle" style="background:#fff0e6;"><i class="fas fa-clock" style="color:#d97706"></i></div>
+                <span class="kpi-label">Active Vouchers</span>
+                <div class="icon-small bg-light-success">
+                  <i class="fas fa-check-circle text-success"></i>
+                </div>
               </div>
-              <div class="kpi-amount-main" id="openEstimates">0</div>
-              <div class="kpi-sub"><span><i class="far fa-hourglass"></i> Pending response</span><span class="count-badge" id="openCountBadge">0</span></div>
+              <div class="kpi-amount-main" id="activeVouchers">0</div>
+              <div class="kpi-sub">
+                <span>Active entries</span>
+                <span class="count-badge" id="activeCount">0</span>
+              </div>
             </div>
 
-            <div class="kpi-card">
+            <div class="kpi-card-new">
               <div class="kpi-header">
-                <span class="kpi-label">Closed Estimates</span>
-                <div class="icon-circle" style="background:#e3f7ec;"><i class="fas fa-check-circle" style="color:#10b981"></i></div>
+                <span class="kpi-label">Inactive Vouchers</span>
+                <div class="icon-small bg-light-warning">
+                  <i class="fas fa-ban text-warning"></i>
+                </div>
               </div>
-              <div class="kpi-amount-main" id="closedEstimates">0</div>
-              <div class="kpi-sub"><span><i class="fas fa-file-invoice-dollar"></i> Converted/Closed</span><span class="count-badge" id="closedCountBadge">0</span></div>
+              <div class="kpi-amount-main" id="inactiveVouchers">0</div>
+              <div class="kpi-sub">
+                <span>Inactive entries</span>
+                <span class="count-badge" id="inactiveCount">0</span>
+              </div>
             </div>
           </div>
 
-          <!-- Table actions -->
+          <!-- Journal Vouchers Table Section -->
           <div class="card overflow-hidden p-4">
             <div class="unified-actions-card">
               <div class="search-inline">
                 <i class="fas fa-search"></i>
-                <input type="text" id="globalSearchInput" placeholder="Search by Estimate number or customer name...">
+                <input type="text" id="globalSearchInput" placeholder="Search by voucher number, description..." autocomplete="off">
               </div>
+
               <div class="tabs-centered">
-                <button class="Estimate-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
-                <button class="Estimate-tab" data-tab="open"><i class="fas fa-clock"></i> Open <span class="tab-count" id="countOpen">0</span></button>
-                <button class="Estimate-tab" data-tab="closed"><i class="fas fa-check-circle"></i> Closed <span class="tab-count" id="countClosed">0</span></button>
+                <button class="journal-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
+                <button class="journal-tab" data-tab="active"><i class="fas fa-check-circle"></i> Active <span class="tab-count" id="countActiveTab">0</span></button>
+                <button class="journal-tab" data-tab="inactive"><i class="fas fa-ban"></i> Inactive <span class="tab-count" id="countInactiveTab">0</span></button>
+              </div>
+               <div class="filter-group">
+                <select id="financialYearFilter" class="form-select">
+                  <option value="all">All Financial Years</option>
+                  <option value="2025-26">2025-26</option>
+                  <option value="2024-25">2024-25</option>
+                  <option value="2023-24">2023-24</option>
+                  <option value="2022-23">2022-23</option>
+                </select>
               </div>
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-estimate.html'"><i class="fas fa-plus me-2"></i>New Estimate</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-journal.html'"><i class="fas fa-plus me-2"></i>Create Journal</button>
               </div>
             </div>
 
-            <div class="Estimate-table-wrapper">
-              <table class="Estimate-table align-middle">
+            <div class="journal-table-wrapper">
+              <table class="journal-table align-middle mb-0 w-100">
                 <thead>
                   <tr>
                     <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
+                    <th>S.No</th>
+                    <th>JV Description</th>
+                    <th>Voucher No</th>
                     <th>Date</th>
-                    <th>Estimate Number</th>
-                    <th>Customer Name</th>
-                    <th>Due In</th>
-                    <th>Amount</th>
                     <th>Status</th>
-                    <th style="width:90px;">Action</th>
+                    <th>Created On</th>
+                    <th>Updated On</th>
+                    <th>Created By</th>
+                    <th>Last Updated By</th>
+                    <th style="width:100px;">Action</th>
                   </tr>
                 </thead>
-                <tbody id="EstimateTableBody"></tbody>
+                <tbody id="journalTableBody"></tbody>
               </table>
             </div>
             
-            <!-- Pagination Below Table - Clean Design -->
             <div class="pagination-container">
               <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
                 <div class="pagination-info">
@@ -846,7 +833,7 @@
                   <span>Showing <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span>
                   <span class="mx-1 text-muted">of</span>
                   <strong id="totalRows">0</strong>
-                  <span class="text-muted">Estimates</span>
+                  <span class="text-muted">Vouchers</span>
                 </div>
                 <nav>
                   <ul class="pagination" id="pagination"></ul>
@@ -859,11 +846,9 @@
     </div>
   </div>
 
-  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
-    <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
-  </div>
+  <!-- Toast Message -->
+  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
 
- 
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
   <script src="assets/libs/js/app.init.js"></script>
@@ -872,274 +857,215 @@
   <script src="assets/libs/js/sidebarmenu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-
   <script>
-    // Estimate Data
-    let Estimates = [
-      { id: 1, date: '2026-04-01', EstimateNo: 'QT-2404-001', customerName: 'ABC Enterprises', dueIn: 5, amount: 12500, status: 'Open' },
-      { id: 2, date: '2026-04-05', EstimateNo: 'QT-2404-002', customerName: 'XYZ Solutions', dueIn: 12, amount: 8500, status: 'Open' },
-      { id: 3, date: '2026-03-28', EstimateNo: 'QT-2403-089', customerName: 'Global Traders', dueIn: -3, amount: 3200, status: 'Expired' },
-      { id: 4, date: '2026-03-15', EstimateNo: 'QT-2403-045', customerName: 'Sunrise Industries', dueIn: -15, amount: 18900, status: 'Closed' },
-      { id: 5, date: '2026-04-10', EstimateNo: 'QT-2404-003', customerName: 'Metro Corp', dueIn: 8, amount: 4300, status: 'Open' },
-      { id: 6, date: '2026-03-20', EstimateNo: 'QT-2403-067', customerName: 'Aster Innovations', dueIn: -8, amount: 6750, status: 'Closed' },
-      { id: 7, date: '2026-04-12', EstimateNo: 'QT-2404-004', customerName: 'Tech Solutions Ltd', dueIn: 15, amount: 22300, status: 'Open' },
-      { id: 8, date: '2026-04-08', EstimateNo: 'QT-2404-005', customerName: 'Visionary Retail', dueIn: 3, amount: 5600, status: 'Open' },
-      { id: 9, date: '2026-03-25', EstimateNo: 'QT-2403-092', customerName: 'NexGen Media', dueIn: -5, amount: 9800, status: 'Expired' },
-      { id: 10, date: '2026-04-02', EstimateNo: 'QT-2404-006', customerName: 'Digital Solutions', dueIn: 10, amount: 15750, status: 'Open' },
-      { id: 11, date: '2026-04-14', EstimateNo: 'QT-2404-007', customerName: 'Blue Ocean Corp', dueIn: 20, amount: 34200, status: 'Open' },
-      { id: 12, date: '2026-04-11', EstimateNo: 'QT-2404-008', customerName: 'Red Apple Stores', dueIn: 6, amount: 8200, status: 'Open' }
+    let journalVouchers = [
+      { id: 1, description: 'Purchase of Office Equipment', voucherNo: 'JV-2025-001', date: '2025-04-01', status: 'Active', createdOn: '2025-04-01 10:30 AM', updatedOn: '2025-04-01 10:30 AM', createdBy: 'John Doe', lastUpdatedBy: 'John Doe', financialYear: '2025-26' },
+      { id: 2, description: 'Salary Payment Adjustment', voucherNo: 'JV-2025-002', date: '2025-04-05', status: 'Active', createdOn: '2025-04-05 02:15 PM', updatedOn: '2025-04-05 02:15 PM', createdBy: 'Jane Smith', lastUpdatedBy: 'Jane Smith', financialYear: '2025-26' },
+      { id: 3, description: 'Depreciation Entry', voucherNo: 'JV-2025-003', date: '2025-03-28', status: 'Inactive', createdOn: '2025-03-28 11:45 AM', updatedOn: '2025-04-02 09:20 AM', createdBy: 'Admin', lastUpdatedBy: 'Admin', financialYear: '2024-25' },
+      { id: 4, description: 'Bank Charges Adjustment', voucherNo: 'JV-2025-004', date: '2025-03-15', status: 'Active', createdOn: '2025-03-15 09:00 AM', updatedOn: '2025-03-15 09:00 AM', createdBy: 'Sarah Wilson', lastUpdatedBy: 'Sarah Wilson', financialYear: '2024-25' },
+      { id: 5, description: 'Fixed Asset Purchase', voucherNo: 'JV-2025-005', date: '2025-04-10', status: 'Active', createdOn: '2025-04-10 03:30 PM', updatedOn: '2025-04-10 03:30 PM', createdBy: 'David Brown', lastUpdatedBy: 'David Brown', financialYear: '2025-26' },
+      { id: 6, description: 'Prepaid Expenses', voucherNo: 'JV-2025-006', date: '2025-02-20', status: 'Inactive', createdOn: '2025-02-20 12:00 PM', updatedOn: '2025-03-01 10:15 AM', createdBy: 'Emily Davis', lastUpdatedBy: 'Robert Lee', financialYear: '2024-25' },
+      { id: 7, description: 'Accrued Revenue', voucherNo: 'JV-2025-007', date: '2025-04-12', status: 'Active', createdOn: '2025-04-12 01:20 PM', updatedOn: '2025-04-12 01:20 PM', createdBy: 'Mike Johnson', lastUpdatedBy: 'Mike Johnson', financialYear: '2025-26' },
+      { id: 8, description: 'Loan Interest Adjustment', voucherNo: 'JV-2025-008', date: '2025-03-25', status: 'Active', createdOn: '2025-03-25 04:00 PM', updatedOn: '2025-03-25 04:00 PM', createdBy: 'Priya Mehta', lastUpdatedBy: 'Priya Mehta', financialYear: '2024-25' },
+      { id: 9, description: 'Tax Provision Entry', voucherNo: 'JV-2025-009', date: '2025-04-08', status: 'Active', createdOn: '2025-04-08 11:30 AM', updatedOn: '2025-04-08 11:30 AM', createdBy: 'Arjun Nair', lastUpdatedBy: 'Arjun Nair', financialYear: '2025-26' },
+      { id: 10, description: 'Write-off Bad Debts', voucherNo: 'JV-2025-010', date: '2025-03-05', status: 'Inactive', createdOn: '2025-03-05 02:00 PM', updatedOn: '2025-03-20 09:45 AM', createdBy: 'Neha Gupta', lastUpdatedBy: 'Neha Gupta', financialYear: '2024-25' }
     ];
-
+    
     let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
     let currentSearchTerm = '';
-
-    function showToast(msg) {
-      const toast = document.getElementById('liveToastMsg');
-      if (toast) {
-        document.getElementById('toastText').innerText = msg;
-        toast.style.display = 'block';
-        setTimeout(() => toast.style.display = 'none', 2200);
-      }
-    }
-
-    function formatCurrency(amt) {
-      return `₹ ${amt.toLocaleString('en-IN', { minimumFractionDigits: 2 })}`;
-    }
+    let currentFinancialYear = 'all';
 
     function getStatusClass(status) {
-      if (status === 'Open') return 'status-open';
-      if (status === 'Closed') return 'status-closed';
-      return 'status-expired';
+      return status === 'Active' ? 'status-active' : 'status-inactive';
     }
 
-    function getDueInText(dueIn) {
-      if (dueIn < 0) return `Expired ${Math.abs(dueIn)} days ago`;
-      if (dueIn === 0) return 'Due today';
-      return `${dueIn} days`;
+    function showToast(msg) { 
+      const t = document.getElementById('liveToastMsg'); 
+      document.getElementById('toastText').innerText = msg; 
+      t.style.display = 'block'; 
+      setTimeout(() => t.style.display = 'none', 2200); 
     }
 
-    function filterEstimates() {
-      let search = currentSearchTerm.toLowerCase().trim();
-      return Estimates.filter(q => {
-        let matchSearch = search === '' || q.EstimateNo.toLowerCase().includes(search) || q.customerName.toLowerCase().includes(search);
-        if (currentTab === 'all') return matchSearch;
-        if (currentTab === 'open') return (q.status === 'Open') && matchSearch;
-        if (currentTab === 'closed') return (q.status === 'Closed') && matchSearch;
-        return matchSearch;
+    function redirectToJournalDetail(voucherNo) { 
+      window.location.href = `journal-detail.html?id=${voucherNo}`; 
+    }
+
+    function filterJournals() {
+      let search = currentSearchTerm.toLowerCase();
+      return journalVouchers.filter(jv => {
+        let matchSearch = search === '' || 
+          jv.description.toLowerCase().includes(search) || 
+          jv.voucherNo.toLowerCase().includes(search);
+        
+        let matchFinancialYear = currentFinancialYear === 'all' || jv.financialYear === currentFinancialYear;
+        
+        if (currentTab === 'all') return matchSearch && matchFinancialYear;
+        if (currentTab === 'active') return jv.status === 'Active' && matchSearch && matchFinancialYear;
+        if (currentTab === 'inactive') return jv.status === 'Inactive' && matchSearch && matchFinancialYear;
+        return matchSearch && matchFinancialYear;
       });
     }
 
     function updateKPIs() {
-      const total = Estimates.length;
-      const openCount = Estimates.filter(q => q.status === 'Open').length;
-      const closedCount = Estimates.filter(q => q.status === 'Closed').length;
-      const openAmount = Estimates.filter(q => q.status === 'Open').reduce((sum, q) => sum + q.amount, 0);
-      const closedAmount = Estimates.filter(q => q.status === 'Closed').reduce((sum, q) => sum + q.amount, 0);
+      let total = journalVouchers.length;
+      let active = journalVouchers.filter(j => j.status === 'Active').length;
+      let inactive = journalVouchers.filter(j => j.status === 'Inactive').length;
 
-      document.getElementById('totalEstimates').innerText = total;
-      document.getElementById('openEstimates').innerText = formatCurrency(openAmount);
-      document.getElementById('closedEstimates').innerText = formatCurrency(closedAmount);
-      
-      document.getElementById('openCountBadge').innerText = openCount;
-      document.getElementById('closedCountBadge').innerText = closedCount;
+      document.getElementById('totalVouchers').innerText = total;
+      document.getElementById('activeVouchers').innerText = active;
+      document.getElementById('inactiveVouchers').innerText = inactive;
+
+      document.getElementById('totalCount').innerText = total;
+      document.getElementById('activeCount').innerText = active;
+      document.getElementById('inactiveCount').innerText = inactive;
 
       document.getElementById('countAll').innerText = total;
-      document.getElementById('countOpen').innerText = openCount;
-      document.getElementById('countClosed').innerText = closedCount;
+      document.getElementById('countActiveTab').innerText = active;
+      document.getElementById('countInactiveTab').innerText = inactive;
     }
 
     function renderTable() {
-      let filtered = filterEstimates();
+      let filtered = filterJournals();
       let total = filtered.length;
       let totalPages = Math.ceil(total / rowsPerPage);
       
-      // Adjust current page if out of bounds
       if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
       
       let start = (currentPage - 1) * rowsPerPage;
       let end = Math.min(start + rowsPerPage, total);
       let pageData = filtered.slice(start, end);
-      let tbody = document.getElementById('EstimateTableBody');
-      if (!tbody) return;
+      let tbody = document.getElementById('journalTableBody');
       tbody.innerHTML = '';
-
+      
       if (pageData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted">No Estimates found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="11" class="text-center py-5 text-muted">No journal vouchers found</td></tr>';
       } else {
-        pageData.forEach((q) => {
-          let statusClass = getStatusClass(q.status);
+        pageData.forEach((jv, idx) => {
+          let sno = start + idx + 1;
+          let statusClass = getStatusClass(jv.status);
           let row = `<tr>
-            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${q.id}"></td>
-            <td>${q.date}</td>
-            <td><span class="Estimate-link" data-id="${q.EstimateNo}">${q.EstimateNo}</span></td>
-            <td class="fw-medium">${q.customerName}</td>
-            <td>${getDueInText(q.dueIn)}</td>
-            <td class="fw-semibold">${formatCurrency(q.amount)}</td>
-            <td><span class="status-badge ${statusClass}">${q.status}</span></td>
-            <td>
-              <div class="dropdown action-dropdown">
-                <button class="action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-                <ul class="dropdown-menu dropdown-menu-end">
-                  <li><a class="dropdown-item" href="#" onclick="viewEstimate('${q.EstimateNo}')"> View</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="cloneEstimate(${q.id})"> Clone</a></li>
-                  <li><a class="dropdown-item" href="#" onclick="downloadEstimate(${q.id})"> Download</a></li>
-                  <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item text-danger" href="#" onclick="deleteEstimate(${q.id})"> Delete</a></li>
-                </ul>
-              </div>
-            </td>
-          </tr>`;
+            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${jv.id}"></td>
+            <td>${sno}</td>
+            <td class="fw-medium">${escapeHtml(jv.description)}</td>
+            <td><span class="voucher-link" data-id="${jv.voucherNo}" style="cursor:pointer; color:#2a3b82; font-weight:600;">${jv.voucherNo}</span></td>
+            <td>${jv.date}</td>
+            <td><span class="status-badge ${statusClass}">${jv.status}</span></td>
+            <td>${jv.createdOn}</td>
+            <td>${jv.updatedOn}</td>
+            <td>${escapeHtml(jv.createdBy)}</td>
+            <td>${escapeHtml(jv.lastUpdatedBy)}</td>
+            <td><div class="dropdown action-dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><a class="dropdown-item" href="#" onclick="viewJournal('${jv.voucherNo}')">View</a></li>
+                <li><a class="dropdown-item" href="#" onclick="editJournal(${jv.id})"> Edit</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="deleteJournal(${jv.id})"> Delete</a></li>
+              </ul></div></td>
+          </table>`;
           tbody.insertAdjacentHTML('beforeend', row);
         });
       }
-
-      // Update info text
+      
       document.getElementById('rowStart').innerText = total ? start + 1 : 0;
       document.getElementById('rowEnd').innerText = end;
       document.getElementById('totalRows').innerText = total;
-
-      // Render Pagination
-      renderPagination(totalPages);
-
-      // Attach click events for Estimate links
-      document.querySelectorAll('.Estimate-link').forEach(el => {
-        el.removeEventListener('click', EstimateClickHandler);
-        el.addEventListener('click', EstimateClickHandler);
-      });
-
+      
+      let pagination = document.getElementById('pagination');
+      pagination.innerHTML = '';
+      if (totalPages > 1) {
+        pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+            pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+          else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+        }
+        pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
+      }
+      
+      document.querySelectorAll('.voucher-link').forEach(el => el.addEventListener('click', (e) => redirectToJournalDetail(el.getAttribute('data-id'))));
       const selectAll = document.getElementById('selectAllCheckbox');
       if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     }
 
-    function renderPagination(totalPages) {
-      let pagination = document.getElementById('pagination');
-      if (!pagination) return;
-      pagination.innerHTML = '';
-      
-      if (totalPages <= 1) return;
-      
-      // Previous button
-      pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
-        <a class="page-link" href="#" onclick="changePage(${currentPage - 1}); return false;"><i class="fas fa-chevron-left"></i></a>
-      </li>`;
-      
-      // Page numbers - show limited pages for clean design
-      let startPage = Math.max(1, currentPage - 2);
-      let endPage = Math.min(totalPages, currentPage + 2);
-      
-      if (startPage > 1) {
-        pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(1); return false;">1</a></li>`;
-        if (startPage > 2) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
-      }
-      
-      for (let i = startPage; i <= endPage; i++) {
-        pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}">
-          <a class="page-link" href="#" onclick="changePage(${i}); return false;">${i}</a>
-        </li>`;
-      }
-      
-      if (endPage < totalPages) {
-        if (endPage < totalPages - 1) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
-        pagination.innerHTML += `<li class="page-item"><a class="page-link" href="#" onclick="changePage(${totalPages}); return false;">${totalPages}</a></li>`;
-      }
-      
-      // Next button
-      pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
-        <a class="page-link" href="#" onclick="changePage(${currentPage + 1}); return false;"><i class="fas fa-chevron-right"></i></a>
-      </li>`;
+    function changePage(p) { 
+      let filtered = filterJournals(); 
+      let pages = Math.ceil(filtered.length / rowsPerPage); 
+      if (p >= 1 && p <= pages) { 
+        currentPage = p; 
+        renderTable(); 
+      } 
     }
 
-    function EstimateClickHandler(e) {
-      e.preventDefault();
-      const EstimateNo = this.getAttribute('data-id');
-      window.location.href = `estimate-detail.html?id=${EstimateNo}`;
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, function(m) {
+        return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;';
+      });
     }
 
-    function changePage(p) {
-      let filtered = filterEstimates();
-      let pages = Math.ceil(filtered.length / rowsPerPage);
-      if (p >= 1 && p <= pages) {
-        currentPage = p;
-        renderTable();
-      }
-    }
-
-    // Search handler
-    const searchInput = document.getElementById('globalSearchInput');
-    if (searchInput) {
-      searchInput.addEventListener('input', function() {
+    const globalSearchInput = document.getElementById('globalSearchInput');
+    if (globalSearchInput) {
+      globalSearchInput.addEventListener('input', function () {
         currentSearchTerm = this.value;
         currentPage = 1;
         renderTable();
       });
     }
 
-    // CRUD Operations
-    window.viewEstimate = function(EstimateNo) {
-      window.location.href = `estimate-detail.html?id=${EstimateNo}`;
-    };
-
-    window.cloneEstimate = function(id) {
-      const original = Estimates.find(q => q.id === id);
-      if (original) {
-        const newId = Math.max(...Estimates.map(q => q.id)) + 1;
-        const newEstimate = {
-          ...original,
-          id: newId,
-          EstimateNo: `${original.EstimateNo.split('-')[0]}-${String(parseInt(original.EstimateNo.split('-')[1]) + 100).slice(-3)}`,
-          date: new Date().toISOString().slice(0, 10),
-          status: 'Open',
-          dueIn: 7
-        };
-        Estimates.push(newEstimate);
-        updateKPIs();
-        renderTable();
-        showToast(`Cloned Estimate to ${newEstimate.EstimateNo}`);
-      }
-    };
-
-    window.downloadEstimate = function(id) {
-      const Estimate = Estimates.find(q => q.id === id);
-      showToast(`Downloading PDF for ${Estimate?.EstimateNo}`);
-    };
-
-    window.deleteEstimate = function(id) {
-      if (confirm('Permanently delete this Estimate?')) {
-        Estimates = Estimates.filter(q => q.id !== id);
-        updateKPIs();
-        let filteredAfter = filterEstimates();
-        let maxPage = Math.ceil(filteredAfter.length / rowsPerPage);
-        if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
-        if (filteredAfter.length === 0) currentPage = 1;
-        renderTable();
-        showToast('Estimate deleted successfully');
-      }
-    };
-
-    // Tab switching
-    document.querySelectorAll('.Estimate-tab').forEach(btn => {
-      btn.addEventListener('click', () => {
-        document.querySelectorAll('.Estimate-tab').forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        currentTab = btn.dataset.tab;
+    const financialYearFilter = document.getElementById('financialYearFilter');
+    if (financialYearFilter) {
+      financialYearFilter.addEventListener('change', function () {
+        currentFinancialYear = this.value;
         currentPage = 1;
         renderTable();
       });
-    });
+    }
+
+    function viewJournal(voucherNo) {
+      window.location.href = `journal-detail.html?id=${voucherNo}`;
+    }
+    
+    function editJournal(id) {
+      let jv = journalVouchers.find(j => j.id === id);
+      if (jv) window.location.href = `edit-journal.html?id=${jv.voucherNo}`;
+    }
+    
+    function deleteJournal(id) {
+      if (confirm('Delete this journal voucher?')) {
+        journalVouchers = journalVouchers.filter(j => j.id !== id);
+        updateKPIs();
+        let filtered = filterJournals();
+        let maxPage = Math.ceil(filtered.length / rowsPerPage);
+        if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
+        if (filtered.length === 0) currentPage = 1;
+        renderTable();
+        showToast('Journal voucher deleted successfully');
+      }
+    }
+
+    document.querySelectorAll('.journal-tab').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.journal-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      currentTab = btn.dataset.tab;
+      currentPage = 1;
+      renderTable();
+    }));
 
     // Initialize
     updateKPIs();
     renderTable();
 
-    // Expose globals
+    // Make functions global for onclick handlers
+    window.viewJournal = viewJournal;
+    window.editJournal = editJournal;
+    window.deleteJournal = deleteJournal;
     window.changePage = changePage;
-    window.viewEstimate = viewEstimate;
-    window.cloneEstimate = cloneEstimate;
-    window.downloadEstimate = downloadEstimate;
-    window.deleteEstimate = deleteEstimate;
+    window.redirectToJournalDetail = redirectToJournalDetail;
+    
+    function handleLogout() { 
+      if (confirm('Logout?')) window.location.href = 'login.html'; 
+    }
   </script>
 </body>
 

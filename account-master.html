@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Fintle | Account Master</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+  <style>
+    .tree-container {
+      background: white;
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+
+    .tree-node {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+
+    .tree-node ul {
+      list-style: none;
+      padding-left: 28px;
+      margin: 0;
+    }
+
+    .tree-item {
+      display: flex;
+      align-items: center;
+      padding: 8px 12px;
+      margin: 2px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      gap: 10px;
+    }
+
+    .tree-item:hover {
+      background: #f8fafc;
+    }
+
+    .tree-item.active {
+      background: #eef2ff;
+    }
+
+    .toggle-icon {
+      width: 24px;
+      height: 24px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .folder-icon {
+      color: #2a3b82;
+    }
+
+    .file-icon {
+      color: #64748b;
+    }
+
+    .account-name {
+      flex: 1;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1e293b;
+    }
+
+    .account-code {
+      font-size: 0.7rem;
+      color: #94a3b8;
+      margin-left: 6px;
+    }
+
+    .account-actions {
+      display: flex;
+      gap: 6px;
+      opacity: 0;
+      transition: opacity 0.2s;
+    }
+
+    .tree-item:hover .account-actions {
+      opacity: 1;
+    }
+
+    .account-action {
+      width: 28px;
+      height: 28px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      cursor: pointer;
+      color: #64748b;
+    }
+
+    .account-action:hover {
+      background: #e2e8f0;
+    }
+
+    .type-badge {
+      font-size: 0.65rem;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    .type-assets {
+      background: #e0f2fe;
+      color: #0369a1;
+    }
+
+    .type-liabilities {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .type-equity {
+      background: #e6f7e6;
+      color: #10b981;
+    }
+
+    .type-income {
+      background: #fff3e3;
+      color: #d97706;
+    }
+
+    .type-expense {
+      background: #f3e8ff;
+      color: #7c3aed;
+    }
+
+    .form-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid #e2e8f0;
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+  </style>
+
+</head>
+
+<body>
+
+  <div id="main-wrapper">
+    <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier.html">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-order.html">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier-statement.html">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="account-master.html">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="journals.html">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+
+    <div class="page-wrapper">
+      <header class="topbar">
+        <div class="with-vertical">
+          <nav class="navbar navbar-expand-lg p-0">
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
+                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                    class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-lg-flex dropdown">
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
+                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+              </li>
+            </ul>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+            </div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                class="fs-6"></iconify-icon></a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <div class="d-flex align-items-center justify-content-between">
+                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                  <li class="nav-item dropdown"><a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
+                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
+                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
+                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
+                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
+                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
+                          class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                      </div>
+                      <div class="message-body" data-simplebar><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
+                              icon="solar:widget-3-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just see the my new
+                              admin!</span>
+                          </div>
+                        </a><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
+                              icon="solar:calendar-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
+                              event</span>
+                          </div>
+                        </a></div>
+                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
+                      aria-expanded="false">
+                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
+                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
+                    </a>
+                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="position-relative px-4 pt-3 pb-2">
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img
+                            src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
+                            alt="Fintle-img" />
+                          <div>
+                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
+                            <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
+                                class="__cf_email__">[email&#160;protected]</a></p>
+                          </div>
+                        </div>
+                        <div class="message-body"><a href="../main/page-user-profile.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Invoice <span
+                              class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
+                            href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account
+                            Settings</a><a href="../main/authentication-login2.html"
+                            class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
+            <nav class="sidebar-nav scroll-sidebar">
+              <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
+                  class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo"
+                    class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button></div>
+              <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
+                <ul id="sidebarnav">
+                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
+                      aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone"
+                          class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
+                    <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
+                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center">
+                          <div
+                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
+                              class="fs-11 d-block text-body-color">New messages arrived</span>
+                          </div>
+                        </a></li>
+                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
+                          class="d-flex align-items-center">
+                          <div
+                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:bill-list-bold-duotone"
+                              class="fs-7 text-secondary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
+                              class="fs-11 d-block text-body-color">Get latest invoice</span>
+                          </div>
+                        </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div class="body-wrapper">
+        <div class="container-fluid p-4">
+          <!-- Breadcrumb -->
+          <div class="card card-body py-3 mb-4">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-space-between">
+                  <h4 class="mb-4 mb-sm-0 card-title">Account Master</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb">
+                      <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                      <li class="breadcrumb-item active">Account Master</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row g-4">
+            <!-- Left Side - Account Tree -->
+            <div class="col-lg-6">
+              <div class="tree-container">
+                <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
+                  <h5 class="fw-semibold mb-0">Chart of Accounts</h5>
+                  <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill" id="accountCount">0 Accounts</span>
+                </div>
+                <ul class="tree-node" id="accountTree"></ul>
+              </div>
+            </div>
+
+            <!-- Right Side - Add/Edit Account Form -->
+            <div class="col-lg-6">
+              <div class="form-card">
+                <h5 class="fw-semibold mb-4 pb-2 border-bottom" id="formTitle">Add Account Head</h5>
+                <form id="accountForm">
+                  <div class="mb-3">
+                    <label class="form-label">Parent Account</label>
+                    <select class="form-select" id="parentAccount">
+                      <option value="">-- Select Parent Account (Optional) --</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label required-field">Account Name</label>
+                    <input type="text" class="form-control" id="accountName" placeholder="Enter account name" required>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Account Code</label>
+                    <input type="text" class="form-control" id="accountCode" placeholder="Auto-generated if empty">
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Account Type</label>
+                    <select class="form-select" id="accountType">
+                      <option value="assets">Assets</option>
+                      <option value="liabilities">Liabilities</option>
+                      <option value="equity">Equity</option>
+                      <option value="income">Income</option>
+                      <option value="expense">Expense</option>
+                    </select>
+                  </div>
+
+                  <div class="mb-3">
+                    <label class="form-label">Opening Balance</label>
+                    <input type="number" class="form-control" id="openingBalance" value="0" step="any">
+                  </div>
+
+                  <div class="mb-4">
+                    <label class="form-label">Description</label>
+                    <textarea class="form-control" id="description" rows="3" placeholder="Optional description"></textarea>
+                  </div>
+
+                  <div class="d-flex gap-3">
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="resetBtn">
+                      <i class="fas fa-undo-alt me-2"></i>Reset
+                    </button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4" id="submitBtn">
+                      <i class="fas fa-save me-2"></i>Create Account
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="modal fade" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-danger text-white">
+          <h5 class="modal-title text-white"><i class="fas fa-trash-alt me-2"></i>Delete Account</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p>Are you sure you want to delete account <strong id="deleteAccountName"></strong>?</p>
+          <p class="text-muted small mb-0">This action cannot be undone. All sub-accounts will also be deleted.</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveToastMsg" class="toast-notify" style="display: none;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+  </div>
+
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="assets/libs/js/app.init.js"></script>
+  <script src="assets/libs/js/theme.js"></script>
+  <script src="assets/libs/js/app.min.js"></script>
+  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+<script>
+    // Account Data Structure
+    let accounts = [
+      { id: "assets", name: "Assets", code: "1", parent: null, type: "assets", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "assets_current", name: "Current Assets", code: "1.1", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "assets_cash", name: "Cash", code: "1.1.1", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "assets_cash_on_hand", name: "Cash On Hand", code: "1.1.1.1", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 5000, description: "Physical cash in office" },
+      { id: "assets_sundry_debtors", name: "Sundry Debtors", code: "1.1.2", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "assets_banks", name: "Banks", code: "1.1.3", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "assets_fixed", name: "Fixed Assets", code: "1.2", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "assets_other", name: "Other Current Assets", code: "1.3", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "" },
+      { id: "bank_hdfc", name: "HDFC Bank", code: "1.1.3.1", parent: "assets_banks", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 25000, description: "HDFC Current Account" },
+      { id: "bank_sbi", name: "SBI Bank", code: "1.1.3.2", parent: "assets_banks", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 15000, description: "SBI Business Account" },
+      { id: "debtor_abc", name: "ABC Enterprises", code: "1.1.2.1", parent: "assets_sundry_debtors", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 50000, description: "Outstanding receivables" },
+    ];
+
+    let nextId = 100;
+    let selectedAccountId = null;
+    let accountToDelete = null;
+
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+
+    function generateAccountCode(parentId) {
+      if (!parentId) {
+        const assetsCount = accounts.filter(a => a.parent === null).length + 1;
+        return String(assetsCount);
+      }
+      const parent = accounts.find(a => a.id === parentId);
+      if (parent) {
+        const siblings = accounts.filter(a => a.parent === parentId);
+        return parent.code + '.' + (siblings.length + 1);
+      }
+      return String(accounts.length + 1);
+    }
+
+    function renderTree() {
+      const container = document.getElementById('accountTree');
+      if (!container) return;
+      container.innerHTML = '';
+      
+      const rootAccounts = accounts.filter(a => a.parent === null);
+      rootAccounts.forEach(account => {
+        renderNode(account, container);
+      });
+      
+      document.getElementById('accountCount').innerText = accounts.length + ' Accounts';
+    }
+
+    function renderNode(account, parentElement) {
+      const li = document.createElement('li');
+      li.dataset.id = account.id;
+      
+      const children = accounts.filter(a => a.parent === account.id);
+      const hasChildren = children.length > 0;
+      
+      const div = document.createElement('div');
+      div.className = 'tree-item';
+      if (account.id === selectedAccountId) {
+        div.classList.add('active');
+      }
+      
+      // Toggle icon for folders
+      if (hasChildren || account.isFolder) {
+        const toggleSpan = document.createElement('span');
+        toggleSpan.className = 'toggle-icon';
+        toggleSpan.innerHTML = account.expanded ? 
+          '<i class="fas fa-minus-square"></i>' : 
+          '<i class="fas fa-plus-square"></i>';
+        toggleSpan.onclick = (e) => {
+          e.stopPropagation();
+          account.expanded = !account.expanded;
+          renderTree();
+        };
+        div.appendChild(toggleSpan);
+      } else {
+        const spacer = document.createElement('span');
+        spacer.style.width = '24px';
+        spacer.style.display = 'inline-block';
+        div.appendChild(spacer);
+      }
+      
+      // Folder/File icon
+      const iconSpan = document.createElement('span');
+      iconSpan.className = account.isFolder ? 'folder-icon' : 'file-icon';
+      iconSpan.innerHTML = account.isFolder ? 
+        '<i class="fas fa-folder"></i>' : 
+        '<i class="fas fa-file-alt"></i>';
+      div.appendChild(iconSpan);
+      
+      // Account name
+      const nameSpan = document.createElement('span');
+      nameSpan.className = 'account-name';
+      nameSpan.innerHTML = `${escapeHtml(account.name)} <span class="account-code">(${account.code})</span>`;
+      div.appendChild(nameSpan);
+      
+      // Type badge
+      const typeBadge = document.createElement('span');
+      typeBadge.className = `type-badge type-${account.type}`;
+      typeBadge.innerText = account.type.charAt(0).toUpperCase() + account.type.slice(1);
+      div.appendChild(typeBadge);
+      
+      // Actions for user-created accounts
+      if (!account.isSystem && account.id !== 'assets' && account.id !== 'liabilities' && account.id !== 'equity' && account.id !== 'income' && account.id !== 'expense') {
+        const actionsDiv = document.createElement('div');
+        actionsDiv.className = 'account-actions';
+        
+        const editBtn = document.createElement('span');
+        editBtn.className = 'account-action';
+        editBtn.innerHTML = '<i class="fas fa-edit"></i>';
+        editBtn.onclick = (e) => {
+          e.stopPropagation();
+          editAccount(account);
+        };
+        
+        const deleteBtn = document.createElement('span');
+        deleteBtn.className = 'account-action';
+        deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
+        deleteBtn.onclick = (e) => {
+          e.stopPropagation();
+          confirmDelete(account);
+        };
+        
+        actionsDiv.appendChild(editBtn);
+        actionsDiv.appendChild(deleteBtn);
+        div.appendChild(actionsDiv);
+      }
+      
+      div.onclick = () => {
+        selectAccount(account);
+      };
+      
+      li.appendChild(div);
+      
+      // Render children if expanded
+      if (account.expanded && children.length > 0) {
+        const ul = document.createElement('ul');
+        children.forEach(child => {
+          renderNode(child, ul);
+        });
+        li.appendChild(ul);
+      }
+      
+      parentElement.appendChild(li);
+    }
+
+    function selectAccount(account) {
+      selectedAccountId = account.id;
+      renderTree();
+      
+      document.getElementById('parentAccount').value = account.parent || '';
+      document.getElementById('accountName').value = account.name;
+      document.getElementById('accountCode').value = account.code;
+      document.getElementById('accountType').value = account.type;
+      document.getElementById('openingBalance').value = account.openingBalance || 0;
+      document.getElementById('description').value = account.description || '';
+      
+      const formTitle = document.getElementById('formTitle');
+      const submitBtn = document.getElementById('submitBtn');
+      if (formTitle) formTitle.innerHTML = 'Edit Account Head';
+      if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Update Account';
+    }
+
+    function editAccount(account) {
+      selectAccount(account);
+    }
+
+    function confirmDelete(account) {
+      accountToDelete = account;
+      document.getElementById('deleteAccountName').innerText = account.name;
+      new bootstrap.Modal(document.getElementById('deleteModal')).show();
+    }
+
+    document.getElementById('confirmDeleteBtn')?.addEventListener('click', () => {
+      if (accountToDelete) {
+        function deleteChildren(parentId) {
+          const children = accounts.filter(a => a.parent === parentId);
+          children.forEach(child => {
+            deleteChildren(child.id);
+            const index = accounts.findIndex(a => a.id === child.id);
+            if (index !== -1) accounts.splice(index, 1);
+          });
+        }
+        deleteChildren(accountToDelete.id);
+        const index = accounts.findIndex(a => a.id === accountToDelete.id);
+        if (index !== -1) accounts.splice(index, 1);
+        
+        renderTree();
+        showToast(`Account "${accountToDelete.name}" deleted successfully`);
+        accountToDelete = null;
+        bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
+        
+        if (selectedAccountId === accountToDelete?.id) {
+          resetForm();
+        }
+      }
+    });
+
+    function resetForm() {
+      selectedAccountId = null;
+      document.getElementById('parentAccount').value = '';
+      document.getElementById('accountName').value = '';
+      document.getElementById('accountCode').value = '';
+      document.getElementById('accountType').value = 'assets';
+      document.getElementById('openingBalance').value = '0';
+      document.getElementById('description').value = '';
+      const formTitle = document.getElementById('formTitle');
+      const submitBtn = document.getElementById('submitBtn');
+      if (formTitle) formTitle.innerHTML = 'Add Account Head';
+      if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Create Account';
+      renderTree();
+    }
+
+    function showToast(message) {
+      const toastDiv = document.getElementById('liveToastMsg');
+      const toastText = document.getElementById('toastText');
+      toastText.innerHTML = message;
+      toastDiv.style.display = 'flex';
+      setTimeout(() => {
+        toastDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Form submission
+    document.getElementById('accountForm')?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      
+      const accountName = document.getElementById('accountName').value.trim();
+      if (!accountName) {
+        showToast('Please enter account name');
+        return;
+      }
+      
+      const parentId = document.getElementById('parentAccount').value;
+      const accountType = document.getElementById('accountType').value;
+      let accountCode = document.getElementById('accountCode').value.trim();
+      
+      if (!accountCode) {
+        accountCode = generateAccountCode(parentId);
+      }
+      
+      if (selectedAccountId) {
+        const index = accounts.findIndex(a => a.id === selectedAccountId);
+        if (index !== -1) {
+          accounts[index].name = accountName;
+          accounts[index].code = accountCode;
+          accounts[index].type = accountType;
+          accounts[index].openingBalance = parseFloat(document.getElementById('openingBalance').value) || 0;
+          accounts[index].description = document.getElementById('description').value;
+          if (parentId !== accounts[index].parent) {
+            accounts[index].parent = parentId;
+          }
+          showToast(`Account "${accountName}" updated successfully`);
+        }
+      } else {
+        const newId = 'acc_' + Date.now();
+        const newAccount = {
+          id: newId,
+          name: accountName,
+          code: accountCode,
+          parent: parentId || null,
+          type: accountType,
+          level: parentId ? (accounts.find(a => a.id === parentId)?.level || 0) + 1 : 0,
+          isFolder: false,
+          isSystem: false,
+          expanded: false,
+          openingBalance: parseFloat(document.getElementById('openingBalance').value) || 0,
+          description: document.getElementById('description').value
+        };
+        accounts.push(newAccount);
+        showToast(`Account "${accountName}" created successfully`);
+      }
+      
+      renderTree();
+      resetForm();
+    });
+
+    document.getElementById('resetBtn')?.addEventListener('click', () => {
+      if (confirm('Reset all form fields?')) {
+        resetForm();
+        showToast('Form reset');
+      }
+    });
+
+    function buildParentOptions() {
+      const select = document.getElementById('parentAccount');
+      if (!select) return;
+      
+      const mainOptions = [
+        { value: "", label: "-- Select Parent Account (Optional) --" },
+        { value: "assets", label: "Assets" },
+        { value: "assets_current", label: "  └ Current Assets" },
+        { value: "assets_cash", label: "    └ Cash" },
+        { value: "assets_sundry_debtors", label: "    └ Sundry Debtors" },
+        { value: "assets_banks", label: "    └ Banks" },
+        { value: "assets_fixed", label: "  └ Fixed Assets" },
+        { value: "assets_other", label: "  └ Other Current Assets" },
+        { value: "liabilities", label: "Liabilities" },
+        { value: "equity", label: "Equity" },
+        { value: "income", label: "Income" },
+        { value: "expense", label: "Expense" }
+      ];
+      
+      const dynamicOptions = [];
+      accounts.forEach(acc => {
+        if (!acc.isSystem && acc.id !== 'assets' && acc.id !== 'liabilities' && acc.id !== 'equity' && acc.id !== 'income' && acc.id !== 'expense') {
+          dynamicOptions.push({ value: acc.id, label: "  └ " + acc.name });
+        }
+      });
+      
+      select.innerHTML = [...mainOptions, ...dynamicOptions].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
+    }
+
+    function init() {
+      accounts.forEach(acc => {
+        if (acc.id === 'assets' || acc.id === 'liabilities' || acc.id === 'equity' || acc.id === 'income' || acc.id === 'expense' ||
+            acc.id === 'assets_current' || acc.id === 'assets_cash' || acc.id === 'assets_sundry_debtors' || acc.id === 'assets_banks' ||
+            acc.id === 'assets_fixed' || acc.id === 'assets_other') {
+          acc.isSystem = true;
+        }
+      });
+      
+      buildParentOptions();
+      renderTree();
+    }
+    
+    init();
+
+    function handleLogout() { 
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+
+</html>

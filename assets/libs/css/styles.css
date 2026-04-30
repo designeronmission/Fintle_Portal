@@ -17752,7 +17752,7 @@
     --bs-indigo: #6610f2;
     --bs-purple: #6f42c1;
     --bs-pink: #d63384;
-    --bs-red: #ff6692;
+    --bs-red: #ff6666;
     --bs-orange: #fd7e14;
     --bs-yellow: #F8C20A;
     --bs-green: #36c76c;
@@ -17776,7 +17776,7 @@
     --bs-success: #36c76c;
     --bs-info: #46caeb;
     --bs-warning: #F8C20A;
-    --bs-danger: #ff6692;
+    --bs-danger: #ff6666;
     --bs-light: #eff4fa;
     --bs-dark: #0a2540;
     --bs-muted: #526b7a;
@@ -17806,7 +17806,7 @@
     --bs-success-text-emphasis: shade-color(#36c76c, 60%);
     --bs-info-text-emphasis: shade-color(#46caeb, 60%);
     --bs-warning-text-emphasis: shade-color(#F8C20A, 60%);
-    --bs-danger-text-emphasis: shade-color(#ff6692, 60%);
+    --bs-danger-text-emphasis: shade-color(#ff6666, 60%);
     --bs-light-text-emphasis: #f6f7f9;
     --bs-dark-text-emphasis: #29343d;
     --bs-primary-bg-subtle: #DDDBFF;
@@ -17877,8 +17877,8 @@
     --bs-focus-ring-color: rgba(99, 91, 255, 0.25);
     --bs-form-valid-color: #36c76c;
     --bs-form-valid-border-color: #36c76c;
-    --bs-form-invalid-color: #ff6692;
-    --bs-form-invalid-border-color: #ff6692
+    --bs-form-invalid-color: #ff6666;
+    --bs-form-invalid-border-color: #ff6666
 }
 
 [data-bs-theme=dark] {
@@ -21535,7 +21535,7 @@ textarea.form-control.is-valid {
 .was-validated .form-control:invalid {
     border-color: var(--bs-form-invalid-border-color);
     padding-right: calc(1.5em + 20px);
-    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ff6692'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ff6692' stroke='none'/%3e%3c/svg%3e");
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ff6666'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ff6666' stroke='none'/%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right calc(.375em + 5px) center;
     background-size: calc(.75em + 10px) calc(.75em + 10px)
@@ -21562,7 +21562,7 @@ textarea.form-control.is-invalid {
 .form-select.is-invalid:not([multiple])[size="1"],
 .was-validated .form-select:invalid:not([multiple]):not([size]),
 .was-validated .form-select:invalid:not([multiple])[size="1"] {
-    --bs-form-select-bg-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ff6692'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ff6692' stroke='none'/%3e%3c/svg%3e");
+    --bs-form-select-bg-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23ff6666'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23ff6666' stroke='none'/%3e%3c/svg%3e");
     padding-right: 78px;
     background-position: right 16px center, center right 38px;
     background-size: 16px 12px, calc(.75em + 10px) calc(.75em + 10px)
@@ -21797,19 +21797,19 @@ fieldset:disabled .btn {
 
 .btn-danger {
     --bs-btn-color: #fff;
-    --bs-btn-bg: #ff6692;
-    --bs-btn-border-color: #ff6692;
+    --bs-btn-bg: #ff6666;
+    --bs-btn-border-color: #ff6666;
     --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #d9577c;
-    --bs-btn-hover-border-color: #cc5275;
+    --bs-btn-hover-bg: #ff6666;
+    --bs-btn-hover-border-color: #ff6666;
     --bs-btn-focus-shadow-rgb: 255, 125, 162;
     --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #cc5275;
+    --bs-btn-active-bg: #ff6666;
     --bs-btn-active-border-color: #bf4d6e;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #fff;
-    --bs-btn-disabled-bg: #ff6692;
-    --bs-btn-disabled-border-color: #ff6692
+    --bs-btn-disabled-bg: #ff6666;
+    --bs-btn-disabled-border-color: #ff6666
 }
 
 .btn-light {
@@ -22051,19 +22051,19 @@ fieldset:disabled .btn {
 }
 
 .btn-outline-danger {
-    --bs-btn-color: #ff6692;
-    --bs-btn-border-color: #ff6692;
+    --bs-btn-color: #ff6666;
+    --bs-btn-border-color: #ff6666;
     --bs-btn-hover-color: #fff;
-    --bs-btn-hover-bg: #ff6692;
-    --bs-btn-hover-border-color: #ff6692;
+    --bs-btn-hover-bg: #ff6666;
+    --bs-btn-hover-border-color: #ff6666;
     --bs-btn-focus-shadow-rgb: 255, 102, 146;
     --bs-btn-active-color: #fff;
-    --bs-btn-active-bg: #ff6692;
-    --bs-btn-active-border-color: #ff6692;
+    --bs-btn-active-bg: #ff6666;
+    --bs-btn-active-border-color: #ff6666;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #ff6692;
+    --bs-btn-disabled-color: #ff6666;
     --bs-btn-disabled-bg: transparent;
-    --bs-btn-disabled-border-color: #ff6692;
+    --bs-btn-disabled-border-color: #ff6666;
     --bs-gradient: none
 }
 
@@ -29699,7 +29699,7 @@ fieldset:disabled .btn {
 
 .bg-danger {
     --bs-bg-opacity: 1;
-    background-color: rgba(var(--bs-danger-rgb), var(--bs-bg-opacity)) !important
+    background-color: rgb(255 102 102) !important
 }
 
 .bg-light {
@@ -48330,7 +48330,7 @@ body .apexcharts-tooltip-title {
 }
 
 .css-bar-danger.css-bar-20 {
-    background-image: linear-gradient(90deg, var(--bs-gray-100) 50%, transparent 50%, transparent), linear-gradient(162deg, #ff6692 50%, var(--bs-gray-100) 50%, var(--bs-gray-100))
+    background-image: linear-gradient(90deg, var(--bs-gray-100) 50%, transparent 50%, transparent), linear-gradient(162deg, #ff6666 50%, var(--bs-gray-100) 50%, var(--bs-gray-100))
 }
 
 .css-bar-warning.css-bar-40 {
@@ -50226,7 +50226,7 @@ body div:where(.swal2-container) button:where(.swal2-styled).swal2-confirm:focus
 }
 
 body div:where(.swal2-container) button:where(.swal2-styled).swal2-cancel {
-    background-color: #ff6692 !important;
+    background-color: #ff6666 !important;
     border-radius: var(--bs-border-radius-sm)
 }
 
@@ -50420,7 +50420,7 @@ button.toast-close-button {
 }
 
 .toast-error {
-    background-color: #ff6692 !important
+    background-color: #ff6666 !important
 }
 
 .toast-info {

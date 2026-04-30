@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Fintle | Create Journal Voucher</title>
+  <!-- Bootstrap 5 + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+  <style>
+    .card-custom {
+      border: none;
+      border-radius: 16px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .card-header-custom {
+      background: white;
+      border-bottom: 1px solid #eef2f8;
+      padding: 1rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1e293b;
+    }
+
+    .card-header-custom i {
+      color: #2a3b82;
+    }
+
+    .form-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      color: #5b6e8c;
+      margin-bottom: 6px;
+    }
+
+    .form-control,
+    .form-select {
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #2a3b82;
+      box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+      outline: none;
+    }
+
+    .required-field::after {
+      content: " *";
+      color: #ef4444;
+    }
+
+    .btn-primary {
+      background: #2a3b82;
+      border: none;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .btn-primary:hover {
+      background: #1f2e6e;
+    }
+
+    .btn-outline-secondary {
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
+
+    .btn-add-item {
+      background: none;
+      color: #2a3b82;
+      border: 1px dashed #2a3b82;
+      padding: 8px 15px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 500;
+      border-radius: 8px;
+      transition: all 0.2s;
+    }
+
+    .btn-add-item:hover {
+      background: #eef2ff;
+    }
+
+    .items-table-wrapper {
+      overflow-x: auto;
+      margin-top: 15px;
+    }
+
+    .items-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .items-table th {
+      background: #f8fafc;
+      padding: 12px;
+      text-align: left;
+      font-weight: 600;
+      color: #1e293b;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .items-table td {
+      padding: 10px;
+      border-bottom: 1px solid #eef2f6;
+      vertical-align: middle;
+    }
+
+    .item-input {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 8px 10px;
+      font-size: 0.85rem;
+    }
+
+    .item-input:focus {
+      outline: none;
+      border-color: #2a3b82;
+    }
+
+    .remove-item-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .remove-item-btn:hover {
+      background: #fee2e2;
+    }
+
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .summary-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 16px;
+      padding: 20px;
+      border: 1px solid rgba(35, 53, 120, 0.12);
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid #e9edf2;
+    }
+
+    .summary-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .summary-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .summary-total {
+      background: linear-gradient(135deg, #2a3b82 0%, #35448d 100%);
+      border-radius: 10px;
+      padding: 15px 20px;
+      margin-top: 12px;
+      color: white;
+    }
+
+    .summary-total .summary-value {
+      color: white;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="main-wrapper">
+    <!-- Sidebar Start -->
+    <aside class="side-mini-panel with-vertical">
+      <div class="iconbar">
+        <div class="sidebarmenu">
+          <div class="brand-logo d-flex align-items-center nav-logo">
+            <a href="../main/index.html" class="text-nowrap logo-img">
+              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+            </a>
+          </div>
+
+          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+            <ul class="sidebar-menu" id="sidebarnav">
+              <li class="sidebar-item mt-4">
+                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Dashboard</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link" href="#" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Inbox</span>
+                </a>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Items</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="items.html">
+                      <span class="icon-small"></span> Inventory
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Purchase</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier.html">
+                      <span class="icon-small"></span> Suppliers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-order.html">
+                      <span class="icon-small"></span> Purchase Order
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="purchase-bill.html">
+                      <span class="icon-small"></span> Purchase Bill
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier-statement.html">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Sales</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="customer.html">
+                      <span class="icon-small"></span> Customer
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="enquiry.html">
+                      <span class="icon-small"></span> Enquiry
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="Estimate.html">
+                      <span class="icon-small"></span> Estimate
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="invoice.html">
+                      <span class="icon-small"></span> Invoice
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li class="sidebar-item">
+                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="hide-menu">Accounts</span>
+                </a>
+                <ul aria-expanded="false" class="collapse first-level">
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="account-master.html">
+                      <span class="icon-small"></span> Account Master
+                    </a>
+                  </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="journals.html">
+                      <span class="icon-small"></span> Journals
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Vouchers
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Bank Payments
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> General Ledger
+                    </a>
+                  </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="#">
+                      <span class="icon-small"></span> Balance Sheets
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li><span class="sidebar-divider"></span></li>
+            </ul>
+            <div class="sidebar-footer">
+              <ul class="sidebar-menu">
+                <li class="sidebar-item">
+                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Settings</span>
+                  </a>
+                </li>
+                <li class="sidebar-item logout-item">
+                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                    <span class="hide-menu">Logout</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </aside>
+    <!-- Sidebar End -->
+    <div class="page-wrapper">
+         <header class="topbar">
+        <div class="with-vertical">
+          <nav class="navbar navbar-expand-lg p-0">
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
+                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                    class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-lg-flex dropdown">
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
+                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+              </li>
+            </ul>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+            </div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                class="fs-6"></iconify-icon></a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <div class="d-flex align-items-center justify-content-between">
+                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                  <li class="nav-item dropdown"><a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
+                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
+                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
+                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
+                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
+                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
+                          class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                      </div>
+                      <div class="message-body" data-simplebar><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
+                              icon="solar:widget-3-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just see the my new
+                              admin!</span>
+                          </div>
+                        </a><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
+                              icon="solar:calendar-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
+                              event</span>
+                          </div>
+                        </a></div>
+                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
+                      aria-expanded="false">
+                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
+                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
+                    </a>
+                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="position-relative px-4 pt-3 pb-2">
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img
+                            src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
+                            alt="Fintle-img" />
+                          <div>
+                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
+                            <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
+                                class="__cf_email__">[email&#160;protected]</a></p>
+                          </div>
+                        </div>
+                        <div class="message-body"><a href="../main/page-user-profile.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Invoice <span
+                              class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
+                            href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account
+                            Settings</a><a href="../main/authentication-login2.html"
+                            class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
+            <nav class="sidebar-nav scroll-sidebar">
+              <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
+                  class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo"
+                    class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button></div>
+              <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
+                <ul id="sidebarnav">
+                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
+                      aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone"
+                          class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
+                    <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
+                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center">
+                          <div
+                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
+                              class="fs-11 d-block text-body-color">New messages arrived</span>
+                          </div>
+                        </a></li>
+                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
+                          class="d-flex align-items-center">
+                          <div
+                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:bill-list-bold-duotone"
+                              class="fs-7 text-secondary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
+                              class="fs-11 d-block text-body-color">Get latest invoice</span>
+                          </div>
+                        </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <div class="body-wrapper">
+        <div class="container-fluid p-4">
+          <!-- Breadcrumb -->
+          <div class="card card-body py-3 mb-4">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="journals.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Journal Voucher</h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb mb-0">
+                      <li class="breadcrumb-item d-flex align-items-center">
+                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                      </li>
+                      <li class="breadcrumb-item"><a href="journals.html">Journals</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Create Journal Voucher</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="journalForm">
+            <!-- Journal Details -->
+            <div class="card-custom">
+              <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Journal Voucher Details</div>
+              <div class="card-body p-4">
+                <div class="row g-4">
+                  <!-- Financial Year -->
+                  <div class="col-md-4">
+                    <label class="form-label required-field">Financial Year</label>
+                    <select class="form-select" id="financialYear" required>
+                      <option value="">Select Financial Year</option>
+                      <option value="2025-26">2025-26</option>
+                      <option value="2024-25">2024-25</option>
+                      <option value="2023-24">2023-24</option>
+                      <option value="2022-23">2022-23</option>
+                    </select>
+                  </div>
+
+                  <!-- Date -->
+                  <div class="col-md-4">
+                    <label class="form-label required-field">Date</label>
+                    <input type="date" class="form-control" id="journalDate" required>
+                  </div>
+
+                  <!-- Voucher No -->
+                  <div class="col-md-4">
+                    <label class="form-label required-field">Voucher No</label>
+                    <input type="text" class="form-control" id="voucherNo" placeholder="Auto-generated" readonly>
+                  </div>
+
+                  <!-- JV Description -->
+                  <div class="col-md-12">
+                    <label class="form-label required-field">JV Description</label>
+                    <textarea class="form-control" id="description" rows="2" placeholder="Enter journal voucher description" required></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Journal Entries Table -->
+            <div class="card-custom">
+              <div class="card-header-custom"><i class="fas fa-list me-2"></i> Journal Entries</div>
+              <div class="card-body p-4">
+                <div class="items-table-wrapper">
+                  <table class="items-table" id="entriesTable">
+                    <thead>
+                      <tr>
+                        <th style="width:20%">Group</th>
+                        <th style="width:25%">Account</th>
+                        <th style="width:15%">Amount ($)</th>
+                        <th style="width:15%">Type</th>
+                        <th style="width:20%">Description</th>
+                        <th style="width:5%"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="entriesTableBody"></tbody>
+                  </table>
+                </div>
+                <button type="button" class="btn-add-item" id="addEntryBtn">
+                  <i class="fas fa-plus me-2"></i>Add New Entry
+                </button>
+              </div>
+            </div>
+
+            <!-- Summary Section -->
+            <div class="row justify-content-end">
+              <div class="col-md-5">
+                <div class="summary-card">
+                  <div class="summary-row">
+                    <span class="summary-label">Total Debit</span>
+                    <span class="summary-value" id="totalDebit">$0.00</span>
+                  </div>
+                  <div class="summary-row">
+                    <span class="summary-label">Total Credit</span>
+                    <span class="summary-value" id="totalCredit">$0.00</span>
+                  </div>
+                  <div class="summary-total">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <span class="summary-label" style="color: rgba(255,255,255,0.9);">Difference</span>
+                      <span class="summary-value" id="difference" style="color: white;">$0.00</span>
+                    </div>
+                  </div>
+                  <div id="balanceError" class="text-danger small mt-2" style="display: none;">
+                    <i class="fas fa-exclamation-triangle me-1"></i> Debit and Credit amounts must be equal!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex justify-content-end gap-3 mt-4 mb-5">
+              <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="cancelBtn">
+                <i class="fas fa-times me-2"></i>Cancel
+              </button>
+              <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">
+                <i class="fas fa-undo-alt me-2"></i>Reset
+              </button>
+              <button type="submit" class="btn btn-primary rounded-pill px-5">
+                <i class="fas fa-save me-2"></i>Save Journal
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0" id="successMessage">Journal voucher created successfully!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="viewJournalBtn">View Journal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveToastMsg" class="toast-notify" style="display: none;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+  </div>
+
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="assets/libs/js/app.init.js"></script>
+  <script src="assets/libs/js/theme.js"></script>
+  <script src="assets/libs/js/app.min.js"></script>
+  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+  <script>
+    let entryCounter = 0;
+    let entryIdCounter = 1;
+    let journalCounter = 1;
+
+    // Get today's date
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('journalDate').value = today;
+
+    // Set voucher number
+    document.getElementById('voucherNo').value = `JV-${new Date().getFullYear()}-${String(journalCounter).padStart(3, '0')}`;
+
+    // Group and Account options
+    const groupOptions = {
+      'Assets': ['Cash on Hand', 'Bank Account', 'Sundry Debtors', 'Fixed Assets'],
+      'Liabilities': ['Sundry Creditors', 'Bank Loan', 'Outstanding Expenses'],
+      'Income': ['Sales Revenue', 'Interest Income', 'Commission Received'],
+      'Expenses': ['Salary Expense', 'Rent Expense', 'Utility Expense', 'Office Expenses']
+    };
+
+    function renderGroupOptions(selectElement, selectedValue = '') {
+      let html = '<option value="">Select Group</option>';
+      Object.keys(groupOptions).forEach(group => {
+        html += `<option value="${group}" ${selectedValue === group ? 'selected' : ''}>${group}</option>`;
+      });
+      selectElement.innerHTML = html;
+    }
+
+    function renderAccountOptions(selectElement, group, selectedValue = '') {
+      let html = '<option value="">Select Account</option>';
+      if (group && groupOptions[group]) {
+        groupOptions[group].forEach(account => {
+          html += `<option value="${account}" ${selectedValue === account ? 'selected' : ''}>${account}</option>`;
+        });
+      }
+      selectElement.innerHTML = html;
+    }
+
+    // Add new entry row
+    function addEntryRow(group = '', account = '', amount = '', type = 'debit', description = '') {
+      const tbody = document.getElementById('entriesTableBody');
+      const rowId = entryIdCounter++;
+      const newRow = document.createElement('tr');
+      newRow.id = `row_${rowId}`;
+      
+      // Create group dropdown
+      const groupSelect = document.createElement('select');
+      groupSelect.className = 'form-select item-group';
+      groupSelect.style.width = '100%';
+      renderGroupOptions(groupSelect, group);
+      
+      // Create account dropdown
+      const accountSelect = document.createElement('select');
+      accountSelect.className = 'form-select item-account';
+      accountSelect.style.width = '100%';
+      renderAccountOptions(accountSelect, group, account);
+      
+      // Group change event to update accounts
+      groupSelect.addEventListener('change', function() {
+        renderAccountOptions(accountSelect, this.value, '');
+      });
+      
+      newRow.innerHTML = `
+        <td></td>
+        <td></td>
+        <td><input type="number" class="form-control item-amount" value="${amount}" step="0.01" placeholder="0.00" style="width:100%"></td>
+        <td>
+          <select class="form-select item-type" style="width:100%">
+            <option value="debit" ${type === 'debit' ? 'selected' : ''}>Debit</option>
+            <option value="credit" ${type === 'credit' ? 'selected' : ''}>Credit</option>
+          </select>
+        </td>
+        <td><input type="text" class="form-control item-description" value="${escapeHtml(description)}" placeholder="Optional description" style="width:100%"></td>
+        <td class="text-center"><button type="button" class="remove-item-btn" data-id="${rowId}"><i class="fas fa-trash-alt"></i></button></td>
+      `;
+      
+      // Replace the empty cells with the actual selects
+      newRow.cells[0].appendChild(groupSelect);
+      newRow.cells[1].appendChild(accountSelect);
+      
+      tbody.appendChild(newRow);
+      
+      // Add remove button event
+      newRow.querySelector('.remove-item-btn').addEventListener('click', () => {
+        newRow.remove();
+        calculateTotals();
+      });
+      
+      // Add event listeners for amount and type changes
+      const amountInput = newRow.querySelector('.item-amount');
+      const typeSelect = newRow.querySelector('.item-type');
+      amountInput.addEventListener('input', calculateTotals);
+      typeSelect.addEventListener('change', calculateTotals);
+      
+      calculateTotals();
+    }
+
+    function calculateTotals() {
+      let totalDebit = 0;
+      let totalCredit = 0;
+      
+      document.querySelectorAll('#entriesTableBody tr').forEach(row => {
+        const amount = parseFloat(row.querySelector('.item-amount')?.value) || 0;
+        const type = row.querySelector('.item-type')?.value;
+        
+        if (type === 'debit') {
+          totalDebit += amount;
+        } else if (type === 'credit') {
+          totalCredit += amount;
+        }
+      });
+      
+      const difference = totalDebit - totalCredit;
+      
+      document.getElementById('totalDebit').innerHTML = `$${totalDebit.toFixed(2)}`;
+      document.getElementById('totalCredit').innerHTML = `$${totalCredit.toFixed(2)}`;
+      document.getElementById('difference').innerHTML = `$${Math.abs(difference).toFixed(2)}`;
+      
+      // Show/hide error message
+      const balanceError = document.getElementById('balanceError');
+      if (Math.abs(difference) > 0.01) {
+        balanceError.style.display = 'block';
+      } else {
+        balanceError.style.display = 'none';
+      }
+      
+      return difference;
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+    }
+
+    function showToast(message, type = 'success') {
+      const toastDiv = document.getElementById('liveToastMsg');
+      const toastText = document.getElementById('toastText');
+      const icon = document.querySelector('#liveToastMsg i');
+      
+      if (type === 'success') {
+        icon.className = 'fas fa-check-circle me-2';
+        toastDiv.style.background = '#10b981';
+      } else if (type === 'error') {
+        icon.className = 'fas fa-exclamation-triangle me-2';
+        toastDiv.style.background = '#ef4444';
+      } else {
+        icon.className = 'fas fa-info-circle me-2';
+        toastDiv.style.background = '#1e293b';
+      }
+      
+      toastText.innerHTML = message;
+      toastDiv.style.display = 'flex';
+      setTimeout(() => {
+        toastDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Add entry button
+    document.getElementById('addEntryBtn').addEventListener('click', () => {
+      addEntryRow();
+    });
+
+    // Initialize with 2 empty rows (typical journal entry needs at least 2 lines)
+    addEntryRow('', '', '', 'debit', '');
+    addEntryRow('', '', '', 'credit', '');
+
+    // Form submission
+    document.getElementById('journalForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Validate required fields
+      const financialYear = document.getElementById('financialYear').value;
+      const journalDate = document.getElementById('journalDate').value;
+      const description = document.getElementById('description').value.trim();
+      
+      if (!financialYear) {
+        showToast('Please select financial year', 'error');
+        return;
+      }
+      
+      if (!journalDate) {
+        showToast('Please select date', 'error');
+        return;
+      }
+      
+      if (!description) {
+        showToast('Please enter journal description', 'error');
+        return;
+      }
+      
+      // Collect entries
+      const entries = [];
+      const rows = document.querySelectorAll('#entriesTableBody tr');
+      let hasValidEntries = false;
+      
+      rows.forEach(row => {
+        const group = row.querySelector('.item-group')?.value;
+        const account = row.querySelector('.item-account')?.value;
+        const amount = parseFloat(row.querySelector('.item-amount')?.value) || 0;
+        const type = row.querySelector('.item-type')?.value;
+        const entryDesc = row.querySelector('.item-description')?.value;
+        
+        if (group && account && amount > 0) {
+          hasValidEntries = true;
+          entries.push({
+            group: group,
+            account: account,
+            amount: amount,
+            type: type,
+            description: entryDesc || ''
+          });
+        }
+      });
+      
+      if (!hasValidEntries) {
+        showToast('Please add at least one valid journal entry', 'error');
+        return;
+      }
+      
+      // Check if debit equals credit
+      const difference = calculateTotals();
+      if (Math.abs(difference) > 0.01) {
+        showToast('Debit and Credit amounts must be equal', 'error');
+        return;
+      }
+      
+      // Generate voucher number if not set
+      const voucherNo = document.getElementById('voucherNo').value;
+      
+      // Collect form data
+      const formData = {
+        id: Date.now(),
+        voucherNo: voucherNo,
+        financialYear: financialYear,
+        date: journalDate,
+        description: description,
+        entries: entries,
+        totalDebit: parseFloat(document.getElementById('totalDebit').innerHTML.replace('$', '')),
+        totalCredit: parseFloat(document.getElementById('totalCredit').innerHTML.replace('$', '')),
+        status: 'Active',
+        createdOn: new Date().toLocaleString(),
+        updatedOn: new Date().toLocaleString(),
+        createdBy: 'Admin User',
+        lastUpdatedBy: 'Admin User'
+      };
+      
+      console.log('Journal Data:', formData);
+      
+      // Store in localStorage
+      let journals = JSON.parse(localStorage.getItem('journals') || '[]');
+      journals.push(formData);
+      localStorage.setItem('journals', JSON.stringify(journals));
+      
+      // Store voucher number for next
+      journalCounter++;
+      document.getElementById('voucherNo').value = `JV-${new Date().getFullYear()}-${String(journalCounter).padStart(3, '0')}`;
+      
+      // Show success modal
+      const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+      document.getElementById('successMessage').innerHTML = `Journal Voucher ${voucherNo} created successfully!`;
+      successModal.show();
+      
+      // Reset form
+      this.reset();
+      document.getElementById('journalDate').value = today;
+      document.getElementById('entriesTableBody').innerHTML = '';
+      for (let i = 0; i < 2; i++) addEntryRow();
+    });
+    
+    // View Journal button in modal
+    document.getElementById('viewJournalBtn')?.addEventListener('click', function() {
+      window.location.href = 'journals.html';
+    });
+    
+    // Cancel button
+    document.getElementById('cancelBtn')?.addEventListener('click', function() {
+      if (confirm('Discard all changes?')) {
+        window.location.href = 'journals.html';
+      }
+    });
+    
+    // Reset form confirmation
+    document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
+      if (confirm('Are you sure you want to reset all form fields?')) {
+        setTimeout(() => {
+          document.getElementById('journalDate').value = today;
+          document.getElementById('description').value = '';
+          document.getElementById('entriesTableBody').innerHTML = '';
+          for (let i = 0; i < 2; i++) addEntryRow();
+          showToast('Form has been reset', 'info');
+        }, 10);
+      } else {
+        e.preventDefault();
+      }
+    });
+    
+    // Logout function
+    function handleLogout() {
+      if (confirm('Are you sure you want to logout?')) {
+        window.location.href = 'login.html';
+      }
+    }
+  </script>
+</body>
+
+</html>

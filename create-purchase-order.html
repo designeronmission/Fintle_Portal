@@ -1,262 +1,554 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr" data-bs-theme="light">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Create Purchase Order</title>
-    <!-- Bootstrap 5 + Icons + Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/css/styles.css" />
-    <style>
-        /* Additional styles for the form components */
-        .card-custom {
-            border: none;
-            border-radius: 4px;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Fintle Pro | Create Purchase Order</title>
+  <link rel="shortcut icon" type="image/png" href="#">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
-        .card-header-custom {
-            background: white;
-            border-bottom: 1px solid #eef2f8;
-            padding: 1rem 1.5rem;
-            font-weight: 700;
-            font-size: 1rem;
-            color: #1e293b;
-        }
+  <style>
+    /* All styles from create invoice page */
+    .brand-logo {
+      display: flex;
+      align-items: center;
+    }
+    .logo-img {
+      display: block;
+    }
+    .logo-image {
+      max-width: 120px;
+    }
+    .side-mini-panel {
+      width: 80px;
+    }
+    .page-wrapper {
+      margin-left: 80px;
+    }
+    @media (max-width: 1200px) {
+      .side-mini-panel {
+        width: 70px;
+      }
+      .page-wrapper {
+        margin-left: 70px;
+      }
+    }
 
-        .card-header-custom i {
-            color: #2a3b82;
-        }
+    .create-item-container {
+      padding: 20px;
+    }
 
-        .form-label {
-            font-size: 0.75rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.03em;
-            color: #5b6e8c;
-            margin-bottom: 6px;
-        }
+    .theme-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #1d1d1d;
+      margin-bottom: 6px;
+      display: block;
+    }
 
-        .form-control,
-        .form-select {
-            border-radius: 4px;
-            border: 1px solid #e2e8f0;
-            padding: 0.6rem 1rem;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
+    .theme-input,
+    .theme-select {
+      width: 100%;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #2a3b82;
-            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
-            outline: none;
-        }
+    .theme-input:focus,
+    .theme-select:focus {
+      border-color: #233578;
+      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
+      outline: none;
+    }
 
-        .input-group-text {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-        }
+    .required-star {
+      color: #ef4444;
+    }
 
-        .btn-primary {
-            background: #2a3b82;
-            border: none;
-            border-radius: 40px;
-            padding: 0.5rem 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
+    .logo-box {
+      width: 150px;
+      height: 60px;
+      background-color: #f8fafc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+    }
 
-        .btn-primary:hover {
-            background: #1f5e7a;
-        }
+    .logo-box:hover {
+      background-color: #eef2ff;
+      border-color: #3b82f6;
+    }
 
-        .btn-outline-primary {
-            border-radius: 40px;
-            padding: 0.5rem 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
+    .logo-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
 
-        .required-field::after {
-            content: " *";
-            color: #ef4444;
-        }
+    .upload-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.6);
+      color: white;
+      font-size: 10px;
+      text-align: center;
+      padding: 2px;
+      opacity: 0;
+      transition: opacity 0.2s;
+      pointer-events: none;
+    }
 
-        .form-text-small {
-            font-size: 0.7rem;
-            color: #6c757d;
-            margin-top: 4px;
-        }
+    .logo-box:hover .upload-overlay {
+      opacity: 1;
+    }
 
-        .supplier-select-group {
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
+    .upload-input-hidden {
+      display: none;
+    }
 
-        .supplier-select-group .form-select {
-            flex: 1;
-        }
+    .invoice-card {
+      background: #fff;
+      border-radius: 28px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
+      overflow: hidden;
+      border: 1px solid #eef2f8;
+    }
 
-        .btn-add-supplier {
-            white-space: nowrap;
-            padding: 0.6rem 1.2rem;
-            border-radius: 4px;
-            font-size: 0.85rem;
-            font-weight: 600;
-        }
+    .section-badge {
+      font-size: 13px;
+      font-weight: 700;
+      color: #202020;
+      margin-bottom: 6px;
+    }
 
-        /* Item Table Styles */
-        .items-table-wrapper {
-            overflow-x: auto;
-            margin-top: 15px;
-        }
+    .custom-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
 
-        .items-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
+    .custom-table th {
+      background: #fafcff;
+      padding: 14px 12px;
+      font-weight: 600;
+      font-size: 0.8rem;
+      border-bottom: 1px solid #e9edf2;
+      color: #1e2a3e;
+      white-space: nowrap;
+    }
 
-        .items-table th {
-            background: #f8fafc;
-            padding: 12px;
-            text-align: left;
-            font-weight: 600;
-            color: #1e293b;
-            border-bottom: 1px solid #e2e8f0;
-        }
+    .custom-table td {
+      padding: 16px 12px;
+      vertical-align: top;
+      border-bottom: 1px solid #f0f3f9;
+    }
 
-        .items-table td {
-            padding: 10px;
-            border-bottom: 1px solid #eef2f6;
-            vertical-align: middle;
-        }
+    .form-sleek {
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 8px 12px;
+      background: #fff;
+      width: 100%;
+      font-size: 0.85rem;
+    }
 
-        .item-input {
-            width: 100%;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 6px 10px;
-            font-size: 0.85rem;
-        }
+    .form-sleek:focus {
+      border-color: #233578;
+      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
+      outline: none;
+    }
 
-        .item-input:focus {
-            outline: none;
-            border-color: #2a3b82;
-        }
+    .action-btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: flex-end;
+    }
 
-        .remove-item-btn {
-            background: none;
-            border: none;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 4px 8px;
-        }
+    .btn-theme-primary {
+      background: #233578;
+      color: white;
+      border: none;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+    }
 
-        .remove-item-btn:hover {
-            background: #fee2e2;
-            border-radius: 4px;
-        }
+    .btn-theme-secondary {
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+    }
 
-        .btn-add-item {
-            background: none;
-            color: #2a3b82;
-            border: 1px dashed #2a3b82;
-            padding: 8px 15px;
-            margin-top: 10px;
-            cursor: pointer;
-            width: 100%;
-            font-weight: 500;
-            border-radius: 4px;
-            transition: all 0.2s;
-        }
+    .btn-add {
+      background: none;
+      color: #233578;
+      border: 2px dashed #233578;
+      padding: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 600;
+      border-radius: 5px;
+      transition: all 0.2s;
+    }
 
-        .btn-add-item:hover {
-            background: #eef2ff;
-        }
+    .btn-add:hover {
+      background: #eef2ff;
+    }
 
-        .custom-select-wrapper {
-            position: relative;
-            width: 100%;
-        }
+    .supplier-select-group {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
 
-        .custom-select-wrapper select {
-            appearance: none;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            padding-right: 35px !important;
-            cursor: pointer;
-        }
+    .supplier-select-group .form-select {
+      flex: 1;
+      min-width: 250px;
+    }
 
-        .custom-select-wrapper svg {
-            position: absolute;
-            right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            pointer-events: none;
-            z-index: 10;
-        }
+    .btn-add-supplier {
+      white-space: nowrap;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
 
-        .toast-notify {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #1e293b;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            z-index: 1100;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
+    .btn-edit-supplier {
+      white-space: nowrap;
+      padding: 0.6rem 1.2rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      background: #f1f5f9;
+      color: #1e293b;
+      border: 1px solid #e2e8f0;
+    }
 
-        /* Item dropdown with create option */
-        .item-select-with-create {
-            display: flex;
-            gap: 8px;
-            align-items: center;
-        }
+    .btn-edit-supplier:hover {
+      background: #e2e8f0;
+    }
 
-        .item-select-with-create select {
-            flex: 1;
-        }
+    .custom-select-wrapper {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+    }
 
-        .btn-create-item {
-            background: #f1f5f9;
-            border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 6px 12px;
-            font-size: 0.75rem;
-            cursor: pointer;
-            white-space: nowrap;
-            transition: all 0.2s;
-        }
+    .custom-select-wrapper select {
+      flex: 1;
+      border-radius: 8px;
+      border: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      height: 44px;
+      font-size: 0.85rem;
+    }
 
-        .btn-create-item:hover {
-            background: #e2e8f0;
-        }
-    </style>
+    .item-plus-icon {
+      background: #f1f5f9;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      width: 50px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: #233578;
+    }
+
+    .item-plus-icon:hover {
+      background: #233578;
+      color: white;
+    }
+
+    .clone-line-btn {
+      background: #233578;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .clone-line-btn:hover {
+      background: #0f1f4a;
+    }
+
+    .delete-row-btn {
+      background: none;
+      border: none;
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 1rem;
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+
+    .delete-row-btn:hover {
+      background: #fee2e2;
+    }
+
+    .modal-content {
+      border-radius: 24px;
+      border: none;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+    }
+
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Supplier Info Card */
+    .supplier-info-card {
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 0;
+      transition: all 0.2s ease;
+    }
+
+    .supplier-info-row {
+      display: flex;
+      align-items: flex-start;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e9edf2;
+    }
+
+    .supplier-info-row:last-child {
+      border-bottom: none;
+    }
+
+    .supplier-info-label {
+      width: 140px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      color: #5b6e8c;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .supplier-info-value {
+      flex: 1;
+      font-size: 0.85rem;
+      color: #1e293b;
+      font-weight: 500;
+      word-break: break-word;
+    }
+
+    /* Summary Card */
+    .summary-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 24px;
+      padding: 28px;
+      border: 1px solid rgba(35, 53, 120, 0.12);
+      transition: all 0.3s ease;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid #e9edf2;
+    }
+
+    .summary-row:last-of-type {
+      border-bottom: none;
+    }
+
+    .summary-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #475569;
+      letter-spacing: 0.3px;
+    }
+
+    .summary-value {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    .summary-total {
+      background: linear-gradient(135deg, #233578 0%, #35448d 100%);
+      border-radius: 10px;
+      padding: 20px 24px;
+      margin-top: 16px;
+      color: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .summary-total .summary-value {
+      color: white;
+      font-size: 1.8rem;
+      font-weight: 800;
+    }
+
+    /* Step Indicator for Modal */
+    .step-indicator {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      position: relative;
+    }
+
+    .step-indicator:before {
+      content: '';
+      position: absolute;
+      margin-left: auto;
+      top: 20px;
+      left: 0;
+      width: 370px;
+      right: 0;
+      height: 2px;
+      background: #e2e8f0;
+      z-index: 1;
+      margin-right: auto;
+    }
+
+    .step-item {
+      text-align: center;
+      position: relative;
+      z-index: 2;
+      flex: 1;
+    }
+
+    .step-circle {
+      width: 40px;
+      height: 40px;
+      background: #e2e8f0;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 8px;
+      font-weight: bold;
+      transition: all 0.3s;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-item.active .step-circle {
+      background: #233578;
+      color: white;
+      box-shadow: 0 4px 10px rgba(35, 53, 120, 0.3);
+    }
+
+    .step-item.completed .step-circle {
+      background: #10b981;
+      color: white;
+    }
+
+    .step-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+
+    .step-item.active .step-label {
+      color: #233578;
+      font-weight: 700;
+    }
+
+    .form-step {
+      display: none;
+      animation: fadeIn 0.3s ease;
+    }
+
+    .form-step.active-step {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Date picker styling */
+    .date-input-group {
+      position: relative;
+    }
+    .date-input-group .form-control {
+      padding-right: 40px;
+      cursor: pointer;
+    }
+    .date-input-group .calendar-icon {
+      position: absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+      color: #64748b;
+    }
+
+    @media (max-width: 768px) {
+      .action-btn-group {
+        flex-wrap: wrap;
+      }
+      .supplier-info-row {
+        flex-direction: column;
+      }
+      .supplier-info-label {
+        width: 100%;
+        margin-bottom: 4px;
+      }
+      .supplier-select-group {
+        flex-direction: column;
+        align-items: stretch;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
-    <div id="main-wrapper">
-          <!-- Sidebar Start -->
+  <div id="main-wrapper">
+    <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -265,25 +557,21 @@
               <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
             </a>
           </div>
-          
+
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
-              <!-- Dashboard -->
               <li class="sidebar-item mt-4">
                 <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
                   <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
                   <span class="hide-menu">Dashboard</span>
                 </a>
               </li>
-
               <li class="sidebar-item">
                 <a class="sidebar-link" href="#" aria-expanded="false">
                   <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
                   <span class="hide-menu">Inbox</span>
                 </a>
               </li>
-
-              <!-- Items -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
@@ -297,8 +585,6 @@
                   </li>
                 </ul>
               </li>
-
-              <!-- Purchase -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
@@ -315,24 +601,22 @@
                       <span class="icon-small"></span> Purchase Order
                     </a>
                   </li>
-                 <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="purchase-bill.html">
                       <span class="icon-small"></span> Purchase Bill
                     </a>
                   </li>
-                 <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier-statement.html">
-                                            <span class="icon-small"></span> Supplier Statement
-                                        </a>
-                                    </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier-statement.html">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
                 </ul>
               </li>
-
-              <!-- Sales -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu active">Sales</span>
+                  <span class="hide-menu">Sales</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
                   <li class="sidebar-item">
@@ -340,7 +624,7 @@
                       <span class="icon-small"></span> Customer
                     </a>
                   </li>
-               <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="enquiry.html">
                       <span class="icon-small"></span> Enquiry
                     </a>
@@ -357,22 +641,19 @@
                   </li>
                 </ul>
               </li>
-
-
-                 <!-- Sales -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Accounts</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="account-master.html">
                       <span class="icon-small"></span> Account Master
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="journals.html">
                       <span class="icon-small"></span> Journals
                     </a>
                   </li>
@@ -398,22 +679,16 @@
                   </li>
                 </ul>
               </li>
-
               <li><span class="sidebar-divider"></span></li>
             </ul>
-            
-            <!-- Logout Option at Bottom -->
             <div class="sidebar-footer">
               <ul class="sidebar-menu">
-
-               <li class="sidebar-item">
+                <li class="sidebar-item">
                   <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
                     <span class="hide-menu">Settings</span>
                   </a>
                 </li>
-
-
                 <li class="sidebar-item logout-item">
                   <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
                     <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
@@ -427,530 +702,899 @@
       </div>
     </aside>
     <!-- Sidebar End -->
+    <div class="page-wrapper">
 
-        <div class="page-wrapper">
-            <header class="topbar">
-                <div class="with-vertical">
-                    <nav class="navbar navbar-expand-lg p-0">
-                        <ul class="navbar-nav">
-                            <li class="nav-item d-flex d-xl-none"><a
-                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
-                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                                        class="fs-6"></iconify-icon></a></li>
-                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                                    href="javascript:void(0)" data-bs-toggle="modal"
-                                    data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-linear"
-                                        class="fs-6"></iconify-icon></a></li>
-                            <li class="nav-item d-none d-lg-flex dropdown">
-                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                                        onclick="location.href='create-Estimate.html'"><iconify-icon
-                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Estimate</button></div>
-                            </li>
-                        </ul>
-                        <div class="d-flex align-items-center gap-3 ms-auto">
-                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
-                        </div>
-                    </nav>
+      <header class="topbar">
+        <div class="with-vertical">
+          <nav class="navbar navbar-expand-lg p-0">
+            <ul class="navbar-nav">
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
+                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                    class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-lg-flex dropdown">
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
+                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+              </li>
+            </ul>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+            </div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                class="fs-6"></iconify-icon></a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <div class="d-flex align-items-center justify-content-between">
+                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                  <li class="nav-item dropdown"><a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
+                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
+                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
+                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
+                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
+                      aria-expanded="false">
+                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
+                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
+                    </a></li>
+                </ul>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header> 
+
+      <div class="body-wrapper">
+        <div class="container-fluid p-3">
+          <div class="invoice-container-fluid">
+            <div class="invoice-card">
+              <!-- Header -->
+              <div class="p-2 p-lg-4 d-flex flex-wrap justify-content-between align-items-start border-bottom">
+                <div>
+                  <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()">
+                    <span id="logoPlaceholder">COMPANY LOGO</span>
+                    <img id="logoImage" style="display:none;" alt="Logo">
+                    <div class="upload-overlay">Click to upload logo</div>
+                    <input type="file" id="logoUpload" class="upload-input-hidden" accept="image/*" style="display:none">
+                  </div>
                 </div>
-            </header>
+                <div class="text-end">
+                  <div><span class="badge bg-light text-dark border px-3 py-2 rounded-pill" id="poNumberDisplay">PO-2024-001</span></div>
+                </div>
+              </div>
 
-            <div class="body-wrapper">
-                <div class="container-fluid p-3">
-                    <!-- Breadcrumb card -->
-                    <div class="card card-body py-3 mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="purchase-order.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Purchase Order</h4>
-                                    <nav aria-label="breadcrumb" class="ms-auto">
-                                        <ol class="breadcrumb mb-0">
-                                            <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                                                </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="purchase-order.html">Purchase Orders</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Create Purchase Order</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
+              <!-- Supplier section -->
+              <div class="row g-0 border-bottom mb-3">
+                <div class="col-8 p-4">
+                  <div class="d-flex gap-3 flex-wrap mb-3 align-items-center">
+                    <div class="supplier-select-group" style="flex: 1;">
+                      <select id="supplierSelect" class="form-select">
+                        <option value="">-- Select Supplier --</option>
+                      </select>
+                      <button class="btn btn-primary btn-add-supplier" id="newSupplierBtn">
+                        <iconify-icon icon="solar:user-plus-bold" width="16"></iconify-icon> Create
+                      </button>
+                      <button class="btn-edit-supplier" id="editSupplierBtn">
+                        <iconify-icon icon="solar:pen-2-bold" width="14"></iconify-icon> Edit
+                      </button>
                     </div>
-
-                    <form id="purchaseOrderForm">
-                        <!-- Order Details -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Order Details</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <!-- Supplier Selection -->
-                                    <div class="col-md-6">
-                                        <label class="form-label required-field">Supplier</label>
-                                        <div class="supplier-select-group">
-                                            <select class="form-select" id="supplierSelect" required>
-                                                <option value="">Select Supplier</option>
-                                                <option value="1">ABC Enterprises</option>
-                                                <option value="2">XYZ Solutions</option>
-                                                <option value="3">Global Traders</option>
-                                                <option value="4">Sunrise Industries</option>
-                                                <option value="5">Metro Corp</option>
-                                            </select>
-                                            <button type="button" class="btn btn-primary btn-add-supplier" id="addSupplierBtn">
-                                                <i class="fas fa-plus me-1"></i> Add
-                                            </button>
-                                        </div>
-                                        <div class="form-text-small">Select existing supplier or add a new one</div>
-                                    </div>
-
-                                    <!-- Currency -->
-                                    <div class="col-md-6">
-                                        <label class="form-label required-field">Currency</label>
-                                        <select class="form-select" id="currency" required>
-                                            <option value="USD">USD - US Dollar ($)</option>
-                                            <option value="EUR">EUR - Euro (€)</option>
-                                            <option value="GBP">GBP - British Pound (£)</option>
-                                            <option value="INR" selected>INR - Indian Rupee (₹)</option>
-                                            <option value="AED">AED - UAE Dirham</option>
-                                            <option value="SAR">SAR - Saudi Riyal</option>
-                                        </select>
-                                    </div>
-
-                                    <!-- Reference # -->
-                                    <div class="col-md-4">
-                                        <label class="form-label">Reference #</label>
-                                        <input type="text" class="form-control" id="referenceNo" placeholder="Optional reference number">
-                                    </div>
-
-                                    <!-- Purchase Date -->
-                                    <div class="col-md-4">
-                                        <label class="form-label required-field">Purchase Date</label>
-                                        <input type="date" class="form-control" id="purchaseDate" required>
-                                    </div>
-
-                                    <!-- Delivery Date -->
-                                    <div class="col-md-4">
-                                        <label class="form-label">Delivery Date</label>
-                                        <input type="date" class="form-control" id="deliveryDate">
-                                    </div>
-
-                                    <!-- Description -->
-                                    <div class="col-md-12">
-                                        <label class="form-label">Description</label>
-                                        <textarea class="form-control" id="description" rows="3" placeholder="Enter order description or notes..."></textarea>
-                                    </div>
-                                </div>
-                            </div>
+                  </div>
+                  <div class="supplier-info-card" id="supplierDisplayCard">
+                    <div class="supplier-info-row">
+                      <div class="supplier-info-label">Supplier Name</div>
+                      <div class="supplier-info-value" id="displaySupplierName">--</div>
+                    </div>
+                    <div class="supplier-info-row">
+                      <div class="supplier-info-label">Address</div>
+                      <div class="supplier-info-value" id="displaySupplierAddress">--</div>
+                    </div>
+                    <div class="supplier-info-row">
+                      <div class="supplier-info-label">GST Number</div>
+                      <div class="supplier-info-value" id="displaySupplierGST">--</div>
+                    </div>
+                    <div class="supplier-info-row">
+                      <div class="supplier-info-label">Phone</div>
+                      <div class="supplier-info-value" id="displaySupplierPhone">--</div>
+                    </div>
+                    <div class="supplier-info-row">
+                      <div class="supplier-info-label">Email</div>
+                      <div class="supplier-info-value" id="displaySupplierEmail">--</div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row g-0 border col-4">
+                  <div class="col-md-12 p-4">
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <div class="section-badge">Order Date</div>
+                        <div class="date-input-group">
+                          <input type="text" id="orderDate" class="form-control" placeholder="Select date">
+                          <span class="calendar-icon"><iconify-icon icon="solar:calendar-bold" width="18"></iconify-icon></span>
                         </div>
-
-                        <!-- Line Items Section -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-list me-2"></i> Line Items</div>
-                            <div class="card-body p-4">
-                                <div class="items-table-wrapper">
-                                    <table class="items-table" id="itemsTable">
-                                        <thead>
-                                            <tr>
-                                                <th style="width:55%">Item</th>
-                                                <th style="width:20%">Quantity</th>
-                                                <th style="width:20%">Unit</th>
-                                                <th style="width:5%"></th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="itemsTableBody">
-                                            <!-- Item rows will be added here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <button type="button" class="btn-add-item" id="addItemBtn">
-                                    <i class="fas fa-plus me-2"></i>Add Line Item
-                                </button>
-                            </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="section-badge">Delivery Date</div>
+                        <div class="date-input-group">
+                          <input type="text" id="deliveryDate" class="form-control" placeholder="Select date">
+                          <span class="calendar-icon"><iconify-icon icon="solar:calendar-bold" width="18"></iconify-icon></span>
                         </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-3 mt-4 mb-5">
-                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="cancelBtn">
-                                <i class="fas fa-times me-2"></i>Cancel
-                            </button>
-                            <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">
-                                <i class="fas fa-undo-alt me-2"></i>Reset
-                            </button>
-                            <button type="submit" class="btn btn-primary rounded-pill px-5">
-                                <i class="fas fa-save me-2"></i>Save & Send
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header bg-success text-white">
-                    <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
-                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <p class="mb-0" id="successMessage">Purchase Order created successfully!</p>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary" id="viewOrderBtn">View Order</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div id="liveToastMsg" class="toast-notify" style="display: none;">
-        <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
-    </div>
-
-    <!-- Import Js Files -->
-    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/js/simplebar.min.js"></script>
-    <script src="assets/libs/js/app.init.js"></script>
-    <script src="assets/libs/js/theme.js"></script>
-    <script src="assets/libs/js/app.min.js"></script>
-    <script src="assets/libs/js/sidebarmenu.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
-    <script>
-        let itemCounter = 0;
-        let poCounter = 1;
-
-        // Items list for dropdown
-        let itemsList = [
-            { id: 1, name: 'Laptop Pro', unit: 'PCS' },
-            { id: 2, name: 'Wireless Mouse', unit: 'PCS' },
-            { id: 3, name: 'USB Cable', unit: 'PCS' },
-            { id: 4, name: 'Keyboard', unit: 'PCS' },
-            { id: 5, name: 'Monitor', unit: 'PCS' },
-            { id: 6, name: 'Printer', unit: 'PCS' }
-        ];
-
-        // Set default dates
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('purchaseDate').value = today;
-        
-        const nextWeek = new Date();
-        nextWeek.setDate(nextWeek.getDate() + 7);
-        document.getElementById('deliveryDate').value = nextWeek.toISOString().split('T')[0];
-
-        // Toast notification function
-        function showToast(message, type = 'success') {
-            const toastDiv = document.getElementById('liveToastMsg');
-            const toastText = document.getElementById('toastText');
-            const icon = document.querySelector('#liveToastMsg i');
-            
-            if (type === 'success') {
-                icon.className = 'fas fa-check-circle me-2';
-                toastDiv.style.background = '#10b981';
-            } else if (type === 'error') {
-                icon.className = 'fas fa-exclamation-triangle me-2';
-                toastDiv.style.background = '#ef4444';
-            } else {
-                icon.className = 'fas fa-info-circle me-2';
-                toastDiv.style.background = '#1e293b';
-            }
-            
-            toastText.innerHTML = message;
-            toastDiv.style.display = 'flex';
-            setTimeout(() => {
-                toastDiv.style.display = 'none';
-            }, 3000);
-        }
-
-        // Escape HTML
-        function escapeHtml(str) {
-            if (!str) return '';
-            return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
-        }
-
-        // Render item dropdown options
-        function renderItemOptions(selectedValue = '') {
-            let options = '<option value="">Select Item</option>';
-            itemsList.forEach(item => {
-                options += `<option value="${escapeHtml(item.name)}" data-unit="${escapeHtml(item.unit)}" ${selectedValue === item.name ? 'selected' : ''}>${escapeHtml(item.name)}</option>`;
-            });
-            return options;
-        }
-
-        // Add Line Item with item dropdown
-        function addLineItem() {
-            const tbody = document.getElementById('itemsTableBody');
-            const rowId = Date.now();
-            const newRow = document.createElement('tr');
-            newRow.id = `row_${rowId}`;
-            newRow.innerHTML = `
-                <td>
-                    <div class="item-select-with-create" style="display: flex; gap: 8px; align-items: center;">
-                        <select class="form-select item-select" data-row-id="${rowId}" style="flex: 1;">
-                            ${renderItemOptions()}
+                      </div>
+                      <div class="col-12">
+                        <div class="section-badge">Currency</div>
+                        <select class="form-select" id="currencySelect">
+                          <option value="INR">INR (₹)</option>
+                          <option value="USD">USD ($)</option>
+                          <option value="EUR">EUR (€)</option>
                         </select>
-                        <button type="button" class="btn-create-item create-item-btn" data-row-id="${rowId}" title="Create New Item">
-                            <i class="fas fa-plus"></i> New
-                        </button>
+                      </div>
+                      <div class="col-12">
+                        <div class="section-badge">Reference #</div>
+                        <input type="text" id="referenceNo" class="form-control" placeholder="Optional reference number">
+                      </div>
                     </div>
-                </td>
-                <td><input type="number" class="form-control item-qty" value="1" step="0.01" style="width:100%"></td>
-                <td><input type="text" class="form-control item-unit" value="PCS" placeholder="Unit" style="width:100%"></td>
-                <td class="text-center"><button type="button" class="remove-item-btn" data-id="${rowId}"><i class="fas fa-trash-alt"></i></button></td>
-            `;
-            
-            tbody.appendChild(newRow);
-            
-            // Add event listener to the select dropdown
-            const selectEl = newRow.querySelector('.item-select');
-            selectEl.addEventListener('change', function() {
-                const selectedOption = this.options[this.selectedIndex];
-                const unit = selectedOption.getAttribute('data-unit');
-                const unitInput = newRow.querySelector('.item-unit');
-                if (unit && unitInput && unitInput.value === 'PCS') {
-                    unitInput.value = unit;
-                }
-            });
-            
-            // Add event listener to create item button
-            const createBtn = newRow.querySelector('.create-item-btn');
-            createBtn.addEventListener('click', () => {
-                // Store current row ID to return data
-                sessionStorage.setItem('returnRowId', rowId);
-                sessionStorage.setItem('returnUrl', window.location.pathname);
-                window.location.href = 'create-item.html';
-            });
-            
-            // Add remove button event
-            newRow.querySelector('.remove-item-btn').addEventListener('click', () => {
-                newRow.remove();
-                showToast('Item removed', 'info');
-            });
+                  </div>
+                </div>
+              </div>
+
+              <!-- Line Items Section -->
+              <div class="p-4">
+                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                  <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5>
+                  <div class="d-flex gap-2">
+                    <button class="clone-line-btn" id="addLineItemBtn" type="button">
+                      <svg width="20" height="20" viewBox="0 0 24 24">
+                        <path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
+                      </svg> Add Line Item
+                    </button>
+                  </div>
+                </div>
+                <div class="table-responsive">
+                  <table class="custom-table">
+                    <thead id="tableHeaderRow">
+                      <tr>
+                        <th style="width: 35%">Item / Description</th>
+                        <th style="width: 15%">Quantity</th>
+                        <th style="width: 15%">Unit</th>
+                        <th style="width: 20%">Unit Price (₹)</th>
+                        <th style="width: 15%">Amount</th>
+                        <th style="width: 5%"></th>
+                      </tr>
+                    </thead>
+                    <tbody id="itemsTableBody"></tbody>
+                  </table>
+                </div>
+                <div class="mt-4">
+                  <button class="btn-add" id="addItemBottomBtn">+ Add Line Item</button>
+                </div>
+              </div>
+
+              <!-- Summary Section -->
+              <div class="row g-0 border-top">
+                <div class="col-md-7 p-4">
+                  <div class="section-badge">Notes / Terms</div>
+                  <textarea class="form-control" rows="3" id="poNotes" placeholder="Order instructions, delivery terms, etc.">Standard delivery terms. Payment due within 30 days.</textarea>
+                </div>
+                <div class="col-md-5 p-4 border-start">
+                  <div class="summary-card">
+                    <div class="summary-row">
+                      <span class="summary-label">Subtotal</span>
+                      <span class="summary-value" id="subtotalVal">₹ 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                      <span class="summary-label">Total Tax (GST)</span>
+                      <span class="summary-value text-success" id="taxVal">₹ 0.00</span>
+                    </div>
+                    <div class="summary-row">
+                      <span class="summary-label">Shipping Charge</span>
+                      <div style="width: 140px;">
+                        <input type="number" id="shippingCharge" class="form-control form-control-sm text-end" value="0" step="10" style="border-radius: 8px;">
+                      </div>
+                    </div>
+                    <div class="summary-total">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="summary-label" style="color: rgba(255,255,255,0.9);">Total Amount</span>
+                        <span class="summary-value" id="grandTotalVal" style="color: white; font-size: 1.8rem;">₹ 0.00</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="p-4 bg-light bg-opacity-25 border-top d-flex justify-content-between align-items-center flex-wrap gap-3">
+                <div class="text-dark small"><iconify-icon icon="solar:info-circle-line-duotone"></iconify-icon> Fill all required fields</div>
+                <div class="action-btn-group">
+                  <button class="btn btn-outline-danger rounded-pill px-4" id="cancelBtn">Cancel</button>
+                  <button class="btn btn-outline-dark rounded-pill px-4" onclick="location.href='purchase-order-preview.html'">Preview PO</button>
+                  <button class="btn btn-primary rounded-pill px-4" id="savePOBtn">Save & Send</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Supplier Modal -->
+  <div class="modal fade modal-rounded" id="supplierCreateModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pt-4">
+          <h5 class="modal-title fw-bold">Create New Supplier</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+              <div class="step-circle">1</div>
+              <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step-item" data-step="2">
+              <div class="step-circle">2</div>
+              <div class="step-label">Address Details</div>
+            </div>
+          </div>
+          <div id="step1" class="form-step active-step">
+            <div class="row g-3">
+              <div class="col-md-12"><label class="form-label fw-semibold">Supplier Name <span class="text-danger">*</span></label>
+                <input type="text" id="newSupplierName" class="form-control form-sleek" placeholder="Enter supplier name"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label>
+                <input type="text" id="newSupplierGst" class="form-control form-sleek" placeholder="Enter GST number"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">Phone Number</label>
+                <input type="tel" id="newSupplierPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label>
+                <input type="email" id="newSupplierEmail" class="form-control form-sleek" placeholder="supplier@example.com"></div>
+            </div>
+          </div>
+          <div id="step2" class="form-step">
+            <div class="row g-3">
+              <div class="col-12"><h6 class="fw-bold mb-3">Address Information</h6></div>
+              <div class="col-12"><label class="form-label">Address Line</label>
+                <textarea id="supplierAddress" class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea></div>
+              <div class="col-md-4"><label class="form-label">City</label>
+                <input id="supplierCity" class="form-control form-sleek" placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label>
+                <input id="supplierState" class="form-control form-sleek" placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label>
+                <input id="supplierZip" class="form-control form-sleek" placeholder="Postal code"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pb-4">
+          <button class="btn btn-secondary rounded-pill" id="prevStepBtn" disabled>Previous</button>
+          <button class="btn btn-primary rounded-pill px-4" id="nextStepBtn">Next</button>
+          <button class="btn btn-success rounded-pill px-4" id="submitSupplierBtn" style="display:none;">Create Supplier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Edit Supplier Modal -->
+  <div class="modal fade modal-rounded" id="supplierEditModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pt-4">
+          <h5 class="modal-title fw-bold">Edit Supplier Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+              <div class="step-circle">1</div>
+              <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step-item" data-step="2">
+              <div class="step-circle">2</div>
+              <div class="step-label">Address Details</div>
+            </div>
+          </div>
+          <div id="editStep1" class="form-step active-step">
+            <div class="row g-3">
+              <div class="col-md-12"><label class="form-label fw-semibold">Supplier Name <span class="text-danger">*</span></label>
+                <input type="text" id="editSupplierName" class="form-control form-sleek" placeholder="Enter supplier name"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label>
+                <input type="text" id="editSupplierGst" class="form-control form-sleek" placeholder="Enter GST number"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">Phone Number</label>
+                <input type="tel" id="editSupplierPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label>
+                <input type="email" id="editSupplierEmail" class="form-control form-sleek" placeholder="supplier@example.com"></div>
+            </div>
+          </div>
+          <div id="editStep2" class="form-step">
+            <div class="row g-3">
+              <div class="col-12"><h6 class="fw-bold mb-3">Address Information</h6></div>
+              <div class="col-12"><label class="form-label">Address Line</label>
+                <textarea id="editSupplierAddress" class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea></div>
+              <div class="col-md-4"><label class="form-label">City</label>
+                <input id="editSupplierCity" class="form-control form-sleek" placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label>
+                <input id="editSupplierState" class="form-control form-sleek" placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label>
+                <input id="editSupplierZip" class="form-control form-sleek" placeholder="Postal code"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pb-4">
+          <button class="btn btn-secondary rounded-pill" id="editPrevStepBtn" disabled>Previous</button>
+          <button class="btn btn-primary rounded-pill px-4" id="editNextStepBtn">Next</button>
+          <button class="btn btn-success rounded-pill px-4" id="submitEditSupplierBtn" style="display:none;">Update Supplier</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Item Modal -->
+  <div class="modal fade" id="createItemModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title fw-bold">Create New Item</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <div class="create-item-container">
+            <div class="row g-4">
+              <div class="col-12"><label class="theme-label">Item Name <span class="required-star">*</span></label>
+                <input type="text" id="newItemName" class="theme-input" placeholder="Enter item name"></div>
+              <div class="col-md-6"><label class="theme-label">Item Type</label>
+                <select id="newItemType" class="theme-select">
+                  <option value="product">Product (Goods)</option>
+                  <option value="service">Service</option>
+                </select></div>
+              <div class="col-md-6"><label class="theme-label">Units</label>
+                <select id="newItemUnit" class="theme-select">
+                  <option value="PCS">Pieces (PCS)</option>
+                  <option value="Hour">Hour</option>
+                  <option value="Month">Month</option>
+                  <option value="Year">Year</option>
+                  <option value="KG">Kilogram (KG)</option>
+                  <option value="Box">Box</option>
+                </select></div>
+              <div class="col-md-6"><label class="theme-label">Unit Price (₹)</label>
+                <input type="number" id="newItemPrice" class="theme-input" value="0" step="any"></div>
+              <div class="col-md-6"><label class="theme-label">GST Rate (%)</label>
+                <select id="newItemGst" class="theme-select">
+                  <option value="0">0% (No Tax)</option>
+                  <option value="5">5%</option>
+                  <option value="12" selected>12%</option>
+                  <option value="18">18%</option>
+                  <option value="28">28%</option>
+                </select></div>
+              <div class="col-md-12"><label class="theme-label">HSN/SAC Code</label>
+                <input type="text" id="newItemHsn" class="theme-input" placeholder="HSN/SAC code"></div>
+              <div class="col-12"><label class="theme-label">Description</label>
+                <textarea id="newItemDesc" class="theme-input" rows="2" placeholder="Item description"></textarea></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button class="btn btn-primary" id="createNewItemBtn">Create Item</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success Modal -->
+  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header bg-success text-white">
+          <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
+          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p class="mb-0" id="successMessage">Purchase Order created successfully!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="viewOrderBtn">View Order</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveToastMsg" class="toast-notify" style="display: none;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+  </div>
+
+  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/libs/js/simplebar.min.js"></script>
+  <script src="assets/libs/js/app.init.js"></script>
+  <script src="assets/libs/js/theme.js"></script>
+  <script src="assets/libs/js/app.min.js"></script>
+  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+  <script>
+    // Suppliers Data
+    let suppliersList = [
+      { id: "SUP-001", name: "ABC Enterprises", address: "123 Business Park, Mumbai - 400001", gst: "27AAACA1234A1Z", phone: "+91 9876543210", email: "contact@abc.com" },
+      { id: "SUP-002", name: "XYZ Solutions", address: "456 Tech Plaza, Bangalore - 560001", gst: "29AAACA5678B2Z", phone: "+91 9876543211", email: "info@xyz.com" }
+    ];
+
+    // Items List for inventory
+    let itemsInventory = [
+      { id: "itm1", name: "Laptop Pro", unit: "PCS", price: 45000, tax: 18, desc: "High performance laptop", hsn: "84713000" },
+      { id: "itm2", name: "Wireless Mouse", unit: "PCS", price: 800, tax: 12, desc: "Ergonomic wireless mouse", hsn: "84716000" },
+      { id: "itm3", name: "USB Cable", unit: "PCS", price: 150, tax: 5, desc: "Type-C fast charging cable", hsn: "85444299" }
+    ];
+
+    let poCounter = 1;
+    let currentSupplierId = "";
+    let flatpickrOrderDate, flatpickrDeliveryDate;
+
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+
+    function populateSupplierDropdown() {
+      let sel = document.getElementById('supplierSelect');
+      sel.innerHTML = '<option value="">-- Select Supplier --</option>';
+      suppliersList.forEach(s => {
+        let opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerHTML = `${escapeHtml(s.name)} (${s.id})`;
+        opt.setAttribute('data-name', s.name);
+        opt.setAttribute('data-address', s.address);
+        opt.setAttribute('data-gst', s.gst);
+        opt.setAttribute('data-phone', s.phone);
+        opt.setAttribute('data-email', s.email);
+        sel.appendChild(opt);
+      });
+      if (suppliersList.length) sel.value = suppliersList[0].id;
+      updateSupplierUI();
+      document.getElementById('poNumberDisplay').innerText = `PO-${new Date().getFullYear()}-${String(poCounter).padStart(3, '0')}`;
+      poCounter++;
+    }
+
+    function updateSupplierUI() {
+      const sel = document.getElementById('supplierSelect');
+      const selectedOption = sel.options[sel.selectedIndex];
+      if (selectedOption && selectedOption.value) {
+        currentSupplierId = selectedOption.value;
+        document.getElementById('displaySupplierName').innerText = selectedOption.getAttribute('data-name') || '--';
+        document.getElementById('displaySupplierAddress').innerText = selectedOption.getAttribute('data-address') || '--';
+        document.getElementById('displaySupplierGST').innerText = selectedOption.getAttribute('data-gst') || '--';
+        document.getElementById('displaySupplierPhone').innerText = selectedOption.getAttribute('data-phone') || '--';
+        document.getElementById('displaySupplierEmail').innerText = selectedOption.getAttribute('data-email') || '--';
+      } else {
+        document.getElementById('displaySupplierName').innerText = '--';
+        document.getElementById('displaySupplierAddress').innerText = '--';
+        document.getElementById('displaySupplierGST').innerText = '--';
+        document.getElementById('displaySupplierPhone').innerText = '--';
+        document.getElementById('displaySupplierEmail').innerText = '--';
+      }
+    }
+
+    function loadSupplierForEdit() {
+      const selectedOption = document.getElementById('supplierSelect').options[document.getElementById('supplierSelect').selectedIndex];
+      if (selectedOption && selectedOption.value) {
+        const supplier = {
+          id: selectedOption.value,
+          name: selectedOption.getAttribute('data-name'),
+          address: selectedOption.getAttribute('data-address'),
+          gst: selectedOption.getAttribute('data-gst'),
+          phone: selectedOption.getAttribute('data-phone'),
+          email: selectedOption.getAttribute('data-email')
+        };
+        document.getElementById('editSupplierName').value = supplier.name || '';
+        document.getElementById('editSupplierGst').value = supplier.gst || '';
+        document.getElementById('editSupplierPhone').value = supplier.phone || '';
+        document.getElementById('editSupplierEmail').value = supplier.email || '';
+        
+        let addressParts = (supplier.address || '').split(',');
+        document.getElementById('editSupplierAddress').value = addressParts[0] || '';
+        document.getElementById('editSupplierCity').value = addressParts[1] ? addressParts[1].trim() : '';
+        document.getElementById('editSupplierState').value = addressParts[2] ? addressParts[2].trim() : '';
+        document.getElementById('editSupplierZip').value = addressParts[3] ? addressParts[3].replace('-', '').trim() : '';
+        
+        editCurrentStep = 1;
+        updateEditStepUI();
+      }
+    }
+
+    // Create Item Row
+    function createItemRow(itemData = null, customQty = 1) {
+      const item = itemData || itemsInventory[0];
+      const tr = document.createElement('tr');
+      const rowId = Date.now();
+      tr.innerHTML = `
+        <td>
+          <div class="custom-select-wrapper">
+            <select class="form-select item-select">${itemsInventory.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select>
+            <button type="button" class="item-plus-icon" title="Create new item" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone" width="18"></iconify-icon></button>
+          </div>
+          <textarea class="form-control mt-2" rows="1" placeholder="Description">${escapeHtml(item.desc || '')}</textarea>
+        </td>
+        <td><input type="number" step="any" class="form-control item-qty" value="${customQty}"></td>
+        <td><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></td>
+        <td><input type="number" step="any" class="form-control item-price" value="${item.price}"></td>
+        <td class="item-amount fw-semibold">₹ ${(item.price * customQty).toFixed(2)}</td>
+        <td class="text-center"><button type="button" class="delete-row-btn"><iconify-icon icon="solar:trash-bin-minimalistic-bold" width="18"></iconify-icon></button></td>
+      `;
+
+      const dropdown = tr.querySelector('.item-select');
+      const priceInput = tr.querySelector('.item-price');
+      const qtyInput = tr.querySelector('.item-qty');
+      const amountCell = tr.querySelector('.item-amount');
+
+      function updateAmount() {
+        let price = parseFloat(priceInput.value) || 0;
+        let qty = parseFloat(qtyInput.value) || 0;
+        amountCell.innerText = `₹ ${(price * qty).toFixed(2)}`;
+        recalcTotals();
+      }
+
+      dropdown.addEventListener('change', () => {
+        const found = itemsInventory.find(i => i.id === dropdown.value);
+        if (found) {
+          priceInput.value = found.price;
+          tr.querySelector('.item-unit').value = found.unit;
+          tr.querySelector('textarea').value = found.desc || '';
+          updateAmount();
         }
+      });
 
-        // Check if returning from item creation
-        function checkForNewItem() {
-            const newItem = sessionStorage.getItem('newItem');
-            const returnRowId = sessionStorage.getItem('returnRowId');
-            const returnUrl = sessionStorage.getItem('returnUrl');
-            
-            if (newItem && returnUrl === window.location.pathname && returnRowId) {
-                try {
-                    const itemData = JSON.parse(newItem);
-                    const newItemObj = {
-                        id: itemsList.length + 1,
-                        name: itemData.itemName || itemData.name,
-                        unit: itemData.unit || 'PCS'
-                    };
-                    
-                    // Add to global items list
-                    itemsList.push(newItemObj);
-                    
-                    // Update all select dropdowns with new item
-                    const allSelects = document.querySelectorAll('.item-select');
-                    allSelects.forEach(select => {
-                        const currentValue = select.value;
-                        const options = renderItemOptions(currentValue);
-                        select.innerHTML = options;
-                        
-                        // Reattach data-unit attributes
-                        const newOption = select.querySelector(`option[value="${escapeHtml(newItemObj.name)}"]`);
-                        if (newOption) {
-                            newOption.setAttribute('data-unit', newItemObj.unit);
-                        }
-                    });
-                    
-                    // Set the value for the specific row that triggered creation
-                    const targetRow = document.getElementById(`row_${returnRowId}`);
-                    if (targetRow) {
-                        const targetSelect = targetRow.querySelector('.item-select');
-                        if (targetSelect) {
-                            targetSelect.value = newItemObj.name;
-                            const unitInput = targetRow.querySelector('.item-unit');
-                            if (unitInput) {
-                                unitInput.value = newItemObj.unit;
-                            }
-                        }
-                    }
-                    
-                    showToast(`Item "${newItemObj.name}" created successfully!`, 'success');
-                    sessionStorage.removeItem('newItem');
-                    sessionStorage.removeItem('returnRowId');
-                    sessionStorage.removeItem('returnUrl');
-                } catch(e) {
-                    console.error('Error loading item data:', e);
-                }
-            }
+      priceInput.addEventListener('input', updateAmount);
+      qtyInput.addEventListener('input', updateAmount);
+      tr.querySelector('.delete-row-btn').addEventListener('click', () => {
+        tr.remove();
+        recalcTotals();
+      });
+      updateAmount();
+      return tr;
+    }
+
+    function recalcTotals() {
+      let subtotal = 0;
+      let totalTax = 0;
+      document.querySelectorAll('#itemsTableBody tr').forEach(row => {
+        let price = parseFloat(row.querySelector('.item-price')?.value) || 0;
+        let qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+        subtotal += price * qty;
+      });
+      let shipping = parseFloat(document.getElementById('shippingCharge')?.value) || 0;
+      let grandTotal = subtotal + totalTax + shipping;
+      document.getElementById('subtotalVal').innerHTML = `₹ ${subtotal.toFixed(2)}`;
+      document.getElementById('taxVal').innerHTML = `₹ ${totalTax.toFixed(2)}`;
+      document.getElementById('grandTotalVal').innerHTML = `₹ ${grandTotal.toFixed(2)}`;
+    }
+
+    function addLineItem() {
+      const tbody = document.getElementById('itemsTableBody');
+      tbody.appendChild(createItemRow(itemsInventory[0], 1));
+      recalcTotals();
+    }
+
+    // Logo Upload
+    const logoUpload = document.getElementById('logoUpload');
+    const logoImage = document.getElementById('logoImage');
+    const logoPlaceholder = document.getElementById('logoPlaceholder');
+    if (logoUpload) logoUpload.addEventListener('change', function (e) {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+          logoImage.src = event.target.result;
+          logoImage.style.display = 'block';
+          logoPlaceholder.style.display = 'none';
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+
+    // Create New Item
+    document.getElementById('createNewItemBtn')?.addEventListener('click', () => {
+      const newName = document.getElementById('newItemName').value.trim();
+      if (!newName) { showToast("Item name required", 'error'); return; }
+      const newItem = {
+        id: "itm_" + Date.now(),
+        name: newName,
+        unit: document.getElementById('newItemUnit').value,
+        price: parseFloat(document.getElementById('newItemPrice').value) || 0,
+        tax: parseFloat(document.getElementById('newItemGst').value) || 0,
+        desc: document.getElementById('newItemDesc').value || "",
+        hsn: document.getElementById('newItemHsn').value || ""
+      };
+      itemsInventory.push(newItem);
+      
+      // Refresh all dropdowns
+      document.querySelectorAll('#itemsTableBody .item-select').forEach(select => {
+        const curVal = select.value;
+        select.innerHTML = itemsInventory.map(i => `<option value="${i.id}">${escapeHtml(i.name)}</option>`).join('');
+        if (itemsInventory.some(i => i.id === curVal)) select.value = curVal;
+        else select.value = itemsInventory[0]?.id;
+      });
+      
+      bootstrap.Modal.getInstance(document.getElementById('createItemModal')).hide();
+      document.getElementById('newItemName').value = '';
+      document.getElementById('newItemPrice').value = '0';
+      document.getElementById('newItemUnit').value = 'PCS';
+      document.getElementById('newItemGst').value = '12';
+      document.getElementById('newItemDesc').value = '';
+      document.getElementById('newItemHsn').value = '';
+      showToast(`Item "${newName}" created!`, 'success');
+    });
+
+    // Supplier Creation Modal Logic
+    let currentStep = 1;
+    const step1 = document.getElementById('step1'), step2 = document.getElementById('step2');
+    const prevBtn = document.getElementById('prevStepBtn'), nextBtn = document.getElementById('nextStepBtn'), submitBtn = document.getElementById('submitSupplierBtn');
+    
+    function updateStepUI() {
+      document.querySelectorAll('#supplierCreateModal .step-item').forEach((el, idx) => {
+        if (idx + 1 < currentStep) el.classList.add('completed');
+        else el.classList.remove('completed');
+        if (idx + 1 === currentStep) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      if (currentStep === 1) {
+        step1.classList.add('active-step');
+        step2.classList.remove('active-step');
+        prevBtn.disabled = true;
+        nextBtn.style.display = 'inline-flex';
+        submitBtn.style.display = 'none';
+      } else {
+        step1.classList.remove('active-step');
+        step2.classList.add('active-step');
+        prevBtn.disabled = false;
+        nextBtn.style.display = 'none';
+        submitBtn.style.display = 'inline-flex';
+      }
+    }
+    
+    nextBtn.addEventListener('click', () => {
+      const name = document.getElementById('newSupplierName').value.trim();
+      if (!name) { showToast("Please enter supplier name", 'error'); return; }
+      currentStep = 2;
+      updateStepUI();
+    });
+    
+    prevBtn.addEventListener('click', () => { currentStep = 1; updateStepUI(); });
+    
+    submitBtn.addEventListener('click', () => {
+      let name = document.getElementById('newSupplierName').value.trim();
+      if (!name) { showToast("Supplier name required", 'error'); return; }
+      let fullAddress = document.getElementById('supplierAddress').value;
+      if (document.getElementById('supplierCity').value) fullAddress += ", " + document.getElementById('supplierCity').value;
+      if (document.getElementById('supplierState').value) fullAddress += ", " + document.getElementById('supplierState').value;
+      if (document.getElementById('supplierZip').value) fullAddress += " - " + document.getElementById('supplierZip').value;
+      
+      const newSupplier = {
+        id: "SUP-" + String(suppliersList.length + 1).padStart(3, '0'),
+        name: name,
+        address: fullAddress || "Address not provided",
+        gst: document.getElementById('newSupplierGst').value.trim(),
+        phone: document.getElementById('newSupplierPhone').value,
+        email: document.getElementById('newSupplierEmail').value
+      };
+      suppliersList.push(newSupplier);
+      populateSupplierDropdown();
+      document.getElementById('supplierSelect').value = newSupplier.id;
+      updateSupplierUI();
+      bootstrap.Modal.getInstance(document.getElementById('supplierCreateModal')).hide();
+      
+      document.getElementById('newSupplierName').value = '';
+      document.getElementById('newSupplierGst').value = '';
+      document.getElementById('newSupplierPhone').value = '';
+      document.getElementById('newSupplierEmail').value = '';
+      document.getElementById('supplierAddress').value = '';
+      document.getElementById('supplierCity').value = '';
+      document.getElementById('supplierState').value = '';
+      document.getElementById('supplierZip').value = '';
+      currentStep = 1;
+      updateStepUI();
+      showToast(`Supplier "${name}" added!`, 'success');
+    });
+
+    // Edit Supplier Modal Logic
+    let editCurrentStep = 1;
+    const editStep1 = document.getElementById('editStep1'), editStep2 = document.getElementById('editStep2');
+    const editPrevBtn = document.getElementById('editPrevStepBtn'), editNextBtn = document.getElementById('editNextStepBtn'), editSubmitBtn = document.getElementById('submitEditSupplierBtn');
+    
+    function updateEditStepUI() {
+      document.querySelectorAll('#supplierEditModal .step-item').forEach((el, idx) => {
+        if (idx + 1 < editCurrentStep) el.classList.add('completed');
+        else el.classList.remove('completed');
+        if (idx + 1 === editCurrentStep) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      if (editCurrentStep === 1) {
+        editStep1.classList.add('active-step');
+        editStep2.classList.remove('active-step');
+        editPrevBtn.disabled = true;
+        editNextBtn.style.display = 'inline-flex';
+        editSubmitBtn.style.display = 'none';
+      } else {
+        editStep1.classList.remove('active-step');
+        editStep2.classList.add('active-step');
+        editPrevBtn.disabled = false;
+        editNextBtn.style.display = 'none';
+        editSubmitBtn.style.display = 'inline-flex';
+      }
+    }
+    
+    editNextBtn.addEventListener('click', () => {
+      const name = document.getElementById('editSupplierName').value.trim();
+      if (!name) { showToast("Please enter supplier name", 'error'); return; }
+      editCurrentStep = 2;
+      updateEditStepUI();
+    });
+    
+    editPrevBtn.addEventListener('click', () => { editCurrentStep = 1; updateEditStepUI(); });
+    
+    editSubmitBtn.addEventListener('click', () => {
+      let name = document.getElementById('editSupplierName').value.trim();
+      if (!name) { showToast("Supplier name required", 'error'); return; }
+      let fullAddress = document.getElementById('editSupplierAddress').value;
+      if (document.getElementById('editSupplierCity').value) fullAddress += ", " + document.getElementById('editSupplierCity').value;
+      if (document.getElementById('editSupplierState').value) fullAddress += ", " + document.getElementById('editSupplierState').value;
+      if (document.getElementById('editSupplierZip').value) fullAddress += " - " + document.getElementById('editSupplierZip').value;
+      
+      const supplierIndex = suppliersList.findIndex(s => s.id === currentSupplierId);
+      if (supplierIndex !== -1) {
+        suppliersList[supplierIndex] = {
+          id: currentSupplierId,
+          name: name,
+          address: fullAddress || "Address not provided",
+          gst: document.getElementById('editSupplierGst').value.trim(),
+          phone: document.getElementById('editSupplierPhone').value,
+          email: document.getElementById('editSupplierEmail').value
+        };
+        populateSupplierDropdown();
+        document.getElementById('supplierSelect').value = currentSupplierId;
+        updateSupplierUI();
+      }
+      
+      bootstrap.Modal.getInstance(document.getElementById('supplierEditModal')).hide();
+      showToast(`Supplier "${name}" updated!`, 'success');
+    });
+
+    function showToast(message, type = 'success') {
+      const toastDiv = document.getElementById('liveToastMsg');
+      const toastText = document.getElementById('toastText');
+      const icon = document.querySelector('#liveToastMsg i');
+      
+      if (type === 'success') {
+        icon.className = 'fas fa-check-circle me-2';
+        toastDiv.style.background = '#10b981';
+      } else if (type === 'error') {
+        icon.className = 'fas fa-exclamation-triangle me-2';
+        toastDiv.style.background = '#ef4444';
+      } else {
+        icon.className = 'fas fa-info-circle me-2';
+        toastDiv.style.background = '#1e293b';
+      }
+      
+      toastText.innerHTML = message;
+      toastDiv.style.display = 'flex';
+      setTimeout(() => {
+        toastDiv.style.display = 'none';
+      }, 3000);
+    }
+
+    // Initialize Flatpickr for date pickers
+    function initDatePickers() {
+      flatpickrOrderDate = flatpickr("#orderDate", {
+        dateFormat: "Y-m-d",
+        defaultDate: "2026-04-29",
+        allowInput: true,
+        onChange: function(selectedDates, dateStr, instance) {
+          console.log("Order Date selected:", dateStr);
         }
-
-        // Add item button
-        document.getElementById('addItemBtn').addEventListener('click', addLineItem);
-
-        // Initialize with 2 empty rows
-        for (let i = 0; i < 2; i++) {
-            addLineItem();
+      });
+      
+      flatpickrDeliveryDate = flatpickr("#deliveryDate", {
+        dateFormat: "Y-m-d",
+        defaultDate: "2026-05-06",
+        allowInput: true,
+        onChange: function(selectedDates, dateStr, instance) {
+          console.log("Delivery Date selected:", dateStr);
         }
-        
-        // Check for new item on page load
-        checkForNewItem();
+      });
+    }
 
-        // Add Supplier button - redirect to create-supplier.html
-        document.getElementById('addSupplierBtn').addEventListener('click', () => {
-            sessionStorage.setItem('returnUrl', window.location.pathname);
-            window.location.href = 'create-supplier.html';
-        });
-
-        // Check if returning from supplier creation
-        window.addEventListener('load', function() {
-            const newSupplier = sessionStorage.getItem('newSupplier');
-            const returnUrl = sessionStorage.getItem('returnUrl');
-            
-            if (newSupplier && returnUrl === window.location.pathname) {
-                try {
-                    const supplierData = JSON.parse(newSupplier);
-                    const supplierSelect = document.getElementById('supplierSelect');
-                    const option = document.createElement('option');
-                    option.value = 'new_' + Date.now();
-                    option.textContent = supplierData.supplierName || supplierData.name;
-                    supplierSelect.appendChild(option);
-                    supplierSelect.value = option.value;
-                    showToast(`Supplier "${supplierData.supplierName || supplierData.name}" added successfully!`, 'success');
-                    sessionStorage.removeItem('newSupplier');
-                    sessionStorage.removeItem('returnUrl');
-                } catch(e) {
-                    console.error('Error loading supplier data:', e);
-                }
-            }
-        });
-
-        // Form submission
-        document.getElementById('purchaseOrderForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Validate required fields
-            const supplier = document.getElementById('supplierSelect').value;
-            const currency = document.getElementById('currency').value;
-            const purchaseDate = document.getElementById('purchaseDate').value;
-            
-            if (!supplier) {
-                showToast('Please select a supplier', 'error');
-                return;
-            }
-            
-            if (!purchaseDate) {
-                showToast('Please select purchase date', 'error');
-                return;
-            }
-            
-            // Collect line items
-            const items = [];
-            const rows = document.querySelectorAll('#itemsTableBody tr');
-            let hasValidItems = false;
-            
-            rows.forEach(row => {
-                const itemSelect = row.querySelector('.item-select');
-                const itemName = itemSelect?.value;
-                if (itemName && itemName !== '') {
-                    hasValidItems = true;
-                    items.push({
-                        name: itemName,
-                        quantity: parseFloat(row.querySelector('.item-qty')?.value) || 0,
-                        unit: row.querySelector('.item-unit')?.value || 'PCS'
-                    });
-                }
-            });
-            
-            if (!hasValidItems) {
-                showToast('Please add at least one line item', 'error');
-                return;
-            }
-            
-            // Get supplier name
-            const supplierSelect = document.getElementById('supplierSelect');
-            const supplierName = supplierSelect.options[supplierSelect.selectedIndex]?.text || 'Supplier';
-            
-            // Generate PO ID
-            const poId = `PO-${new Date().getFullYear()}-${String(poCounter).padStart(3, '0')}`;
-            poCounter++;
-            
-            // Collect all form data
-            const formData = {
-                poId: poId,
-                supplierId: supplier,
-                supplierName: supplierName,
-                currency: currency,
-                referenceNo: document.getElementById('referenceNo').value,
-                purchaseDate: purchaseDate,
-                deliveryDate: document.getElementById('deliveryDate').value,
-                description: document.getElementById('description').value,
-                items: items,
-                status: 'Draft',
-                createdOn: new Date().toISOString().split('T')[0],
-                createdBy: 'Admin User',
-                lastUpdated: new Date().toISOString().split('T')[0]
-            };
-            
-            console.log('Purchase Order Data:', formData);
-            
-            // Store in localStorage for demo
-            let purchaseOrders = JSON.parse(localStorage.getItem('purchaseOrders') || '[]');
-            purchaseOrders.push(formData);
-            localStorage.setItem('purchaseOrders', JSON.stringify(purchaseOrders));
-            
-            // Show success modal
-            const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-            document.getElementById('successMessage').innerHTML = `Purchase Order ${poId} created successfully and sent to ${supplierName}!`;
-            successModal.show();
-            
-            // Reset form
-            this.reset();
-            document.getElementById('purchaseDate').value = today;
-            document.getElementById('deliveryDate').value = nextWeek.toISOString().split('T')[0];
-            document.getElementById('itemsTableBody').innerHTML = '';
-            for (let i = 0; i < 2; i++) addLineItem();
-            document.getElementById('supplierSelect').value = '';
-            document.getElementById('currency').value = 'INR';
-            document.getElementById('referenceNo').value = '';
-            document.getElementById('description').value = '';
-        });
-        
-        // View Order button in modal
-        document.getElementById('viewOrderBtn')?.addEventListener('click', function() {
-            window.location.href = 'purchase-order.html';
-        });
-        
-        // Cancel button
-        document.getElementById('cancelBtn')?.addEventListener('click', function() {
-            if (confirm('Are you sure you want to cancel? Any unsaved changes will be lost.')) {
-                window.location.href = 'purchase-order.html';
-            }
-        });
-        
-        // Reset form confirmation
-        document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
-            if (confirm('Are you sure you want to reset all form fields?')) {
-                setTimeout(() => {
-                    document.getElementById('purchaseDate').value = today;
-                    document.getElementById('deliveryDate').value = nextWeek.toISOString().split('T')[0];
-                    document.getElementById('itemsTableBody').innerHTML = '';
-                    for (let i = 0; i < 2; i++) addLineItem();
-                    showToast('Form has been reset', 'info');
-                }, 10);
-            } else {
-                e.preventDefault();
-            }
-        });
-        
-        // Logout function
-        function handleLogout() {
-            if (confirm('Are you sure you want to logout?')) {
-                window.location.href = 'login.html';
-            }
+    // Event Listeners
+    document.getElementById('supplierSelect')?.addEventListener('change', updateSupplierUI);
+    document.getElementById('addLineItemBtn')?.addEventListener('click', addLineItem);
+    document.getElementById('addItemBottomBtn')?.addEventListener('click', addLineItem);
+    document.getElementById('shippingCharge')?.addEventListener('input', recalcTotals);
+    
+    document.getElementById('newSupplierBtn')?.addEventListener('click', () => {
+      currentStep = 1;
+      updateStepUI();
+      new bootstrap.Modal(document.getElementById('supplierCreateModal')).show();
+    });
+    
+    document.getElementById('editSupplierBtn')?.addEventListener('click', () => {
+      if (!currentSupplierId) {
+        showToast('Please select a supplier first', 'error');
+        return;
+      }
+      loadSupplierForEdit();
+      new bootstrap.Modal(document.getElementById('supplierEditModal')).show();
+    });
+    
+    document.getElementById('savePOBtn')?.addEventListener('click', () => {
+      const supplier = document.getElementById('supplierSelect').value;
+      if (!supplier) { showToast('Please select a supplier', 'error'); return; }
+      
+      const items = [];
+      const rows = document.querySelectorAll('#itemsTableBody tr');
+      let hasValidItems = false;
+      rows.forEach(row => {
+        const select = row.querySelector('.item-select');
+        const itemName = select?.options[select.selectedIndex]?.text;
+        if (itemName && itemName !== '') {
+          hasValidItems = true;
+          items.push({
+            name: itemName,
+            quantity: parseFloat(row.querySelector('.item-qty')?.value) || 0,
+            unit: row.querySelector('.item-unit')?.value,
+            price: parseFloat(row.querySelector('.item-price')?.value) || 0
+          });
         }
-    </script>
+      });
+      if (!hasValidItems) { showToast('Please add at least one line item', 'error'); return; }
+      
+      const poId = `PO-${new Date().getFullYear()}-${String(poCounter - 1).padStart(3, '0')}`;
+      const formData = {
+        poId: poId,
+        supplierId: supplier,
+        supplierName: document.getElementById('supplierSelect').options[document.getElementById('supplierSelect').selectedIndex]?.text,
+        currency: document.getElementById('currencySelect').value,
+        referenceNo: document.getElementById('referenceNo').value,
+        orderDate: document.getElementById('orderDate').value,
+        deliveryDate: document.getElementById('deliveryDate').value,
+        shippingCharge: parseFloat(document.getElementById('shippingCharge').value) || 0,
+        subtotal: parseFloat(document.getElementById('subtotalVal').innerText.replace('₹', '')) || 0,
+        totalAmount: parseFloat(document.getElementById('grandTotalVal').innerText.replace('₹', '')) || 0,
+        notes: document.getElementById('poNotes').value,
+        items: items,
+        status: 'Draft',
+        createdOn: new Date().toISOString().split('T')[0]
+      };
+      console.log('Purchase Order:', formData);
+      
+      const successModal = new bootstrap.Modal(document.getElementById('successModal'));
+      document.getElementById('successMessage').innerHTML = `Purchase Order ${poId} created successfully and sent to supplier!`;
+      successModal.show();
+    });
+    
+    document.getElementById('viewOrderBtn')?.addEventListener('click', () => {
+      window.location.href = 'purchase-order.html';
+    });
+    
+    document.getElementById('cancelBtn')?.addEventListener('click', () => {
+      if (confirm('Discard all changes?')) window.location.href = 'purchase-order.html';
+    });
+    
+    document.getElementById('currencySelect')?.addEventListener('change', recalcTotals);
+    
+    // Initialize default rows
+    function loadDefaultRows() {
+      const tbody = document.getElementById('itemsTableBody');
+      tbody.innerHTML = '';
+      tbody.appendChild(createItemRow(itemsInventory[0], 1));
+      tbody.appendChild(createItemRow(itemsInventory[1], 1));
+      recalcTotals();
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      populateSupplierDropdown();
+      loadDefaultRows();
+      initDatePickers();
+    });
+
+    function handleLogout() { if (confirm('Logout?')) window.location.href = 'login.html'; }
+  </script>
 </body>
 
 </html>

@@ -625,6 +625,41 @@
       font-weight: normal;
       color: #5b6e8c;
     }
+
+    /* Custom Dropdown Styles */
+    .customer-dropdown-item {
+      padding: 10px 15px;
+      border-bottom: 1px solid #f0f3f9;
+    }
+
+    .customer-dropdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .customer-dropdown-name {
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 0.85rem;
+      margin-bottom: 4px;
+    }
+
+    .customer-dropdown-details {
+      font-size: 0.7rem;
+      color: #64748b;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .customer-dropdown-details span {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .customer-dropdown-details i {
+      font-size: 0.65rem;
+    }
   </style>
 </head>
 
@@ -730,13 +765,13 @@
                   <span class="hide-menu">Accounts</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                 <li class="sidebar-item">
+                    <a class="sidebar-link" href="account-master.html">
                       <span class="icon-small"></span> Account Master
                     </a>
                   </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="journals.html">
                       <span class="icon-small"></span> Journals
                     </a>
                   </li>
@@ -856,17 +891,23 @@
               <!-- Customer section -->
               <div class="row g-0 border-bottom mb-3">
                 <div class="col-8 p-4">
-                  <div class="d-flex gap-3 flex-wrap mb-3 align-items-center"><select id="customerSelect"
-                      class="form-select" style="width: 480px;">
+                  <div class="d-flex gap-3 flex-wrap mb-3 align-items-center">
+                    <select id="customerSelect" class="form-select" style="width: 480px;">
                       <option value="">-- Select Customer --</option>
-                    </select><button class="btn btn-outline-primary btn-new-customer" id="newCustomerBtn"><iconify-icon
-                        icon="solar:user-plus-bold" width="16"></iconify-icon> Create New</button><button
-                      class="btn btn-outline-dark" id="editCustomerDetailsBtn"><iconify-icon icon="solar:pen-2-bold"
-                        width="14"></iconify-icon> Edit Details</button></div>
+                    </select>
+                    <button class="btn btn-outline-primary btn-new-customer" id="newCustomerBtn"><iconify-icon
+                        icon="solar:user-plus-bold" width="16"></iconify-icon> Create New</button>
+                    <button class="btn btn-outline-dark" id="editCustomerDetailsBtn"><iconify-icon icon="solar:pen-2-bold"
+                        width="14"></iconify-icon> Edit Details</button>
+                  </div>
                   <div class="customer-info-card" id="customerDisplayCard">
                     <div class="customer-info-row">
                       <div class="customer-info-label">Company Name</div>
                       <div class="customer-info-value" id="displayCustomerName">--</div>
+                    </div>
+                    <div class="customer-info-row">
+                      <div class="customer-info-label">Customer Name</div>
+                      <div class="customer-info-value" id="displayCustomerContactName">--</div>
                     </div>
                     <div class="customer-info-row">
                       <div class="customer-info-label">Address</div>
@@ -1083,32 +1124,161 @@
       </div>
     </div>
   </div>
-  <div class="modal fade" id="editCustomerModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+
+  <!-- Edit Customer Modal -->
+  <div class="modal fade modal-rounded" id="editCustomerModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold">Edit Customer Details</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
+        <div class="modal-header border-0 pt-4">
+          <h5 class="modal-title fw-bold">Edit Customer Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
         </div>
         <div class="modal-body p-4">
-          <div class="row g-3">
-            <div class="col-12"><label class="form-label fw-semibold">Company Name</label><input type="text"
-                id="editCustomerName" class="form-control"></div>
-            <div class="col-12"><label class="form-label fw-semibold">Address</label><textarea id="editCustomerAddress"
-                class="form-control" rows="2"></textarea></div>
-            <div class="col-12"><label class="form-label fw-semibold">GST Number</label><input type="text"
-                id="editCustomerGST" class="form-control"></div>
-            <div class="col-12"><label class="form-label fw-semibold">Phone Number</label><input type="text"
-                id="editCustomerPhone" class="form-control"></div>
-            <div class="col-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
-                id="editCustomerEmail" class="form-control"></div>
+          <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+              <div class="step-circle">1</div>
+              <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step-item" data-step="2">
+              <div class="step-circle">2</div>
+              <div class="step-label">Address Details</div>
+            </div>
+          </div>
+          <div id="editStep1" class="form-step active-step">
+            <div class="row g-3">
+              <div class="col-md-12"><label class="form-label fw-semibold">Company Name <span
+                    class="text-danger">*</span></label><input type="text" id="editCompanyName"
+                  class="form-control form-sleek" placeholder="Enter company name"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Customer Name <span
+                    class="text-danger">*</span></label><input type="text" id="editCustomerName"
+                  class="form-control form-sleek" placeholder="Enter customer name"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">Customer ID</label><input
+                  type="text" id="editCustIdModal" class="form-control form-sleek" placeholder="Auto-generated if empty">
+              </div>
+              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
+                  id="editCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
+                  id="editCustEmail" class="form-control form-sleek" placeholder="customer@example.com"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
+                  id="editCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
+            </div>
+          </div>
+          <div id="editStep2" class="form-step">
+            <div class="row g-3">
+              <div class="col-12">
+                <h6 class="fw-bold mb-3">Billing Address</h6>
+              </div>
+              <div class="col-12"><label class="form-label">Address Line</label><textarea id="editBillAddress"
+                  class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea>
+              </div>
+              <div class="col-md-4"><label class="form-label">City</label><input id="editBillCity"
+                  class="form-control form-sleek" placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label><input id="editBillState"
+                  class="form-control form-sleek" placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="editBillZip"
+                  class="form-control form-sleek" placeholder="Postal code"></div>
+              <div class="col-12 mt-3">
+                <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="editSameAsBilling"><label
+                    class="form-check-label fw-semibold"> Same as Billing Address</label></div>
+                <h6 class="fw-bold mb-3">Shipping Address</h6>
+              </div>
+              <div class="col-12"><label class="form-label">Address Line</label><textarea id="editShipAddress"
+                  class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div>
+              <div class="col-md-4"><label class="form-label">City</label><input id="editShipCity"
+                  class="form-control form-sleek" placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label><input id="editShipState"
+                  class="form-control form-sleek" placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="editShipZip"
+                  class="form-control form-sleek" placeholder="Postal code"></div>
+            </div>
           </div>
         </div>
-        <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button
-            class="btn btn-primary" id="saveCustomerEditBtn">Save Changes</button></div>
+        <div class="modal-footer border-0 pb-4">
+          <button class="btn btn-secondary rounded-pill" id="editPrevStepBtn" disabled>Previous</button>
+          <button class="btn btn-primary rounded-pill px-4" id="editNextStepBtn">Next</button>
+          <button class="btn btn-success rounded-pill px-4" id="submitEditCustomerBtn" style="display:none;">Update Customer</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <!-- Create Customer Modal -->
+  <div class="modal fade modal-rounded" id="customerCreateModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pt-4">
+          <h5 class="modal-title fw-bold">Create New Customer</h5><button type="button" class="btn-close"
+            data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body p-4">
+          <div class="step-indicator">
+            <div class="step-item active" data-step="1">
+              <div class="step-circle">1</div>
+              <div class="step-label">Basic Info</div>
+            </div>
+            <div class="step-item" data-step="2">
+              <div class="step-circle">2</div>
+              <div class="step-label">Address Details</div>
+            </div>
+          </div>
+          <div id="step1" class="form-step active-step">
+            <div class="row g-3">
+              <div class="col-md-12"><label class="form-label fw-semibold">Company Name <span
+                    class="text-danger">*</span></label><input type="text" id="newCompanyName"
+                  class="form-control form-sleek" placeholder="Enter company name"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Customer Name <span
+                    class="text-danger">*</span></label><input type="text" id="newCustomerName"
+                  class="form-control form-sleek" placeholder="Enter customer name"></div>
+              <div class="col-md-6"><label class="form-label fw-semibold">Customer ID</label><input
+                  type="text" id="newCustIdModal" class="form-control form-sleek" placeholder="Auto-generated if empty">
+              </div>
+              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
+                  id="newCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
+                  id="newCustEmail" class="form-control form-sleek" placeholder="customer@example.com"></div>
+              <div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
+                  id="newCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
+            </div>
+          </div>
+          <div id="step2" class="form-step">
+            <div class="row g-3">
+              <div class="col-12">
+                <h6 class="fw-bold mb-3">Billing Address</h6>
+              </div>
+              <div class="col-12"><label class="form-label">Address Line</label><textarea id="billAddress"
+                  class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea>
+              </div>
+              <div class="col-md-4"><label class="form-label">City</label><input id="billCity"
+                  class="form-control form-sleek" placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label><input id="billState"
+                  class="form-control form-sleek" placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip"
+                  class="form-control form-sleek" placeholder="Postal code"></div>
+              <div class="col-12 mt-3">
+                <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label
+                    class="form-check-label fw-semibold"> Same as Billing Address</label></div>
+                <h6 class="fw-bold mb-3">Shipping Address</h6>
+              </div>
+              <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress"
+                  class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div>
+              <div class="col-md-4"><label class="form-label">City</label><input id="shipCity"
+                  class="form-control form-sleek" placeholder="City"></div>
+              <div class="col-md-4"><label class="form-label">State</label><input id="shipState"
+                  class="form-control form-sleek" placeholder="State"></div>
+              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip"
+                  class="form-control form-sleek" placeholder="Postal code"></div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill" id="prevStepBtn"
+            disabled>Previous</button><button class="btn btn-primary rounded-pill px-4"
+            id="nextStepBtn">Next</button><button class="btn btn-success rounded-pill px-4" id="submitCustomerBtn"
+            style="display:none;">Create Customer</button></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Item Modal -->
   <div class="modal fade" id="createItemModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered">
       <div class="modal-content">
@@ -1161,77 +1331,6 @@
       </div>
     </div>
   </div>
-  <div class="modal fade modal-rounded" id="customerCreateModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header border-0 pt-4">
-          <h5 class="modal-title fw-bold">Create New Customer</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="step-indicator">
-            <div class="step-item active" data-step="1">
-              <div class="step-circle">1</div>
-              <div class="step-label">Basic Info</div>
-            </div>
-            <div class="step-item" data-step="2">
-              <div class="step-circle">2</div>
-              <div class="step-label">Address Details</div>
-            </div>
-          </div>
-          <div id="step1" class="form-step active-step">
-            <div class="row g-3">
-              <div class="col-md-12"><label class="form-label fw-semibold">Company Name <span
-                    class="text-danger">*</span></label><input type="text" id="newCustNameModal"
-                  class="form-control form-sleek" placeholder="Enter company name"></div>
-              <div class="col-md-6"><label class="form-label fw-semibold">Customer ID (Optional)</label><input
-                  type="text" id="newCustIdModal" class="form-control form-sleek" placeholder="Auto-generated if empty">
-              </div>
-              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
-                  id="newCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
-                  id="newCustEmail" class="form-control form-sleek" placeholder="customer@example.com"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
-                  id="newCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
-            </div>
-          </div>
-          <div id="step2" class="form-step">
-            <div class="row g-3">
-              <div class="col-12">
-                <h6 class="fw-bold mb-3">Billing Address</h6>
-              </div>
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="billAddress"
-                  class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea>
-              </div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="billCity"
-                  class="form-control form-sleek" placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="billState"
-                  class="form-control form-sleek" placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip"
-                  class="form-control form-sleek" placeholder="Postal code"></div>
-              <div class="col-12 mt-3">
-                <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label
-                    class="form-check-label fw-semibold"> Same as Billing Address</label></div>
-                <h6 class="fw-bold mb-3">Shipping Address</h6>
-              </div>
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress"
-                  class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="shipCity"
-                  class="form-control form-sleek" placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="shipState"
-                  class="form-control form-sleek" placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip"
-                  class="form-control form-sleek" placeholder="Postal code"></div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill" id="prevStepBtn"
-            disabled>Previous</button><button class="btn btn-primary rounded-pill px-4"
-            id="nextStepBtn">Next</button><button class="btn btn-success rounded-pill px-4" id="submitCustomerBtn"
-            style="display:none;">Create Customer</button></div>
-      </div>
-    </div>
-  </div>
 
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
@@ -1250,21 +1349,74 @@
       { id: "itm2", name: "Cloud Hosting", code: "CLD99", price: 4800, unit: "Year", tax: 5, desc: "SSD 20GB + 1TB bandwidth" }
     ];
     let customersList = [
-      { id: "CUST-001", name: "Aster Technologies", address: "42, Richmond Circle, Bangalore - 560025", gst: "29AAACB1234E1Z5", phone: "+91 98765 43210", email: "contact@aster.com" },
-      { id: "CUST-002", name: "Stellar Innovations", address: "Tower B, Cyber City, Gurugram", gst: "06AAACI9876F1Z9", phone: "+91 98765 12345", email: "info@stellar.com" }
+      { id: "CUST-001", companyName: "Aster Technologies", customerName: "John Smith", address: "42, Richmond Circle, Bangalore - 560025", gst: "29AAACB1234E1Z5", phone: "+91 98765 43210", email: "contact@aster.com" },
+      { id: "CUST-002", companyName: "Stellar Innovations", customerName: "Sarah Johnson", address: "Tower B, Cyber City, Gurugram", gst: "06AAACI9876F1Z9", phone: "+91 98765 12345", email: "info@stellar.com" }
     ];
     let currentCustomerId = "";
     let flatpickrInstance = null;
 
+    // Edit Customer Modal Variables
+    let editCurrentStep = 1;
+    const editStep1 = document.getElementById('editStep1');
+    const editStep2 = document.getElementById('editStep2');
+    const editPrevBtn = document.getElementById('editPrevStepBtn');
+    const editNextBtn = document.getElementById('editNextStepBtn');
+    const editSubmitBtn = document.getElementById('submitEditCustomerBtn');
+
+    function updateEditStepUI() {
+      document.querySelectorAll('#editCustomerModal .step-item').forEach((el, idx) => {
+        if (idx + 1 < editCurrentStep) el.classList.add('completed');
+        else el.classList.remove('completed');
+        if (idx + 1 === editCurrentStep) el.classList.add('active');
+        else el.classList.remove('active');
+      });
+      if (editCurrentStep === 1) {
+        editStep1.classList.add('active-step');
+        editStep2.classList.remove('active-step');
+        editPrevBtn.disabled = true;
+        editNextBtn.style.display = 'inline-flex';
+        editSubmitBtn.style.display = 'none';
+      } else {
+        editStep1.classList.remove('active-step');
+        editStep2.classList.add('active-step');
+        editPrevBtn.disabled = false;
+        editNextBtn.style.display = 'none';
+        editSubmitBtn.style.display = 'inline-flex';
+      }
+    }
+
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+
+    function populateCustomerDropdown() {
+      let sel = document.getElementById('customerSelect');
+      sel.innerHTML = '<option value="">-- Select Customer --</option>';
+      customersList.forEach(c => {
+        let option = document.createElement('option');
+        option.value = c.id;
+        option.innerHTML = `${escapeHtml(c.companyName)} - ${escapeHtml(c.customerName)}`;
+        option.setAttribute('data-company', c.companyName);
+        option.setAttribute('data-customer', c.customerName);
+        option.setAttribute('data-email', c.email);
+        option.setAttribute('data-phone', c.phone);
+        option.setAttribute('data-gst', c.gst);
+        option.setAttribute('data-address', c.address);
+        sel.appendChild(option);
+      });
+      if (customersList.length) sel.value = customersList[0].id;
+      updateCustomerUI();
+    }
+
     function updateDisplayCard(cust) {
       if (cust) {
-        document.getElementById('displayCustomerName').innerText = cust.name || '--';
+        document.getElementById('displayCustomerName').innerText = cust.companyName || '--';
+        document.getElementById('displayCustomerContactName').innerText = cust.customerName || '--';
         document.getElementById('displayCustomerAddress').innerText = cust.address || '--';
         document.getElementById('displayCustomerGST').innerText = cust.gst || '--';
         document.getElementById('displayCustomerPhone').innerText = cust.phone || '--';
         document.getElementById('displayCustomerEmail').innerText = cust.email || '--';
       } else {
         document.getElementById('displayCustomerName').innerText = '--';
+        document.getElementById('displayCustomerContactName').innerText = '--';
         document.getElementById('displayCustomerAddress').innerText = '--';
         document.getElementById('displayCustomerGST').innerText = '--';
         document.getElementById('displayCustomerPhone').innerText = '--';
@@ -1274,8 +1426,17 @@
 
     function updateCustomerUI() {
       const sel = document.getElementById('customerSelect');
-      const cust = customersList.find(c => c.id === sel.value);
-      if (cust) {
+      const selectedOption = sel.options[sel.selectedIndex];
+      if (selectedOption && selectedOption.value) {
+        const cust = {
+          id: selectedOption.value,
+          companyName: selectedOption.getAttribute('data-company') || '',
+          customerName: selectedOption.getAttribute('data-customer') || '',
+          email: selectedOption.getAttribute('data-email') || '',
+          phone: selectedOption.getAttribute('data-phone') || '',
+          gst: selectedOption.getAttribute('data-gst') || '',
+          address: selectedOption.getAttribute('data-address') || ''
+        };
         currentCustomerId = cust.id;
         updateDisplayCard(cust);
       } else {
@@ -1284,29 +1445,40 @@
       }
     }
 
-    function populateCustomers() {
-      let sel = document.getElementById('customerSelect');
-      sel.innerHTML = '<option value="">-- Select Customer --</option>';
-      customersList.forEach(c => {
-        let opt = document.createElement('option');
-        opt.value = c.id;
-        opt.innerHTML = `${c.name} (${c.id})`;
-        sel.appendChild(opt);
-      });
-      if (customersList.length) sel.value = customersList[0].id;
-      updateCustomerUI();
-    }
-
-    // Edit Customer Modal Logic
+    // Edit Customer Logic
     let editModalInstance;
     document.getElementById('editCustomerDetailsBtn')?.addEventListener('click', () => {
-      const cust = customersList.find(c => c.id === currentCustomerId);
-      if (cust) {
-        document.getElementById('editCustomerName').value = cust.name || '';
-        document.getElementById('editCustomerAddress').value = cust.address || '';
-        document.getElementById('editCustomerGST').value = cust.gst || '';
-        document.getElementById('editCustomerPhone').value = cust.phone || '';
-        document.getElementById('editCustomerEmail').value = cust.email || '';
+      const selectedOption = document.getElementById('customerSelect').options[document.getElementById('customerSelect').selectedIndex];
+      if (selectedOption && selectedOption.value) {
+        const cust = {
+          id: selectedOption.value,
+          companyName: selectedOption.getAttribute('data-company') || '',
+          customerName: selectedOption.getAttribute('data-customer') || '',
+          email: selectedOption.getAttribute('data-email') || '',
+          phone: selectedOption.getAttribute('data-phone') || '',
+          gst: selectedOption.getAttribute('data-gst') || '',
+          address: selectedOption.getAttribute('data-address') || ''
+        };
+        
+        document.getElementById('editCompanyName').value = cust.companyName || '';
+        document.getElementById('editCustomerName').value = cust.customerName || '';
+        document.getElementById('editCustIdModal').value = cust.id || '';
+        document.getElementById('editCustGstModal').value = cust.gst || '';
+        document.getElementById('editCustEmail').value = cust.email || '';
+        document.getElementById('editCustPhone').value = cust.phone || '';
+        
+        document.getElementById('editBillAddress').value = cust.address || '';
+        document.getElementById('editBillCity').value = '';
+        document.getElementById('editBillState').value = '';
+        document.getElementById('editBillZip').value = '';
+        
+        document.getElementById('editShipAddress').value = cust.address || '';
+        document.getElementById('editShipCity').value = '';
+        document.getElementById('editShipState').value = '';
+        document.getElementById('editShipZip').value = '';
+        
+        editCurrentStep = 1;
+        updateEditStepUI();
         editModalInstance = new bootstrap.Modal(document.getElementById('editCustomerModal'));
         editModalInstance.show();
       } else {
@@ -1314,15 +1486,53 @@
       }
     });
 
-    document.getElementById('saveCustomerEditBtn')?.addEventListener('click', () => {
-      const custIndex = customersList.findIndex(c => c.id === currentCustomerId);
-      if (custIndex !== -1) {
-        customersList[custIndex].name = document.getElementById('editCustomerName').value.trim() || customersList[custIndex].name;
-        customersList[custIndex].address = document.getElementById('editCustomerAddress').value.trim();
-        customersList[custIndex].gst = document.getElementById('editCustomerGST').value.trim();
-        customersList[custIndex].phone = document.getElementById('editCustomerPhone').value.trim();
-        customersList[custIndex].email = document.getElementById('editCustomerEmail').value.trim();
-        populateCustomers();
+    editNextBtn?.addEventListener('click', () => {
+      const companyName = document.getElementById('editCompanyName').value.trim();
+      const customerName = document.getElementById('editCustomerName').value.trim();
+      if (!companyName) { alert("Please enter company name"); return; }
+      if (!customerName) { alert("Please enter customer name"); return; }
+      editCurrentStep = 2;
+      updateEditStepUI();
+    });
+
+    editPrevBtn?.addEventListener('click', () => {
+      editCurrentStep = 1;
+      updateEditStepUI();
+    });
+
+    document.getElementById('editSameAsBilling')?.addEventListener('change', (e) => {
+      if (e.target.checked) {
+        document.getElementById('editShipAddress').value = document.getElementById('editBillAddress').value;
+        document.getElementById('editShipCity').value = document.getElementById('editBillCity').value;
+        document.getElementById('editShipState').value = document.getElementById('editBillState').value;
+        document.getElementById('editShipZip').value = document.getElementById('editBillZip').value;
+      }
+    });
+
+    editSubmitBtn?.addEventListener('click', () => {
+      const selectedOption = document.getElementById('customerSelect').options[document.getElementById('customerSelect').selectedIndex];
+      if (selectedOption && selectedOption.value) {
+        let fullAddress = document.getElementById('editBillAddress').value;
+        if (document.getElementById('editBillCity').value) fullAddress += ", " + document.getElementById('editBillCity').value;
+        if (document.getElementById('editBillState').value) fullAddress += ", " + document.getElementById('editBillState').value;
+        if (document.getElementById('editBillZip').value) fullAddress += " - " + document.getElementById('editBillZip').value;
+        
+        const updatedCustomer = {
+          id: selectedOption.value,
+          companyName: document.getElementById('editCompanyName').value.trim(),
+          customerName: document.getElementById('editCustomerName').value.trim(),
+          address: fullAddress || "Address not provided",
+          gst: document.getElementById('editCustGstModal').value.trim(),
+          email: document.getElementById('editCustEmail').value,
+          phone: document.getElementById('editCustPhone').value
+        };
+        
+        const index = customersList.findIndex(c => c.id === selectedOption.value);
+        if (index !== -1) {
+          customersList[index] = updatedCustomer;
+        }
+        
+        populateCustomerDropdown();
         document.getElementById('customerSelect').value = currentCustomerId;
         updateCustomerUI();
         editModalInstance.hide();
@@ -1440,8 +1650,6 @@
       updateAmount();
       return tr;
     }
-
-    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
 
     function refreshAllDropdowns() {
       document.querySelectorAll('#itemsTableBody .item-dropdown').forEach(select => {
@@ -1563,7 +1771,7 @@
     let currentStep = 1;
     const step1 = document.getElementById('step1'), step2 = document.getElementById('step2'), prevBtn = document.getElementById('prevStepBtn'), nextBtn = document.getElementById('nextStepBtn'), submitBtn = document.getElementById('submitCustomerBtn');
     function updateStepUI() {
-      document.querySelectorAll('.step-item').forEach((el, idx) => {
+      document.querySelectorAll('#customerCreateModal .step-item').forEach((el, idx) => {
         if (idx + 1 < currentStep) el.classList.add('completed');
         else el.classList.remove('completed');
         if (idx + 1 === currentStep) el.classList.add('active');
@@ -1584,8 +1792,10 @@
       }
     }
     nextBtn.addEventListener('click', () => {
-      const name = document.getElementById('newCustNameModal').value.trim();
-      if (!name) { alert("Please enter company name"); return; }
+      const companyName = document.getElementById('newCompanyName').value.trim();
+      const customerName = document.getElementById('newCustomerName').value.trim();
+      if (!companyName) { alert("Please enter company name"); return; }
+      if (!customerName) { alert("Please enter customer name"); return; }
       currentStep = 2;
       updateStepUI();
     });
@@ -1599,8 +1809,10 @@
       }
     });
     document.getElementById('submitCustomerBtn')?.addEventListener('click', () => {
-      let name = document.getElementById('newCustNameModal').value.trim();
-      if (!name) return alert("Customer name required");
+      let companyName = document.getElementById('newCompanyName').value.trim();
+      let customerName = document.getElementById('newCustomerName').value.trim();
+      if (!companyName) return alert("Company name required");
+      if (!customerName) return alert("Customer name required");
       let custId = document.getElementById('newCustIdModal').value.trim() || ("CUST-" + Math.floor(Math.random() * 10000));
       let fullAddress = document.getElementById('billAddress').value;
       if (document.getElementById('billCity').value) fullAddress += ", " + document.getElementById('billCity').value;
@@ -1608,17 +1820,19 @@
       if (document.getElementById('billZip').value) fullAddress += " - " + document.getElementById('billZip').value;
       customersList.push({
         id: custId,
-        name: name,
+        companyName: companyName,
+        customerName: customerName,
         address: fullAddress || "Address not provided",
         gst: document.getElementById('newCustGstModal').value.trim(),
         email: document.getElementById('newCustEmail').value,
         phone: document.getElementById('newCustPhone').value
       });
-      populateCustomers();
+      populateCustomerDropdown();
       document.getElementById('customerSelect').value = custId;
       updateCustomerUI();
       bootstrap.Modal.getInstance(document.getElementById('customerCreateModal')).hide();
-      document.getElementById('newCustNameModal').value = '';
+      document.getElementById('newCompanyName').value = '';
+      document.getElementById('newCustomerName').value = '';
       document.getElementById('newCustIdModal').value = '';
       document.getElementById('newCustGstModal').value = '';
       document.getElementById('newCustEmail').value = '';
@@ -1634,11 +1848,11 @@
       document.getElementById('sameAsBilling').checked = false;
       currentStep = 1;
       updateStepUI();
-      alert(`Customer "${name}" added!`);
+      alert(`Customer "${companyName}" added!`);
     });
 
     document.addEventListener('DOMContentLoaded', () => {
-      populateCustomers();
+      populateCustomerDropdown();
       loadDefaultRows();
       document.getElementById('customerSelect')?.addEventListener('change', updateCustomerUI);
       document.getElementById('issueDate')?.addEventListener('change', updateDueDate);
