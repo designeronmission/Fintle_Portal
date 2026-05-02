@@ -2,151 +2,149 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Create Party / Customer</title>
-    <!-- Bootstrap 5 + Icons + Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Fintle | Create Party / Customer</title>
+  <!-- Bootstrap 5 + Icons + Fonts -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
-    <style>
-        /* Additional styles for the form components (matching fintle design system) */
-        .card-custom {
-            border: none;
-            border-radius: 4px;
-            background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-            overflow: hidden;
-            margin-bottom: 24px;
-        }
+  <style>
+    /* Additional styles for the form components (matching fintle design system) */
+    .card-custom {
+      border: none;
+      border-radius: 4px;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
 
-        .card-header-custom {
-            background: white;
-            border-bottom: 1px solid #eef2f8;
-            padding: 1rem 1.5rem;
-            font-weight: 700;
-            font-size: 1rem;
-            color: #1e293b;
-        }
+    .card-header-custom {
+      background: white;
+      border-bottom: 1px solid #eef2f8;
+      padding: 1rem 1.5rem;
+      font-weight: 700;
+      font-size: 1rem;
+      color: #1e293b;
+    }
 
-        .card-header-custom i {
-            color: #2a3b82;
-        }
+    .card-header-custom i {
+      color: #2a3b82;
+    }
 
 
-        .form-control,
-        .form-select {
-            border-radius: 4px;
-            border: 1px solid #e2e8f0;
-            padding: 0.6rem 1rem;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
+    .form-control,
+    .form-select {
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+      padding: 0.6rem 1rem;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+    }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #2c7da0;
-            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
-            outline: none;
-        }
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #2c7da0;
+      box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+      outline: none;
+    }
 
-        .input-group-text {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-        }
+    .input-group-text {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+    }
 
-        .badge-category {
-            background: #eef2ff;
-            color: #2c7da0;
-            padding: 6px 12px;
-            border-radius: 40px;
-            font-size: 0.7rem;
-            cursor: pointer;
-            transition: 0.2s;
-        }
+    .badge-category {
+      background: #eef2ff;
+      color: #2c7da0;
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
 
-        .bank-account-card {
-            background: #f8fafc;
-            border-radius: 20px;
-            padding: 16px;
-            margin-bottom: 12px;
-            border: 1px solid #eef2f8;
-            transition: 0.2s;
-        }
+    .bank-account-card {
+      background: #f8fafc;
+      border-radius: 20px;
+      padding: 16px;
+      margin-bottom: 12px;
+      border: 1px solid #eef2f8;
+      transition: 0.2s;
+    }
 
-        .add-bank-btn {
-            border: 1.5px dashed #cbd5e1;
-            background: white;
-            border-radius: 40px;
-            padding: 10px;
-            font-size: 0.8rem;
-            font-weight: 500;
-            color: #2c7da0;
-            width: 100%;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
+    .add-bank-btn {
+      border: 1.5px dashed #cbd5e1;
+      background: white;
+      border-radius: 40px;
+      padding: 10px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: #2c7da0;
+      width: 100%;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
 
-        .add-bank-btn:hover {
-            background: #f1f5f9;
-            border-color: #2c7da0;
-            border-style: solid;
-        }
+    .add-bank-btn:hover {
+      background: #f1f5f9;
+      border-color: #2c7da0;
+      border-style: solid;
+    }
 
-        .remove-bank {
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 500;
-        }
+    .remove-bank {
+      color: #ef4444;
+      cursor: pointer;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
 
-        .remove-bank:hover {
-            text-decoration: underline;
-        }
+    .remove-bank:hover {
+      text-decoration: underline;
+    }
 
-        .toast-notify {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #1e293b;
-            color: white;
-            padding: 12px 24px;
-            border-radius: 40px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            z-index: 1100;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
-        }
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
 
-        .btn-primary {
-            border: none;
-            border-radius: 40px;
-            padding: 0.5rem 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
+    .btn-primary {
+      border: none;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 600;
+      font-size: 0.85rem;
+    }
 
-        .btn-primary:hover {
-            background: #1f5e7a;
-        }
-    </style>
-    
+    .btn-primary:hover {
+      background: #1f5e7a;
+    }
+  </style>
+
 </head>
 
 <body>
 
-    <div id="main-wrapper">
+  <div id="main-wrapper">
     <!-- Sidebar Start -->
-   <!-- Sidebar Start -->
     <aside class="side-mini-panel with-vertical">
       <div class="iconbar">
         <div class="sidebarmenu">
@@ -155,7 +153,7 @@
               <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
             </a>
           </div>
-          
+
           <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
             <ul class="sidebar-menu" id="sidebarnav">
               <!-- Dashboard -->
@@ -205,16 +203,16 @@
                       <span class="icon-small"></span> Purchase Order
                     </a>
                   </li>
-                 <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="purchase-bill.html">
                       <span class="icon-small"></span> Purchase Bill
                     </a>
                   </li>
-                 <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier-statement.html">
-                                            <span class="icon-small"></span> Supplier Statement
-                                        </a>
-                                    </li>
+                  <li class="sidebar-item">
+                    <a class="sidebar-link" href="supplier-statement.html">
+                      <span class="icon-small"></span> Supplier Statement
+                    </a>
+                  </li>
                 </ul>
               </li>
 
@@ -230,7 +228,7 @@
                       <span class="icon-small"></span> Customer
                     </a>
                   </li>
-               <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="enquiry.html">
                       <span class="icon-small"></span> Enquiry
                     </a>
@@ -249,19 +247,19 @@
               </li>
 
 
-                 <!-- Sales -->
+              <!-- Sales -->
               <li class="sidebar-item">
                 <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
                   <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
                   <span class="hide-menu">Accounts</span>
                 </a>
                 <ul aria-expanded="false" class="collapse first-level">
-                 <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="account-master.html">
                       <span class="icon-small"></span> Account Master
                     </a>
                   </li>
-                <li class="sidebar-item">
+                  <li class="sidebar-item">
                     <a class="sidebar-link" href="journals.html">
                       <span class="icon-small"></span> Journals
                     </a>
@@ -291,14 +289,14 @@
 
               <li><span class="sidebar-divider"></span></li>
             </ul>
-            
+
             <!-- Logout Option at Bottom -->
             <div class="sidebar-footer">
               <ul class="sidebar-menu">
 
-               <li class="sidebar-item">
+                <li class="sidebar-item">
                   <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
                     <span class="hide-menu">Settings</span>
                   </a>
                 </li>
@@ -318,10 +316,8 @@
     </aside>
     <!-- Sidebar End -->
 
-    <!-- Sidebar End -->
-
     <div class="page-wrapper">
-         <!--  Header Start -->
+      <!--  Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
@@ -341,8 +337,9 @@
               <!-- Create Sales Invoice Button with Hover Mega Menu -->
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd">
-                     <button class="btn bg-primary-subtle text-primary dropdown-toggle" onclick="location.href='create-invoice.html'"
-                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    onclick="location.href='create-invoice.html'"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
                     <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
                     Create Sales Invoice
                   </button>
@@ -1191,159 +1188,242 @@
       </header>
       <!--  Header End -->
 
-            <div class="body-wrapper">
-                <div class="container-fluid p-3">
-                    <!-- Breadcrumb card (Fintle style) -->
-                    <div class="card card-body py-3 mb-2">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="d-sm-flex align-items-center justify-content-between">
-                                            <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="customer.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Customer</h4> 
-                                
-                                    </h4>
-                                    <nav aria-label="breadcrumb" class="ms-auto">
-                                        <ol class="breadcrumb mb-0">
-                                            <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Create Customer</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
+      <div class="body-wrapper">
+        <div class="container-fluid p-3">
+          <!-- Breadcrumb card (Fintle style) -->
+          <div class="card card-body py-3 mb-2">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="customer.html"><svg
+                          xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                          <path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z" />
+                        </svg></a></span>Create Customer</h4>
+
+                  </h4>
+                  <nav aria-label="breadcrumb" class="ms-auto">
+                    <ol class="breadcrumb mb-0">
+                      <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                      <li class="breadcrumb-item active" aria-current="page">Create Customer</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="partyForm">
+            <!-- General Details -->
+            <div class="card-custom">
+              <div class="card-header-custom"><i class="fas fa-user-circle me-2"></i> General Details
+              </div>
+              <div class="card-body p-4">
+                <div class="row g-4">
+                  <div class="col-md-6"><label class="form-label fw-semibold">Customer Name*</label><input type="text"
+                      class="form-control" id="partyName" placeholder="Enter customer name" required></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Mobile Number</label><input type="tel"
+                      class="form-control" id="mobileNo" placeholder="Enter mobile number"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Email</label><input type="email"
+                      class="form-control" id="emailId" placeholder="Enter email"></div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">Opening Balance</label>
+                    <div class="input-group"><span class="input-group-text">₹</span><input type="number"
+                        class="form-control" id="openingBalance" value="0" step="0.01"><select class="form-select"
+                        style="max-width:120px" id="balanceType">
+                        <option value="to_collect">To Collect</option>
+                        <option value="to_pay">To Pay</option>
+                      </select></div>
+                  </div>
+                  <div class="col-md-6">
+                    <label class="form-label fw-semibold">GSTIN</label>
+                    <div class="input-group"><input type="text" class="form-control" id="gstin"
+                        placeholder="ex: 29XXXXX9438X1XX"><button class="btn btn-outline-secondary" type="button"
+                        id="getGstDetails">Get Details</button></div>
+                  </div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">PAN Number</label><input type="text"
+                      class="form-control" id="panNumber" placeholder="PAN Number"></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Customer Type</label><select
+                      class="form-select" id="partyType">
+                      <option value="customer">Customer</option>
+                      <option value="supplier">Supplier</option>
+                      <option value="both">Both</option>
+                    </select></div>
+                  <div class="col-md-6"><label class="form-label fw-semibold">Customer Category</label>
+                    <div class="d-flex gap-2"><select class="form-select" id="partyCategory">
+                        <option value="">Select Category</option>
+                        <option value="Retail">Retail</option>
+                        <option value="Wholesale">Wholesale</option>
+                        <option value="Corporate">Corporate</option>
+                        <option value="Regular">Regular</option>
+                      </select>
+                      <button class="form-select" style="max-width:120px">
+                        Create
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Address Section with Split Fields -->
+              <div class="card-custom">
+                <div class="card-header-custom"><i class="fas fa-location-dot me-2"></i> Address</div>
+                <div class="card-body p-4">
+                  <div class="row g-4">
+                    <!-- Billing Address -->
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold mb-2">Billing Address</label>
+                      <div class="border rounded-3 p-3">
+                        <div class="mb-3">
+                          <label class="form-label  mb-1">Address Line 1</label>
+                          <input type="text" class="form-control" id="billingAddressLine1"
+                            placeholder="House number, building, street">
                         </div>
+                        <div class="mb-3">
+                          <label class="form-label  mb-1">Address Line 2</label>
+                          <input type="text" class="form-control" id="billingAddressLine2"
+                            placeholder="Apartment, suite, unit (optional)">
+                        </div>
+                        <div class="row g-2">
+                          <div class="col-6">
+                            <label class="form-label  mb-1">Country</label>
+                            <select class="form-select" id="billingCountry">
+                              <option value="IN">India</option>
+                              <option value="US">United States</option>
+                              <option value="UK">United Kingdom</option>
+                              <option value="CA">Canada</option>
+                              <option value="AU">Australia</option>
+                              <option value="AE">UAE</option>
+                            </select>
+                          </div>
+
+                          <div class="col-6">
+                            <label class="form-label  mb-1">State</label>
+                            <input type="text" class="form-control" id="billingState" placeholder="State">
+                          </div>
+
+                          <div class="col-6">
+                            <label class="form-label  mb-1">City</label>
+                            <input type="text" class="form-control" id="billingCity" placeholder="City">
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label  mb-1">ZIP / Postal Code</label>
+                            <input type="text" class="form-control" id="billingZipCode" placeholder="ZIP code">
+                          </div>
+
+                        </div>
+                      </div>
                     </div>
 
-                    <form id="partyForm">
-                        <!-- General Details -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-user-circle me-2"></i> General Details
-                            </div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Customer Name*</label><input
-                                            type="text" class="form-control" id="partyName"
-                                            placeholder="Enter customer name" required></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Mobile Number</label><input
-                                            type="tel" class="form-control" id="mobileNo"
-                                            placeholder="Enter mobile number"></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Email</label><input type="email"
-                                            class="form-control" id="emailId" placeholder="Enter email"></div>
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-semibold">Opening Balance</label>
-                                        <div class="input-group"><span class="input-group-text">₹</span><input
-                                                type="number" class="form-control" id="openingBalance" value="0"
-                                                step="0.01"><select class="form-select" style="max-width:120px"
-                                                id="balanceType">
-                                                <option value="to_collect">To Collect</option>
-                                                <option value="to_pay">To Pay</option>
-                                            </select></div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label fw-semibold">GSTIN</label>
-                                        <div class="input-group"><input type="text" class="form-control" id="gstin"
-                                                placeholder="ex: 29XXXXX9438X1XX"><button
-                                                class="btn btn-outline-secondary" type="button" id="getGstDetails"
-                                                >Get Details</button></div>
-                                    </div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">PAN Number</label><input type="text"
-                                            class="form-control" id="panNumber" placeholder="PAN Number"></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Customer Type</label><select
-                                            class="form-select" id="partyType">
-                                            <option value="customer">Customer</option>
-                                            <option value="supplier">Supplier</option>
-                                            <option value="both">Both</option>
-                                        </select></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Customer Category</label>
-                                        <div class="d-flex gap-2"><select class="form-select" id="partyCategory">
-                                                <option value="">Select Category</option>
-                                                <option value="Retail">Retail</option>
-                                                <option value="Wholesale">Wholesale</option>
-                                                <option value="Corporate">Corporate</option>
-                                                <option value="Regular">Regular</option>
-                                        </select>
-                                        <button class="form-select" style="max-width:120px">
-                                              Create
-                                        </button>
-
-                                    </div>
-                                </div>
-                            </div>
+                    <!-- Shipping Address -->
+                    <div class="col-md-6">
+                      <label class="form-label fw-semibold mb-2">Shipping Address</label>
+                      <div class="border rounded-3 p-3">
+                        <div class="mb-3">
+                          <label class="form-label  mb-1">Address Line 1</label>
+                          <input type="text" class="form-control" id="shippingAddressLine1"
+                            placeholder="House number, building, street">
                         </div>
-
-                        <!-- Address Section -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-location-dot me-2"></i> Address</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Billing Address</label><textarea
-                                            class="form-control" id="billingAddress" rows="2"
-                                            placeholder="Street, City, State, Pincode"></textarea></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Shipping Address</label><textarea
-                                            class="form-control" id="shippingAddress" rows="2"
-                                            placeholder="Street, City, State, Pincode"></textarea>
-                                        <div class="form-check mt-2"><input class="form-check-input" type="checkbox"
-                                                id="sameAsBilling"><label class="form-check-label small text-muted">Same
-                                                as Billing Address</label></div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="mb-3">
+                          <label class="form-label  mb-1">Address Line 2</label>
+                          <input type="text" class="form-control" id="shippingAddressLine2"
+                            placeholder="Apartment, suite, unit (optional)">
                         </div>
+                        <div class="row g-2">
+                          <div class="col-6">
+                            <label class="form-label  mb-1">Country</label>
+                            <select class="form-select" id="shippingCountry">
+                              <option value="IN">India</option>
+                              <option value="US">United States</option>
+                              <option value="UK">United Kingdom</option>
+                              <option value="CA">Canada</option>
+                              <option value="AU">Australia</option>
+                              <option value="AE">UAE</option>
+                            </select>
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label  mb-1">State</label>
+                            <input type="text" class="form-control" id="shippingState" placeholder="State">
+                          </div>
+                          <div class="col-6">
+                            <label class="form-label  mb-1">City</label>
+                            <input type="text" class="form-control" id="shippingCity" placeholder="City">
+                          </div>
 
-                        <!-- Credit Details -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-credit-card me-2"></i> Credit Details</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Credit Period (Days)</label><input
-                                            type="number" class="form-control" id="creditPeriod"
-                                            placeholder="e.g., 30 days"></div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Credit Limit (₹)</label><input
-                                            type="number" class="form-control" id="creditLimit"
-                                            placeholder="Max credit amount" step="0.01"></div>
-                                </div>
-                            </div>
+                          <div class="col-6">
+                            <label class="form-label  mb-1">ZIP / Postal Code</label>
+                            <input type="text" class="form-control" id="shippingZipCode" placeholder="ZIP code">
+                          </div>
                         </div>
+                        <div class="row g-2 mt-1">
 
-                        <!-- Contact Person Details -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-address-card me-2"></i> Contact Person
-                                Details</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Contact Person Name</label><input
-                                            type="text" class="form-control" id="contactPerson" placeholder="Full name">
-                                    </div>
-                                    <div class="col-md-6"><label class="form-label fw-semibold">Date of Birth</label><input
-                                            type="date" class="form-control" id="contactDob"></div>
-                                </div>
-                            </div>
+
                         </div>
-
-                        <!-- Party Bank Account Section -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-university me-2"></i> Party Bank Account
-                            </div>
-                            <div class="card-body p-4">
-                                <p class="text-muted small mb-3"><i class="fas fa-info-circle me-1"></i> Add party bank
-                                    information to manage transactions</p>
-                                <div id="bankAccountsContainer"></div><button type="button" class="add-bank-btn mt-2"
-                                    id="addBankAccountBtn"><i class="fas fa-plus me-2"></i>Add Bank Account</button>
-                            </div>
+                        <div class="form-check mt-3 pt-1">
+                          <input class="form-check-input" type="checkbox" id="sameAsBilling">
+                          <label class="form-check-label small fw-medium text-muted">Same as Billing Address</label>
                         </div>
-
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-2 mt-4 mb-5 me-3"><button type="reset"
-                                class="btn btn-outline-secondary rounded-pill px-4"><i
-                                    class="fas fa-undo-alt me-2"></i>Reset</button><button type="submit"
-                                class="btn btn-primary rounded-pill px-5">Save
-                                Party</button></div>
-                    </form>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-            </div>
-        </div>
-    </div>
+              </div>
 
-    <div id="liveToastMsg" class="toast-notify" style="display: none;"><i class="fas fa-bell me-2"></i> <span
-            id="toastText">Action</span></div>
+              <!-- Credit Details -->
+              <div class="card-custom">
+                <div class="card-header-custom"><i class="fas fa-credit-card me-2"></i> Credit Details</div>
+                <div class="card-body p-4">
+                  <div class="row g-4">
+                    <div class="col-md-6"><label class="form-label fw-semibold">Credit Period (Days)</label><input
+                        type="number" class="form-control" id="creditPeriod" placeholder="e.g., 30 days"></div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Credit Limit (₹)</label><input
+                        type="number" class="form-control" id="creditLimit" placeholder="Max credit amount" step="0.01">
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Contact Person Details -->
+              <div class="card-custom">
+                <div class="card-header-custom"><i class="fas fa-address-card me-2"></i> Contact Person
+                  Details</div>
+                <div class="card-body p-4">
+                  <div class="row g-4">
+                    <div class="col-md-6"><label class="form-label fw-semibold">Contact Person Name</label><input
+                        type="text" class="form-control" id="contactPerson" placeholder="Full name">
+                    </div>
+                    <div class="col-md-6"><label class="form-label fw-semibold">Date of Birth</label><input type="date"
+                        class="form-control" id="contactDob"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Party Bank Account Section -->
+              <div class="card-custom">
+                <div class="card-header-custom"><i class="fas fa-university me-2"></i> Party Bank Account
+                </div>
+                <div class="card-body p-4">
+                  <p class="text-muted small mb-3"><i class="fas fa-info-circle me-1"></i> Add party bank
+                    information to manage transactions</p>
+                  <div id="bankAccountsContainer"></div><button type="button" class="add-bank-btn mt-2"
+                    id="addBankAccountBtn"><i class="fas fa-plus me-2"></i>Add Bank Account</button>
+                </div>
+              </div>
+
+              <!-- Action Buttons -->
+              <div class="d-flex justify-content-end gap-2 mt-4 mb-5 me-3"><button type="reset"
+                  class="btn btn-outline-secondary rounded-pill px-4"><i
+                    class="fas fa-undo-alt me-2"></i>Reset</button><button type="submit"
+                  class="btn btn-primary rounded-pill px-5">Save
+                  Party</button></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="liveToastMsg" class="toast-notify" style="display: none;"><i class="fas fa-bell me-2"></i> <span
+      id="toastText">Action</span></div>
 
   <!-- Import Js Files -->
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
@@ -1369,26 +1449,26 @@
   <script src="assets/libs/js/apexcharts.min.js"></script>
   <script src="assets/libs/js/dashboard1.js"></script>
   <script src="assets/libs/js/index.global.min.js"></script>
-    <script>
-        let bankAccounts = [], bankIdCounter = 1;
-        function showToast(msg) { const toastDiv = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerHTML = msg; toastDiv.style.display = 'flex'; setTimeout(() => toastDiv.style.display = 'none', 2300); }
-        function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
-        function renderBankAccounts() {
-            const container = document.getElementById('bankAccountsContainer'); if (!container) return; container.innerHTML = '';
-            bankAccounts.forEach((acc, idx) => { const bankDiv = document.createElement('div'); bankDiv.className = 'bank-account-card'; bankDiv.innerHTML = `<div class="d-flex justify-content-between align-items-start mb-2"><strong class="small text-primary">Account ${idx + 1}</strong><span class="remove-bank" data-id="${acc.id}"><i class="fas fa-trash-alt me-1"></i> Remove</span></div><div class="row g-2"><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="Bank Name" value="${escapeHtml(acc.bankName)}" data-field="bankName" data-id="${acc.id}"></div><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="Account Holder Name" value="${escapeHtml(acc.holderName)}" data-field="holderName" data-id="${acc.id}"></div><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="Account Number" value="${escapeHtml(acc.accountNo)}" data-field="accountNo" data-id="${acc.id}"></div><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="IFSC Code" value="${escapeHtml(acc.ifsc)}" data-field="ifsc" data-id="${acc.id}"></div></div>`; container.appendChild(bankDiv); });
-            document.querySelectorAll('.remove-bank').forEach(el => { el.addEventListener('click', (e) => { const id = parseInt(el.getAttribute('data-id')); bankAccounts = bankAccounts.filter(b => b.id !== id); renderBankAccounts(); showToast('Bank account removed'); }); });
-            document.querySelectorAll('.bank-account-card input').forEach(input => { input.addEventListener('change', (e) => { const field = input.getAttribute('data-field'); const id = parseInt(input.getAttribute('data-id')); const account = bankAccounts.find(b => b.id === id); if (account) account[field] = input.value; }); });
-        }
-        document.getElementById('addBankAccountBtn')?.addEventListener('click', () => { bankAccounts.push({ id: bankIdCounter++, bankName: '', holderName: '', accountNo: '', ifsc: '' }); renderBankAccounts(); showToast('New bank account added'); });
-        const sameAsBilling = document.getElementById('sameAsBilling'), billingAddr = document.getElementById('billingAddress'), shippingAddr = document.getElementById('shippingAddress');
-        sameAsBilling?.addEventListener('change', (e) => { if (e.target.checked) shippingAddr.value = billingAddr.value; });
-        billingAddr?.addEventListener('input', () => { if (sameAsBilling.checked) shippingAddr.value = billingAddr.value; });
-        document.getElementById('addCategoryBtn')?.addEventListener('click', () => { const newCat = prompt('Enter new category name:'); if (newCat && newCat.trim()) { const select = document.getElementById('partyCategory'); const option = document.createElement('option'); option.value = newCat.trim(); option.textContent = newCat.trim(); select.appendChild(option); select.value = newCat.trim(); showToast(`Category "${newCat.trim()}" created`); } });
-        document.getElementById('getGstDetails')?.addEventListener('click', () => { const gst = document.getElementById('gstin').value; if (gst.length >= 5) showToast(`🔍 Demo: Fetching details for GST: ${gst}`); else showToast('Please enter valid GSTIN'); });
-        document.getElementById('partyForm')?.addEventListener('submit', (e) => { e.preventDefault(); const partyName = document.getElementById('partyName').value.trim(); if (!partyName) { showToast('Customer Nameis required'); return; } const formData = { partyName, mobile: document.getElementById('mobileNo').value, email: document.getElementById('emailId').value, openingBalance: document.getElementById('openingBalance').value, balanceType: document.getElementById('balanceType').value, gstin: document.getElementById('gstin').value, pan: document.getElementById('panNumber').value, partyType: document.getElementById('partyType').value, partyCategory: document.getElementById('partyCategory').value, billingAddress: document.getElementById('billingAddress').value, shippingAddress: document.getElementById('shippingAddress').value, creditPeriod: document.getElementById('creditPeriod').value, creditLimit: document.getElementById('creditLimit').value, contactPerson: document.getElementById('contactPerson').value, contactDob: document.getElementById('contactDob').value, bankAccounts }; console.log('Party Data:', formData); showToast(`✅ Party "${partyName}" created successfully!`); });
-        document.querySelector('button[type="reset"]')?.addEventListener('click', () => { setTimeout(() => { bankAccounts = []; renderBankAccounts(); showToast('Form reset'); }, 10); });
-        renderBankAccounts();
-    </script>
+  <script>
+    let bankAccounts = [], bankIdCounter = 1;
+    function showToast(msg) { const toastDiv = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerHTML = msg; toastDiv.style.display = 'flex'; setTimeout(() => toastDiv.style.display = 'none', 2300); }
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+    function renderBankAccounts() {
+      const container = document.getElementById('bankAccountsContainer'); if (!container) return; container.innerHTML = '';
+      bankAccounts.forEach((acc, idx) => { const bankDiv = document.createElement('div'); bankDiv.className = 'bank-account-card'; bankDiv.innerHTML = `<div class="d-flex justify-content-between align-items-start mb-2"><strong class="small text-primary">Account ${idx + 1}</strong><span class="remove-bank" data-id="${acc.id}"><i class="fas fa-trash-alt me-1"></i> Remove</span></div><div class="row g-2"><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="Bank Name" value="${escapeHtml(acc.bankName)}" data-field="bankName" data-id="${acc.id}"></div><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="Account Holder Name" value="${escapeHtml(acc.holderName)}" data-field="holderName" data-id="${acc.id}"></div><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="Account Number" value="${escapeHtml(acc.accountNo)}" data-field="accountNo" data-id="${acc.id}"></div><div class="col-md-6"><input type="text" class="form-control form-control-sm" placeholder="IFSC Code" value="${escapeHtml(acc.ifsc)}" data-field="ifsc" data-id="${acc.id}"></div></div>`; container.appendChild(bankDiv); });
+      document.querySelectorAll('.remove-bank').forEach(el => { el.addEventListener('click', (e) => { const id = parseInt(el.getAttribute('data-id')); bankAccounts = bankAccounts.filter(b => b.id !== id); renderBankAccounts(); showToast('Bank account removed'); }); });
+      document.querySelectorAll('.bank-account-card input').forEach(input => { input.addEventListener('change', (e) => { const field = input.getAttribute('data-field'); const id = parseInt(input.getAttribute('data-id')); const account = bankAccounts.find(b => b.id === id); if (account) account[field] = input.value; }); });
+    }
+    document.getElementById('addBankAccountBtn')?.addEventListener('click', () => { bankAccounts.push({ id: bankIdCounter++, bankName: '', holderName: '', accountNo: '', ifsc: '' }); renderBankAccounts(); showToast('New bank account added'); });
+    const sameAsBilling = document.getElementById('sameAsBilling'), billingAddr = document.getElementById('billingAddress'), shippingAddr = document.getElementById('shippingAddress');
+    sameAsBilling?.addEventListener('change', (e) => { if (e.target.checked) shippingAddr.value = billingAddr.value; });
+    billingAddr?.addEventListener('input', () => { if (sameAsBilling.checked) shippingAddr.value = billingAddr.value; });
+    document.getElementById('addCategoryBtn')?.addEventListener('click', () => { const newCat = prompt('Enter new category name:'); if (newCat && newCat.trim()) { const select = document.getElementById('partyCategory'); const option = document.createElement('option'); option.value = newCat.trim(); option.textContent = newCat.trim(); select.appendChild(option); select.value = newCat.trim(); showToast(`Category "${newCat.trim()}" created`); } });
+    document.getElementById('getGstDetails')?.addEventListener('click', () => { const gst = document.getElementById('gstin').value; if (gst.length >= 5) showToast(`🔍 Demo: Fetching details for GST: ${gst}`); else showToast('Please enter valid GSTIN'); });
+    document.getElementById('partyForm')?.addEventListener('submit', (e) => { e.preventDefault(); const partyName = document.getElementById('partyName').value.trim(); if (!partyName) { showToast('Customer Nameis required'); return; } const formData = { partyName, mobile: document.getElementById('mobileNo').value, email: document.getElementById('emailId').value, openingBalance: document.getElementById('openingBalance').value, balanceType: document.getElementById('balanceType').value, gstin: document.getElementById('gstin').value, pan: document.getElementById('panNumber').value, partyType: document.getElementById('partyType').value, partyCategory: document.getElementById('partyCategory').value, billingAddress: document.getElementById('billingAddress').value, shippingAddress: document.getElementById('shippingAddress').value, creditPeriod: document.getElementById('creditPeriod').value, creditLimit: document.getElementById('creditLimit').value, contactPerson: document.getElementById('contactPerson').value, contactDob: document.getElementById('contactDob').value, bankAccounts }; console.log('Party Data:', formData); showToast(`✅ Party "${partyName}" created successfully!`); });
+    document.querySelector('button[type="reset"]')?.addEventListener('click', () => { setTimeout(() => { bankAccounts = []; renderBankAccounts(); showToast('Form reset'); }, 10); });
+    renderBankAccounts();
+  </script>
 </body>
 
 </html>

@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle | Journal Vouchers</title>
+  <title>Fintle | Vouchers</title>
   <!-- Bootstrap 5 + Icons + Fonts -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
@@ -179,24 +179,26 @@
       white-space: nowrap;
     }
 
-    .status-active { background: #e6f7e6; color: #10b981; }
-    .status-inactive { background: #f1f5f9; color: #64748b; }
+    .status-approved { background: #e6f7e6; color: #10b981; }
+    .status-pending { background: #fff3e3; color: #d97706; }
+    .status-draft { background: #f1f5f9; color: #64748b; }
+    .status-cancelled { background: #fee2e2; color: #b91c1c; }
 
     /* Fixed table wrapper with horizontal scroll */
-    .journal-table-wrapper {
+    .voucher-table-wrapper {
       overflow-x: auto;
       position: relative;
       border-radius: 12px;
     }
 
-    .journal-table {
-      min-width: 1300px;
+    .voucher-table {
+      min-width: 1400px;
       font-size: 0.85rem;
       width: 100%;
       border-collapse: collapse;
     }
 
-    .journal-table th {
+    .voucher-table th {
       background: #f8fafc;
       font-weight: 600;
       color: #1e293b;
@@ -205,7 +207,7 @@
       white-space: nowrap;
     }
 
-    .journal-table td {
+    .voucher-table td {
       padding: 14px 12px;
       vertical-align: middle;
       border-bottom: 1px solid #eef2f6;
@@ -214,8 +216,8 @@
     }
 
     /* Sticky Action column */
-    .journal-table th:last-child,
-    .journal-table td:last-child {
+    .voucher-table th:last-child,
+    .voucher-table td:last-child {
       position: sticky;
       right: 0;
       background-color: white;
@@ -223,7 +225,7 @@
       z-index: 10;
     }
 
-    .journal-table th:last-child {
+    .voucher-table th:last-child {
       background-color: #f8fafc;
       z-index: 11;
     }
@@ -266,7 +268,7 @@
       border: 1px solid #e2e8f0;
       border-radius: 40px;
       padding: 6px 18px;
-      min-width: 260px;
+      min-width: 220px;
       transition: all 0.2s;
     }
     
@@ -316,8 +318,8 @@
       flex: 1;
     }
 
-    .journal-tab {
-      padding: 8px 20px;
+    .voucher-tab {
+      padding: 8px 10px;
       font-size: 0.85rem;
       font-weight: 600;
       color: #64748b;
@@ -331,17 +333,17 @@
       gap: 8px;
     }
 
-    .journal-tab i {
+    .voucher-tab i {
       font-size: 0.9rem;
       opacity: 0.7;
     }
 
-    .journal-tab:hover {
+    .voucher-tab:hover {
       color: #2a3b82;
       background: #f8fafc;
     }
 
-    .journal-tab.active {
+    .voucher-tab.active {
       color: #2a3b82;
       background: #eef2ff;
     }
@@ -355,7 +357,7 @@
       font-weight: 700;
     }
 
-    .journal-tab.active .tab-count {
+    .voucher-tab.active .tab-count {
       background: #2a3b82;
       color: white;
     }
@@ -380,6 +382,10 @@
     .action-btn:hover {
       background: #f1f5f9;
       border-color: #cbd5e1;
+    }
+
+    .dropdown-toggle-no-caret::after {
+      display: none;
     }
 
     .voucher-link {
@@ -416,160 +422,171 @@
 <body>
   <div id="main-wrapper">
 
-    <!-- Sidebar Start -->
-    <aside class="side-mini-panel with-vertical">
-      <div class="iconbar">
-        <div class="sidebarmenu">
-          <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img">
-              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-            </a>
-          </div>
+        <!-- Sidebar Start -->
+        <aside class="side-mini-panel with-vertical">
+            <div class="iconbar">
+                <div class="sidebarmenu">
+                    <div class="brand-logo d-flex align-items-center nav-logo">
+                        <a href="../main/index.html" class="text-nowrap logo-img">
+                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
+                        </a>
+                    </div>
 
-          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-            <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Dashboard</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Inbox</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Items</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="items.html">
-                      <span class="icon-small"></span> Inventory
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Purchase</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier.html">
-                      <span class="icon-small"></span> Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-order.html">
-                      <span class="icon-small"></span> Purchase Order
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-bill.html">
-                      <span class="icon-small"></span> Purchase Bill
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier-statement.html">
-                      <span class="icon-small"></span> Supplier Statement
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Sales</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span> Customer
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="enquiry.html">
-                      <span class="icon-small"></span> Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="Estimate.html">
-                      <span class="icon-small"></span> Estimate
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span> Invoice
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Accounts</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="account-master.html">
-                      <span class="icon-small"></span> Account Master
-                    </a>
-                  </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="journals.html">
-                      <span class="icon-small"></span> Journals
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Vouchers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Bank Payments
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> General Ledger
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Balance Sheets
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li><span class="sidebar-divider"></span></li>
-            </ul>
-            <div class="sidebar-footer">
-              <ul class="sidebar-menu">
-                <li class="sidebar-item">
-                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Settings</span>
-                  </a>
-                </li>
-                <li class="sidebar-item logout-item">
-                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Logout</span>
-                  </a>
-                </li>
-              </ul>
+                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
+                        <ul class="sidebar-menu" id="sidebarnav">
+                            <li class="sidebar-item mt-4">
+                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
+                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Dashboard</span>
+                                </a>
+                            </li>
+
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="#" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Inbox</span>
+                                </a>
+                            </li>
+
+                            <!-- Items -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Items</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="items.html">
+                                            <span class="icon-small"></span> Inventory
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Purchase -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Purchase</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier.html">
+                                            <span class="icon-small"></span> Suppliers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="purchase-order.html">
+                                            <span class="icon-small"></span> Purchase Order
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="purchase-bill.html">
+                                            <span class="icon-small"></span> Purchase Bill
+                                        </a>
+                                    </li>
+                                     <li class="sidebar-item">
+                                        <a class="sidebar-link" href="supplier-statement.html">
+                                            <span class="icon-small"></span> Supplier Statement
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Sales -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Sales</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="customer.html">
+                                            <span class="icon-small"></span> Customer
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="enquiry.html">
+                                            <span class="icon-small"></span> Enquiry
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="Estimate.html">
+                                            <span class="icon-small"></span> Estimate
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="invoice.html">
+                                            <span class="icon-small"></span> Invoice
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <!-- Accounts -->
+                            <li class="sidebar-item">
+                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="hide-menu">Accounts</span>
+                                </a>
+                                <ul aria-expanded="false" class="collapse first-level">
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="account-master.html">
+                                            <span class="icon-small"></span> Account Master
+                                        </a>
+                                    </li>
+                                     <li class="sidebar-item">
+                                        <a class="sidebar-link" href="journals.html">
+                                            <span class="icon-small"></span> Journals
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="vouchers.html">
+                                            <span class="icon-small"></span> Vouchers
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Bank Payments
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> General Ledger
+                                        </a>
+                                    </li>
+                                    <li class="sidebar-item">
+                                        <a class="sidebar-link" href="#">
+                                            <span class="icon-small"></span> Balance Sheets
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><span class="sidebar-divider"></span></li>
+                        </ul>
+
+                        <div class="sidebar-footer">
+                            <ul class="sidebar-menu">
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
+                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Settings</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item logout-item">
+                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
+                                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                                        <span class="hide-menu">Logout</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </nav>
+                </div>
             </div>
-          </nav>
-        </div>
-      </div>
-    </aside>
-    <!-- Sidebar End -->
+        </aside>
+        <!-- Sidebar End -->
 
     <div class="page-wrapper">
       <header class="topbar">
@@ -717,7 +734,7 @@
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title">Journal Vouchers</h4>
+                  <h4 class="mb-4 mb-sm-0 card-title">Vouchers</h4>
                   <nav aria-label="breadcrumb" class="ms-auto">
                     <ol class="breadcrumb">
                       <li class="breadcrumb-item d-flex align-items-center">
@@ -726,7 +743,7 @@
                         </a>
                       </li>
                       <li class="breadcrumb-item"><a href="#">Accounts</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Journals</li>
+                      <li class="breadcrumb-item active" aria-current="page">Vouchers</li>
                     </ol>
                   </nav>
                 </div>
@@ -740,60 +757,62 @@
               <div class="kpi-header">
                 <span class="kpi-label">Total Vouchers</span>
                 <div class="icon-small bg-light-primary">
-                  <i class="fas fa-file-alt text-primary"></i>
+                  <i class="fas fa-file-invoice text-primary"></i>
                 </div>
               </div>
               <div class="kpi-amount-main" id="totalVouchers">0</div>
               <div class="kpi-sub">
-                <span>Total journal entries</span>
+                <span>Total voucher entries</span>
                 <span class="count-badge" id="totalCount">0</span>
               </div>
             </div>
 
             <div class="kpi-card-new">
               <div class="kpi-header">
-                <span class="kpi-label">Active Vouchers</span>
+                <span class="kpi-label">Total Amount</span>
                 <div class="icon-small bg-light-success">
-                  <i class="fas fa-check-circle text-success"></i>
+                  <i class="fas fa-rupee-sign text-success"></i>
                 </div>
               </div>
-              <div class="kpi-amount-main" id="activeVouchers">0</div>
+              <div class="kpi-amount-main" id="totalAmount">₹0</div>
               <div class="kpi-sub">
-                <span>Active entries</span>
-                <span class="count-badge" id="activeCount">0</span>
+                <span>Aggregate value</span>
+                <span class="count-badge" id="amountCount">0</span>
               </div>
             </div>
 
             <div class="kpi-card-new">
               <div class="kpi-header">
-                <span class="kpi-label">Inactive Vouchers</span>
+                <span class="kpi-label">Pending Approvals</span>
                 <div class="icon-small bg-light-warning">
-                  <i class="fas fa-ban text-warning"></i>
+                  <i class="fas fa-clock text-warning"></i>
                 </div>
               </div>
-              <div class="kpi-amount-main" id="inactiveVouchers">0</div>
+              <div class="kpi-amount-main" id="pendingVouchers">0</div>
               <div class="kpi-sub">
-                <span>Inactive entries</span>
-                <span class="count-badge" id="inactiveCount">0</span>
+                <span>Awaiting approval</span>
+                <span class="count-badge" id="pendingCount">0</span>
               </div>
             </div>
           </div>
 
-          <!-- Journal Vouchers Table Section -->
+          <!-- Vouchers Table Section -->
           <div class="card overflow-hidden p-4">
             <div class="unified-actions-card">
               <div class="search-inline">
                 <i class="fas fa-search"></i>
-                <input type="text" id="globalSearchInput" placeholder="Search by voucher number, description..." autocomplete="off">
+                <input type="text" id="globalSearchInput" placeholder="Search by description, voucher no..." autocomplete="off">
               </div>
 
               <div class="tabs-centered">
-                <button class="journal-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
-                <button class="journal-tab" data-tab="active"><i class="fas fa-check-circle"></i> Active <span class="tab-count" id="countActiveTab">0</span></button>
-                <button class="journal-tab" data-tab="inactive"><i class="fas fa-ban"></i> Inactive <span class="tab-count" id="countInactiveTab">0</span></button>
+                <button class="voucher-tab active" data-tab="all"><i class="fas fa-layer-group"></i> All <span class="tab-count" id="countAll">0</span></button>
+                <button class="voucher-tab" data-tab="approved"><i class="fas fa-check-circle"></i> Approved <span class="tab-count" id="countApproved">0</span></button>
+                <button class="voucher-tab" data-tab="pending"><i class="fas fa-clock"></i> Pending <span class="tab-count" id="countPending">0</span></button>
+                <button class="voucher-tab" data-tab="draft"><i class="fas fa-pen"></i> Draft <span class="tab-count" id="countDraft">0</span></button>
               </div>
-               <div class="filter-group">
-                <select id="financialYearFilter" class="form-select">
+              
+              <div class="filter-group">
+                <select id="financialYearFilter" class="form-select" style="width: 160px;">
                   <option value="all">All Financial Years</option>
                   <option value="2025-26">2025-26</option>
                   <option value="2024-25">2024-25</option>
@@ -801,29 +820,31 @@
                   <option value="2022-23">2022-23</option>
                 </select>
               </div>
+              
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-journal.html'"><i class="fas fa-plus me-2"></i>Create Journal</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-voucher.html'"><i class="fas fa-plus me-2"></i>Create Voucher</button>
               </div>
             </div>
 
-            <div class="journal-table-wrapper">
-              <table class="journal-table align-middle mb-0 w-100">
+            <div class="voucher-table-wrapper">
+              <table class="voucher-table align-middle mb-0 w-100">
                 <thead>
                   <tr>
                     <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
                     <th>S.No</th>
-                    <th>JV Description</th>
+                    <th>Description</th>
                     <th>Voucher No</th>
                     <th>Date</th>
+                    <th>Amount</th>
                     <th>Status</th>
                     <th>Created On</th>
-                    <th>Updated On</th>
                     <th>Created By</th>
+                    <th>Last Updated On</th>
                     <th>Last Updated By</th>
                     <th style="width:100px;">Action</th>
                   </tr>
                 </thead>
-                <tbody id="journalTableBody"></tbody>
+                <tbody id="voucherTableBody"></tbody>
               </table>
             </div>
             
@@ -859,17 +880,20 @@
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
   <script>
-    let journalVouchers = [
-      { id: 1, description: 'Purchase of Office Equipment', voucherNo: 'JV-2025-001', date: '2025-04-01', status: 'Active', createdOn: '2025-04-01 10:30 AM', updatedOn: '2025-04-01 10:30 AM', createdBy: 'John Doe', lastUpdatedBy: 'John Doe', financialYear: '2025-26' },
-      { id: 2, description: 'Salary Payment Adjustment', voucherNo: 'JV-2025-002', date: '2025-04-05', status: 'Active', createdOn: '2025-04-05 02:15 PM', updatedOn: '2025-04-05 02:15 PM', createdBy: 'Jane Smith', lastUpdatedBy: 'Jane Smith', financialYear: '2025-26' },
-      { id: 3, description: 'Depreciation Entry', voucherNo: 'JV-2025-003', date: '2025-03-28', status: 'Inactive', createdOn: '2025-03-28 11:45 AM', updatedOn: '2025-04-02 09:20 AM', createdBy: 'Admin', lastUpdatedBy: 'Admin', financialYear: '2024-25' },
-      { id: 4, description: 'Bank Charges Adjustment', voucherNo: 'JV-2025-004', date: '2025-03-15', status: 'Active', createdOn: '2025-03-15 09:00 AM', updatedOn: '2025-03-15 09:00 AM', createdBy: 'Sarah Wilson', lastUpdatedBy: 'Sarah Wilson', financialYear: '2024-25' },
-      { id: 5, description: 'Fixed Asset Purchase', voucherNo: 'JV-2025-005', date: '2025-04-10', status: 'Active', createdOn: '2025-04-10 03:30 PM', updatedOn: '2025-04-10 03:30 PM', createdBy: 'David Brown', lastUpdatedBy: 'David Brown', financialYear: '2025-26' },
-      { id: 6, description: 'Prepaid Expenses', voucherNo: 'JV-2025-006', date: '2025-02-20', status: 'Inactive', createdOn: '2025-02-20 12:00 PM', updatedOn: '2025-03-01 10:15 AM', createdBy: 'Emily Davis', lastUpdatedBy: 'Robert Lee', financialYear: '2024-25' },
-      { id: 7, description: 'Accrued Revenue', voucherNo: 'JV-2025-007', date: '2025-04-12', status: 'Active', createdOn: '2025-04-12 01:20 PM', updatedOn: '2025-04-12 01:20 PM', createdBy: 'Mike Johnson', lastUpdatedBy: 'Mike Johnson', financialYear: '2025-26' },
-      { id: 8, description: 'Loan Interest Adjustment', voucherNo: 'JV-2025-008', date: '2025-03-25', status: 'Active', createdOn: '2025-03-25 04:00 PM', updatedOn: '2025-03-25 04:00 PM', createdBy: 'Priya Mehta', lastUpdatedBy: 'Priya Mehta', financialYear: '2024-25' },
-      { id: 9, description: 'Tax Provision Entry', voucherNo: 'JV-2025-009', date: '2025-04-08', status: 'Active', createdOn: '2025-04-08 11:30 AM', updatedOn: '2025-04-08 11:30 AM', createdBy: 'Arjun Nair', lastUpdatedBy: 'Arjun Nair', financialYear: '2025-26' },
-      { id: 10, description: 'Write-off Bad Debts', voucherNo: 'JV-2025-010', date: '2025-03-05', status: 'Inactive', createdOn: '2025-03-05 02:00 PM', updatedOn: '2025-03-20 09:45 AM', createdBy: 'Neha Gupta', lastUpdatedBy: 'Neha Gupta', financialYear: '2024-25' }
+    // Voucher Data - with financial year for filtering
+    let vouchers = [
+      { id: 1, description: 'Office Rent Payment', voucherNo: 'VCH-2025-001', date: '2025-04-01', amount: 25000, status: 'approved', financialYear: '2025-26', createdOn: '2025-04-01 10:30 AM', createdBy: 'John Doe', lastUpdatedOn: '2025-04-01 10:30 AM', lastUpdatedBy: 'John Doe' },
+      { id: 2, description: 'Customer Receipt - ABC Corp', voucherNo: 'VCH-2025-002', date: '2025-04-05', amount: 150000, status: 'approved', financialYear: '2025-26', createdOn: '2025-04-05 02:15 PM', createdBy: 'Jane Smith', lastUpdatedOn: '2025-04-05 02:15 PM', lastUpdatedBy: 'Jane Smith' },
+      { id: 3, description: 'Supplier Payment - XYZ Ltd', voucherNo: 'VCH-2025-003', date: '2025-03-28', amount: 75000, status: 'pending', financialYear: '2024-25', createdOn: '2025-03-28 11:45 AM', createdBy: 'Admin', lastUpdatedOn: '2025-04-02 09:20 AM', lastUpdatedBy: 'Admin' },
+      { id: 4, description: 'Bank Transfer - Savings to Current', voucherNo: 'VCH-2025-004', date: '2025-03-15', amount: 50000, status: 'approved', financialYear: '2024-25', createdOn: '2025-03-15 09:00 AM', createdBy: 'Sarah Wilson', lastUpdatedOn: '2025-03-15 09:00 AM', lastUpdatedBy: 'Sarah Wilson' },
+      { id: 5, description: 'Software Subscription Payment', voucherNo: 'VCH-2025-005', date: '2025-04-10', amount: 12000, status: 'draft', financialYear: '2025-26', createdOn: '2025-04-10 03:30 PM', createdBy: 'David Brown', lastUpdatedOn: '2025-04-10 03:30 PM', lastUpdatedBy: 'David Brown' },
+      { id: 6, description: 'Interest Income Received', voucherNo: 'VCH-2025-006', date: '2025-02-20', amount: 8500, status: 'approved', financialYear: '2024-25', createdOn: '2025-02-20 12:00 PM', createdBy: 'Emily Davis', lastUpdatedOn: '2025-03-01 10:15 AM', lastUpdatedBy: 'Robert Lee' },
+      { id: 7, description: 'Advance to Vendor - Office Supplies', voucherNo: 'VCH-2025-007', date: '2025-04-12', amount: 35000, status: 'pending', financialYear: '2025-26', createdOn: '2025-04-12 01:20 PM', createdBy: 'Mike Johnson', lastUpdatedOn: '2025-04-12 01:20 PM', lastUpdatedBy: 'Mike Johnson' },
+      { id: 8, description: 'Loan Repayment Entry', voucherNo: 'VCH-2025-008', date: '2025-03-25', amount: 100000, status: 'approved', financialYear: '2024-25', createdOn: '2025-03-25 04:00 PM', createdBy: 'Priya Mehta', lastUpdatedOn: '2025-03-25 04:00 PM', lastUpdatedBy: 'Priya Mehta' },
+      { id: 9, description: 'Cash Deposit to Bank', voucherNo: 'VCH-2025-009', date: '2025-04-08', amount: 45000, status: 'approved', financialYear: '2025-26', createdOn: '2025-04-08 11:30 AM', createdBy: 'Arjun Nair', lastUpdatedOn: '2025-04-08 11:30 AM', lastUpdatedBy: 'Arjun Nair' },
+      { id: 10, description: 'Professional Fees Received', voucherNo: 'VCH-2025-010', date: '2025-03-05', amount: 25000, status: 'draft', financialYear: '2024-25', createdOn: '2025-03-05 02:00 PM', createdBy: 'Neha Gupta', lastUpdatedOn: '2025-03-20 09:45 AM', lastUpdatedBy: 'Neha Gupta' },
+      { id: 11, description: 'Annual Maintenance Contract', voucherNo: 'VCH-2025-011', date: '2023-04-15', amount: 18000, status: 'approved', financialYear: '2023-24', createdOn: '2023-04-15 11:00 AM', createdBy: 'Rajesh Kumar', lastUpdatedOn: '2023-04-15 11:00 AM', lastUpdatedBy: 'Rajesh Kumar' },
+      { id: 12, description: 'Insurance Premium Payment', voucherNo: 'VCH-2025-012', date: '2022-06-10', amount: 22000, status: 'approved', financialYear: '2022-23', createdOn: '2022-06-10 09:30 AM', createdBy: 'Sunil Mehta', lastUpdatedOn: '2022-06-10 09:30 AM', lastUpdatedBy: 'Sunil Mehta' }
     ];
     
     let currentTab = 'all', currentPage = 1, rowsPerPage = 8;
@@ -877,7 +901,13 @@
     let currentFinancialYear = 'all';
 
     function getStatusClass(status) {
-      return status === 'Active' ? 'status-active' : 'status-inactive';
+      const map = { 'approved': 'status-approved', 'pending': 'status-pending', 'draft': 'status-draft', 'cancelled': 'status-cancelled' };
+      return map[status] || 'status-draft';
+    }
+
+    function getStatusIcon(status) {
+      const map = { 'approved': 'fa-check-circle', 'pending': 'fa-clock', 'draft': 'fa-pen', 'cancelled': 'fa-ban' };
+      return map[status] || 'fa-file';
     }
 
     function showToast(msg) { 
@@ -887,46 +917,44 @@
       setTimeout(() => t.style.display = 'none', 2200); 
     }
 
-    function redirectToJournalDetail(voucherNo) { 
-      window.location.href = `journal-detail.html?id=${voucherNo}`; 
-    }
-
-    function filterJournals() {
+    function filterVouchers() {
       let search = currentSearchTerm.toLowerCase();
-      return journalVouchers.filter(jv => {
+      return vouchers.filter(v => {
         let matchSearch = search === '' || 
-          jv.description.toLowerCase().includes(search) || 
-          jv.voucherNo.toLowerCase().includes(search);
+          v.description.toLowerCase().includes(search) || 
+          v.voucherNo.toLowerCase().includes(search);
         
-        let matchFinancialYear = currentFinancialYear === 'all' || jv.financialYear === currentFinancialYear;
+        let matchFinancialYear = currentFinancialYear === 'all' || v.financialYear === currentFinancialYear;
         
         if (currentTab === 'all') return matchSearch && matchFinancialYear;
-        if (currentTab === 'active') return jv.status === 'Active' && matchSearch && matchFinancialYear;
-        if (currentTab === 'inactive') return jv.status === 'Inactive' && matchSearch && matchFinancialYear;
-        return matchSearch && matchFinancialYear;
+        return v.status === currentTab && matchSearch && matchFinancialYear;
       });
     }
 
     function updateKPIs() {
-      let total = journalVouchers.length;
-      let active = journalVouchers.filter(j => j.status === 'Active').length;
-      let inactive = journalVouchers.filter(j => j.status === 'Inactive').length;
+      let allVouchers = vouchers;
+      let total = allVouchers.length;
+      let totalAmount = allVouchers.reduce((sum, v) => sum + v.amount, 0);
+      let pending = allVouchers.filter(v => v.status === 'pending').length;
+      let approved = allVouchers.filter(v => v.status === 'approved').length;
+      let draft = allVouchers.filter(v => v.status === 'draft').length;
 
       document.getElementById('totalVouchers').innerText = total;
-      document.getElementById('activeVouchers').innerText = active;
-      document.getElementById('inactiveVouchers').innerText = inactive;
+      document.getElementById('totalAmount').innerText = '₹' + totalAmount.toLocaleString('en-IN');
+      document.getElementById('pendingVouchers').innerText = pending;
 
       document.getElementById('totalCount').innerText = total;
-      document.getElementById('activeCount').innerText = active;
-      document.getElementById('inactiveCount').innerText = inactive;
+      document.getElementById('amountCount').innerText = total;
+      document.getElementById('pendingCount').innerText = pending;
 
       document.getElementById('countAll').innerText = total;
-      document.getElementById('countActiveTab').innerText = active;
-      document.getElementById('countInactiveTab').innerText = inactive;
+      document.getElementById('countApproved').innerText = approved;
+      document.getElementById('countPending').innerText = pending;
+      document.getElementById('countDraft').innerText = draft;
     }
 
     function renderTable() {
-      let filtered = filterJournals();
+      let filtered = filterVouchers();
       let total = filtered.length;
       let totalPages = Math.ceil(total / rowsPerPage);
       
@@ -936,34 +964,36 @@
       let start = (currentPage - 1) * rowsPerPage;
       let end = Math.min(start + rowsPerPage, total);
       let pageData = filtered.slice(start, end);
-      let tbody = document.getElementById('journalTableBody');
+      let tbody = document.getElementById('voucherTableBody');
       tbody.innerHTML = '';
       
       if (pageData.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="11" class="text-center py-5 text-muted">No journal vouchers found</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="12" class="text-center py-5 text-muted">No vouchers found</td></tr>';
       } else {
-        pageData.forEach((jv, idx) => {
+        pageData.forEach((v, idx) => {
           let sno = start + idx + 1;
-          let statusClass = getStatusClass(jv.status);
+          let statusClass = getStatusClass(v.status);
+          let statusIcon = getStatusIcon(v.status);
           let row = `<tr>
-            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${jv.id}"></td>
+            <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${v.id}"></td>
             <td>${sno}</td>
-            <td class="fw-medium">${escapeHtml(jv.description)}</td>
-            <td><span class="voucher-link" data-id="${jv.voucherNo}" style="cursor:pointer; color:#2a3b82; font-weight:600;">${jv.voucherNo}</span></td>
-            <td>${jv.date}</td>
-            <td><span class="status-badge ${statusClass}">${jv.status}</span></td>
-            <td>${jv.createdOn}</td>
-            <td>${jv.updatedOn}</td>
-            <td>${escapeHtml(jv.createdBy)}</td>
-            <td>${escapeHtml(jv.lastUpdatedBy)}</td>
+            <td class="fw-medium">${escapeHtml(v.description)}</td>
+            <td><span class="voucher-link" data-id="${v.voucherNo}" style="cursor:pointer; color:#2a3b82; font-weight:600;">${v.voucherNo}</span></td>
+            <td>${v.date}</td>
+            <td class="fw-semibold">₹ ${v.amount.toLocaleString('en-IN')}</td>
+            <td><span class="status-badge ${statusClass}"><i class="fas ${statusIcon} me-1"></i> ${v.status.charAt(0).toUpperCase() + v.status.slice(1)}</span></td>
+            <td>${v.createdOn}</td>
+            <td>${escapeHtml(v.createdBy)}</td>
+            <td>${v.lastUpdatedOn}</td>
+            <td>${escapeHtml(v.lastUpdatedBy)}</td>
             <td><div class="dropdown action-dropdown"><button class="action-btn dropdown-toggle-no-caret" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
               <ul class="dropdown-menu dropdown-menu-end">
-                <li><a class="dropdown-item" href="#" onclick="viewJournal('${jv.voucherNo}')">View</a></li>
-                <li><a class="dropdown-item" href="#" onclick="editJournal(${jv.id})"> Edit</a></li>
+                <li><a class="dropdown-item" href="#" onclick="viewVoucher('${v.voucherNo}')">View</a></li>
+                <li><a class="dropdown-item" href="#" onclick="editVoucher(${v.id})">Edit</a></li>
                 <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item text-danger" href="#" onclick="deleteJournal(${jv.id})"> Delete</a></li>
+                <li><a class="dropdown-item text-danger" href="#" onclick="deleteVoucher(${v.id})">Delete</a></li>
               </ul></div></td>
-          </table>`;
+          </tr>`;
           tbody.insertAdjacentHTML('beforeend', row);
         });
       }
@@ -984,13 +1014,13 @@
         pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
       }
       
-      document.querySelectorAll('.voucher-link').forEach(el => el.addEventListener('click', (e) => redirectToJournalDetail(el.getAttribute('data-id'))));
+      document.querySelectorAll('.voucher-link').forEach(el => el.addEventListener('click', (e) => viewVoucher(el.getAttribute('data-id'))));
       const selectAll = document.getElementById('selectAllCheckbox');
       if (selectAll) selectAll.onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     }
 
     function changePage(p) { 
-      let filtered = filterJournals(); 
+      let filtered = filterVouchers(); 
       let pages = Math.ceil(filtered.length / rowsPerPage); 
       if (p >= 1 && p <= pages) { 
         currentPage = p; 
@@ -1023,30 +1053,31 @@
       });
     }
 
-    function viewJournal(voucherNo) {
-      window.location.href = `journal-detail.html?id=${voucherNo}`;
+    function viewVoucher(voucherNo) {
+      showToast('Viewing voucher: ' + voucherNo);
+      // window.location.href = `voucher-detail.html?id=${voucherNo}`;
     }
     
-    function editJournal(id) {
-      let jv = journalVouchers.find(j => j.id === id);
-      if (jv) window.location.href = `edit-journal.html?id=${jv.voucherNo}`;
+    function editVoucher(id) {
+      let v = vouchers.find(v => v.id === id);
+      if (v) showToast('Edit voucher: ' + v.voucherNo);
     }
     
-    function deleteJournal(id) {
-      if (confirm('Delete this journal voucher?')) {
-        journalVouchers = journalVouchers.filter(j => j.id !== id);
+    function deleteVoucher(id) {
+      if (confirm('Delete this voucher?')) {
+        vouchers = vouchers.filter(v => v.id !== id);
         updateKPIs();
-        let filtered = filterJournals();
+        let filtered = filterVouchers();
         let maxPage = Math.ceil(filtered.length / rowsPerPage);
         if (currentPage > maxPage && maxPage > 0) currentPage = maxPage;
         if (filtered.length === 0) currentPage = 1;
         renderTable();
-        showToast('Journal voucher deleted successfully');
+        showToast('Voucher deleted successfully');
       }
     }
 
-    document.querySelectorAll('.journal-tab').forEach(btn => btn.addEventListener('click', () => {
-      document.querySelectorAll('.journal-tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.voucher-tab').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.voucher-tab').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       currentTab = btn.dataset.tab;
       currentPage = 1;
@@ -1058,11 +1089,10 @@
     renderTable();
 
     // Make functions global for onclick handlers
-    window.viewJournal = viewJournal;
-    window.editJournal = editJournal;
-    window.deleteJournal = deleteJournal;
+    window.viewVoucher = viewVoucher;
+    window.editVoucher = editVoucher;
+    window.deleteVoucher = deleteVoucher;
     window.changePage = changePage;
-    window.redirectToJournalDetail = redirectToJournalDetail;
     
     function handleLogout() { 
       if (confirm('Logout?')) window.location.href = 'login.html'; 
