@@ -138,7 +138,7 @@
   display: flex;
   align-items: center;
   padding: 10px 16px;
-  color: #5b6e8c;
+  color: #242424;
   text-decoration: none;
   border-radius: 8px;
   transition: all 0.2s ease;

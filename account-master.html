@@ -148,8 +148,50 @@
       height: calc(100vh - 200px);
       overflow-y: auto;
     }
+    
+    /* Minimal Delete Modal */
+    .minimal-delete-modal .modal-content {
+      border: none;
+      border-radius: 20px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+      overflow: hidden;
+    }
+    .minimal-delete-modal .modal-header {
+      border-bottom: none;
+      padding: 1.5rem 1.5rem 0 1.5rem;
+    }
+    .minimal-delete-modal .modal-body {
+      padding: 1rem 1.5rem;
+      text-align: center;
+    }
+    .minimal-delete-modal .modal-footer {
+      border-top: none;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      justify-content: center;
+      gap: 12px;
+    }
+    .minimal-delete-modal .btn {
+      border-radius: 40px;
+      padding: 8px 20px;
+      font-weight: 500;
+    }
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 48px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
   </style>
-
 </head>
 
 <body>
@@ -528,7 +570,7 @@
                     <textarea class="form-control" id="description" rows="3" placeholder="Optional description"></textarea>
                   </div>
 
-                  <div class="d-flex gap-3">
+                  <div class="d-flex justify-content-end gap-3">
                     <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="resetBtn">
                       <i class="fas fa-undo-alt me-2"></i>Reset
                     </button>
@@ -546,20 +588,20 @@
     </div>
   </div>
 
-  <!-- Delete Confirmation Modal -->
-  <div class="modal fade" id="deleteModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
+  <!-- Minimal Delete Confirmation Modal -->
+  <div class="modal fade minimal-delete-modal" id="deleteModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-header bg-danger text-white">
-          <h5 class="modal-title text-white"><i class="fas fa-trash-alt me-2"></i>Delete Account</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+        <div class="modal-header">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
-          <p>Are you sure you want to delete account <strong id="deleteAccountName"></strong>?</p>
-          <p class="text-muted small mb-0">This action cannot be undone. All sub-accounts will also be deleted.</p>
+          <i class="fas fa-trash-alt text-danger mb-3" style="font-size: 2rem;"></i>
+          <h5 class="mb-2">Delete Account?</h5>
+          <p class="text-muted mb-0">Are you sure you want to delete <strong id="deleteAccountName"></strong>? This action cannot be undone. All sub-accounts will also be deleted.</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-dark" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
           <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
         </div>
       </div>
@@ -579,22 +621,30 @@
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
 <script>
-    // Account Data Structure
+    // Account Data Structure - Parent accounts only (not expanded initially)
     let accounts = [
-      { id: "assets", name: "Assets", code: "1", parent: null, type: "assets", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "assets_current", name: "Current Assets", code: "1.1", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "assets_cash", name: "Cash", code: "1.1.1", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "assets_cash_on_hand", name: "Cash On Hand", code: "1.1.1.1", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 5000, description: "Physical cash in office" },
-      { id: "assets_sundry_debtors", name: "Sundry Debtors", code: "1.1.2", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "assets_banks", name: "Banks", code: "1.1.3", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "assets_fixed", name: "Fixed Assets", code: "1.2", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "assets_other", name: "Other Current Assets", code: "1.3", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "" },
-      { id: "bank_hdfc", name: "HDFC Bank", code: "1.1.3.1", parent: "assets_banks", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 25000, description: "HDFC Current Account" },
-      { id: "bank_sbi", name: "SBI Bank", code: "1.1.3.2", parent: "assets_banks", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 15000, description: "SBI Business Account" },
-      { id: "debtor_abc", name: "ABC Enterprises", code: "1.1.2.1", parent: "assets_sundry_debtors", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 50000, description: "Outstanding receivables" },
+      { id: "assets", name: "Assets", code: "1", parent: null, type: "assets", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "liabilities", name: "Liabilities", code: "2", parent: null, type: "liabilities", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "equity", name: "Equity", code: "3", parent: null, type: "equity", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "income", name: "Income", code: "4", parent: null, type: "income", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "expense", name: "Expense", code: "5", parent: null, type: "expense", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      
+      // Sub-parents (will be hidden until parent expanded)
+      { id: "assets_current", name: "Current Assets", code: "1.1", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "assets_fixed", name: "Fixed Assets", code: "1.2", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "assets_cash", name: "Cash & Bank", code: "1.1.1", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "assets_sundry_debtors", name: "Sundry Debtors", code: "1.1.2", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "liab_current", name: "Current Liabilities", code: "2.1", parent: "liabilities", type: "liabilities", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "income_operating", name: "Operating Revenue", code: "4.1", parent: "income", type: "income", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      { id: "expense_direct", name: "Direct Expenses", code: "5.1", parent: "expense", type: "expense", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
+      
+      // Leaf accounts (demo)
+      { id: "bank_hdfc", name: "HDFC Bank", code: "1.1.1.1", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 25000, description: "HDFC Current Account", isSystem: false },
+      { id: "bank_sbi", name: "SBI Bank", code: "1.1.1.2", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 15000, description: "SBI Business Account", isSystem: false },
+      { id: "debtor_abc", name: "ABC Enterprises", code: "1.1.2.1", parent: "assets_sundry_debtors", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 50000, description: "Outstanding receivables", isSystem: false },
+      { id: "creditor_xyz", name: "XYZ Suppliers", code: "2.1.1", parent: "liab_current", type: "liabilities", level: 2, isFolder: false, expanded: false, openingBalance: 12000, description: "Trade payable", isSystem: false }
     ];
 
-    let nextId = 100;
     let selectedAccountId = null;
     let accountToDelete = null;
 
@@ -602,8 +652,8 @@
 
     function generateAccountCode(parentId) {
       if (!parentId) {
-        const assetsCount = accounts.filter(a => a.parent === null).length + 1;
-        return String(assetsCount);
+        const rootCount = accounts.filter(a => a.parent === null).length + 1;
+        return String(rootCount);
       }
       const parent = accounts.find(a => a.id === parentId);
       if (parent) {
@@ -639,7 +689,7 @@
         div.classList.add('active');
       }
       
-      // Toggle icon for folders
+      // Toggle icon for folders with children
       if (hasChildren || account.isFolder) {
         const toggleSpan = document.createElement('span');
         toggleSpan.className = 'toggle-icon';
@@ -679,8 +729,8 @@
       typeBadge.innerText = account.type.charAt(0).toUpperCase() + account.type.slice(1);
       div.appendChild(typeBadge);
       
-      // Actions for user-created accounts
-      if (!account.isSystem && account.id !== 'assets' && account.id !== 'liabilities' && account.id !== 'equity' && account.id !== 'income' && account.id !== 'expense') {
+      // Actions for non-system accounts (user editable)
+      if (!account.isSystem) {
         const actionsDiv = document.createElement('div');
         actionsDiv.className = 'account-actions';
         
@@ -833,13 +883,15 @@
         }
       } else {
         const newId = 'acc_' + Date.now();
+        const parentObj = accounts.find(a => a.id === parentId);
+        const newLevel = parentObj ? parentObj.level + 1 : 0;
         const newAccount = {
           id: newId,
           name: accountName,
           code: accountCode,
           parent: parentId || null,
           type: accountType,
-          level: parentId ? (accounts.find(a => a.id === parentId)?.level || 0) + 1 : 0,
+          level: newLevel,
           isFolder: false,
           isSystem: false,
           expanded: false,
@@ -865,40 +917,20 @@
       const select = document.getElementById('parentAccount');
       if (!select) return;
       
-      const mainOptions = [
-        { value: "", label: "-- Select Parent Account (Optional) --" },
-        { value: "assets", label: "Assets" },
-        { value: "assets_current", label: "  └ Current Assets" },
-        { value: "assets_cash", label: "    └ Cash" },
-        { value: "assets_sundry_debtors", label: "    └ Sundry Debtors" },
-        { value: "assets_banks", label: "    └ Banks" },
-        { value: "assets_fixed", label: "  └ Fixed Assets" },
-        { value: "assets_other", label: "  └ Other Current Assets" },
-        { value: "liabilities", label: "Liabilities" },
-        { value: "equity", label: "Equity" },
-        { value: "income", label: "Income" },
-        { value: "expense", label: "Expense" }
-      ];
+      const options = [{ value: "", label: "-- Select Parent Account (Optional) --" }];
       
-      const dynamicOptions = [];
+      // Add all folder accounts as potential parents
       accounts.forEach(acc => {
-        if (!acc.isSystem && acc.id !== 'assets' && acc.id !== 'liabilities' && acc.id !== 'equity' && acc.id !== 'income' && acc.id !== 'expense') {
-          dynamicOptions.push({ value: acc.id, label: "  └ " + acc.name });
+        if (acc.isFolder && acc.id !== selectedAccountId) {
+          const indent = "  ".repeat(acc.level);
+          options.push({ value: acc.id, label: indent + "└ " + acc.name + ` (${acc.type})` });
         }
       });
       
-      select.innerHTML = [...mainOptions, ...dynamicOptions].map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
+      select.innerHTML = options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
     }
 
     function init() {
-      accounts.forEach(acc => {
-        if (acc.id === 'assets' || acc.id === 'liabilities' || acc.id === 'equity' || acc.id === 'income' || acc.id === 'expense' ||
-            acc.id === 'assets_current' || acc.id === 'assets_cash' || acc.id === 'assets_sundry_debtors' || acc.id === 'assets_banks' ||
-            acc.id === 'assets_fixed' || acc.id === 'assets_other') {
-          acc.isSystem = true;
-        }
-      });
-      
       buildParentOptions();
       renderTree();
     }
