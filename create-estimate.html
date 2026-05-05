@@ -14,6 +14,12 @@
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
   <style>
+    #coverLetterText{
+      min-height: 160px;
+    }
+    #termsText{
+      min-height: 160px;
+    }
     .btn-theme-primary {
       background: #233578;
       color: white;
@@ -432,14 +438,17 @@
     }
 
     .step-indicator:before {
-      content: '';
-      position: absolute;
-      top: 20px;
-      left: 50px;
-      right: 50px;
-      height: 2px;
-      background: #e2e8f0;
-      z-index: 1;
+          content: '';
+    position: absolute;
+    margin-left: auto;
+    top: 20px;
+    left: 0;
+    width: 370px;
+    right: 0;
+    height: 2px;
+    background: #e2e8f0;
+    z-index: 1;
+    margin-right: auto;
     }
 
     .step-item {
@@ -1144,73 +1153,109 @@
   </div>
 
 
-  <div class="modal fade" id="customerCreateModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Create New Customer</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="step-indicator">
-            <div class="step-item active">
-              <div class="step-circle">1</div>
-              <div class="step-label">Basic Info</div>
-            </div>
-            <div class="step-item">
-              <div class="step-circle">2</div>
-              <div class="step-label">Address</div>
-            </div>
-          </div>
-          <div id="step1" class="form-step active-step">
-            <div class="row g-3">
-              <div class="col-12"><label>Company Name *</label><input type="text" id="newCustName" class="form-control">
+           <div class="modal fade modal-rounded" id="customerCreateModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header border-0 pt-4">
+                  <h5 class="modal-title fw-bold">Create New Customer</h5><button type="button" class="btn-close"
+                    data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                  <div class="step-indicator">
+                    <div class="step-item active" data-step="1">
+                      <div class="step-circle">1</div>
+                      <div class="step-label">Basic Info</div>
+                    </div>
+                    <div class="step-item" data-step="2">
+                      <div class="step-circle">2</div>
+                      <div class="step-label">Address Details</div>
+                    </div>
+                  </div>
+                  <div id="step1" class="form-step active-step">
+                    <div class="row g-3">
+                      <div class="col-md-12"><label class="form-label fw-semibold">Company Name <span
+                            class="text-danger">*</span></label><input type="text" id="newCustNameModal"
+                          class="form-control form-sleek" placeholder="Enter company name"></div>
+                      <div class="col-md-6"><label class="form-label fw-semibold">Customer ID (Optional)</label><input
+                          type="text" id="newCustIdModal" class="form-control form-sleek"
+                          placeholder="Auto-generated if empty"></div>
+                      <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
+                          id="newCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div>
+                      <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input
+                          type="email" id="newCustEmail" class="form-control form-sleek"
+                          placeholder="customer@example.com"></div>
+                      <div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
+                          id="newCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
+                    </div>
+                  </div>
+                  <div id="step2" class="form-step">
+                    <div class="row g-3">
+                      <div class="col-12">
+                        <h6 class="fw-bold mb-3">Billing Address</h6>
+                      </div>
+                      <div class="col-12"><label class="form-label">Address Line</label><textarea id="billAddress"
+                          class="form-control form-sleek" rows="2"
+                          placeholder="Street address, P.O. Box, etc."></textarea></div>
+                      <div class="col-md-4"><label class="form-label">City</label><input id="billCity"
+                          class="form-control form-sleek" placeholder="City"></div>
+                      <div class="col-md-4"><label class="form-label">State</label><input id="billState"
+                          class="form-control form-sleek" placeholder="State"></div>
+                      <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip"
+                          class="form-control form-sleek" placeholder="Postal code"></div>
+                      <div class="col-12 mt-3">
+                        <div class="form-check mb-2"><input class="form-check-input" type="checkbox"
+                            id="sameAsBilling"><label class="form-check-label fw-semibold"> Same as Billing
+                            Address</label></div>
+                        <h6 class="fw-bold mb-3">Shipping Address</h6>
+                      </div>
+                      <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress"
+                          class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div>
+                      <div class="col-md-4"><label class="form-label">City</label><input id="shipCity"
+                          class="form-control form-sleek" placeholder="City"></div>
+                      <div class="col-md-4"><label class="form-label">State</label><input id="shipState"
+                          class="form-control form-sleek" placeholder="State"></div>
+                      <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip"
+                          class="form-control form-sleek" placeholder="Postal code"></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill" id="prevStepBtn"
+                    disabled>Previous</button><button class="btn btn-primary rounded-pill px-4"
+                    id="nextStepBtn">Next</button><button class="btn btn-success rounded-pill px-4"
+                    id="submitCustomerBtn" style="display:none;">Create Customer</button></div>
               </div>
-              <div class="col-6"><label>GST Number</label><input type="text" id="newCustGst" class="form-control"></div>
-              <div class="col-6"><label>Phone</label><input type="text" id="newCustPhone" class="form-control"></div>
-              <div class="col-12"><label>Email</label><input type="email" id="newCustEmail" class="form-control"></div>
             </div>
           </div>
-          <div id="step2" class="form-step">
-            <div class="row g-3">
-              <div class="col-12"><label>Address Line</label><textarea id="newCustAddress" class="form-control"
-                  rows="2"></textarea></div>
-              <div class="col-4"><label>City</label><input id="newCustCity" class="form-control"></div>
-              <div class="col-4"><label>State</label><input id="newCustState" class="form-control"></div>
-              <div class="col-4"><label>ZIP</label><input id="newCustZip" class="form-control"></div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-secondary" id="prevStepBtn" disabled>Previous</button>
-          <button class="btn btn-primary" id="nextStepBtn">Next</button>
-          <button class="btn btn-success" id="submitCustomerBtn" style="display:none;">Create</button></div>
-      </div>
-    </div>
-  </div>
 
-  <div class="modal fade" id="editCustomerModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Customer</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="row g-3">
-            <div class="col-12"><label>Company Name</label><input type="text" id="editCustomerName"
-                class="form-control"></div>
-            <div class="col-12"><label>Address</label><textarea id="editCustomerAddress" class="form-control"
-                rows="2"></textarea></div>
-            <div class="col-6"><label>GST</label><input id="editCustomerGST" class="form-control"></div>
-            <div class="col-6"><label>Phone</label><input id="editCustomerPhone" class="form-control"></div>
-            <div class="col-12"><label>Email</label><input id="editCustomerEmail" class="form-control"></div>
+          <div class="modal fade" id="editCustomerModal" tabindex="-1">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Customer</h5><button type="button" class="btn-close"
+                    data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body p-4">
+                  <div class="row g-3">
+                    <div class="col-12"><label>Company Name</label><input type="text" id="editCustomerName"
+                        class="form-control"></div>
+                    <div class="col-12"><label>Address</label><textarea id="editCustomerAddress" class="form-control"
+                        rows="2"></textarea></div>
+                    <div class="col-12"><label>State</label><input type="text" id="editCustomerState"
+                        class="form-control" placeholder="State"></div>
+                    <div class="col-12"><label>GST Number</label><input type="text" id="editCustomerGST"
+                        class="form-control"></div>
+                    <div class="col-12"><label>Phone</label><input type="text" id="editCustomerPhone"
+                        class="form-control"></div>
+                    <div class="col-12"><label>Email</label><input type="email" id="editCustomerEmail"
+                        class="form-control"></div>
+                  </div>
+                </div>
+                <div class="modal-footer"><button class="btn btn-secondary"
+                    data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary"
+                    id="saveCustomerEditBtn">Save</button></div>
+              </div>
+            </div>
           </div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button
-            class="btn btn-primary" id="saveCustomerEditBtn">Save</button></div>
-      </div>
-    </div>
-  </div>
 
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
