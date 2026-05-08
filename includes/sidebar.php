@@ -38,7 +38,7 @@
               <ul aria-expanded="false" class="collapse first-level">
                 <li class="sidebar-item <?php echo isActive('items', $currentPage); ?>">
                   <a class="sidebar-link" href="items.php">
-                    <span class="icon-small"></span> Inventory
+                    <span class="icon-small"></span> Item
                   </a>
                 </li>
               </ul>

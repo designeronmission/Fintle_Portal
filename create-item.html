@@ -8,6 +8,7 @@
   <title>Fintle | Create Item</title>
   <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
@@ -315,180 +316,135 @@
 
 <body>
   <div id="main-wrapper">
-    <!-- Sidebar Start -->
-   <!-- Sidebar Start -->
-    <aside class="side-mini-panel with-vertical">
-      <div class="iconbar">
-        <div class="sidebarmenu">
-          <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img">
-              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-            </a>
-          </div>
-          
-          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-            <ul class="sidebar-menu" id="sidebarnav">
-              <!-- Dashboard -->
-              <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Dashboard</span>
-                </a>
-              </li>
-
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Inbox</span>
-                </a>
-              </li>
-
-              <!-- Items -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Items</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="items.html">
-                      <span class="icon-small"></span> Inventory
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <!-- Purchase -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Purchase</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier.html">
-                      <span class="icon-small"></span> Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-order.html">
-                      <span class="icon-small"></span> Purchase Order
-                    </a>
-                  </li>
-                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-bill.html">
-                      <span class="icon-small"></span> Purchase Bill
-                    </a>
-                  </li>
-                 <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier-statement.html">
-                                            <span class="icon-small"></span> Supplier Statement
-                                        </a>
-                                    </li>
-                </ul>
-              </li>
-
-              <!-- Sales -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Sales</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span> Customer
-                    </a>
-                  </li>
-               <li class="sidebar-item">
-                    <a class="sidebar-link" href="enquiry.html">
-                      <span class="icon-small"></span> Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="Estimate.html">
-                      <span class="icon-small"></span> Estimate
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span> Invoice
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-
-                 <!-- Sales -->
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Accounts</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="account-master.html">
-                      <span class="icon-small"></span> Account Master
-                    </a>
-                  </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="journals.html">
-                      <span class="icon-small"></span> Journals
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Vouchers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Bank Payments
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> General Ledger
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Balance Sheets
-                    </a>
-                  </li>
-                </ul>
-              </li>
-
-              <li><span class="sidebar-divider"></span></li>
-            </ul>
-            
-            <!-- Logout Option at Bottom -->
-            <div class="sidebar-footer">
-              <ul class="sidebar-menu">
-
-               <li class="sidebar-item">
-                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                     <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Settings</span>
-                  </a>
-                </li>
-
-
-                <li class="sidebar-item logout-item">
-                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Logout</span>
-                  </a>
-                </li>
-              </ul>
+    <aside class="fintle-side" id="fintleSidebarRoot">
+        <!-- Header brand section -->
+        <div class="side-header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                </div>
             </div>
-          </nav>
         </div>
-      </div>
-    </aside>
-    <!-- Sidebar End -->
 
-    <!-- Sidebar End -->
+        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+        <div class="fintle-nav-scroll">
+            <ul class="fintle-menu-list" id="dynamicMenuList">
+                <!-- Dashboard item -->
+                <li class="menu-item">
+                    <a href="index.html" class="nav-link-side" id="dashboardNav">
+                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Inbox -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
+                        <span class="menu-text">Inbox</span>
+                    </a>
+                </li>
+
+                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+                <li class="menu-item has-sub open" data-submenu-id="itemsSub">
+                    <div class="nav-link-side submenu-trigger-side active">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                <span class="menu-text">Items</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level show-sub" id="itemsSub">
+                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                    </ul>
+                </li>
+
+                <!-- PURCHASE (open by default) -->
+                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                <span class="menu-text">Purchase</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="purchaseSub">
+                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                    </ul>
+                </li>
+
+                <!-- SALES with submenu -->
+                <li class="menu-item has-sub" data-submenu-id="salesSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                <span class="menu-text">Sales</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="salesSub">
+                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                    </ul>
+                </li>
+
+                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+                <li class="menu-item has-sub" data-submenu-id="accSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                <span class="menu-text">Accounts</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="accSub">
+                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                    </ul>
+                </li>
+
+                <!-- Divider -->
+                <li class="menu-divider-custom"></li>
+            </ul>
+        </div>
+
+        <!-- Footer section: settings & logout -->
+        <div class="side-footer">
+            <ul class="fintle-menu-list">
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                        <span class="menu-text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item logout-link">
+                    <a href="#" class="nav-link-side" id="logoutActionBtn">
+                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                        <span class="menu-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
     <div class="page-wrapper">
       <!-- Header Start -->
@@ -565,18 +521,24 @@
 
       <div class="body-wrapper">
         <div class="container-fluid p-3">
-          <div class="card card-body py-3">
+
+          <!-- Breadcrumb card -->
+          <div class="card card-body py-3 mb-2 border-0 shadow-sm" style="border-radius: 16px;">
             <div class="row align-items-center">
               <div class="col-12">
-                <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title">Create New Item</h4>
-                  <nav aria-label="breadcrumb" class="ms-auto">
-                    <div class="custom-breadcrumb">
-                      <a href="invoice.html">
-                        <span style="color:#64748b;">Inventory</span></a>
-                      <iconify-icon icon="solar:alt-arrow-right-bold" width="12" style="color:#cbd5e1;"></iconify-icon>
-                      <span style="color:#233578; font-weight:500;">Create Item</span>
-                    </div>
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-4 mb-sm-0 card-title fw-bold">
+                    <a href="items.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>
+                    Create New Item
+                  </h4>
+                  <nav class="ms-auto">
+                    <ol class="breadcrumb mb-0">
+                      <li class="breadcrumb-item"> <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a></li>
+                      <li class="breadcrumb-item"><a href="items.html">Item</a></li>
+                      <li class="breadcrumb-item active">Create Item</li>
+                    </ol>
                   </nav>
                 </div>
               </div>
@@ -693,7 +655,7 @@
               <!-- Recent Items Hint -->
               <div class="recent-hint">
                 <iconify-icon icon="solar:clock-circle-bold" width="18" style="color:#233578;"></iconify-icon>
-                <span>New items will appear instantly in your inventory library and will be available for invoice
+                <span>New items will appear instantly in your Item library and will be available for invoice
                   creation</span>
               </div>
             </div>
@@ -729,26 +691,26 @@
     ];
 
     let currentCodeType = 'hsn'; // 'hsn' for product, 'sac' for service
-    let inventoryItems = [];
-    const STORAGE_KEY = 'fintle_inventory_items';
+    let ItemItems = [];
+    const STORAGE_KEY = 'fintle_Item_items';
 
-    // Load inventory from localStorage
-    function loadInventory() {
+    // Load Item from localStorage
+    function loadItem() {
       const stored = localStorage.getItem(STORAGE_KEY);
       if (stored) {
-        try { inventoryItems = JSON.parse(stored); } catch (e) { inventoryItems = []; }
+        try { ItemItems = JSON.parse(stored); } catch (e) { ItemItems = []; }
       }
-      if (inventoryItems.length === 0) {
-        inventoryItems = [
+      if (ItemItems.length === 0) {
+        ItemItems = [
           { id: "i1", name: "Laptop Pro", type: "product", hsnCode: "84713000", code: "LAP123", stock: 15, unit: "PCS", price: 1200, taxRate: 18, priceInclusive: false },
           { id: "i2", name: "Web Design Service", type: "service", sacCode: "998314", code: "WEB01", stock: 0, unit: "Hour", price: 2500, taxRate: 12, priceInclusive: false },
           { id: "i3", name: "Cloud Hosting", type: "service", sacCode: "998311", code: "CLD01", stock: 0, unit: "Year", price: 4800, taxRate: 5, priceInclusive: false }
         ];
-        saveInventory();
+        saveItem();
       }
     }
 
-    function saveInventory() { localStorage.setItem(STORAGE_KEY, JSON.stringify(inventoryItems)); }
+    function saveItem() { localStorage.setItem(STORAGE_KEY, JSON.stringify(ItemItems)); }
 
     function showToast(message, type = 'success') {
       const toast = document.createElement('div');
@@ -893,8 +855,8 @@
         newItem.sacCode = codeValue;
       }
 
-      inventoryItems.unshift(newItem);
-      saveInventory();
+      ItemItems.unshift(newItem);
+      saveItem();
       showToast(`Item "${name}" created successfully!`, 'success');
       resetForm();
       window.dispatchEvent(new CustomEvent('itemCreated', { detail: newItem }));
@@ -937,7 +899,7 @@
     });
 
     document.addEventListener('DOMContentLoaded', function () {
-      loadInventory();
+      loadItem();
       updateCodeField();
       document.getElementById('newItemName').focus();
 
@@ -958,9 +920,9 @@
       updatePriceHint();
     });
 
-    window.FintleInventory = {
-      getItems: () => inventoryItems,
-      addItem: (item) => { inventoryItems.unshift(item); saveInventory(); showToast(`Item "${item.name}" added`, 'success'); }
+    window.FintleItem = {
+      getItems: () => ItemItems,
+      addItem: (item) => { ItemItems.unshift(item); saveItem(); showToast(`Item "${item.name}" added`, 'success'); }
     };
   </script>
 </body>

@@ -1,1922 +1,746 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-bs-theme="light">
-
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle Pro | Professional Invoice Manager</title>
-  <link rel="shortcut icon" type="image/png" href="#">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="assets/libs/css/styles.css" />
-
-  <style>
-    /* Create Item Modal Styles */
-    .create-item-container {
-      padding: 20px;
-    }
-
-    .theme-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #1d1d1d;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .theme-input,
-    .theme-select {
-      width: 100%;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-
-    .theme-input:focus,
-    .theme-select:focus {
-      border-color: #233578;
-      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
-      outline: none;
-    }
-
-    .logo-box {
-      width: 150px;
-      height: 60px;
-      background-color: #f8fafc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: var(--text-muted);
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .logo-box:hover {
-      background-color: #eef2ff;
-      border-color: #3b82f6;
-    }
-
-    .logo-box img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .upload-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      font-size: 10px;
-      text-align: center;
-      padding: 2px;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-
-    .logo-box:hover .upload-overlay {
-      opacity: 1;
-    }
-
-    .upload-input-hidden {
-      display: none;
-    }
-
-    .invoice-title {
-      font-weight: 700;
-      font-size: 22px;
-      letter-spacing: 0.5px;
-      color: #1e293b;
-    }
-
-    .item-description-textarea {
-      width: 100%;
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      padding: 8px 12px;
-      font-size: 0.85rem;
-      background: #fff;
-      transition: all 0.2s ease;
-      resize: vertical;
-      font-family: inherit;
-      line-height: 1.5;
-      margin-top: 8px;
-    }
-
-    .item-description-textarea:focus {
-      border-color: #233578;
-      box-shadow: 0 0 0 0.2rem rgba(35, 53, 120, 0.15);
-      outline: none;
-    }
-
-    .edit-columns-btn {
-      background: white;
-      border: 1px solid #dee2e6;
-      border-radius: 30px;
-      padding: 6px 16px;
-      font-size: 0.8rem;
-      color: #1e293b;
-      transition: all 0.2s;
-    }
-
-    .edit-columns-btn:hover {
-      background: #f1f5f9;
-    }
-
-    .column-customization-panel {
-      background: #f8fafc;
-      border-radius: 20px;
-      padding: 8px;
-    }
-
-    .column-toggle-card {
-      background: white;
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      transition: all 0.2s;
-      border: 1px solid #eef2f6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .column-toggle-card:hover {
-      border-color: #cbd5e1;
-      background: #ffffff;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    }
-
-    .column-toggle-label {
-      font-weight: 600;
-      color: #1e293b;
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-size: 0.95rem;
-    }
-
-    .column-toggle-label iconify-icon {
-      font-size: 1.2rem;
-      color: #233578;
-    }
-
-    .form-switch .form-check-input {
-      width: 2.2rem;
-      height: 1.2rem;
-      cursor: pointer;
-    }
-
-    .form-switch .form-check-input:checked {
-      background-color: #233578;
-      border-color: #233578;
-    }
-
-    .invoice-summary-card {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 24px;
-      padding: 28px;
-      border: 1px solid rgba(35, 53, 120, 0.12);
-      transition: all 0.3s ease;
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 0;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .summary-row:last-of-type {
-      border-bottom: none;
-    }
-
-    .summary-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #475569;
-      letter-spacing: 0.3px;
-    }
-
-    .summary-value {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1e293b;
-    }
-
-    .summary-total {
-      background: linear-gradient(135deg, #233578 0%, #35448d 100%);
-      border-radius: 10px;
-      padding: 20px 24px;
-      margin-top: 16px;
-      color: white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .summary-total .summary-value {
-      color: white;
-      font-size: 1.8rem;
-      font-weight: 800;
-    }
-
-    .btn-add {
-      background: none;
-      color: #233578;
-      border: 2px dashed #233578;
-      padding: 10px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: 600;
-      border-radius: 5px;
-      transition: all 0.2s;
-    }
-
-    .btn-add:hover {
-      background: #eef2ff;
-    }
-
-    .modal-content {
-      border-radius: 24px;
-      border: none;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
-    }
-
-    .scanner-badge {
-      background: #f1f5f9;
-      color: #233578;
-      border-radius: 5px;
-      padding: 6px 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .scanner-badge:hover {
-      background: #233578;
-      color: white;
-      border-color: #233578;
-    }
-
-    .barcode-container {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .custom-select-wrapper {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      width: 100%;
-    }
-
-    .custom-select-wrapper select {
-      flex: 1;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      padding: 8px 12px;
-      height: 44px;
-      font-size: 0.85rem;
-    }
-
-    .item-plus-icon {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 4px;
-      width: 50px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: #233578;
-    }
-
-    .item-plus-icon:hover {
-      background: #233578;
-      color: white;
-    }
-
-    .clone-line-btn {
-      background: #233578;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 6px 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .clone-line-btn:hover {
-      background: #0f1f4a;
-    }
-
-    .invoice-card {
-      background: #fff;
-      border-radius: 28px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      border: 1px solid #eef2f8;
-    }
-
-    .section-badge {
-      font-size: 13px;
-      font-weight: 700;
-      color: #202020;
-      margin-bottom: 6px;
-    }
-
-    .custom-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .custom-table th {
-      background: #fafcff;
-      padding: 14px 12px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      border-bottom: 1px solid #e9edf2;
-      color: #1e2a3e;
-      white-space: nowrap;
-    }
-
-    .custom-table th.col-item-col,
-    .custom-table td.col-item-col {
-      width: 28% !important;
-      min-width: 320px;
-    }
-
-    .custom-table th.col-tax-col,
-    .custom-table td.col-tax-col {
-      width: 10% !important;
-      min-width: 100px;
-    }
-
-    .custom-table th.col-qty-col,
-    .custom-table td.col-qty-col {
-      width: 10% !important;
-      min-width: 100px;
-    }
-
-    .custom-table td {
-      padding: 16px 12px;
-      vertical-align: top;
-      border-bottom: 1px solid #f0f3f9;
-    }
-
-    .form-sleek {
-      border: 1px solid #e2e8f0;
-      border-radius: 5px;
-      padding: 8px 12px;
-      background: #fff;
-      width: 100%;
-      font-size: 0.85rem;
-    }
-
-    .form-sleek:focus {
-      border-color: #233578;
-      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
-      outline: none;
-    }
-
-    .action-btn-group {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    @media (max-width: 768px) {
-      body {
-        padding: 16px;
-      }
-
-      .custom-table th,
-      .custom-table td {
-        padding: 10px 6px;
-      }
-
-      .action-btn-group {
-        flex-wrap: wrap;
-      }
-
-      .custom-table th.col-item-col,
-      .custom-table td.col-item-col {
-        min-width: 250px;
-      }
-    }
-
-    .btn-theme-primary {
-      background: #233578;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .btn-theme-secondary {
-      background: #f1f5f9;
-      color: #1e293b;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    /* Customer Display Card */
-    .customer-info-card {
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 0;
-      transition: all 0.2s ease;
-    }
-
-    .customer-info-row {
-      display: flex;
-      align-items: flex-start;
-      padding: 12px 16px;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .customer-info-row:last-child {
-      border-bottom: none;
-    }
-
-    .customer-info-label {
-      width: 160px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #242424;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .customer-info-value {
-      flex: 1;
-      font-size: 0.85rem;
-      color: #1e293b;
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    .edit-customer-btn {
-      background: transparent;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 11px 12px;
-      font-size: 0.7rem;
-      color: #233578;
-      transition: all 0.2s;
-    }
-
-    .edit-customer-btn:hover {
-      background: #233578;
-      color: white;
-      border-color: #233578;
-    }
-
-    /* Step Form Styles */
-    .step-indicator {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .step-indicator:before {
-      content: '';
-      position: absolute;
-      margin-left: auto;
-      top: 20px;
-      left: 0;
-      width: 370px;
-      right: 0;
-      height: 2px;
-      background: #e2e8f0;
-      z-index: 1;
-      margin-right: auto;
-    }
-
-    .step-item {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      flex: 1;
-    }
-
-    .step-circle {
-      width: 40px;
-      height: 40px;
-      background: #e2e8f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      font-weight: bold;
-      transition: all 0.3s;
-      position: relative;
-      z-index: 2;
-    }
-
-    .step-item.active .step-circle {
-      background: #233578;
-      color: white;
-      box-shadow: 0 4px 10px rgba(35, 53, 120, 0.3);
-    }
-
-    .step-item.completed .step-circle {
-      background: #10b981;
-      color: white;
-    }
-
-    .step-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #64748b;
-    }
-
-    .step-item.active .step-label {
-      color: #233578;
-      font-weight: 700;
-    }
-
-    .form-step {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .form-step.active-step {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateX(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    /* Amount dual display styling with tax type mention */
-    .amount-dual {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      line-height: 1.3;
-    }
-
-    .amount-excl {
-      font-size: 15px;
-      color: #2a2a2a;
-      font-weight: 700;
-      border-bottom: 1px dashed #e2e8f0;
-      padding-bottom: 3px;
-    }
-
-    .amount-incl {
-      font-size: 15px;
-      font-weight: 700;
-      color: #2a2a2a;
-    }
-
-    .tax-badge {
-      font-size: 0.65rem;
-      font-weight: 600;
-      color: #059669;
-      background: #e6f7ec;
-      display: inline-block;
-      padding: 2px 6px;
-      border-radius: 20px;
-      margin-left: 6px;
-    }
-
-    .amount-dual small {
-      font-size: 0.7rem;
-      font-weight: normal;
-      color: #242424;
-    }
-
-    /* Custom Dropdown Styles */
-    .customer-dropdown-item {
-      padding: 10px 15px;
-      border-bottom: 1px solid #f0f3f9;
-    }
-
-    .customer-dropdown-item:last-child {
-      border-bottom: none;
-    }
-
-    .customer-dropdown-name {
-      font-weight: 700;
-      color: #1e293b;
-      font-size: 0.85rem;
-      margin-bottom: 4px;
-    }
-
-    .customer-dropdown-details {
-      font-size: 0.7rem;
-      color: #64748b;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .customer-dropdown-details span {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-    }
-
-    .customer-dropdown-details i {
-      font-size: 0.65rem;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Fintle Side Menu | Scroll & Collapsible</title>
+    <!-- Iconify CDN for crisp icons -->
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <!-- Google Fonts: Inter for modern look -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #eef2f8;
+            display: flex;
+            min-height: 100vh;
+            background: radial-gradient(circle at 10% 20%, rgba(238,242,248,1) 0%, rgba(245,248,252,1) 100%);
+        }
+
+        /* ----- CORE SIDEBAR: fintle-side class ----- */
+        .fintle-side {
+            width: 280px;
+            background: linear-gradient(135deg, #ffffff 0%, #fefefe 100%);
+            backdrop-filter: blur(0px);
+            box-shadow: 8px 0 28px rgba(0, 0, 0, 0.05), 2px 0 8px rgba(0, 0, 0, 0.02);
+            transition: width 0.28s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-right: 1px solid #eef2f8;
+            overflow: hidden;
+        }
+
+        /* Collapsed (mini) state */
+        .fintle-side.mini-collapsed {
+            width: 84px;
+        }
+
+        /* hide text when collapsed */
+        .fintle-side.mini-collapsed .menu-text {
+            display: none;
+        }
+
+        .fintle-side.mini-collapsed .brand-logo .brand-img {
+            max-width: 44px;
+            margin: 0 auto;
+        }
+
+        .fintle-side.mini-collapsed .brand-title {
+            display: none;
+        }
+
+        .fintle-side.mini-collapsed .nav-link-side iconify-icon {
+            font-size: 1.8rem;
+            margin-right: 0;
+        }
+
+        .fintle-side.mini-collapsed .nav-link-side {
+            justify-content: center;
+            padding: 0.7rem 0;
+            gap: 0;
+        }
+
+        .fintle-side.mini-collapsed .dropdown-arrow {
+            display: none;
+        }
+
+        .fintle-side.mini-collapsed .submenu-level {
+            padding-left: 0;
+        }
+
+        /* elegant hover expand on mini mode */
+        .fintle-side.mini-collapsed:hover {
+            width: 280px;
+        }
+
+        .fintle-side.mini-collapsed:hover .menu-text {
+            display: inline-block;
+        }
+
+        .fintle-side.mini-collapsed:hover .brand-title {
+            display: inline-block;
+        }
+
+        .fintle-side.mini-collapsed:hover .nav-link-side {
+            justify-content: flex-start;
+            padding: 0.7rem 1rem;
+            gap: 12px;
+        }
+
+        .fintle-side.mini-collapsed:hover .dropdown-arrow {
+            display: inline-block;
+        }
+
+        .fintle-side.mini-collapsed:hover .submenu-level {
+            padding-left: 2.5rem;
+        }
+
+        /* Header / brand area */
+        .side-header {
+            padding: 1.4rem 1.2rem;
+            border-bottom: 1px solid #edf2f9;
+            margin-bottom: 0.75rem;
+        }
+
+        .brand-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transition: all 0.2s;
+        }
+
+        .brand-img {
+            max-height: 42px;
+            width: auto;
+            border-radius: 10px;
+            transition: all 0.2s;
+        }
+
+        .brand-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            background: linear-gradient(125deg, #1e293b, #2d3a5e);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            letter-spacing: -0.3px;
+        }
+
+        /* toggle button (hamburger) */
+        .toggle-side-btn {
+            background: #f1f5f9;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px;
+            border-radius: 12px;
+            transition: all 0.2s ease;
+            color: #2c3e66;
+        }
+
+        .toggle-side-btn:hover {
+            background: #e2e8f0;
+            transform: scale(0.96);
+        }
+
+        /* SCROLLABLE NAVIGATION AREA */
+        .fintle-nav-scroll {
+            flex: 1;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            padding: 0 10px 20px 10px;
+        }
+
+        .fintle-nav-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .fintle-nav-scroll::-webkit-scrollbar-track {
+            background: #eef2f8;
+            border-radius: 12px;
+        }
+
+        .fintle-nav-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e6;
+            border-radius: 12px;
+        }
+
+        /* menu list */
+        .fintle-menu-list {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .menu-item {
+            margin-bottom: 4px;
+        }
+
+        /* main link style */
+        .nav-link-side {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0.7rem 1rem;
+            border-radius: 14px;
+            color: #1e2a44;
+            font-weight: 500;
+            font-size: 0.94rem;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .nav-link-side iconify-icon {
+            font-size: 1.5rem;
+            min-width: 28px;
+            color: #5b6e91;
+            transition: color 0.2s;
+        }
+
+        .nav-link-side:hover {
+            background: #f0f4fe;
+            color: #0f2b4f;
+        }
+
+        .nav-link-side:hover iconify-icon {
+            color: #1f4f9e;
+        }
+
+        .nav-link-side.active {
+            background: #eef2ff;
+            color: #1f4f9e;
+            font-weight: 600;
+        }
+
+        .nav-link-side.active iconify-icon {
+            color: #1f4f9e;
+        }
+
+        /* submenu parent item */
+        .has-sub {
+            position: relative;
+        }
+
+        .trigger-wrap {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .dropdown-arrow {
+            margin-left: auto;
+            font-size: 0.7rem;
+            transition: transform 0.22s ease;
+            opacity: 0.7;
+            color: #7e8aa2;
+        }
+
+        .has-sub.open .dropdown-arrow {
+            transform: rotate(90deg);
+            color: #1f4f9e;
+        }
+
+        /* submenu level */
+        .submenu-level {
+            list-style: none;
+            padding-left: 2.8rem;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            display: none;
+        }
+
+        .submenu-level.show-sub {
+            display: block;
+        }
+
+        .sub-link-item {
+            margin-bottom: 3px;
+        }
+
+        .sub-link {
+            display: flex;
+            align-items: center;
+            padding: 0.5rem 0.9rem;
+            border-radius: 12px;
+            color: #47556e;
+            font-size: 0.84rem;
+            font-weight: 450;
+            text-decoration: none;
+            transition: all 0.18s;
+            gap: 12px;
+        }
+
+        .sub-link .dot-marker {
+            width: 6px;
+            height: 6px;
+            background: #9aa9bf;
+            border-radius: 10px;
+            display: inline-block;
+        }
+
+        .sub-link:hover {
+            background: #f8fafd;
+            color: #0f2b3f;
+        }
+
+        .sub-link.active-sub {
+            color: #1f4f9e;
+            font-weight: 500;
+        }
+
+        .sub-link.active-sub .dot-marker {
+            background: #1f4f9e;
+            width: 8px;
+            height: 8px;
+        }
+
+        /* divider */
+        .menu-divider-custom {
+            height: 1px;
+            background: #eef2f8;
+            margin: 16px 12px;
+        }
+
+        /* footer area (settings & logout) */
+        .side-footer {
+            border-top: 1px solid #edf2f9;
+            padding: 12px 10px;
+            background: inherit;
+        }
+
+        .logout-link iconify-icon {
+            color: #bc3f2e;
+        }
+
+        .logout-link:hover iconify-icon {
+            color: #a61e0c;
+        }
+
+        /* demo preview panel (just to show menu works standalone) */
+        .demo-preview-card {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .info-panel {
+            max-width: 500px;
+            background: rgba(255,255,255,0.8);
+            backdrop-filter: blur(4px);
+            border-radius: 2rem;
+            padding: 2rem;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.05);
+            border: 1px solid rgba(255,255,255,0.5);
+        }
+
+        .info-panel h3 {
+            font-weight: 700;
+            background: linear-gradient(135deg, #1e2f4b, #2a3f62);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .badge-menu {
+            background: #eef2ff;
+            border-radius: 40px;
+            padding: 4px 12px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .fintle-side {
+                position: fixed;
+                transform: translateX(0);
+                z-index: 1200;
+                height: 100%;
+            }
+            .fintle-side.mini-collapsed {
+                width: 0;
+                transform: translateX(-100%);
+            }
+            .fintle-side.mini-collapsed:hover {
+                width: 0;
+                transform: translateX(-100%);
+            }
+        }
+    </style>
 </head>
-
 <body>
-
-  <div id="main-wrapper">
-    <!-- Sidebar Start -->
-    <aside class="side-mini-panel with-vertical">
-      <div class="iconbar">
-        <div class="sidebarmenu">
-          <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img">
-              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-            </a>
-          </div>
-
-          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-            <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Dashboard</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Inbox</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Items</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="items.html">
-                      <span class="icon-small"></span> Inventory
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Purchase</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier.html">
-                      <span class="icon-small"></span> Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-order.html">
-                      <span class="icon-small"></span> Purchase Order
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-bill.html">
-                      <span class="icon-small"></span> Purchase Bill
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier-statement.html">
-                      <span class="icon-small"></span> Supplier Statement
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Sales</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span> Customer
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="enquiry.html">
-                      <span class="icon-small"></span> Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="Estimate.html">
-                      <span class="icon-small"></span> Estimate
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span> Invoice
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Accounts</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="account-master.html">
-                      <span class="icon-small"></span> Account Master
-                    </a>
-                  </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="journals.html">
-                      <span class="icon-small"></span> Journals
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Vouchers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Bank Payments
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> General Ledger
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Balance Sheets
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li><span class="sidebar-divider"></span></li>
-            </ul>
-            <div class="sidebar-footer">
-              <ul class="sidebar-menu">
-                <li class="sidebar-item">
-                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Settings</span>
-                  </a>
-                </li>
-                <li class="sidebar-item logout-item">
-                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Logout</span>
-                  </a>
-                </li>
-              </ul>
+    <!-- SIDEBAR MENU - using class "fintle-side" as requested -->
+    <aside class="fintle-side" id="fintleSidebarRoot">
+        <!-- Header brand section -->
+        <div class="side-header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img class="brand-img" src="https://placehold.co/200x60/2c3e66/ffffff?text=F&font=montserrat" alt="Fintle">
+                    <span class="brand-title menu-text">Fintle</span>
+                </div>
+                <button class="toggle-side-btn" id="collapseSideBtn" aria-label="Collapse menu">
+                    <iconify-icon icon="solar:sidebar-minimalistic-line-duotone" width="22" height="22"></iconify-icon>
+                </button>
             </div>
-          </nav>
         </div>
-      </div>
-    </aside>
-    <!-- Sidebar End -->
 
-    <div class="page-wrapper">
-      <header class="topbar">
-        <div class="with-vertical">
-          <nav class="navbar navbar-expand-lg p-0">
-            <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
-                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                    class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
-                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
-              </li>
-            </ul>
-            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-            </div>
-            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
-                class="fs-6"></iconify-icon></a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <div class="d-flex align-items-center justify-content-between">
-                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown"><a href="javascript:void(0)"
-                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
-                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
-                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
-                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
-                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
-                      aria-expanded="false">
-                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
-                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
-                    </a></li>
-                </ul>
-              </div>
-            </div>
-          </nav>
-        </div>
-      </header>
+        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+        <div class="fintle-nav-scroll">
+            <ul class="fintle-menu-list" id="dynamicMenuList">
+                <!-- Dashboard item -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side" id="dashboardNav">
+                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
 
-      <div class="body-wrapper">
-        <div class="container-fluid p-3">
-          <div class="invoice-container-fluid">
-            <div class="invoice-card">
-              <!-- Header -->
-              <div class="p-2 p-lg-4 d-flex flex-wrap justify-content-between align-items-start border-bottom">
-                <div>
-                  <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()">
-                    <span id="logoPlaceholder">COMPANY LOGO</span><img id="logoImage" style="display:none;" alt="Logo">
-                    <div class="upload-overlay">Click to upload logo</div><input type="file" id="logoUpload"
-                      class="upload-input-hidden" accept="image/*" style="display:none">
-                  </div>
-                </div>
-                <div class="text-end">
-                  <div><span class="badge bg-light text-dark border px-3 py-2 rounded-pill"
-                      id="invoiceNumberDisplay">#INV-2407-102</span></div>
-                </div>
-              </div>
+                <!-- Inbox -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
+                        <span class="menu-text">Inbox</span>
+                    </a>
+                </li>
 
-              <!-- Customer section -->
-              <div class="row g-0 border-bottom mb-3">
-                <div class="col-8 p-4">
-                  <div class="d-flex gap-3 flex-wrap mb-3 align-items-center">
-                    <select id="customerSelect" class="form-select" style="width: 480px;">
-                      <option value="">-- Select Customer --</option>
-                    </select>
-                    <button class="btn btn-outline-primary btn-new-customer" id="newCustomerBtn"><iconify-icon
-                        icon="solar:user-plus-bold" width="16"></iconify-icon> Create New</button>
-                    <button class="btn btn-outline-dark" id="editCustomerDetailsBtn"><iconify-icon icon="solar:pen-2-bold"
-                        width="14"></iconify-icon> Edit Details</button>
-                  </div>
-                  <div class="customer-info-card" id="customerDisplayCard">
-                    <div class="customer-info-row">
-                      <div class="customer-info-label">Company Name</div>
-                      <div class="customer-info-value" id="displayCustomerName">--</div>
+                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+                <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                <span class="menu-text">Items</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
                     </div>
-                    <div class="customer-info-row">
-                      <div class="customer-info-label">Customer Name</div>
-                      <div class="customer-info-value" id="displayCustomerContactName">--</div>
-                    </div>
-                    <div class="customer-info-row">
-                      <div class="customer-info-label">Address</div>
-                      <div class="customer-info-value" id="displayCustomerAddress">--</div>
-                    </div>
-                    <div class="customer-info-row">
-                      <div class="customer-info-label">GST Number</div>
-                      <div class="customer-info-value" id="displayCustomerGST">--</div>
-                    </div>
-                    <div class="customer-info-row">
-                      <div class="customer-info-label">Phone</div>
-                      <div class="customer-info-value" id="displayCustomerPhone">--</div>
-                    </div>
-                    <div class="customer-info-row">
-                      <div class="customer-info-label">Email</div>
-                      <div class="customer-info-value" id="displayCustomerEmail">--</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="row g-0 border col-4">
-                  <div class="col-md-12 p-4">
-                    <div class="row g-3">
-                      <div class="col-12">
-                        <div class="section-badge">Issue Date</div><input type="date" id="issueDate"
-                          class="form-control" value="2026-04-29">
-                      </div>
-                      <div class="col-12">
-                        <div class="section-badge">Due Date</div><select id="dueDatePreset" class="form-select">
-                          <option value="net15">Net 15</option>
-                          <option value="net30" selected>Net 30</option>
-                          <option value="net45">Net 45</option>
-                          <option value="receipt">Due on Receipt</option>
-                          <option value="eom">End of Month</option>
-                          <option value="custom">Custom (pick date)</option>
-                        </select>
-                        <div id="customDateContainer" style="display: none;" class="mt-2"><input type="text"
-                            id="customDueDatePicker" class="form-control" placeholder="Select date"></div>
-                        <div class="mt-2"><span class="badge bg-light text-dark" id="dueDatePreview">Due:
-                            2026-05-29</span></div>
-                      </div>
-                      <div class="col-12">
-                        <div class="section-badge">Currency</div><select class="form-select" id="currencySelect">
-                          <option value="INR">INR (₹)</option>
-                          <option value="USD">USD ($)</option>
-                          <option value="EUR">EUR (€)</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Line Items Section: Amount column shows both variants with tax type mention -->
-              <div class="p-4">
-                <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                  <div class="d-flex align-items-center gap-3">
-                    <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon>
-                      List of Items</h5><button class="edit-columns-btn" type="button" data-bs-toggle="modal"
-                      data-bs-target="#editColumnsModal"><svg width="16" height="16" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                          d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5" />
-                      </svg> Edit columns</button>
-                  </div>
-                  <div class="d-flex gap-2">
-                    <div class="dropdown"><button class="btn btn-light dropdown-toggle" type="button"
-                        data-bs-toggle="dropdown"><span id="taxModeDropdown">Tax Exclusive</span></button>
-                      <ul class="dropdown-menu">
-                        <li><a class="dropdown-item tax-mode-option" href="#" data-mode="exclusive">Tax Exclusive</a>
-                        </li>
-                        <li><a class="dropdown-item tax-mode-option" href="#" data-mode="inclusive">Tax Inclusive</a>
-                        </li>
-                        <li><a class="dropdown-item tax-mode-option" href="#" data-mode="none">No Tax</a></li>
-                      </ul>
-                    </div><span class="scanner-badge" id="scanBarcodeBtn"><svg width="18" height="18"
-                        viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                          d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2" />
-                        <path fill="currentColor"
-                          d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
-                      </svg> Scan Barcode</span><button class="clone-line-btn" id="addLineItemTopBtn" type="button"><svg
-                        width="20" height="20" viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                          d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
-                      </svg> Add Line Item</button>
-                  </div>
-                </div>
-                <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
-                  <div class="input-group"><span class="input-group-text bg-white"><iconify-icon
-                        icon="solar:scanner-line-duotone"></iconify-icon></span><input type="text" id="barcodeInput"
-                      class="form-control" placeholder="Scan or type barcode / item code"><button
-                      class="btn btn-outline-secondary" id="closeScannerBtn">Close</button></div>
-                </div>
-                <div class="table-responsive">
-                  <table class="custom-table" id="itemsMainTable">
-                    <thead id="tableHeaderRow">
-                      <tr>
-                        <th class="col-item-col">Item / Description</th>
-                        <th class="col-code-col">Code</th>
-                        <th class="col-price-col">Price (₹)</th>
-                        <th class="col-qty-col">Qty</th>
-                        <th class="col-unit-col">Unit</th>
-                        <th class="col-tax-col">Tax Rate</th>
-                        <th>Amount (Excl. Tax / Incl. Tax)</th>
-                        <th></th>
-                      </tr>
-                    </thead>
-                    <tbody id="itemsTableBody"></tbody>
-                  </table>
-                </div>
-                <div class="mt-4"><button class="btn-add" id="addItemRowBtn"> Add Line Item</button></div>
-              </div>
-
-              <!-- Summary Section -->
-              <div class="row g-0 border-top">
-                <div class="col-md-7 p-4">
-                  <div class="section-badge">Notes / Terms</div><textarea class="form-control" rows="3"
-                    id="invoiceNotes"
-                    placeholder="Payment instructions, bank details, etc.">Thanks for your business! Payment due by due date. Bank: Fintle A/C 5020XXXXX</textarea>
-                </div>
-                <div class="col-md-5 p-4 border-start">
-                  <div class="invoice-summary-card">
-                    <div class="summary-row"><span class="summary-label">Subtotal</span><span class="summary-value"
-                        id="subtotalVal">₹ 0.00</span></div>
-                    <div class="summary-row"><span class="summary-label">Shipping Charge</span>
-                      <div style="width: 140px;"><input type="number" id="shippingAmount"
-                          class="form-control form-control text-end" value="0" step="10" style="border-radius: 8px;">
-                      </div>
-                    </div>
-                    <div class="summary-row"><span class="summary-label">Tax (GST)</span><span
-                        class="summary-value text-success" id="taxVal">₹ 0.00</span></div>
-                    <div class="summary-total">
-                      <div class="d-flex justify-content-between align-items-center"><span class="summary-label"
-                          style="color: rgba(255,255,255,0.9);">Net Total</span><span class="summary-value"
-                          id="grandTotalVal" style="color: white; font-size: 1.8rem;">₹ 0.00</span></div>
-                      <div class="small mt-1 opacity-75">Inclusive of all taxes</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="p-4 bg-light bg-opacity-25 border-top d-flex justify-content-between align-items-center flex-wrap gap-3">
-                <div class="text-dark small"><iconify-icon icon="solar:info-circle-line-duotone"></iconify-icon> Fill
-                  all required fields</div>
-                <div class="action-btn-group"><button class="btn btn-outline-danger rounded-pill px-4"
-                    id="cancelBtn">Cancel</button><button class="btn btn-outline-dark rounded-pill px-4"
-                    onclick="location.href='invoice-preview.html'">Preview Invoice</button>
-                  <div class="dropdown"><button class="btn btn-primary rounded-pill px-4 dropdown-toggle" type="button"
-                      id="saveDropdownBtn" data-bs-toggle="dropdown">Save & Continue</button>
-                    <ul class="dropdown-menu dropdown-menu-end">
-                      <li><a class="dropdown-item" href="#" id="saveAndRecordPaymentOption"> Save & Record Payment</a>
-                      </li>
-                      <li>
-                        <hr class="dropdown-divider">
-                      </li>
-                      <li><a class="dropdown-item" href="#" id="saveDraftOnly">Save as Draft</a></li>
+                    <ul class="submenu-level" id="itemsSub">
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
                     </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
+                </li>
+
+                <!-- PURCHASE (open by default) -->
+                <li class="menu-item has-sub open" data-submenu-id="purchaseSub">
+                    <div class="nav-link-side submenu-trigger-side active">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                <span class="menu-text">Purchase</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level show-sub" id="purchaseSub">
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                    </ul>
+                </li>
+
+                <!-- SALES with submenu -->
+                <li class="menu-item has-sub" data-submenu-id="salesSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                <span class="menu-text">Sales</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="salesSub">
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                    </ul>
+                </li>
+
+                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+                <li class="menu-item has-sub" data-submenu-id="accSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                <span class="menu-text">Accounts</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="accSub">
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                    </ul>
+                </li>
+
+                <!-- Divider -->
+                <li class="menu-divider-custom"></li>
+
+                <!-- Extra additional links (for scroll testing) -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:documents-line-duotone"></iconify-icon>
+                        <span class="menu-text">Reports</span>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
+                        <span class="menu-text">Calendar</span>
+                    </a>
+                </li>
+            </ul>
         </div>
-      </div>
+
+        <!-- Footer section: settings & logout -->
+        <div class="side-footer">
+            <ul class="fintle-menu-list">
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                        <span class="menu-text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item logout-link">
+                    <a href="#" class="nav-link-side" id="logoutActionBtn">
+                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                        <span class="menu-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <!-- small demo right panel to show context -->
+    <div class="demo-preview-card">
+        <div class="info-panel">
+            <div style="display: flex; gap: 10px; align-items: center; margin-bottom: 1rem;">
+                <h3>✨ Fintle Side Menu</h3>
+                <span class="badge-menu">fintle-side</span>
+            </div>
+            <p style="color: #2d3a5e; margin-bottom: 1rem;">Complete standalone sidebar with <strong>vertical scroll</strong>, <strong>collapsible submenus</strong>, and <strong>mini-collapse mode</strong>. Hover over mini mode to expand. </p>
+            <ul style="margin-left: 1rem; color: #415a77;">
+                <li>✅ Scrollable menu: .fintle-nav-scroll</li>
+                <li>✅ Submenu toggles (arrow animation)</li>
+                <li>✅ Collapse button shrinks to icons</li>
+                <li>✅ Independent open/close submenus</li>
+                <li>✅ Purchase section open by default</li>
+            </ul>
+            <button id="resetMenuBtn" style="margin-top: 24px; background: #2c3e66; border: none; padding: 8px 20px; border-radius: 40px; color: white; font-weight: 500; cursor: pointer;">↺ Reset to Default (Purchase open)</button>
+            <p style="margin-top: 20px; font-size: 0.75rem; color: #6c7a91;">Class used: <code style="background:#eef2ff; padding:2px 6px; border-radius: 12px;">.fintle-side</code> + scroll container <code>.fintle-nav-scroll</code></p>
+        </div>
     </div>
-  </div>
 
-  <!-- Modals -->
-  <div class="modal fade" id="editColumnsModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-light">
-          <h5 class="modal-title fw-bold">Customize Invoice Columns</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <p class="text-muted small mb-3">Toggle visibility of columns in the items table.</p>
-          <div class="column-customization-panel">
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">Item / Description</div>
-              <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                  id="toggleItem" checked></div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">Code</div>
-              <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                  id="toggleCode" checked></div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">Price</div>
-              <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                  id="togglePrice" checked></div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">Quantity</div>
-              <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                  id="toggleQty" checked></div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">Unit</div>
-              <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                  id="toggleUnit" checked></div>
-            </div>
-            <div class="column-toggle-card">
-              <div class="column-toggle-label">Tax Rate</div>
-              <div class="form-check form-switch"><input class="form-check-input column-toggle" type="checkbox"
-                  id="toggleTax" checked></div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-outline-secondary"
-            data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="applyColumnVisibility">Apply
-            Changes</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Edit Customer Modal -->
-  <div class="modal fade modal-rounded" id="editCustomerModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header border-0 pt-4">
-          <h5 class="modal-title fw-bold">Edit Customer Details</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="step-indicator">
-            <div class="step-item active" data-step="1">
-              <div class="step-circle">1</div>
-              <div class="step-label">Basic Info</div>
-            </div>
-            <div class="step-item" data-step="2">
-              <div class="step-circle">2</div>
-              <div class="step-label">Address Details</div>
-            </div>
-          </div>
-          <div id="editStep1" class="form-step active-step">
-            <div class="row g-3">
-              <div class="col-md-12"><label class="form-label fw-semibold">Company Name <span
-                    class="text-danger">*</span></label><input type="text" id="editCompanyName"
-                  class="form-control form-sleek" placeholder="Enter company name"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Customer Name <span
-                    class="text-danger">*</span></label><input type="text" id="editCustomerName"
-                  class="form-control form-sleek" placeholder="Enter customer name"></div>
-              <div class="col-md-6"><label class="form-label fw-semibold">Customer ID</label><input
-                  type="text" id="editCustIdModal" class="form-control form-sleek" placeholder="Auto-generated if empty">
-              </div>
-              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
-                  id="editCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
-                  id="editCustEmail" class="form-control form-sleek" placeholder="customer@example.com"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
-                  id="editCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
-            </div>
-          </div>
-          <div id="editStep2" class="form-step">
-            <div class="row g-3">
-              <div class="col-12">
-                <h6 class="fw-bold mb-3">Billing Address</h6>
-              </div>
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="editBillAddress"
-                  class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea>
-              </div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="editBillCity"
-                  class="form-control form-sleek" placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="editBillState"
-                  class="form-control form-sleek" placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="editBillZip"
-                  class="form-control form-sleek" placeholder="Postal code"></div>
-              <div class="col-12 mt-3">
-                <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="editSameAsBilling"><label
-                    class="form-check-label fw-semibold"> Same as Billing Address</label></div>
-                <h6 class="fw-bold mb-3">Shipping Address</h6>
-              </div>
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="editShipAddress"
-                  class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="editShipCity"
-                  class="form-control form-sleek" placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="editShipState"
-                  class="form-control form-sleek" placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="editShipZip"
-                  class="form-control form-sleek" placeholder="Postal code"></div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pb-4">
-          <button class="btn btn-secondary rounded-pill" id="editPrevStepBtn" disabled>Previous</button>
-          <button class="btn btn-primary rounded-pill px-4" id="editNextStepBtn">Next</button>
-          <button class="btn btn-success rounded-pill px-4" id="submitEditCustomerBtn" style="display:none;">Update Customer</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Create Customer Modal -->
-  <div class="modal fade modal-rounded" id="customerCreateModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header border-0 pt-4">
-          <h5 class="modal-title fw-bold">Create New Customer</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="step-indicator">
-            <div class="step-item active" data-step="1">
-              <div class="step-circle">1</div>
-              <div class="step-label">Basic Info</div>
-            </div>
-            <div class="step-item" data-step="2">
-              <div class="step-circle">2</div>
-              <div class="step-label">Address Details</div>
-            </div>
-          </div>
-          <div id="step1" class="form-step active-step">
-            <div class="row g-3">
-              <div class="col-md-12"><label class="form-label fw-semibold">Company Name <span
-                    class="text-danger">*</span></label><input type="text" id="newCompanyName"
-                  class="form-control form-sleek" placeholder="Enter company name"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Customer Name <span
-                    class="text-danger">*</span></label><input type="text" id="newCustomerName"
-                  class="form-control form-sleek" placeholder="Enter customer name"></div>
-              <div class="col-md-6"><label class="form-label fw-semibold">Customer ID</label><input
-                  type="text" id="newCustIdModal" class="form-control form-sleek" placeholder="Auto-generated if empty">
-              </div>
-              <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
-                  id="newCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
-                  id="newCustEmail" class="form-control form-sleek" placeholder="customer@example.com"></div>
-              <div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
-                  id="newCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div>
-            </div>
-          </div>
-          <div id="step2" class="form-step">
-            <div class="row g-3">
-              <div class="col-12">
-                <h6 class="fw-bold mb-3">Billing Address</h6>
-              </div>
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="billAddress"
-                  class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea>
-              </div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="billCity"
-                  class="form-control form-sleek" placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="billState"
-                  class="form-control form-sleek" placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip"
-                  class="form-control form-sleek" placeholder="Postal code"></div>
-              <div class="col-12 mt-3">
-                <div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label
-                    class="form-check-label fw-semibold"> Same as Billing Address</label></div>
-                <h6 class="fw-bold mb-3">Shipping Address</h6>
-              </div>
-              <div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress"
-                  class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div>
-              <div class="col-md-4"><label class="form-label">City</label><input id="shipCity"
-                  class="form-control form-sleek" placeholder="City"></div>
-              <div class="col-md-4"><label class="form-label">State</label><input id="shipState"
-                  class="form-control form-sleek" placeholder="State"></div>
-              <div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip"
-                  class="form-control form-sleek" placeholder="Postal code"></div>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill" id="prevStepBtn"
-            disabled>Previous</button><button class="btn btn-primary rounded-pill px-4"
-            id="nextStepBtn">Next</button><button class="btn btn-success rounded-pill px-4" id="submitCustomerBtn"
-            style="display:none;">Create Customer</button></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Create Item Modal -->
-  <div class="modal fade" id="createItemModal" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title fw-bold">Create New Item</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="create-item-container">
-            <div class="row g-4">
-              <div class="col-12"><label class="theme-label">Item Name <span
-                    class="required-star">*</span></label><input type="text" id="newItemName" class="theme-input"
-                  placeholder="Enter item name"></div>
-              <div class="col-md-6"><label class="theme-label">Item Type</label><select id="newItemType"
-                  class="theme-select">
-                  <option value="product">Product (Goods)</option>
-                  <option value="service">Service</option>
-                </select></div>
-              <div class="col-md-6"><label class="theme-label">Units</label><select id="newItemUnit"
-                  class="theme-select">
-                  <option value="PCS">Pieces (PCS)</option>
-                  <option value="Hour">Hour</option>
-                  <option value="Month">Month</option>
-                  <option value="Year">Year</option>
-                  <option value="KG">Kilogram (KG)</option>
-                  <option value="Box">Box</option>
-                </select></div>
-              <div class="col-md-6"><label class="theme-label">Sale Price (₹)</label><input type="number"
-                  id="newItemPrice" class="theme-input" value="0" step="any"></div>
-              <div class="col-md-6"><label class="theme-label">GST Rate (%)</label><select id="newItemGst"
-                  class="theme-select">
-                  <option value="0">0% (No Tax)</option>
-                  <option value="5">5%</option>
-                  <option value="12" selected>12%</option>
-                  <option value="18">18%</option>
-                  <option value="28">28%</option>
-                </select></div>
-              <div class="col-md-6"><label class="theme-label">Barcode / SKU</label><input type="text" id="newItemCode"
-                  class="theme-input" placeholder="Enter barcode or SKU"></div>
-              <div class="col-md-6"><label class="theme-label">Initial Stock</label><input type="number"
-                  id="newItemStock" class="theme-input" value="0" step="any"></div>
-              <div class="col-12 mt-3">
-                <div class="d-flex justify-content-end gap-3"><button class="btn-theme-secondary"
-                    id="resetFormBtn">Reset</button><button class="btn-theme-primary" id="createNewItemBtn">Create
-                    Item</button></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/libs/js/simplebar.min.js"></script>
-  <script src="assets/libs/js/app.init.js"></script>
-  <script src="assets/libs/js/theme.js"></script>
-  <script src="assets/libs/js/app.min.js"></script>
-  <script src="assets/libs/js/sidebarmenu.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-
-  <script>
-    // All original JavaScript logic preserved
-    let taxMode = 'exclusive';
-    let globalItemsList = [
-      { id: "itm1", name: "Web Design Service", code: "WEB01", price: 2500, unit: "Hour", tax: 12, desc: "Custom responsive design, 5 pages" },
-      { id: "itm2", name: "Cloud Hosting", code: "CLD99", price: 4800, unit: "Year", tax: 5, desc: "SSD 20GB + 1TB bandwidth" }
-    ];
-    let customersList = [
-      { id: "CUST-001", companyName: "Aster Technologies", customerName: "John Smith", address: "42, Richmond Circle, Bangalore - 560025", gst: "29AAACB1234E1Z5", phone: "+91 98765 43210", email: "contact@aster.com" },
-      { id: "CUST-002", companyName: "Stellar Innovations", customerName: "Sarah Johnson", address: "Tower B, Cyber City, Gurugram", gst: "06AAACI9876F1Z9", phone: "+91 98765 12345", email: "info@stellar.com" }
-    ];
-    let currentCustomerId = "";
-    let flatpickrInstance = null;
-
-    // Edit Customer Modal Variables
-    let editCurrentStep = 1;
-    const editStep1 = document.getElementById('editStep1');
-    const editStep2 = document.getElementById('editStep2');
-    const editPrevBtn = document.getElementById('editPrevStepBtn');
-    const editNextBtn = document.getElementById('editNextStepBtn');
-    const editSubmitBtn = document.getElementById('submitEditCustomerBtn');
-
-    function updateEditStepUI() {
-      document.querySelectorAll('#editCustomerModal .step-item').forEach((el, idx) => {
-        if (idx + 1 < editCurrentStep) el.classList.add('completed');
-        else el.classList.remove('completed');
-        if (idx + 1 === editCurrentStep) el.classList.add('active');
-        else el.classList.remove('active');
-      });
-      if (editCurrentStep === 1) {
-        editStep1.classList.add('active-step');
-        editStep2.classList.remove('active-step');
-        editPrevBtn.disabled = true;
-        editNextBtn.style.display = 'inline-flex';
-        editSubmitBtn.style.display = 'none';
-      } else {
-        editStep1.classList.remove('active-step');
-        editStep2.classList.add('active-step');
-        editPrevBtn.disabled = false;
-        editNextBtn.style.display = 'none';
-        editSubmitBtn.style.display = 'inline-flex';
-      }
-    }
-
-    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
-
-    function populateCustomerDropdown() {
-      let sel = document.getElementById('customerSelect');
-      sel.innerHTML = '<option value="">-- Select Customer --</option>';
-      customersList.forEach(c => {
-        let option = document.createElement('option');
-        option.value = c.id;
-        option.innerHTML = `${escapeHtml(c.companyName)} - ${escapeHtml(c.customerName)}`;
-        option.setAttribute('data-company', c.companyName);
-        option.setAttribute('data-customer', c.customerName);
-        option.setAttribute('data-email', c.email);
-        option.setAttribute('data-phone', c.phone);
-        option.setAttribute('data-gst', c.gst);
-        option.setAttribute('data-address', c.address);
-        sel.appendChild(option);
-      });
-      if (customersList.length) sel.value = customersList[0].id;
-      updateCustomerUI();
-    }
-
-    function updateDisplayCard(cust) {
-      if (cust) {
-        document.getElementById('displayCustomerName').innerText = cust.companyName || '--';
-        document.getElementById('displayCustomerContactName').innerText = cust.customerName || '--';
-        document.getElementById('displayCustomerAddress').innerText = cust.address || '--';
-        document.getElementById('displayCustomerGST').innerText = cust.gst || '--';
-        document.getElementById('displayCustomerPhone').innerText = cust.phone || '--';
-        document.getElementById('displayCustomerEmail').innerText = cust.email || '--';
-      } else {
-        document.getElementById('displayCustomerName').innerText = '--';
-        document.getElementById('displayCustomerContactName').innerText = '--';
-        document.getElementById('displayCustomerAddress').innerText = '--';
-        document.getElementById('displayCustomerGST').innerText = '--';
-        document.getElementById('displayCustomerPhone').innerText = '--';
-        document.getElementById('displayCustomerEmail').innerText = '--';
-      }
-    }
-
-    function updateCustomerUI() {
-      const sel = document.getElementById('customerSelect');
-      const selectedOption = sel.options[sel.selectedIndex];
-      if (selectedOption && selectedOption.value) {
-        const cust = {
-          id: selectedOption.value,
-          companyName: selectedOption.getAttribute('data-company') || '',
-          customerName: selectedOption.getAttribute('data-customer') || '',
-          email: selectedOption.getAttribute('data-email') || '',
-          phone: selectedOption.getAttribute('data-phone') || '',
-          gst: selectedOption.getAttribute('data-gst') || '',
-          address: selectedOption.getAttribute('data-address') || ''
-        };
-        currentCustomerId = cust.id;
-        updateDisplayCard(cust);
-      } else {
-        currentCustomerId = "";
-        updateDisplayCard(null);
-      }
-    }
-
-    // Edit Customer Logic
-    let editModalInstance;
-    document.getElementById('editCustomerDetailsBtn')?.addEventListener('click', () => {
-      const selectedOption = document.getElementById('customerSelect').options[document.getElementById('customerSelect').selectedIndex];
-      if (selectedOption && selectedOption.value) {
-        const cust = {
-          id: selectedOption.value,
-          companyName: selectedOption.getAttribute('data-company') || '',
-          customerName: selectedOption.getAttribute('data-customer') || '',
-          email: selectedOption.getAttribute('data-email') || '',
-          phone: selectedOption.getAttribute('data-phone') || '',
-          gst: selectedOption.getAttribute('data-gst') || '',
-          address: selectedOption.getAttribute('data-address') || ''
-        };
-        
-        document.getElementById('editCompanyName').value = cust.companyName || '';
-        document.getElementById('editCustomerName').value = cust.customerName || '';
-        document.getElementById('editCustIdModal').value = cust.id || '';
-        document.getElementById('editCustGstModal').value = cust.gst || '';
-        document.getElementById('editCustEmail').value = cust.email || '';
-        document.getElementById('editCustPhone').value = cust.phone || '';
-        
-        document.getElementById('editBillAddress').value = cust.address || '';
-        document.getElementById('editBillCity').value = '';
-        document.getElementById('editBillState').value = '';
-        document.getElementById('editBillZip').value = '';
-        
-        document.getElementById('editShipAddress').value = cust.address || '';
-        document.getElementById('editShipCity').value = '';
-        document.getElementById('editShipState').value = '';
-        document.getElementById('editShipZip').value = '';
-        
-        editCurrentStep = 1;
-        updateEditStepUI();
-        editModalInstance = new bootstrap.Modal(document.getElementById('editCustomerModal'));
-        editModalInstance.show();
-      } else {
-        alert('Please select a customer first');
-      }
-    });
-
-    editNextBtn?.addEventListener('click', () => {
-      const companyName = document.getElementById('editCompanyName').value.trim();
-      const customerName = document.getElementById('editCustomerName').value.trim();
-      if (!companyName) { alert("Please enter company name"); return; }
-      if (!customerName) { alert("Please enter customer name"); return; }
-      editCurrentStep = 2;
-      updateEditStepUI();
-    });
-
-    editPrevBtn?.addEventListener('click', () => {
-      editCurrentStep = 1;
-      updateEditStepUI();
-    });
-
-    document.getElementById('editSameAsBilling')?.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        document.getElementById('editShipAddress').value = document.getElementById('editBillAddress').value;
-        document.getElementById('editShipCity').value = document.getElementById('editBillCity').value;
-        document.getElementById('editShipState').value = document.getElementById('editBillState').value;
-        document.getElementById('editShipZip').value = document.getElementById('editBillZip').value;
-      }
-    });
-
-    editSubmitBtn?.addEventListener('click', () => {
-      const selectedOption = document.getElementById('customerSelect').options[document.getElementById('customerSelect').selectedIndex];
-      if (selectedOption && selectedOption.value) {
-        let fullAddress = document.getElementById('editBillAddress').value;
-        if (document.getElementById('editBillCity').value) fullAddress += ", " + document.getElementById('editBillCity').value;
-        if (document.getElementById('editBillState').value) fullAddress += ", " + document.getElementById('editBillState').value;
-        if (document.getElementById('editBillZip').value) fullAddress += " - " + document.getElementById('editBillZip').value;
-        
-        const updatedCustomer = {
-          id: selectedOption.value,
-          companyName: document.getElementById('editCompanyName').value.trim(),
-          customerName: document.getElementById('editCustomerName').value.trim(),
-          address: fullAddress || "Address not provided",
-          gst: document.getElementById('editCustGstModal').value.trim(),
-          email: document.getElementById('editCustEmail').value,
-          phone: document.getElementById('editCustPhone').value
-        };
-        
-        const index = customersList.findIndex(c => c.id === selectedOption.value);
-        if (index !== -1) {
-          customersList[index] = updatedCustomer;
-        }
-        
-        populateCustomerDropdown();
-        document.getElementById('customerSelect').value = currentCustomerId;
-        updateCustomerUI();
-        editModalInstance.hide();
-        alert('Customer details updated successfully');
-      }
-    });
-
-    // Due Date Logic
-    const dueDatePreset = document.getElementById('dueDatePreset');
-    const customDateContainer = document.getElementById('customDateContainer');
-    const dueDatePreview = document.getElementById('dueDatePreview');
-    const issueDateInput = document.getElementById('issueDate');
-
-    function initFlatpickrAndOpen() {
-      if (flatpickrInstance) flatpickrInstance.destroy();
-      const defaultDate = new Date(new Date(issueDateInput.value).setDate(new Date(issueDateInput.value).getDate() + 30));
-      flatpickrInstance = flatpickr("#customDueDatePicker", {
-        dateFormat: "Y-m-d",
-        defaultDate: defaultDate,
-        onChange: function (selectedDates, dateStr) {
-          dueDatePreview.innerText = `Due: ${dateStr}`;
-        }
-      });
-      setTimeout(() => {
-        if (flatpickrInstance) flatpickrInstance.open();
-      }, 100);
-    }
-
-    function updateDueDate() {
-      const preset = dueDatePreset.value;
-      const issueDate = new Date(issueDateInput.value);
-      let dueDate = new Date(issueDate);
-
-      if (preset === 'custom') {
-        customDateContainer.style.display = 'block';
-        initFlatpickrAndOpen();
-      } else {
-        customDateContainer.style.display = 'none';
-        if (flatpickrInstance) {
-          flatpickrInstance.destroy();
-          flatpickrInstance = null;
-        }
-        if (preset === 'net15') dueDate.setDate(issueDate.getDate() + 15);
-        else if (preset === 'net30') dueDate.setDate(issueDate.getDate() + 30);
-        else if (preset === 'net45') dueDate.setDate(issueDate.getDate() + 45);
-        else if (preset === 'receipt') dueDate = new Date(issueDate);
-        else if (preset === 'eom') dueDate = new Date(issueDate.getFullYear(), issueDate.getMonth() + 1, 0);
-        const formatted = dueDate.toISOString().slice(0, 10);
-        dueDatePreview.innerText = `Due: ${formatted}`;
-      }
-    }
-
-    dueDatePreset.addEventListener('change', updateDueDate);
-    issueDateInput.addEventListener('change', updateDueDate);
-    updateDueDate();
-
-    // Create Item Row with dual amount display and tax type mention
-    function createItemRow(itemData = null, customQty = 1) {
-      const item = itemData || globalItemsList[0];
-      const tr = document.createElement('tr');
-      const rowId = Date.now() + Math.random();
-      tr.innerHTML = `<td class="col-item-col"><div class="custom-select-wrapper"><select class="form-select item-dropdown">${globalItemsList.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" title="Create new item" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone" width="18"></iconify-icon></button></div><textarea class="item-description-textarea" rows="1" placeholder="Description / notes">${escapeHtml(item.desc || '')}</textarea><\/td><td class="col-code-col"><input type="text" class="form-control item-code" value="${escapeHtml(item.code)}"><\/td><td class="col-price-col"><input type="number" step="any" class="form-control item-price" value="${item.price}"><\/td><td class="col-qty-col"><input type="number" step="any" class="form-control item-qty text-center" value="${customQty}"><\/td><td class="col-unit-col"><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"><\/td><td class="col-tax-col"><select class="form-select item-tax"><option value="0">0%<\/option><option value="5" ${item.tax == 5 ? 'selected' : ''}>5%<\/option><option value="12" ${item.tax == 12 ? 'selected' : ''}>12%<\/option><option value="18" ${item.tax == 18 ? 'selected' : ''}>18%<\/option><option value="28" ${item.tax == 28 ? 'selected' : ''}>28%<\/option><\/select><\/td><td class="item-amount-cell"><div class="amount-dual"><span class="amount-excl" id="excl_${rowId}">₹ 0.00 <span class="tax-badge">Excl. Tax</span></span><span class="amount-incl" id="incl_${rowId}">₹ 0.00 <span class="tax-badge">Incl. Tax</span></span></div><\/td><td><button class="btn btn-sm delete-row-btn text-danger pt-2" style="background:none;border:none;"><iconify-icon icon="solar:trash-bin-minimalistic-bold" width="18"><\/iconify-icon><\/button><\/td>`;
-
-      const dropdown = tr.querySelector('.item-dropdown');
-      const priceInput = tr.querySelector('.item-price');
-      const qtyInput = tr.querySelector('.item-qty');
-      const taxSelect = tr.querySelector('.item-tax');
-      const exclSpan = tr.querySelector('.amount-excl');
-      const inclSpan = tr.querySelector('.amount-incl');
-
-      const updateAmount = () => {
-        let price = parseFloat(priceInput.value) || 0;
-        let qty = parseFloat(qtyInput.value) || 0;
-        let taxPercent = parseFloat(taxSelect.value) || 0;
-        let base = price * qty;
-        let exclAmount = base;
-        let inclAmount = base;
-
-        if (taxMode === 'exclusive') {
-          exclAmount = base;
-          inclAmount = base + (base * taxPercent / 100);
-        } else if (taxMode === 'inclusive') {
-          let priceExcl = price / (1 + taxPercent / 100);
-          exclAmount = priceExcl * qty;
-          inclAmount = price * qty;
-        } else {
-          exclAmount = base;
-          inclAmount = base;
-        }
-
-        exclSpan.innerHTML = `₹ ${exclAmount.toFixed(2)} <span class="tax-badge">Excl. Tax</span>`;
-        inclSpan.innerHTML = `₹ ${inclAmount.toFixed(2)} <span class="tax-badge">Incl. Tax</span>`;
-        recalcTotals();
-      };
-
-      dropdown.addEventListener('change', () => {
-        const found = globalItemsList.find(i => i.id === dropdown.value);
-        if (found) {
-          tr.querySelector('.item-code').value = found.code || '';
-          priceInput.value = found.price;
-          tr.querySelector('.item-unit').value = found.unit;
-          taxSelect.value = found.tax;
-          tr.querySelector('.item-description-textarea').value = found.desc || '';
-          updateAmount();
-        }
-      });
-
-      priceInput.addEventListener('input', updateAmount);
-      qtyInput.addEventListener('input', updateAmount);
-      taxSelect.addEventListener('change', updateAmount);
-      tr.querySelector('.delete-row-btn').addEventListener('click', () => {
-        tr.remove();
-        recalcTotals();
-      });
-      updateAmount();
-      return tr;
-    }
-
-    function refreshAllDropdowns() {
-      document.querySelectorAll('#itemsTableBody .item-dropdown').forEach(select => {
-        const cur = select.value;
-        select.innerHTML = globalItemsList.map(i => `<option value="${i.id}">${escapeHtml(i.name)}</option>`).join('');
-        if (globalItemsList.some(i => i.id === cur)) select.value = cur;
-        else if (globalItemsList.length) select.value = globalItemsList[0].id;
-      });
-    }
-
-    function recalcTotals() {
-      let subtotal = 0, totalTax = 0;
-      document.querySelectorAll('#itemsTableBody tr').forEach(row => {
-        let price = parseFloat(row.querySelector('.item-price')?.value) || 0;
-        let qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
-        let tax = parseFloat(row.querySelector('.item-tax')?.value) || 0;
-        let base = price * qty;
-        if (taxMode === 'inclusive') {
-          let priceExcl = price / (1 + tax / 100);
-          subtotal += priceExcl * qty;
-          totalTax += (price * qty) - (priceExcl * qty);
-        } else if (taxMode === 'exclusive') {
-          subtotal += base;
-          totalTax += base * tax / 100;
-        } else {
-          subtotal += base;
-        }
-      });
-      let shipping = parseFloat(document.getElementById('shippingAmount')?.value) || 0;
-      let netTotal = subtotal + totalTax + shipping;
-      document.getElementById('subtotalVal').innerHTML = `₹ ${subtotal.toFixed(2)}`;
-      document.getElementById('taxVal').innerHTML = `₹ ${totalTax.toFixed(2)}`;
-      document.getElementById('grandTotalVal').innerHTML = `₹ ${netTotal.toFixed(2)}`;
-    }
-
-    function applyColumnVisibility() {
-      const showItem = document.getElementById('toggleItem')?.checked;
-      const showCode = document.getElementById('toggleCode')?.checked;
-      const showPrice = document.getElementById('togglePrice')?.checked;
-      const showQty = document.getElementById('toggleQty')?.checked;
-      const showUnit = document.getElementById('toggleUnit')?.checked;
-      const showTax = document.getElementById('toggleTax')?.checked;
-      document.querySelectorAll('.col-item-col').forEach(el => el.style.display = showItem ? '' : 'none');
-      document.querySelectorAll('.col-code-col').forEach(el => el.style.display = showCode ? '' : 'none');
-      document.querySelectorAll('.col-price-col').forEach(el => el.style.display = showPrice ? '' : 'none');
-      document.querySelectorAll('.col-qty-col').forEach(el => el.style.display = showQty ? '' : 'none');
-      document.querySelectorAll('.col-unit-col').forEach(el => el.style.display = showUnit ? '' : 'none');
-      document.querySelectorAll('.col-tax-col').forEach(el => el.style.display = showTax ? '' : 'none');
-      let headers = document.querySelectorAll('#tableHeaderRow th');
-      if (headers.length >= 6) {
-        if (headers[0]) headers[0].style.display = showItem ? '' : 'none';
-        if (headers[1]) headers[1].style.display = showCode ? '' : 'none';
-        if (headers[2]) headers[2].style.display = showPrice ? '' : 'none';
-        if (headers[3]) headers[3].style.display = showQty ? '' : 'none';
-        if (headers[4]) headers[4].style.display = showUnit ? '' : 'none';
-        if (headers[5]) headers[5].style.display = showTax ? '' : 'none';
-      }
-    }
-
-    function loadDefaultRows() {
-      let tbody = document.getElementById('itemsTableBody');
-      tbody.innerHTML = '';
-      tbody.appendChild(createItemRow(globalItemsList[0], 1));
-      tbody.appendChild(createItemRow(globalItemsList[1], 1));
-      recalcTotals();
-    }
-
-    // Logo Upload
-    const logoUpload = document.getElementById('logoUpload');
-    const logoImage = document.getElementById('logoImage');
-    const logoPlaceholder = document.getElementById('logoPlaceholder');
-    if (logoUpload) logoUpload.addEventListener('change', function (e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function (event) {
-          logoImage.src = event.target.result;
-          logoImage.style.display = 'block';
-          logoPlaceholder.style.display = 'none';
-        };
-        reader.readAsDataURL(file);
-      }
-    });
-
-    // Create Item
-    document.getElementById('createNewItemBtn')?.addEventListener('click', () => {
-      const newName = document.getElementById('newItemName').value.trim();
-      if (!newName) { alert("Item name required"); return; }
-      const newItem = {
-        id: "itm_" + Date.now(),
-        name: newName,
-        type: document.getElementById('newItemType').value,
-        code: document.getElementById('newItemCode').value.trim() || "",
-        price: parseFloat(document.getElementById('newItemPrice').value) || 0,
-        unit: document.getElementById('newItemUnit').value,
-        tax: parseFloat(document.getElementById('newItemGst').value) || 0,
-        desc: ""
-      };
-      globalItemsList.push(newItem);
-      refreshAllDropdowns();
-      bootstrap.Modal.getInstance(document.getElementById('createItemModal')).hide();
-      document.getElementById('newItemName').value = '';
-      document.getElementById('newItemCode').value = '';
-      document.getElementById('newItemPrice').value = '0';
-      document.getElementById('newItemUnit').value = 'PCS';
-      document.getElementById('newItemGst').value = '12';
-      alert(`Item "${newName}" created!`);
-    });
-
-    document.getElementById('resetFormBtn')?.addEventListener('click', () => {
-      document.getElementById('newItemName').value = '';
-      document.getElementById('newItemCode').value = '';
-      document.getElementById('newItemPrice').value = '0';
-      document.getElementById('newItemUnit').value = 'PCS';
-      document.getElementById('newItemGst').value = '12';
-    });
-
-    // Step Form Customer Creation
-    let currentStep = 1;
-    const step1 = document.getElementById('step1'), step2 = document.getElementById('step2'), prevBtn = document.getElementById('prevStepBtn'), nextBtn = document.getElementById('nextStepBtn'), submitBtn = document.getElementById('submitCustomerBtn');
-    function updateStepUI() {
-      document.querySelectorAll('#customerCreateModal .step-item').forEach((el, idx) => {
-        if (idx + 1 < currentStep) el.classList.add('completed');
-        else el.classList.remove('completed');
-        if (idx + 1 === currentStep) el.classList.add('active');
-        else el.classList.remove('active');
-      });
-      if (currentStep === 1) {
-        step1.classList.add('active-step');
-        step2.classList.remove('active-step');
-        prevBtn.disabled = true;
-        nextBtn.style.display = 'inline-flex';
-        submitBtn.style.display = 'none';
-      } else {
-        step1.classList.remove('active-step');
-        step2.classList.add('active-step');
-        prevBtn.disabled = false;
-        nextBtn.style.display = 'none';
-        submitBtn.style.display = 'inline-flex';
-      }
-    }
-    nextBtn.addEventListener('click', () => {
-      const companyName = document.getElementById('newCompanyName').value.trim();
-      const customerName = document.getElementById('newCustomerName').value.trim();
-      if (!companyName) { alert("Please enter company name"); return; }
-      if (!customerName) { alert("Please enter customer name"); return; }
-      currentStep = 2;
-      updateStepUI();
-    });
-    prevBtn.addEventListener('click', () => { currentStep = 1; updateStepUI(); });
-    document.getElementById('sameAsBilling')?.addEventListener('change', (e) => {
-      if (e.target.checked) {
-        document.getElementById('shipAddress').value = document.getElementById('billAddress').value;
-        document.getElementById('shipCity').value = document.getElementById('billCity').value;
-        document.getElementById('shipState').value = document.getElementById('billState').value;
-        document.getElementById('shipZip').value = document.getElementById('billZip').value;
-      }
-    });
-    document.getElementById('submitCustomerBtn')?.addEventListener('click', () => {
-      let companyName = document.getElementById('newCompanyName').value.trim();
-      let customerName = document.getElementById('newCustomerName').value.trim();
-      if (!companyName) return alert("Company name required");
-      if (!customerName) return alert("Customer name required");
-      let custId = document.getElementById('newCustIdModal').value.trim() || ("CUST-" + Math.floor(Math.random() * 10000));
-      let fullAddress = document.getElementById('billAddress').value;
-      if (document.getElementById('billCity').value) fullAddress += ", " + document.getElementById('billCity').value;
-      if (document.getElementById('billState').value) fullAddress += ", " + document.getElementById('billState').value;
-      if (document.getElementById('billZip').value) fullAddress += " - " + document.getElementById('billZip').value;
-      customersList.push({
-        id: custId,
-        companyName: companyName,
-        customerName: customerName,
-        address: fullAddress || "Address not provided",
-        gst: document.getElementById('newCustGstModal').value.trim(),
-        email: document.getElementById('newCustEmail').value,
-        phone: document.getElementById('newCustPhone').value
-      });
-      populateCustomerDropdown();
-      document.getElementById('customerSelect').value = custId;
-      updateCustomerUI();
-      bootstrap.Modal.getInstance(document.getElementById('customerCreateModal')).hide();
-      document.getElementById('newCompanyName').value = '';
-      document.getElementById('newCustomerName').value = '';
-      document.getElementById('newCustIdModal').value = '';
-      document.getElementById('newCustGstModal').value = '';
-      document.getElementById('newCustEmail').value = '';
-      document.getElementById('newCustPhone').value = '';
-      document.getElementById('billAddress').value = '';
-      document.getElementById('billCity').value = '';
-      document.getElementById('billState').value = '';
-      document.getElementById('billZip').value = '';
-      document.getElementById('shipAddress').value = '';
-      document.getElementById('shipCity').value = '';
-      document.getElementById('shipState').value = '';
-      document.getElementById('shipZip').value = '';
-      document.getElementById('sameAsBilling').checked = false;
-      currentStep = 1;
-      updateStepUI();
-      alert(`Customer "${companyName}" added!`);
-    });
-
-    document.addEventListener('DOMContentLoaded', () => {
-      populateCustomerDropdown();
-      loadDefaultRows();
-      document.getElementById('customerSelect')?.addEventListener('change', updateCustomerUI);
-      document.getElementById('issueDate')?.addEventListener('change', updateDueDate);
-      document.getElementById('dueDatePreset')?.addEventListener('change', updateDueDate);
-      document.getElementById('shippingAmount')?.addEventListener('input', recalcTotals);
-      document.querySelectorAll('.tax-mode-option').forEach(opt => {
-        opt.addEventListener('click', (e) => {
-          e.preventDefault();
-          taxMode = opt.dataset.mode;
-          let txt = { exclusive: 'Tax Exclusive', inclusive: 'Tax Inclusive', none: 'No Tax' };
-          document.getElementById('taxModeDropdown').innerHTML = txt[taxMode];
-          recalcTotals();
-          document.querySelectorAll('#itemsTableBody tr').forEach(row => {
-            let ev = new Event('input');
-            row.querySelector('.item-price')?.dispatchEvent(ev);
-          });
-        });
-      });
-      document.getElementById('addItemRowBtn')?.addEventListener('click', () => {
-        document.getElementById('itemsTableBody').appendChild(createItemRow(globalItemsList[0], 1));
-        recalcTotals();
-      });
-      document.getElementById('addLineItemTopBtn')?.addEventListener('click', () => {
-        document.getElementById('itemsTableBody').appendChild(createItemRow(globalItemsList[0], 1));
-        recalcTotals();
-      });
-      document.getElementById('applyColumnVisibility')?.addEventListener('click', applyColumnVisibility);
-      let newCustModal = new bootstrap.Modal(document.getElementById('customerCreateModal'));
-      document.getElementById('newCustomerBtn')?.addEventListener('click', () => {
-        currentStep = 1;
-        updateStepUI();
-        newCustModal.show();
-      });
-      document.getElementById('cancelBtn')?.addEventListener('click', () => {
-        if (confirm('Discard changes?')) location.reload();
-      });
-      document.getElementById('saveAndRecordPaymentOption')?.addEventListener('click', () => alert('Invoice saved and payment recorded.'));
-      document.getElementById('saveDraftOnly')?.addEventListener('click', () => alert('Invoice saved as draft.'));
-      let scannerPanel = document.getElementById('barcodeScannerPanel');
-      document.getElementById('scanBarcodeBtn')?.addEventListener('click', () => {
-        scannerPanel.style.display = scannerPanel.style.display === 'none' ? 'block' : 'none';
-        if (scannerPanel.style.display === 'block') document.getElementById('barcodeInput')?.focus();
-      });
-      document.getElementById('closeScannerBtn')?.addEventListener('click', () => scannerPanel.style.display = 'none');
-      document.getElementById('barcodeInput')?.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-          let code = e.target.value;
-          let found = globalItemsList.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase()));
-          if (found) {
-            document.getElementById('itemsTableBody').appendChild(createItemRow(found, 1));
-            recalcTotals();
-            alert(`Added: ${found.name}`);
-            e.target.value = '';
-            scannerPanel.style.display = 'none';
-          } else alert('Item not found');
-        }
-      });
-      updateDueDate();
-      applyColumnVisibility();
-      document.getElementById('currencySelect')?.addEventListener('change', () => recalcTotals());
-    });
-
-    function handleLogout() { if (confirm('Logout?')) window.location.href = 'login.html'; }
-  </script>
+    <script>
+        (function() {
+            // ---------- SIDEBAR COLLAPSE / EXPAND (mini mode) ----------
+            const sideMenu = document.getElementById('fintleSidebarRoot');
+            const collapseBtn = document.getElementById('collapseSideBtn');
+            
+            // load saved state
+            let isSideCollapsed = localStorage.getItem('fintleSideState') === 'mini';
+            function applyCollapseState(collapse) {
+                if (collapse) {
+                    sideMenu.classList.add('mini-collapsed');
+                } else {
+                    sideMenu.classList.remove('mini-collapsed');
+                }
+                localStorage.setItem('fintleSideState', collapse ? 'mini' : 'expanded');
+            }
+            if (isSideCollapsed) applyCollapseState(true);
+            else applyCollapseState(false);
+            
+            if (collapseBtn) {
+                collapseBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    const willCollapse = !sideMenu.classList.contains('mini-collapsed');
+                    applyCollapseState(willCollapse);
+                    // slight resize event for any future elements
+                    window.dispatchEvent(new Event('resize'));
+                });
+            }
+            
+            // ---------- SUBMENU TOGGLE LOGIC (independent, no conflict) ----------
+            const allSubTriggers = document.querySelectorAll('.submenu-trigger-side');
+            
+            function toggleSubmenu(triggerElement) {
+                const parentLi = triggerElement.closest('.has-sub');
+                if (!parentLi) return;
+                const submenuId = parentLi.getAttribute('data-submenu-id');
+                let targetSub = null;
+                if (submenuId) {
+                    targetSub = document.getElementById(submenuId);
+                } else {
+                    targetSub = parentLi.querySelector('.submenu-level');
+                }
+                if (!targetSub) return;
+                
+                const isNowVisible = targetSub.classList.contains('show-sub');
+                if (!isNowVisible) {
+                    // open submenu
+                    targetSub.classList.add('show-sub');
+                    parentLi.classList.add('open');
+                } else {
+                    targetSub.classList.remove('show-sub');
+                    parentLi.classList.remove('open');
+                }
+                // small: prevent event bubbling conflict if any
+            }
+            
+            // attach click events to each trigger
+            allSubTriggers.forEach(trigger => {
+                trigger.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    toggleSubmenu(trigger);
+                });
+            });
+            
+            // ---------- ACTIVE LINK HANDLING (main & sub) ----------
+            const allMainLinks = document.querySelectorAll('.nav-link-side:not(.submenu-trigger-side)');
+            const allSubLinks = document.querySelectorAll('.sub-link');
+            
+            function clearActiveMain() {
+                allMainLinks.forEach(link => link.classList.remove('active'));
+                document.querySelectorAll('.submenu-trigger-side').forEach(tr => tr.classList.remove('active'));
+            }
+            
+            function setActiveMain(linkElement) {
+                clearActiveMain();
+                linkElement.classList.add('active');
+            }
+            
+            // main links (dashboard, inbox, reports, etc)
+            allMainLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    // for normal nav links (without submenu arrow)
+                    if (!this.closest('.has-sub')) {
+                        setActiveMain(this);
+                    } else {
+                        // if it's inside has-sub but it's not the trigger? but we handle separately
+                        if (!this.classList.contains('submenu-trigger-side')) {
+                            setActiveMain(this);
+                        }
+                    }
+                });
+            });
+            
+            // submenu links: highlight parent submenu trigger and remove other active states
+            allSubLinks.forEach(subItem => {
+                subItem.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    // remove active-sub class from all sublinks
+                    allSubLinks.forEach(link => link.classList.remove('active-sub'));
+                    this.classList.add('active-sub');
+                    
+                    // find parent .has-sub and highlight its trigger
+                    const parentHasSub = this.closest('.has-sub');
+                    if (parentHasSub) {
+                        const parentTrigger = parentHasSub.querySelector('.submenu-trigger-side');
+                        if (parentTrigger) {
+                            clearActiveMain();
+                            parentTrigger.classList.add('active');
+                        }
+                    }
+                    // optional: set extra visual
+                });
+            });
+            
+            // dashboard highlight example
+            const dashboardLink = document.getElementById('dashboardNav');
+            if (dashboardLink) {
+                dashboardLink.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    setActiveMain(dashboardLink);
+                });
+            }
+            
+            // reset button logic: close all submenus, then open Purchase submenu
+            const resetBtnMenu = document.getElementById('resetMenuBtn');
+            if (resetBtnMenu) {
+                resetBtnMenu.addEventListener('click', () => {
+                    // close all submenus
+                    document.querySelectorAll('.submenu-level').forEach(sub => {
+                        sub.classList.remove('show-sub');
+                    });
+                    document.querySelectorAll('.has-sub').forEach(parent => {
+                        parent.classList.remove('open');
+                    });
+                    // specifically open Purchase menu: purchaseSub
+                    const purchaseParent = document.querySelector('.has-sub[data-submenu-id="purchaseSub"]');
+                    const purchaseSubmenu = document.getElementById('purchaseSub');
+                    if (purchaseParent && purchaseSubmenu) {
+                        purchaseSubmenu.classList.add('show-sub');
+                        purchaseParent.classList.add('open');
+                        // also give active class to purchase Trigger
+                        const purchaseTrigger = purchaseParent.querySelector('.submenu-trigger-side');
+                        if (purchaseTrigger) {
+                            clearActiveMain();
+                            purchaseTrigger.classList.add('active');
+                        }
+                    }
+                    // optional: also ensure any active sub link cleared
+                    allSubLinks.forEach(link => link.classList.remove('active-sub'));
+                });
+            }
+            
+            // logout simulation
+            const logoutBtn = document.getElementById('logoutActionBtn');
+            if (logoutBtn) {
+                logoutBtn.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    alert('Logout action — session terminated (demo)');
+                    // you could redirect here: window.location.href = '/login';
+                });
+            }
+            
+            // ---- ensure purchase submenu is open on initial load (matching markup)
+            // However since HTML already has .open and .show-sub on purchase, we double-check consistency
+            const initPurchase = document.querySelector('.has-sub[data-submenu-id="purchaseSub"]');
+            if (initPurchase && !initPurchase.classList.contains('open')) {
+                initPurchase.classList.add('open');
+                const subPanel = document.getElementById('purchaseSub');
+                if (subPanel) subPanel.classList.add('show-sub');
+            }
+            
+            // small scroll guard: the .fintle-nav-scroll container automatically handles overflow
+            const scrollArea = document.querySelector('.fintle-nav-scroll');
+            if (scrollArea) {
+                // make sure scroll appears if content overflows - all good
+                // just a dummy console log menu ready
+            }
+            
+            // optional: for better responsiveness preserve state of arrows: done
+            console.log('fintle-side menu: scrollable, collapsible, submenus operational');
+        })();
+    </script>
 </body>
-
 </html>

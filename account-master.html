@@ -2,12 +2,14 @@
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+ <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fintle | Account Master</title>
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
   <style>
@@ -148,7 +150,7 @@
       height: calc(100vh - 200px);
       overflow-y: auto;
     }
-    
+
     /* Minimal Delete Modal */
     .minimal-delete-modal .modal-content {
       border: none;
@@ -156,25 +158,30 @@
       box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
       overflow: hidden;
     }
+
     .minimal-delete-modal .modal-header {
       border-bottom: none;
       padding: 1.5rem 1.5rem 0 1.5rem;
     }
+
     .minimal-delete-modal .modal-body {
       padding: 1rem 1.5rem;
       text-align: center;
     }
+
     .minimal-delete-modal .modal-footer {
       border-top: none;
       padding: 0 1.5rem 1.5rem 1.5rem;
       justify-content: center;
       gap: 12px;
     }
+
     .minimal-delete-modal .btn {
       border-radius: 40px;
       padding: 8px 20px;
       font-weight: 500;
     }
+
     .toast-notify {
       position: fixed;
       bottom: 24px;
@@ -186,7 +193,7 @@
       font-size: 0.85rem;
       font-weight: 500;
       z-index: 1100;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.12);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -197,161 +204,135 @@
 <body>
 
   <div id="main-wrapper">
-    <!-- Sidebar Start -->
-    <aside class="side-mini-panel with-vertical">
-      <div class="iconbar">
-        <div class="sidebarmenu">
-          <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img">
-              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-            </a>
-          </div>
-
-          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-            <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4">
-                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                  <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Dashboard</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link" href="#" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Inbox</span>
-                </a>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Items</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="items.html">
-                      <span class="icon-small"></span> Inventory
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Purchase</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier.html">
-                      <span class="icon-small"></span> Suppliers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-order.html">
-                      <span class="icon-small"></span> Purchase Order
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="purchase-bill.html">
-                      <span class="icon-small"></span> Purchase Bill
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="supplier-statement.html">
-                      <span class="icon-small"></span> Supplier Statement
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Sales</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="customer.html">
-                      <span class="icon-small"></span> Customer
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="enquiry.html">
-                      <span class="icon-small"></span> Enquiry
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="Estimate.html">
-                      <span class="icon-small"></span> Estimate
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="invoice.html">
-                      <span class="icon-small"></span> Invoice
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li class="sidebar-item">
-                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="hide-menu">Accounts</span>
-                </a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="account-master.html">
-                      <span class="icon-small"></span> Account Master
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="journals.html">
-                      <span class="icon-small"></span> Journals
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Vouchers
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Bank Payments
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> General Ledger
-                    </a>
-                  </li>
-                  <li class="sidebar-item">
-                    <a class="sidebar-link" href="#">
-                      <span class="icon-small"></span> Balance Sheets
-                    </a>
-                  </li>
-                </ul>
-              </li>
-              <li><span class="sidebar-divider"></span></li>
-            </ul>
-            <div class="sidebar-footer">
-              <ul class="sidebar-menu">
-                <li class="sidebar-item">
-                  <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                    <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Settings</span>
-                  </a>
-                </li>
-                <li class="sidebar-item logout-item">
-                  <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                    <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                    <span class="hide-menu">Logout</span>
-                  </a>
-                </li>
-              </ul>
+          <aside class="fintle-side" id="fintleSidebarRoot">
+        <!-- Header brand section -->
+        <div class="side-header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                </div>
             </div>
-          </nav>
         </div>
-      </div>
-    </aside>
-    <!-- Sidebar End -->
 
+        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+        <div class="fintle-nav-scroll">
+            <ul class="fintle-menu-list" id="dynamicMenuList">
+                <!-- Dashboard item -->
+                <li class="menu-item">
+                    <a href="index.html" class="nav-link-side" id="dashboardNav">
+                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Inbox -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
+                        <span class="menu-text">Inbox</span>
+                    </a>
+                </li>
+
+                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+                <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                <span class="menu-text">Items</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="itemsSub">
+                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                    </ul>
+                </li>
+
+                <!-- PURCHASE (open by default) -->
+                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                <span class="menu-text">Purchase</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div> 
+                    <ul class="submenu-level" id="purchaseSub">
+                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                    </ul>
+                </li>
+
+                <!-- SALES with submenu -->
+                <li class="menu-item has-sub" data-submenu-id="salesSub">
+                    <div class="nav-link-side submenu-trigger-side active">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                <span class="menu-text">Sales</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="salesSub">
+                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                    </ul>
+                </li>
+
+                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+                <li class="menu-item has-sub open" data-submenu-id="accSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                <span class="menu-text">Accounts</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level show-sub" id="accSub">
+                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                    </ul>
+                </li>
+
+                <!-- Divider -->
+                <li class="menu-divider-custom"></li>
+            </ul>
+        </div>
+
+        <!-- Footer section: settings & logout -->
+        <div class="side-footer">
+            <ul class="fintle-menu-list">
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                        <span class="menu-text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item logout-link">
+                    <a href="#" class="nav-link-side" id="logoutActionBtn">
+                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                        <span class="menu-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
     <div class="page-wrapper">
       <header class="topbar">
         <div class="with-vertical">
@@ -492,10 +473,10 @@
         </div>
       </header>
 
-      <div class="body-wrapper">
-        <div class="container-fluid p-4">
+      <div class="body-wrapper p-3">
+        <div class="container-fluid p-0">
           <!-- Breadcrumb -->
-          <div class="card card-body py-3 mb-4">
+          <div class="card card-body py-3 mb-3">
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-space-between">
@@ -521,7 +502,8 @@
               <div class="tree-container">
                 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
                   <h5 class="fw-semibold mb-0">Chart of Accounts</h5>
-                  <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill" id="accountCount">0 Accounts</span>
+                  <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill" id="accountCount">0
+                    Accounts</span>
                 </div>
                 <ul class="tree-node" id="accountTree"></ul>
               </div>
@@ -567,7 +549,8 @@
 
                   <div class="mb-4">
                     <label class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Optional description"></textarea>
+                    <textarea class="form-control" id="description" rows="3"
+                      placeholder="Optional description"></textarea>
                   </div>
 
                   <div class="d-flex justify-content-end gap-3">
@@ -598,7 +581,8 @@
         <div class="modal-body">
           <i class="fas fa-trash-alt text-danger mb-3" style="font-size: 2rem;"></i>
           <h5 class="mb-2">Delete Account?</h5>
-          <p class="text-muted mb-0">Are you sure you want to delete <strong id="deleteAccountName"></strong>? This action cannot be undone. All sub-accounts will also be deleted.</p>
+          <p class="text-muted mb-0">Are you sure you want to delete <strong id="deleteAccountName"></strong>? This
+            action cannot be undone. All sub-accounts will also be deleted.</p>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
@@ -620,7 +604,7 @@
   <script src="assets/libs/js/sidebarmenu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-<script>
+  <script>
     // Account Data Structure - Parent accounts only (not expanded initially)
     let accounts = [
       { id: "assets", name: "Assets", code: "1", parent: null, type: "assets", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
@@ -628,7 +612,7 @@
       { id: "equity", name: "Equity", code: "3", parent: null, type: "equity", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
       { id: "income", name: "Income", code: "4", parent: null, type: "income", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
       { id: "expense", name: "Expense", code: "5", parent: null, type: "expense", level: 0, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
-      
+
       // Sub-parents (will be hidden until parent expanded)
       { id: "assets_current", name: "Current Assets", code: "1.1", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
       { id: "assets_fixed", name: "Fixed Assets", code: "1.2", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
@@ -637,7 +621,7 @@
       { id: "liab_current", name: "Current Liabilities", code: "2.1", parent: "liabilities", type: "liabilities", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
       { id: "income_operating", name: "Operating Revenue", code: "4.1", parent: "income", type: "income", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
       { id: "expense_direct", name: "Direct Expenses", code: "5.1", parent: "expense", type: "expense", level: 1, isFolder: true, expanded: false, openingBalance: 0, description: "", isSystem: true },
-      
+
       // Leaf accounts (demo)
       { id: "bank_hdfc", name: "HDFC Bank", code: "1.1.1.1", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 25000, description: "HDFC Current Account", isSystem: false },
       { id: "bank_sbi", name: "SBI Bank", code: "1.1.1.2", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 15000, description: "SBI Business Account", isSystem: false },
@@ -667,34 +651,34 @@
       const container = document.getElementById('accountTree');
       if (!container) return;
       container.innerHTML = '';
-      
+
       const rootAccounts = accounts.filter(a => a.parent === null);
       rootAccounts.forEach(account => {
         renderNode(account, container);
       });
-      
+
       document.getElementById('accountCount').innerText = accounts.length + ' Accounts';
     }
 
     function renderNode(account, parentElement) {
       const li = document.createElement('li');
       li.dataset.id = account.id;
-      
+
       const children = accounts.filter(a => a.parent === account.id);
       const hasChildren = children.length > 0;
-      
+
       const div = document.createElement('div');
       div.className = 'tree-item';
       if (account.id === selectedAccountId) {
         div.classList.add('active');
       }
-      
+
       // Toggle icon for folders with children
       if (hasChildren || account.isFolder) {
         const toggleSpan = document.createElement('span');
         toggleSpan.className = 'toggle-icon';
-        toggleSpan.innerHTML = account.expanded ? 
-          '<i class="fas fa-minus-square"></i>' : 
+        toggleSpan.innerHTML = account.expanded ?
+          '<i class="fas fa-minus-square"></i>' :
           '<i class="fas fa-plus-square"></i>';
         toggleSpan.onclick = (e) => {
           e.stopPropagation();
@@ -708,32 +692,32 @@
         spacer.style.display = 'inline-block';
         div.appendChild(spacer);
       }
-      
+
       // Folder/File icon
       const iconSpan = document.createElement('span');
       iconSpan.className = account.isFolder ? 'folder-icon' : 'file-icon';
-      iconSpan.innerHTML = account.isFolder ? 
-        '<i class="fas fa-folder"></i>' : 
+      iconSpan.innerHTML = account.isFolder ?
+        '<i class="fas fa-folder"></i>' :
         '<i class="fas fa-file-alt"></i>';
       div.appendChild(iconSpan);
-      
+
       // Account name
       const nameSpan = document.createElement('span');
       nameSpan.className = 'account-name';
       nameSpan.innerHTML = `${escapeHtml(account.name)} <span class="account-code">(${account.code})</span>`;
       div.appendChild(nameSpan);
-      
+
       // Type badge
       const typeBadge = document.createElement('span');
       typeBadge.className = `type-badge type-${account.type}`;
       typeBadge.innerText = account.type.charAt(0).toUpperCase() + account.type.slice(1);
       div.appendChild(typeBadge);
-      
+
       // Actions for non-system accounts (user editable)
       if (!account.isSystem) {
         const actionsDiv = document.createElement('div');
         actionsDiv.className = 'account-actions';
-        
+
         const editBtn = document.createElement('span');
         editBtn.className = 'account-action';
         editBtn.innerHTML = '<i class="fas fa-edit"></i>';
@@ -741,7 +725,7 @@
           e.stopPropagation();
           editAccount(account);
         };
-        
+
         const deleteBtn = document.createElement('span');
         deleteBtn.className = 'account-action';
         deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
@@ -749,18 +733,18 @@
           e.stopPropagation();
           confirmDelete(account);
         };
-        
+
         actionsDiv.appendChild(editBtn);
         actionsDiv.appendChild(deleteBtn);
         div.appendChild(actionsDiv);
       }
-      
+
       div.onclick = () => {
         selectAccount(account);
       };
-      
+
       li.appendChild(div);
-      
+
       // Render children if expanded
       if (account.expanded && children.length > 0) {
         const ul = document.createElement('ul');
@@ -769,21 +753,21 @@
         });
         li.appendChild(ul);
       }
-      
+
       parentElement.appendChild(li);
     }
 
     function selectAccount(account) {
       selectedAccountId = account.id;
       renderTree();
-      
+
       document.getElementById('parentAccount').value = account.parent || '';
       document.getElementById('accountName').value = account.name;
       document.getElementById('accountCode').value = account.code;
       document.getElementById('accountType').value = account.type;
       document.getElementById('openingBalance').value = account.openingBalance || 0;
       document.getElementById('description').value = account.description || '';
-      
+
       const formTitle = document.getElementById('formTitle');
       const submitBtn = document.getElementById('submitBtn');
       if (formTitle) formTitle.innerHTML = 'Edit Account Head';
@@ -813,12 +797,12 @@
         deleteChildren(accountToDelete.id);
         const index = accounts.findIndex(a => a.id === accountToDelete.id);
         if (index !== -1) accounts.splice(index, 1);
-        
+
         renderTree();
         showToast(`Account "${accountToDelete.name}" deleted successfully`);
         accountToDelete = null;
         bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
-        
+
         if (selectedAccountId === accountToDelete?.id) {
           resetForm();
         }
@@ -853,21 +837,21 @@
     // Form submission
     document.getElementById('accountForm')?.addEventListener('submit', (e) => {
       e.preventDefault();
-      
+
       const accountName = document.getElementById('accountName').value.trim();
       if (!accountName) {
         showToast('Please enter account name');
         return;
       }
-      
+
       const parentId = document.getElementById('parentAccount').value;
       const accountType = document.getElementById('accountType').value;
       let accountCode = document.getElementById('accountCode').value.trim();
-      
+
       if (!accountCode) {
         accountCode = generateAccountCode(parentId);
       }
-      
+
       if (selectedAccountId) {
         const index = accounts.findIndex(a => a.id === selectedAccountId);
         if (index !== -1) {
@@ -901,7 +885,7 @@
         accounts.push(newAccount);
         showToast(`Account "${accountName}" created successfully`);
       }
-      
+
       renderTree();
       resetForm();
     });
@@ -916,9 +900,9 @@
     function buildParentOptions() {
       const select = document.getElementById('parentAccount');
       if (!select) return;
-      
+
       const options = [{ value: "", label: "-- Select Parent Account (Optional) --" }];
-      
+
       // Add all folder accounts as potential parents
       accounts.forEach(acc => {
         if (acc.isFolder && acc.id !== selectedAccountId) {
@@ -926,7 +910,7 @@
           options.push({ value: acc.id, label: indent + "└ " + acc.name + ` (${acc.type})` });
         }
       });
-      
+
       select.innerHTML = options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
     }
 
@@ -934,10 +918,10 @@
       buildParentOptions();
       renderTree();
     }
-    
+
     init();
 
-    function handleLogout() { 
+    function handleLogout() {
       if (confirm('Are you sure you want to logout?')) {
         window.location.href = 'login.html';
       }

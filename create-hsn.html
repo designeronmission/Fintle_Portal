@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Create HSN / SAC Code</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .btn-outline-secondary {
+            border-radius: 40px;
+            padding: 12px 28px;
+            font-weight: 500;
+        }
+
+        .form-card {
+            background: white;
+            border-radius: 28px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.03);
+            overflow: hidden;
+        }
+
+        .form-header {
+            padding: 24px 28px;
+            border-bottom: 1px solid #eef2f8;
+            background: #fafcff;
+        }
+
+        .form-body {
+            padding: 28px;
+        }
+
+        .form-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #ef4444;
+            margin-left: 4px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.7rem 1rem;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+            outline: none;
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .info-badge {
+            background: #f1f5f9;
+            border-radius: 40px;
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            color: #475569;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid #eef2f8;
+        }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #5f7f9e;
+        }
+
+        .breadcrumb-item.active {
+            color: #2a3b82;
+            font-weight: 500;
+        }
+
+        .card-title {
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .type-hint {
+            font-size: 0.7rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        @media (max-width: 768px) {
+            .form-body {
+                padding: 20px;
+            }
+            .form-header {
+                padding: 18px 20px;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .btn-primary, .btn-outline-secondary {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+    <aside class="fintle-side" id="fintleSidebarRoot">
+        <!-- Header brand section -->
+        <div class="side-header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                </div>
+            </div>
+        </div>
+
+        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+        <div class="fintle-nav-scroll">
+            <ul class="fintle-menu-list" id="dynamicMenuList">
+                <!-- Dashboard item -->
+                <li class="menu-item">
+                    <a href="index.html" class="nav-link-side" id="dashboardNav">
+                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Inbox -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
+                        <span class="menu-text">Inbox</span>
+                    </a>
+                </li>
+
+                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+                <li class="menu-item has-sub open" data-submenu-id="itemsSub">
+                    <div class="nav-link-side submenu-trigger-side active">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                <span class="menu-text">Items</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level show-sub" id="itemsSub">
+                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                    </ul>
+                </li>
+
+                <!-- PURCHASE (open by default) -->
+                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                <span class="menu-text">Purchase</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="purchaseSub">
+                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                    </ul>
+                </li>
+
+                <!-- SALES with submenu -->
+                <li class="menu-item has-sub" data-submenu-id="salesSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                <span class="menu-text">Sales</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="salesSub">
+                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                    </ul>
+                </li>
+
+                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+                <li class="menu-item has-sub" data-submenu-id="accSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                <span class="menu-text">Accounts</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="accSub">
+                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                    </ul>
+                </li>
+
+                <!-- Divider -->
+                <li class="menu-divider-custom"></li>
+            </ul>
+        </div>
+
+        <!-- Footer section: settings & logout -->
+        <div class="side-footer">
+            <ul class="fintle-menu-list">
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                        <span class="menu-text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item logout-link">
+                    <a href="#" class="nav-link-side" id="logoutActionBtn">
+                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                        <span class="menu-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a class="nav-link sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:magnifer-linear"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px;"
+                                        onclick="location.href='create-invoice.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-flex align-items-center gap-3 ms-auto">
+                            <img src="assets/images/needs/profile.png" class="rounded-circle" width="35"
+                                alt="profile" />
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <!-- Breadcrumb -->
+                    <div class="card card-body py-3 mb-3 border-0 shadow-sm" style="border-radius: 16px;">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-content-between">
+                                    <h4 class="mb-2 mb-sm-0 card-title">
+                                        <a href="hsn.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>
+                                        Create HSN / SAC Code
+                                    </h4>
+                                    <nav aria-label="breadcrumb">
+                                        <ol class="breadcrumb mb-0">
+                                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
+                                            <li class="breadcrumb-item"><a href="hsn-sac.html">HSN/SAC Codes</a></li>
+                                            <li class="breadcrumb-item active">Create New</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Create Form Card - 6 and 6 Layout -->
+                    <div class="form-card">
+                        <div class="form-body">
+                            <form id="createHsnForm">
+                                <!-- Row 1: Type (6 columns) + Code (6 columns) -->
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">The code is created for? <span class="required">*</span></label>
+                                        <select class="form-select" id="codeType" required>
+                                            <option value="">Select type</option>
+                                            <option value="HSN">HSN - Harmonized System Nomenclature (Goods)</option>
+                                            <option value="SAC">SAC - Service Accounting Code (Services)</option>
+                                        </select>
+                                        <div class="type-hint">
+                                            <i class="fas fa-info-circle me-1"></i> HSN for physical goods, SAC for services
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Code <span class="required">*</span></label>
+                                        <input type="text" class="form-control" id="codeValue" 
+                                            placeholder="e.g., 84713000 (HSN) or 998311 (SAC)" required>
+                                        <div class="type-hint">
+                                            <i class="fas fa-hashtag me-1"></i> 6-8 digit HSN code or 6-digit SAC code
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Row 2: Description (6 columns) + Status (6 columns) -->
+                                <div class="row">
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Description <span class="required">*</span></label>
+                                        <textarea class="form-control" id="codeDescription" 
+                                            placeholder="Enter detailed description of the product or service" 
+                                            rows="4" required></textarea>
+                                        <div class="type-hint">
+                                            <i class="fas fa-align-left me-1"></i> Provide clear description for tax classification
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 mb-4">
+                                        <label class="form-label">Status <span class="required">*</span></label>
+                                        <select class="form-select" id="codeStatus" required>
+                                            <option value="active">Active</option>
+                                            <option value="inactive">Inactive</option>
+                                        </select>
+                                        <div class="type-hint">
+                                            <i class="fas fa-toggle-on me-1"></i> Active codes can be used in invoices and purchase bills
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Info Badges - Full Width -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="d-flex flex-wrap gap-2 mb-4">
+                                            <span class="info-badge"><i class="fas fa-industry"></i> HSN: For Goods</span>
+                                            <span class="info-badge"><i class="fas fa-handshake"></i> SAC: For Services</span>
+                                            <span class="info-badge"><i class="fas fa-gst"></i> Used in GST calculations</span>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons - Full Width -->
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="action-buttons">
+                                            <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='hsn-sac.html'">
+                                                <i class="fas fa-times me-2"></i>Cancel
+                                            </button>
+                                            <button type="submit" class="btn btn-primary">
+                                                <i class="fas fa-save me-2"></i>Create HSN/SAC Code
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
+        style="display:none; z-index:9999; background: #1e293b;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Initialize HSN/SAC data from localStorage or use default
+        let hsnSacData = [];
+
+        // Load existing data from localStorage
+        function loadData() {
+            const stored = localStorage.getItem('fintle_hsn_sac_data');
+            if (stored) {
+                hsnSacData = JSON.parse(stored);
+            } else {
+                // Default data if none exists
+                hsnSacData = [
+                    { id: 1, type: "HSN", code: "84713000", description: "Laptop and personal computers", status: "active", createdAt: "2025-01-15", updatedAt: "2025-01-15" },
+                    { id: 2, type: "HSN", code: "85171300", description: "Smartphones", status: "active", createdAt: "2025-01-20", updatedAt: "2025-02-10" },
+                    { id: 3, type: "SAC", code: "998311", description: "Software development services", status: "active", createdAt: "2025-01-25", updatedAt: "2025-01-25" },
+                    { id: 4, type: "HSN", code: "94016100", description: "Wooden seating furniture", status: "inactive", createdAt: "2025-02-01", updatedAt: "2025-03-01" },
+                    { id: 5, type: "SAC", code: "998312", description: "IT consulting services", status: "active", createdAt: "2025-02-05", updatedAt: "2025-02-05" },
+                    { id: 6, type: "HSN", code: "30049011", description: "Medicaments (Ayurvedic)", status: "active", createdAt: "2025-02-10", updatedAt: "2025-02-10" },
+                    { id: 7, type: "SAC", code: "998313", description: "Cloud hosting and support", status: "active", createdAt: "2025-02-15", updatedAt: "2025-02-20" },
+                    { id: 8, type: "HSN", code: "87032391", description: "Motor vehicles", status: "inactive", createdAt: "2025-02-18", updatedAt: "2025-03-10" },
+                    { id: 9, type: "SAC", code: "998314", description: "Digital marketing services", status: "active", createdAt: "2025-02-22", updatedAt: "2025-02-22" },
+                    { id: 10, type: "HSN", code: "39269099", description: "Plastic articles", status: "active", createdAt: "2025-03-01", updatedAt: "2025-03-01" }
+                ];
+                saveData();
+            }
+        }
+
+        function saveData() {
+            localStorage.setItem('fintle_hsn_sac_data', JSON.stringify(hsnSacData));
+        }
+
+        function getNextId() {
+            if (hsnSacData.length === 0) return 1;
+            return Math.max(...hsnSacData.map(item => item.id)) + 1;
+        }
+
+        function getCurrentDate() {
+            return new Date().toISOString().slice(0, 10);
+        }
+
+        function showToast(message, isError = false) {
+            const toast = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            toastText.innerText = message;
+            toast.style.backgroundColor = isError ? '#dc2626' : '#10b981';
+            toast.style.display = 'block';
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+
+        // Check if code already exists
+        function isCodeExists(code, excludeId = null) {
+            return hsnSacData.some(item => item.code === code && (excludeId === null || item.id !== excludeId));
+        }
+
+        // Form submission handler
+        document.getElementById('createHsnForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const type = document.getElementById('codeType').value;
+            const code = document.getElementById('codeValue').value.trim();
+            const description = document.getElementById('codeDescription').value.trim();
+            const status = document.getElementById('codeStatus').value;
+            
+            // Validation
+            if (!type) {
+                showToast('Please select the code type (HSN or SAC)', true);
+                return;
+            }
+            
+            if (!code) {
+                showToast('Please enter the code', true);
+                return;
+            }
+            
+            // Validate code format
+            if (type === 'HSN') {
+                if (!/^\d{6,8}$/.test(code)) {
+                    showToast('HSN code should be 6-8 digits', true);
+                    return;
+                }
+            } else if (type === 'SAC') {
+                if (!/^\d{6}$/.test(code)) {
+                    showToast('SAC code should be 6 digits', true);
+                    return;
+                }
+            }
+            
+            if (!description) {
+                showToast('Please enter description', true);
+                return;
+            }
+            
+            if (description.length < 5) {
+                showToast('Description should be at least 5 characters', true);
+                return;
+            }
+            
+            // Check for duplicate code
+            if (isCodeExists(code)) {
+                showToast(`Code "${code}" already exists. Please use a unique code.`, true);
+                return;
+            }
+            
+            // Create new HSN/SAC code
+            const newCode = {
+                id: getNextId(),
+                type: type,
+                code: code,
+                description: description,
+                status: status,
+                createdAt: getCurrentDate(),
+                updatedAt: getCurrentDate()
+            };
+            
+            hsnSacData.push(newCode);
+            saveData();
+            
+            showToast(`${type} code "${code}" created successfully!`);
+            
+            // Reset form
+            document.getElementById('createHsnForm').reset();
+            
+            // Redirect after 1.5 seconds
+            setTimeout(() => {
+                window.location.href = 'hsn-sac.html';
+            }, 1500);
+        });
+        
+        // Real-time code format validation
+        document.getElementById('codeType').addEventListener('change', function() {
+            const codeInput = document.getElementById('codeValue');
+            const type = this.value;
+            if (type === 'HSN') {
+                codeInput.placeholder = 'e.g., 84713000 (6-8 digit HSN code)';
+                codeInput.maxLength = 8;
+            } else if (type === 'SAC') {
+                codeInput.placeholder = 'e.g., 998311 (6-digit SAC code)';
+                codeInput.maxLength = 6;
+            } else {
+                codeInput.placeholder = 'e.g., 84713000 or 998311';
+                codeInput.maxLength = 8;
+            }
+            codeInput.value = '';
+        });
+        
+        // Load data on page load
+        loadData();
+        
+        // Sidebar collapse functionality
+        const sideMenu = document.getElementById('fintleSidebarRoot');
+        const collapseBtn = document.getElementById('collapseSideBtn');
+        if (collapseBtn) {
+            collapseBtn.addEventListener('click', () => {
+                sideMenu.classList.toggle('mini-collapsed');
+            });
+        }
+        
+        // Logout
+        document.getElementById('logoutActionBtn')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        });
+    </script>
+</body>
+
+</html>

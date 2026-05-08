@@ -2,88 +2,63 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Fintle | Create Supplier</title>
-    <!-- Bootstrap 5 + Icons + Fonts -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+ <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintle | Create Supplier</title>
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
     <style>
-        /* Additional styles for the form components (matching fintle design system) */
+        /* Card Styles */
         .card-custom {
             border: none;
-            border-radius: 4px;
+            border-radius: 24px;
             background: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
             overflow: hidden;
-            margin-bottom: 24px;
+            margin-bottom: 28px;
         }
 
         .card-header-custom {
             background: white;
             border-bottom: 1px solid #eef2f8;
-            padding: 1rem 1.5rem;
+            padding: 1.2rem 1.5rem;
             font-weight: 700;
             font-size: 1rem;
             color: #1e293b;
         }
 
         .card-header-custom i {
-            color: #2a3b82;
+            color: #233578;
+            margin-right: 8px;
         }
 
         .form-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             letter-spacing: 0.03em;
-            color: #242424;
+            color: #475569;
             margin-bottom: 6px;
+            text-transform: uppercase;
         }
 
         .form-control,
         .form-select {
-            border-radius: 4px;
+            border-radius: 12px;
             border: 1px solid #e2e8f0;
-            padding: 0.6rem 1rem;
+            padding: 0.7rem 1rem;
             font-size: 0.85rem;
             transition: all 0.2s;
         }
 
         .form-control:focus,
         .form-select:focus {
-            border-color: #2a3b82;
-            box-shadow: 0 0 0 3px rgba(44, 125, 160, 0.1);
+            border-color: #233578;
+            box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
             outline: none;
-        }
-
-        .input-group-text {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            font-size: 0.85rem;
-        }
-
-        .btn-primary {
-            background: #2a3b82;
-            border: none;
-            border-radius: 40px;
-            padding: 0.5rem 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-
-        .btn-primary:hover {
-            background: #1f5e7a;
-        }
-
-        .btn-outline-primary {
-            border-radius: 40px;
-            padding: 0.5rem 1.2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
         }
 
         .required-field::after {
@@ -91,16 +66,109 @@
             color: #ef4444;
         }
 
-        .form-text-small {
-            font-size: 0.7rem;
-            color: #6c757d;
-            margin-top: 4px;
+        /* Step Indicator */
+        .step-indicator {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            position: relative;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
         }
 
-        /* Contact Person Table Styles */
+        .step-indicator:before {
+            content: '';
+            position: absolute;
+            top: 46px;
+            left: 160px;
+            width: 890px;
+            height: 2px;
+            background: #e2e8f0;
+            z-index: 1;
+        }
+
+        .step-item {
+            text-align: center;
+            position: relative;
+            z-index: 2;
+            flex: 1;
+            cursor: pointer;
+        }
+
+        .step-circle {
+            width: 48px;
+            height: 48px;
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            color: #94a3b8;
+            transition: all 0.3s;
+            background: #f8fafc;
+        }
+
+        .step-item.active .step-circle {
+            background: #233578;
+            border-color: #233578;
+            color: white;
+            box-shadow: 0 4px 12px rgba(35, 53, 120, 0.3);
+        }
+
+        .step-item.completed .step-circle {
+            background: #10b981;
+            border-color: #10b981;
+            color: white;
+        }
+
+        .step-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: #64748b;
+            letter-spacing: 0.3px;
+        }
+
+        .step-item.active .step-label {
+            color: #233578;
+            font-weight: 700;
+        }
+
+        .step-item.completed .step-label {
+            color: #10b981;
+        }
+
+        /* Form Steps */
+        .form-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .form-step.active-step {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Contact Table */
         .contact-table-wrapper {
             overflow-x: auto;
-            margin-top: 15px;
+            margin-top: 10px;
         }
 
         .contact-table {
@@ -112,7 +180,6 @@
         .contact-table th {
             background: #f8fafc;
             padding: 12px;
-            text-align: left;
             font-weight: 600;
             color: #1e293b;
             border-bottom: 1px solid #e2e8f0;
@@ -127,40 +194,41 @@
         .contact-input {
             width: 100%;
             border: 1px solid #e2e8f0;
-            border-radius: 4px;
-            padding: 6px 10px;
+            border-radius: 8px;
+            padding: 8px 10px;
             font-size: 0.85rem;
         }
 
         .contact-input:focus {
             outline: none;
-            border-color: #2a3b82;
+            border-color: #233578;
         }
 
-        .remove-contact-btn {
+        .remove-contact-btn,
+        .remove-bank-btn {
             background: none;
             border: none;
             color: #ef4444;
             cursor: pointer;
-            font-size: 1rem;
-            padding: 4px 8px;
+            padding: 6px 10px;
+            border-radius: 8px;
         }
 
-        .remove-contact-btn:hover {
+        .remove-contact-btn:hover,
+        .remove-bank-btn:hover {
             background: #fee2e2;
-            border-radius: 4px;
         }
 
         .btn-add-item {
             background: none;
-            color: #2a3b82;
-            border: 1px dashed #2a3b82;
-            padding: 8px 15px;
-            margin-top: 10px;
+            color: #233578;
+            border: 1.5px dashed #233578;
+            padding: 10px 15px;
+            margin-top: 16px;
             cursor: pointer;
             width: 100%;
-            font-weight: 500;
-            border-radius: 4px;
+            font-weight: 600;
+            border-radius: 14px;
             transition: all 0.2s;
         }
 
@@ -168,36 +236,57 @@
             background: #eef2ff;
         }
 
+        /* Bank Card */
         .bank-card {
-            background: #f8fafc;
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 16px;
-            border: 1px solid #e2e8f0;
-            position: relative;
+            background: #fafcff;
+            border-radius: 20px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e9edf2;
+            transition: 0.2s;
         }
 
         .bank-card-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             padding-bottom: 8px;
-            border-bottom: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e9edf2;
         }
 
         .bank-card-title {
-            font-weight: 600;
-            color: #1e293b;
+            font-weight: 700;
+            color: #233578;
             font-size: 0.9rem;
         }
 
-        .remove-bank-btn {
-            background: none;
+        /* Navigation Buttons */
+        .step-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: #233578;
             border: none;
-            color: #ef4444;
-            cursor: pointer;
-            font-size: 0.8rem;
+            border-radius: 40px;
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+
+        .btn-primary:hover {
+            background: #0f1f4a;
+            transform: translateY(-1px);
+        }
+
+        .btn-outline-primary {
+            border-radius: 40px;
+            padding: 0.6rem 1.8rem;
+            font-weight: 600;
         }
 
         .toast-notify {
@@ -207,14 +296,29 @@
             background: #1e293b;
             color: white;
             padding: 12px 24px;
-            border-radius: 40px;
+            border-radius: 50px;
             font-size: 0.85rem;
-            font-weight: 500;
             z-index: 1100;
             display: flex;
             align-items: center;
             gap: 8px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .section-title-step {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #eef2f8;
+            font-weight: 700;
+            color: #1e293b;
+        }
+
+        .address-card {
+            background: #fafcff;
+            border-radius: 16px;
+            padding: 16px;
+            border: 1px solid #eef2f8;
         }
     </style>
 </head>
@@ -222,171 +326,136 @@
 <body>
 
     <div id="main-wrapper">
-        <!-- Sidebar Start -->
-        <aside class="side-mini-panel with-vertical">
-            <div class="iconbar">
-                <div class="sidebarmenu">
-                    <div class="brand-logo d-flex align-items-center nav-logo">
-                        <a href="../main/index.html" class="text-nowrap logo-img">
-                            <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-                        </a>
-                    </div>
 
-                    <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-                        <ul class="sidebar-menu" id="sidebarnav">
-                            <li class="sidebar-item mt-4">
-                                <a class="sidebar-link" href="index.html" id="get-url" aria-expanded="false">
-                                    <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Dashboard</span>
-                                </a>
-                            </li>
-
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="#" aria-expanded="false">
-                                    <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Inbox</span>
-                                </a>
-                            </li>
-
-                            <!-- Items -->
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Items</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="items.html">
-                                            <span class="icon-small"></span> Inventory
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Purchase -->
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow active" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:cart-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Purchase</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier.html">
-                                            <span class="icon-small"></span> Suppliers
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="purchase-order.html">
-                                            <span class="icon-small"></span> Purchase Order
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="purchase-bill.html">
-                                            <span class="icon-small"></span> Purchase Bill
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="supplier-statement.html">
-                                            <span class="icon-small"></span> Supplier Statement
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Sales -->
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Sales</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="customer.html">
-                                            <span class="icon-small"></span> Customer
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="enquiry.html">
-                                            <span class="icon-small"></span> Enquiry
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="Estimate.html">
-                                            <span class="icon-small"></span> Estimate
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="invoice.html">
-                                            <span class="icon-small"></span> Invoice
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <!-- Accounts -->
-                            <li class="sidebar-item">
-                                <a class="sidebar-link has-arrow" href="javascript:void(0)" aria-expanded="false">
-                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                    <span class="hide-menu">Accounts</span>
-                                </a>
-                                <ul aria-expanded="false" class="collapse first-level">
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="account-master.html">
-                                            <span class="icon-small"></span> Account Master
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="journals.html">
-                                            <span class="icon-small"></span> Journals
-                                        </a>
-                                    </li>
-                                   <li class="sidebar-item">
-                                        <a class="sidebar-link" href="vouchers.html">
-                                            <span class="icon-small"></span> Vouchers
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="#">
-                                            <span class="icon-small"></span> Bank Payments
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="#">
-                                            <span class="icon-small"></span> General Ledger
-                                        </a>
-                                    </li>
-                                    <li class="sidebar-item">
-                                        <a class="sidebar-link" href="#">
-                                            <span class="icon-small"></span> Balance Sheets
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-
-                            <li><span class="sidebar-divider"></span></li>
-                        </ul>
-
-                        <div class="sidebar-footer">
-                            <ul class="sidebar-menu">
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false">
-                                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                                        <span class="hide-menu">Settings</span>
-                                    </a>
-                                </li>
-                                <li class="sidebar-item logout-item">
-                                    <a class="sidebar-link" href="javascript:void(0)" onclick="handleLogout()" aria-expanded="false">
-                                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                                        <span class="hide-menu">Logout</span>
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+    <aside class="fintle-side" id="fintleSidebarRoot">
+        <!-- Header brand section -->
+        <div class="side-header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
                 </div>
             </div>
-        </aside>
-        <!-- Sidebar End -->
+        </div>
+
+        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+        <div class="fintle-nav-scroll">
+            <ul class="fintle-menu-list" id="dynamicMenuList">
+                <!-- Dashboard item -->
+                <li class="menu-item">
+                    <a href="index.html" class="nav-link-side" id="dashboardNav">
+                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Inbox -->
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
+                        <span class="menu-text">Inbox</span>
+                    </a>
+                </li>
+
+                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+                <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                <span class="menu-text">Items</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="itemsSub">
+                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                    </ul>
+                </li>
+
+                <!-- PURCHASE (open by default) -->
+                <li class="menu-item has-sub open" data-submenu-id="purchaseSub">
+                    <div class="nav-link-side submenu-trigger-side active">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                <span class="menu-text">Purchase</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div> 
+                    <ul class="submenu-level show-sub" id="purchaseSub">
+                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                    </ul>
+                </li>
+
+                <!-- SALES with submenu -->
+                <li class="menu-item has-sub" data-submenu-id="salesSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                <span class="menu-text">Sales</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="salesSub">
+                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                    </ul>
+                </li>
+
+                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+                <li class="menu-item has-sub" data-submenu-id="accSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                <span class="menu-text">Accounts</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="accSub">
+                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                    </ul>
+                </li>
+
+                <!-- Divider -->
+                <li class="menu-divider-custom"></li>
+            </ul>
+        </div>
+
+        <!-- Footer section: settings & logout -->
+        <div class="side-footer">
+            <ul class="fintle-menu-list">
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                        <span class="menu-text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item logout-link">
+                    <a href="#" class="nav-link-side" id="logoutActionBtn">
+                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                        <span class="menu-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
 
         <div class="page-wrapper">
             <!-- Header Start -->
@@ -498,194 +567,228 @@
             </header>
             <!-- Header End -->
 
-            <div class="body-wrapper">
+                <div class="body-wrapper">
                 <div class="container-fluid p-3">
-                    <!-- Breadcrumb card -->
-                    <div class="card card-body py-3 mb-4">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="d-sm-flex align-items-center justify-content-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="supplier.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Supplier</h4>
-                                    <nav aria-label="breadcrumb" class="ms-auto">
-                                        <ol class="breadcrumb mb-0">
-                                            <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                                                </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="supplier.html">Suppliers</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Create Supplier</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
+ 
+            <!-- Breadcrumb card -->
+          <div class="card card-body py-3 mb-2 border-0 shadow-sm" style="border-radius: 16px;">
+            <div class="row align-items-center">
+              <div class="col-12">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-4 mb-sm-0 card-title fw-bold">
+                    <a href="supplier.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>
+                    Create Supplier
+                  </h4>
+                  <nav class="ms-auto">
+                    <ol class="breadcrumb mb-0">
+                      <li class="breadcrumb-item"> <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a></li>
+                      <li class="breadcrumb-item"><a href="supplier.html">Supplier</a></li>
+                      <li class="breadcrumb-item active">Create Supplier</li>
+                    </ol>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+                    <!-- STEP INDICATOR (4 steps: Basic, Address, Contact+Bank, Tax) -->
+                    <div class="step-indicator">
+                        <div class="step-item" data-step="1">
+                            <div class="step-circle">1</div>
+                            <div class="step-label">Basic Info</div>
+                        </div>
+                        <div class="step-item" data-step="2">
+                            <div class="step-circle">2</div>
+                            <div class="step-label">Address</div>
+                        </div>
+                        <div class="step-item" data-step="3">
+                            <div class="step-circle">3</div>
+                            <div class="step-label">Contacts & Bank</div>
+                        </div>
+                        <div class="step-item" data-step="4">
+                            <div class="step-circle">4</div>
+                            <div class="step-label">Tax & Review</div>
                         </div>
                     </div>
 
                     <form id="supplierForm">
-                        <!-- Basic Information -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-building me-2"></i> Basic Information</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <label class="form-label required-field">Supplier Name</label>
-                                        <input type="text" class="form-control" id="supplierName" placeholder="Enter supplier name" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label required-field">Status</label>
-                                        <select class="form-select" id="status" required>
-                                            <option value="Active">Active</option>
-                                            <option value="Inactive">Inactive</option>
-                                            <option value="Suspended">Suspended</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Email Address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="supplier@example.com">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label required-field">Phone Number</label>
-                                        <input type="tel" class="form-control" id="phone" placeholder="Enter phone number" required>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Country</label>
-                                        <select class="form-select" id="country">
-                                            <option value="India">India</option>
-                                            <option value="USA">USA</option>
-                                            <option value="UK">UK</option>
-                                            <option value="UAE">UAE</option>
-                                            <option value="Singapore">Singapore</option>
-                                        </select>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">Currency</label>
-                                        <select class="form-select" id="currency">
-                                            <option value="INR">INR - Indian Rupee (₹)</option>
-                                            <option value="USD">USD - US Dollar ($)</option>
-                                            <option value="EUR">EUR - Euro (€)</option>
-                                            <option value="GBP">GBP - British Pound (£)</option>
-                                            <option value="AED">AED - UAE Dirham</option>
-                                        </select>
+                        <!-- STEP 1: Basic Information -->
+                        <div class="form-step active-step" id="step1Form">
+                            <div class="card-custom">
+                                <div class="card-header-custom"><i class="fas fa-building"></i> Basic Information</div>
+                                <div class="card-body p-4">
+                                    <div class="row g-4">
+                                        <div class="col-md-6"><label class="form-label required-field">Supplier
+                                                Name</label><input type="text" class="form-control" id="supplierName"
+                                                placeholder="Enter supplier name"></div>
+                                        <div class="col-md-6"><label
+                                                class="form-label required-field">Status</label><select
+                                                class="form-select" id="status">
+                                                <option value="Active">Active</option>
+                                                <option value="Inactive">Inactive</option>
+                                                <option value="Suspended">Suspended</option>
+                                            </select></div>
+                                        <div class="col-md-6"><label class="form-label">Email Address</label><input
+                                                type="email" class="form-control" id="email"
+                                                placeholder="supplier@example.com"></div>
+                                        <div class="col-md-6"><label class="form-label required-field">Phone
+                                                Number</label><input type="tel" class="form-control" id="phone"
+                                                placeholder="+91 XXXXX XXXXX"></div>
+                                        <div class="col-md-6"><label class="form-label">Country</label><select
+                                                class="form-select" id="country">
+                                                <option>India</option>
+                                                <option>USA</option>
+                                                <option>UK</option>
+                                                <option>UAE</option>
+                                            </select></div>
+                                        <div class="col-md-6"><label class="form-label">Currency</label><select
+                                                class="form-select" id="currency">
+                                                <option value="INR">INR (₹)</option>
+                                                <option value="USD">USD ($)</option>
+                                                <option value="EUR">EUR (€)</option>
+                                            </select></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Billing Address -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-location-dot me-2"></i> Billing Address</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-12">
-                                        <label class="form-label">Address</label>
-                                        <textarea class="form-control" id="billingAddress" rows="2" placeholder="Street address, P.O. Box"></textarea>
+                        <!-- STEP 2: Address Details (Billing & Shipping) -->
+                        <div class="form-step" id="step2Form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="card-custom">
+                                        <div class="card-header-custom"><i class="fas fa-location-dot"></i> Billing
+                                            Address</div>
+                                        <div class="card-body p-4">
+                                            <div class="row g-3">
+                                                <div class="col-12"><label class="form-label">Address
+                                                        Line</label><textarea class="form-control" id="billingAddress"
+                                                        rows="2" placeholder="Street address"></textarea></div>
+                                                <div class="col-md-4"><label class="form-label">State</label><input
+                                                        type="text" class="form-control" id="billingState"
+                                                        placeholder="State"></div>
+                                                <div class="col-md-4"><label class="form-label">City</label><input
+                                                        type="text" class="form-control" id="billingCity"
+                                                        placeholder="City"></div>
+                                                <div class="col-md-4"><label class="form-label">Zip Code</label><input
+                                                        type="text" class="form-control" id="billingZip"
+                                                        placeholder="Zip"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">State</label>
-                                        <input type="text" class="form-control" id="billingState" placeholder="State">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">City</label>
-                                        <input type="text" class="form-control" id="billingCity" placeholder="City">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Zip Code</label>
-                                        <input type="text" class="form-control" id="billingZip" placeholder="Zip code">
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="card-custom">
+                                        <div class="card-header-custom"><i class="fas fa-truck"></i> Shipping Address
+                                        </div>
+                                        <div class="card-body p-4">
+                                            <div class="form-check mb-3"><input class="form-check-input" type="checkbox"
+                                                    id="sameAsBilling"><label class="form-check-label fw-semibold"> Same
+                                                    as Billing Address</label></div>
+                                            <div class="row g-3" id="shippingFields">
+                                                <div class="col-12"><label class="form-label">Address
+                                                        Line</label><textarea class="form-control" id="shippingAddress"
+                                                        rows="2" placeholder="Shipping address"></textarea></div>
+                                                <div class="col-md-4"><label class="form-label">State</label><input
+                                                        type="text" class="form-control" id="shippingState"
+                                                        placeholder="State"></div>
+                                                <div class="col-md-4"><label class="form-label">City</label><input
+                                                        type="text" class="form-control" id="shippingCity"
+                                                        placeholder="City"></div>
+                                                <div class="col-md-4"><label class="form-label">Zip Code</label><input
+                                                        type="text" class="form-control" id="shippingZip"
+                                                        placeholder="Zip"></div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Shipping Address -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-truck me-2"></i> Shipping Address</div>
-                            <div class="card-body p-4">
-                                <div class="form-check mb-3">
-                                    <input class="form-check-input" type="checkbox" id="sameAsBilling">
-                                    <label class="form-check-label fw-semibold"> Same as Billing Address</label>
+                        <!-- STEP 3: Contact Persons + Bank Information (combined as requested) -->
+                        <div class="form-step" id="step3Form">
+                            <!-- Contact Persons Section -->
+                            <div class="card-custom">
+                                <div class="card-header-custom"><i class="fas fa-address-card me-2"></i> Contact Persons
                                 </div>
-                                <div class="row g-4" id="shippingFields">
-                                    <div class="col-md-12">
-                                        <label class="form-label">Address</label>
-                                        <textarea class="form-control" id="shippingAddress" rows="2" placeholder="Street address, P.O. Box"></textarea>
+                                <div class="card-body p-4">
+                                    <div class="contact-table-wrapper">
+                                        <table class="contact-table" id="contactTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>First Name</th>
+                                                    <th>Last Name</th>
+                                                    <th>Phone</th>
+                                                    <th>E-mail</th>
+                                                    <th style="width:50px">Action</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody id="contactTableBody"></tbody>
+                                        </table>
                                     </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">State</label>
-                                        <input type="text" class="form-control" id="shippingState" placeholder="State">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">City</label>
-                                        <input type="text" class="form-control" id="shippingCity" placeholder="City">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="form-label">Zip Code</label>
-                                        <input type="text" class="form-control" id="shippingZip" placeholder="Zip code">
-                                    </div>
+                                    <button type="button" class="btn-add-item" id="addContactBtn"><i
+                                            class="fas fa-plus me-2"></i>Add Contact Person</button>
+                                </div>
+                            </div>
+
+                            <!-- Bank Information Section -->
+                            <div class="card-custom">
+                                <div class="card-header-custom"><i class="fas fa-university me-2"></i> Bank Information
+                                </div>
+                                <div class="card-body p-4">
+                                    <div id="bankAccountsContainer"></div>
+                                    <button type="button" class="btn-add-item" id="addBankBtn"><i
+                                            class="fas fa-plus me-2"></i>Add Bank Details</button>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Contact Persons -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-address-card me-2"></i> Contact Persons</div>
-                            <div class="card-body p-4">
-                                <div class="contact-table-wrapper">
-                                    <table class="contact-table" id="contactTable">
-                                        <thead>
-                                            <tr>
-                                                <th>First Name</th>
-                                                <th>Last Name</th>
-                                                <th>Phone</th>
-                                                <th>E-mail</th>
-                                                <th style="width:50px">Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="contactTableBody"></tbody>
-                                    </table>
-                                </div>
-                                <button type="button" class="btn-add-item" id="addContactBtn">
-                                    <i class="fas fa-plus me-2"></i>Add Contact Person
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Bank Information -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-university me-2"></i> Bank Information</div>
-                            <div class="card-body p-4">
-                                <div id="bankAccountsContainer"></div>
-                                <button type="button" class="btn-add-item" id="addBankBtn">
-                                    <i class="fas fa-plus me-2"></i>Add Bank Details
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Tax Information (Optional) -->
-                        <div class="card-custom">
-                            <div class="card-header-custom"><i class="fas fa-file-invoice-dollar me-2"></i> Tax Information</div>
-                            <div class="card-body p-4">
-                                <div class="row g-4">
-                                    <div class="col-md-6">
-                                        <label class="form-label">GST Number</label>
-                                        <input type="text" class="form-control" id="gstNumber" placeholder="Enter GST number">
+                        <!-- STEP 4: Tax Information + Review -->
+                        <div class="form-step" id="step4Form">
+                            <div class="row">
+                                <div class="col-lg-7">
+                                    <div class="card-custom">
+                                        <div class="card-header-custom"><i class="fas fa-file-invoice-dollar me-2"></i>
+                                            Tax Information</div>
+                                        <div class="card-body p-4">
+                                            <div class="row g-4">
+                                                <div class="col-md-6"><label class="form-label">GST Number</label><input
+                                                        type="text" class="form-control" id="gstNumber"
+                                                        placeholder="Enter GST number"></div>
+                                                <div class="col-md-6"><label class="form-label">PAN Number</label><input
+                                                        type="text" class="form-control" id="panNumber"
+                                                        placeholder="Enter PAN number"></div>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-md-6">
-                                        <label class="form-label">PAN Number</label>
-                                        <input type="text" class="form-control" id="panNumber" placeholder="Enter PAN number">
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="card-custom">
+                                        <div class="card-header-custom"><i class="fas fa-clipboard-list"></i> Final
+                                            Review</div>
+                                        <div class="card-body p-3">
+                                            <div id="reviewSummary" class="small mt-2"></div>
+                                            <hr>
+                                            <div class="alert alert-light border mt-3"><i
+                                                    class="fas fa-save me-2 text-primary"></i> Review & submit supplier
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Action Buttons -->
-                        <div class="d-flex justify-content-end gap-2 mt-4 mb-5">
-                            <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">
-                                <i class="fas fa-undo-alt me-2"></i>Reset
-                            </button>
-                            <button type="submit" class="btn btn-primary rounded-pill px-5">
-                                <i class="fas fa-save me-2"></i>Save Supplier
-                            </button>
+                        <!-- Navigation Buttons -->
+                        <div class="step-buttons">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="prevBtn"
+                                disabled><i class="fas fa-arrow-left me-2"></i>Previous</button>
+                            <button type="button" class="btn btn-primary rounded-pill px-5"  id="nextBtn">Next Step</button>
+                            <button type="submit" class="btn btn-success rounded-pill px-5" id="submitBtn"
+                                style="display:none;"><i class="fas fa-check-circle me-2"></i>Save Supplier</button>
                         </div>
                     </form>
                 </div>

@@ -3,18 +3,20 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-  <title>Fintle Pro | Create Purchase Order with Tax</title>
-  <link rel="shortcut icon" type="image/png" href="#">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintle | Create Purchase Order</title>
+  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
-  <link href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" rel="stylesheet">
-  <link
-    href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap"
-    rel="stylesheet">
-  <link rel="stylesheet" href="assets/libs/css/styles.css"/>
+  <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  
+  <!-- Modern Date Picker CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
   <style>
+    /* Your existing styles remain the same */
     .brand-logo {
       display: flex;
       align-items: center;
@@ -171,7 +173,7 @@
       width: 10% !important;
       min-width: 100px;
     }
-        .custom-table th.col-total-col,
+    .custom-table th.col-total-col,
     .custom-table td.col-total-col {
       width: 10% !important;
       min-width: 100px;
@@ -565,6 +567,27 @@
       color: #64748b;
     }
 
+    /* Flatpickr custom styling */
+    .flatpickr-calendar {
+      border-radius: 16px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.15);
+      border: 1px solid #e2e8f0;
+    }
+    
+    .flatpickr-day.selected {
+      background: #233578;
+      border-color: #233578;
+    }
+    
+    .flatpickr-day.selected:hover {
+      background: #1a2a5c;
+      border-color: #1a2a5c;
+    }
+    
+    .flatpickr-day.today {
+      border-color: #233578;
+    }
+
     @media (max-width: 768px) {
       .action-btn-group {
         flex-wrap: wrap;
@@ -584,9 +607,9 @@
         align-items: stretch;
       }
     }
-    .custom-table th.col-item-col, .custom-table td.col-item-col{
-          width: 26% !important;
-    min-width: 260px;
+    .custom-table th.col-item-col, .custom-table td.col-item-col {
+      width: 26% !important;
+      min-width: 260px;
     }
   </style>
 </head>
@@ -594,93 +617,123 @@
 <body>
 
   <div id="main-wrapper">
-    <!-- Sidebar Start -->
-    <aside class="side-mini-panel with-vertical">
-      <div class="iconbar">
-        <div class="sidebarmenu">
-          <div class="brand-logo d-flex align-items-center nav-logo">
-            <a href="../main/index.html" class="text-nowrap logo-img">
-              <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-            </a>
+
+    <aside class="fintle-side" id="fintleSidebarRoot">
+      <!-- Header brand section -->
+      <div class="side-header">
+        <div class="brand-wrap">
+          <div class="brand-logo">
+            <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
           </div>
-          <nav class="sidebar-nav" id="menu-right-mini-1" data-simplebar>
-            <ul class="sidebar-menu" id="sidebarnav">
-              <li class="sidebar-item mt-4"><a class="sidebar-link" href="index.html" id="get-url"
-                  aria-expanded="false"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span
-                    class="hide-menu">Dashboard</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link" href="#" aria-expanded="false"><iconify-icon
-                    icon="solar:chart-line-duotone"></iconify-icon><span class="hide-menu">Inbox</span></a></li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span
-                    class="hide-menu">Items</span></a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="items.html"><span class="icon-small"></span>
-                      Inventory</a></li>
-                </ul>
-              </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow active" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:cart-line-duotone"></iconify-icon><span
-                    class="hide-menu">Purchase</span></a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="supplier.html"><span class="icon-small"></span>
-                      Suppliers</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="purchase-order.html"><span
-                        class="icon-small"></span> Purchase Order</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="purchase-bill.html"><span
-                        class="icon-small"></span> Purchase Bill</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="supplier-statement.html"><span
-                        class="icon-small"></span> Supplier Statement</a></li>
-                </ul>
-              </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span
-                    class="hide-menu">Sales</span></a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="customer.html"><span class="icon-small"></span>
-                      Customer</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="enquiry.html"><span class="icon-small"></span>
-                      Enquiry</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="Estimate.html"><span class="icon-small"></span>
-                      Estimate</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="invoice.html"><span class="icon-small"></span>
-                      Invoice</a></li>
-                </ul>
-              </li>
-              <li class="sidebar-item"><a class="sidebar-link has-arrow" href="javascript:void(0)"
-                  aria-expanded="false"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span
-                    class="hide-menu">Accounts</span></a>
-                <ul aria-expanded="false" class="collapse first-level">
-                  <li class="sidebar-item"><a class="sidebar-link" href="account-master.html"><span
-                        class="icon-small"></span> Account Master</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="journals.html"><span class="icon-small"></span>
-                      Journals</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span>
-                      Vouchers</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Bank
-                      Payments</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> General
-                      Ledger</a></li>
-                  <li class="sidebar-item"><a class="sidebar-link" href="#"><span class="icon-small"></span> Balance
-                      Sheets</a></li>
-                </ul>
-              </li>
-              <li><span class="sidebar-divider"></span></li>
-            </ul>
-            <div class="sidebar-footer">
-              <ul class="sidebar-menu">
-                <li class="sidebar-item"><a class="sidebar-link" href="javascript:void(0)"
-                    aria-expanded="false"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span
-                      class="hide-menu">Settings</span></a></li>
-                <li class="sidebar-item logout-item"><a class="sidebar-link" href="javascript:void(0)"
-                    onclick="handleLogout()" aria-expanded="false"><iconify-icon
-                      icon="solar:logout-2-line-duotone"></iconify-icon><span class="hide-menu">Logout</span></a></li>
-              </ul>
-            </div>
-          </nav>
         </div>
       </div>
+
+      <!-- SCROLLABLE NAVIGATION -->
+      <div class="fintle-nav-scroll">
+        <ul class="fintle-menu-list">
+          <li class="menu-item">
+            <a href="index.html" class="nav-link-side">
+              <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+              <span class="menu-text">Dashboard</span>
+            </a>
+          </li>
+          <li class="menu-item">
+            <a href="#" class="nav-link-side">
+              <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
+              <span class="menu-text">Inbox</span>
+            </a>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="itemsSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="menu-text">Items</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="itemsSub">
+              <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+              <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+            </ul>
+          </li>
+          <li class="menu-item has-sub open" data-submenu-id="purchaseSub">
+            <div class="nav-link-side submenu-trigger-side active">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                  <span class="menu-text">Purchase</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level show-sub" id="purchaseSub">
+              <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+              <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+              <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+              <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+            </ul>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="salesSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="menu-text">Sales</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="salesSub">
+              <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+              <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+              <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+              <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+            </ul>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="accSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                  <span class="menu-text">Accounts</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="accSub">
+              <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+              <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+              <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+            </ul>
+          </li>
+          <li class="menu-divider-custom"></li>
+        </ul>
+      </div>
+
+      <div class="side-footer">
+        <ul class="fintle-menu-list">
+          <li class="menu-item">
+            <a href="#" class="nav-link-side">
+              <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+              <span class="menu-text">Settings</span>
+            </a>
+          </li>
+          <li class="menu-item logout-link">
+            <a href="#" class="nav-link-side" id="logoutActionBtn">
+              <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+              <span class="menu-text">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </aside>
-    <!-- Sidebar End -->
+
     <div class="page-wrapper">
       <header class="topbar">
         <div class="with-vertical">
@@ -816,7 +869,7 @@
                 </div>
               </div>
 
-              <!-- Line Items Section with Tax -->
+              <!-- Line Items Section -->
               <div class="p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
                   <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon>
@@ -900,8 +953,9 @@
     </div>
   </div>
 
-  <!-- Modals -->
+  <!-- Modals (remaining modals same as before) -->
   <div class="modal fade modal-rounded" id="supplierCreateModal" tabindex="-1">
+    <!-- Modal content remains the same -->
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header border-0 pt-4">
@@ -957,6 +1011,7 @@
   </div>
 
   <div class="modal fade modal-rounded" id="supplierEditModal" tabindex="-1">
+    <!-- Modal content remains the same -->
     <div class="modal-dialog modal-dialog-centered modal-lg">
       <div class="modal-content">
         <div class="modal-header border-0 pt-4">
@@ -1092,17 +1147,45 @@
   <script src="assets/libs/js/theme.js"></script>
   <script src="assets/libs/js/app.min.js"></script>
   <script src="assets/libs/js/sidebarmenu.js"></script>
+  <!-- Date Picker Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
   <script>
     let taxMode = 'exclusive', currentCurrency = 'INR', companyState = "Karnataka";
     let suppliersList = [{ id: "SUP-001", name: "ABC Enterprises", address: "123 Business Park, Mumbai - 400001", gst: "27AAACA1234A1Z", phone: "+91 9876543210", email: "contact@abc.com", state: "Maharashtra" }, { id: "SUP-002", name: "XYZ Solutions", address: "456 Tech Plaza, Bangalore - 560001", gst: "29AAACA5678B2Z", phone: "+91 9876543211", email: "info@xyz.com", state: "Karnataka" }];
-    let itemsInventory = [{ id: "itm1", name: "Laptop Pro", unit: "PCS", price: 45000, taxRate: 18, taxType: "GST", desc: "High performance laptop", hsn: "84713000" }, { id: "itm2", name: "Wireless Mouse", unit: "PCS", price: 800, taxRate: 12, taxType: "GST", desc: "Ergonomic wireless mouse", hsn: "84716000" }, { id: "itm3", name: "USB Cable", unit: "PCS", price: 150, taxRate: 5, taxType: "IGST", desc: "Type-C fast charging cable", hsn: "85444299" }];
-    let poCounter = 1, currentSupplierId = "", flatpickrOrderDate, flatpickrDeliveryDate;
+    let itemsItem = [{ id: "itm1", name: "Laptop Pro", unit: "PCS", price: 45000, taxRate: 18, taxType: "GST", desc: "High performance laptop", hsn: "84713000" }, { id: "itm2", name: "Wireless Mouse", unit: "PCS", price: 800, taxRate: 12, taxType: "GST", desc: "Ergonomic wireless mouse", hsn: "84716000" }, { id: "itm3", name: "USB Cable", unit: "PCS", price: 150, taxRate: 5, taxType: "IGST", desc: "Type-C fast charging cable", hsn: "85444299" }];
+    let poCounter = 1, currentSupplierId = "";
+    let orderDatePicker, deliveryDatePicker;
 
     function getSymbol() { return currentCurrency === 'INR' ? '₹' : currentCurrency === 'USD' ? '$' : '€'; }
     function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]); }
+
+    // Initialize date pickers
+    function initDatePickers() {
+      const today = new Date();
+      const nextWeek = new Date();
+      nextWeek.setDate(today.getDate() + 7);
+      
+      orderDatePicker = flatpickr("#orderDate", {
+        dateFormat: "Y-m-d",
+        defaultDate: today,
+        allowInput: true,
+        onChange: function(selectedDates, dateStr, instance) {
+          // Update delivery date min date if needed
+          if (deliveryDatePicker && selectedDates[0]) {
+            deliveryDatePicker.set('minDate', selectedDates[0]);
+          }
+        }
+      });
+      
+      deliveryDatePicker = flatpickr("#deliveryDate", {
+        dateFormat: "Y-m-d",
+        defaultDate: nextWeek,
+        minDate: today,
+        allowInput: true
+      });
+    }
 
     function recalcTotals() {
       let subtotal = 0, taxMap = new Map();
@@ -1138,13 +1221,13 @@
     }
 
     function createItemRow(itemData = null, customQty = 1) {
-      const item = itemData || itemsInventory[0];
+      const item = itemData || itemsItem[0];
       const tr = document.createElement('tr');
       let displayTax = `${item.taxRate}% ${item.taxType === "CGST_SGST" ? "CGST+SGST" : item.taxType}`;
-      tr.innerHTML = `<td><div class="custom-select-wrapper"><select class="form-select item-select">${itemsInventory.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone" width="18"></iconify-icon></button></div><textarea class="form-control mt-2" rows="1" placeholder="Description">${escapeHtml(item.desc || '')}</textarea></td><td><input type="number" step="any" class="form-control item-qty" value="${customQty}"></td><td><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></td><td><input type="number" step="any" class="form-control item-price" value="${item.price}"></td><td class="col-tax-col"><input type="hidden" class="item-tax-rate" value="${item.taxRate}"><input type="hidden" class="item-tax-type" value="${item.taxType}"><span class="tax-badge">${displayTax}</span></td><td class="item-tax-amount fw-semibold text-dark pt-4">0.00</td><td class="item-total-amount fw-bold text-dark pt-4">0.00</td><td class="text-center"><button type="button" class="delete-row-btn"><iconify-icon icon="solar:trash-bin-minimalistic-bold" width="18"></iconify-icon></button></td>`;
+      tr.innerHTML = `<td><div class="custom-select-wrapper"><select class="form-select item-select">${itemsItem.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone" width="18"></iconify-icon></button></div><textarea class="form-control mt-2" rows="1" placeholder="Description">${escapeHtml(item.desc || '')}</textarea></td><td><input type="number" step="any" class="form-control item-qty" value="${customQty}"></td><td><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></td><td><input type="number" step="any" class="form-control item-price" value="${item.price}"></td><td class="col-tax-col"><input type="hidden" class="item-tax-rate" value="${item.taxRate}"><input type="hidden" class="item-tax-type" value="${item.taxType}"><span class="tax-badge">${displayTax}</span></td><td class="item-tax-amount fw-semibold text-dark pt-4">0.00</td><td class="item-total-amount fw-bold text-dark pt-4">0.00</td><td class="text-center"><button type="button" class="delete-row-btn"><iconify-icon icon="solar:trash-bin-minimalistic-bold" width="18"></iconify-icon></button></td>`;
       const dropdown = tr.querySelector('.item-select'), priceInput = tr.querySelector('.item-price'), qtyInput = tr.querySelector('.item-qty');
       const update = () => recalcTotals();
-      dropdown.addEventListener('change', () => { const found = itemsInventory.find(i => i.id === dropdown.value); if (found) { priceInput.value = found.price; tr.querySelector('.item-unit').value = found.unit; tr.querySelector('textarea').value = found.desc || ''; tr.querySelector('.item-tax-rate').value = found.taxRate; tr.querySelector('.item-tax-type').value = found.taxType; let display = `${found.taxRate}% ${found.taxType === "CGST_SGST" ? "CGST+SGST" : found.taxType}`; tr.querySelector('.col-tax-col span').innerText = display; update(); } });
+      dropdown.addEventListener('change', () => { const found = itemsItem.find(i => i.id === dropdown.value); if (found) { priceInput.value = found.price; tr.querySelector('.item-unit').value = found.unit; tr.querySelector('textarea').value = found.desc || ''; tr.querySelector('.item-tax-rate').value = found.taxRate; tr.querySelector('.item-tax-type').value = found.taxType; let display = `${found.taxRate}% ${found.taxType === "CGST_SGST" ? "CGST+SGST" : found.taxType}`; tr.querySelector('.col-tax-col span').innerText = display; update(); } });
       priceInput.addEventListener('input', update); qtyInput.addEventListener('input', update);
       tr.querySelector('.delete-row-btn').addEventListener('click', () => { tr.remove(); recalcTotals(); });
       update(); return tr;
@@ -1157,17 +1240,38 @@
       updateSupplierUI();
       document.getElementById('poNumberDisplay').innerText = `PO-${new Date().getFullYear()}-${String(poCounter).padStart(3, '0')}`; poCounter++;
     }
-    function updateSupplierUI() { const sel = document.getElementById('supplierSelect'); const selectedOption = sel.options[sel.selectedIndex]; if (selectedOption && selectedOption.value) { currentSupplierId = selectedOption.value; document.getElementById('displaySupplierName').innerText = selectedOption.getAttribute('data-name') || '--'; document.getElementById('displaySupplierAddress').innerText = selectedOption.getAttribute('data-address') || '--'; document.getElementById('displaySupplierGST').innerText = selectedOption.getAttribute('data-gst') || '--'; document.getElementById('displaySupplierPhone').innerText = selectedOption.getAttribute('data-phone') || '--'; document.getElementById('displaySupplierEmail').innerText = selectedOption.getAttribute('data-email') || '--'; recalcTotals(); } else { currentSupplierId = ""; recalcTotals(); } }
-    function addLineItem() { document.getElementById('itemsTableBody').appendChild(createItemRow(itemsInventory[0], 1)); recalcTotals(); }
-    function loadDefaultRows() { let tbody = document.getElementById('itemsTableBody'); tbody.innerHTML = ''; tbody.appendChild(createItemRow(itemsInventory[0], 1)); tbody.appendChild(createItemRow(itemsInventory[1], 1)); recalcTotals(); }
+    
+    function updateSupplierUI() { 
+      const sel = document.getElementById('supplierSelect'); 
+      const selectedOption = sel.options[sel.selectedIndex]; 
+      if (selectedOption && selectedOption.value) { 
+        currentSupplierId = selectedOption.value; 
+        document.getElementById('displaySupplierName').innerText = selectedOption.getAttribute('data-name') || '--'; 
+        document.getElementById('displaySupplierAddress').innerText = selectedOption.getAttribute('data-address') || '--'; 
+        document.getElementById('displaySupplierGST').innerText = selectedOption.getAttribute('data-gst') || '--'; 
+        document.getElementById('displaySupplierPhone').innerText = selectedOption.getAttribute('data-phone') || '--'; 
+        document.getElementById('displaySupplierEmail').innerText = selectedOption.getAttribute('data-email') || '--'; 
+        recalcTotals(); 
+      } else { 
+        currentSupplierId = ""; 
+        recalcTotals(); 
+      } 
+    }
+    
+    function addLineItem() { document.getElementById('itemsTableBody').appendChild(createItemRow(itemsItem[0], 1)); recalcTotals(); }
+    function loadDefaultRows() { let tbody = document.getElementById('itemsTableBody'); tbody.innerHTML = ''; tbody.appendChild(createItemRow(itemsItem[0], 1)); tbody.appendChild(createItemRow(itemsItem[1], 1)); recalcTotals(); }
     function showToast(message, type) { let toastDiv = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerHTML = message; toastDiv.style.background = type === 'success' ? '#10b981' : '#ef4444'; toastDiv.style.display = 'flex'; setTimeout(() => toastDiv.style.display = 'none', 3000); }
 
     document.addEventListener('DOMContentLoaded', () => {
-      populateSupplierDropdown(); loadDefaultRows(); initDatePickers();
+      initDatePickers();
+      populateSupplierDropdown(); 
+      loadDefaultRows();
+      
       document.getElementById('supplierSelect')?.addEventListener('change', updateSupplierUI);
       document.getElementById('currencySelect')?.addEventListener('change', (e) => { currentCurrency = e.target.value; recalcTotals(); });
       document.querySelectorAll('.tax-mode-option').forEach(opt => opt.addEventListener('click', (e) => { taxMode = opt.dataset.mode; let txt = { exclusive: 'Tax Exclusive', inclusive: 'Tax Inclusive', none: 'No Tax' }; document.getElementById('taxModeDropdown').innerHTML = txt[taxMode]; recalcTotals(); }));
-      document.getElementById('addLineItemBtn')?.addEventListener('click', addLineItem); document.getElementById('addItemBottomBtn')?.addEventListener('click', addLineItem);
+      document.getElementById('addLineItemBtn')?.addEventListener('click', addLineItem); 
+      document.getElementById('addItemBottomBtn')?.addEventListener('click', addLineItem);
       document.getElementById('shippingCharge')?.addEventListener('input', recalcTotals);
       document.getElementById('newSupplierBtn')?.addEventListener('click', () => { currentStep = 1; updateStepUI(); new bootstrap.Modal(document.getElementById('supplierCreateModal')).show(); });
       document.getElementById('savePOBtn')?.addEventListener('click', () => { if (!document.getElementById('supplierSelect').value) { showToast('Please select a supplier', 'error'); return; } if (document.querySelectorAll('#itemsTableBody tr').length === 0) { showToast('Please add at least one line item', 'error'); return; } new bootstrap.Modal(document.getElementById('successModal')).show(); });
@@ -1175,22 +1279,130 @@
       document.getElementById('cancelBtn')?.addEventListener('click', () => { if (confirm('Discard changes?')) window.location.href = 'purchase-order.html'; });
       document.getElementById('previewBtn')?.addEventListener('click', () => alert('Preview mode - PO ready for review'));
       document.getElementById('logoUpload')?.addEventListener('change', function (e) { if (e.target.files[0]) { let reader = new FileReader(); reader.onload = ev => { document.getElementById('logoImage').src = ev.target.result; document.getElementById('logoImage').style.display = 'block'; document.getElementById('logoPlaceholder').style.display = 'none'; }; reader.readAsDataURL(e.target.files[0]); } });
-      document.getElementById('createNewItemBtn')?.addEventListener('click', () => { let name = document.getElementById('newItemName').value.trim(); if (!name) { showToast("Item name required", 'error'); return; } let taxRate = parseFloat(document.getElementById('newItemGst').value) || 0; let taxType = document.getElementById('newItemTaxType').value; itemsInventory.push({ id: "itm_" + Date.now(), name: name, unit: document.getElementById('newItemUnit').value, price: parseFloat(document.getElementById('newItemPrice').value) || 0, taxRate: taxRate, taxType: taxType, desc: document.getElementById('newItemDesc').value || "", hsn: document.getElementById('newItemHsn').value || "" }); document.querySelectorAll('#itemsTableBody .item-select').forEach(select => { const curVal = select.value; select.innerHTML = itemsInventory.map(i => `<option value="${i.id}">${escapeHtml(i.name)}</option>`).join(''); if (itemsInventory.some(i => i.id === curVal)) select.value = curVal; }); bootstrap.Modal.getInstance(document.getElementById('createItemModal')).hide(); showToast(`Item "${name}" created`, 'success'); });
+      
+      document.getElementById('createNewItemBtn')?.addEventListener('click', () => { 
+        let name = document.getElementById('newItemName').value.trim(); 
+        if (!name) { showToast("Item name required", 'error'); return; } 
+        let taxRate = parseFloat(document.getElementById('newItemGst').value) || 0; 
+        let taxType = document.getElementById('newItemTaxType').value; 
+        itemsItem.push({ id: "itm_" + Date.now(), name: name, unit: document.getElementById('newItemUnit').value, price: parseFloat(document.getElementById('newItemPrice').value) || 0, taxRate: taxRate, taxType: taxType, desc: document.getElementById('newItemDesc').value || "", hsn: document.getElementById('newItemHsn').value || "" }); 
+        document.querySelectorAll('#itemsTableBody .item-select').forEach(select => { const curVal = select.value; select.innerHTML = itemsItem.map(i => `<option value="${i.id}">${escapeHtml(i.name)}</option>`).join(''); if (itemsItem.some(i => i.id === curVal)) select.value = curVal; }); 
+        bootstrap.Modal.getInstance(document.getElementById('createItemModal')).hide(); 
+        showToast(`Item "${name}" created`, 'success'); 
+      });
 
-      let currentStep = 1; const step1 = document.getElementById('step1'), step2 = document.getElementById('step2'), prevBtn = document.getElementById('prevStepBtn'), nextBtn = document.getElementById('nextStepBtn'), submitBtn = document.getElementById('submitSupplierBtn');
-      function updateStepUI() { document.querySelectorAll('#supplierCreateModal .step-item').forEach((el, idx) => { if (idx + 1 < currentStep) el.classList.add('completed'); else el.classList.remove('completed'); if (idx + 1 === currentStep) el.classList.add('active'); else el.classList.remove('active'); }); if (currentStep === 1) { step1.classList.add('active-step'); step2.classList.remove('active-step'); prevBtn.disabled = true; nextBtn.style.display = 'inline-flex'; submitBtn.style.display = 'none'; } else { step1.classList.remove('active-step'); step2.classList.add('active-step'); prevBtn.disabled = false; nextBtn.style.display = 'none'; submitBtn.style.display = 'inline-flex'; } }
+      let currentStep = 1; 
+      const step1 = document.getElementById('step1'), step2 = document.getElementById('step2'), prevBtn = document.getElementById('prevStepBtn'), nextBtn = document.getElementById('nextStepBtn'), submitBtn = document.getElementById('submitSupplierBtn');
+      
+      function updateStepUI() { 
+        document.querySelectorAll('#supplierCreateModal .step-item').forEach((el, idx) => { 
+          if (idx + 1 < currentStep) el.classList.add('completed'); 
+          else el.classList.remove('completed'); 
+          if (idx + 1 === currentStep) el.classList.add('active'); 
+          else el.classList.remove('active'); 
+        }); 
+        if (currentStep === 1) { 
+          step1.classList.add('active-step'); 
+          step2.classList.remove('active-step'); 
+          prevBtn.disabled = true; 
+          nextBtn.style.display = 'inline-flex'; 
+          submitBtn.style.display = 'none'; 
+        } else { 
+          step1.classList.remove('active-step'); 
+          step2.classList.add('active-step'); 
+          prevBtn.disabled = false; 
+          nextBtn.style.display = 'none'; 
+          submitBtn.style.display = 'inline-flex'; 
+        } 
+      }
+      
       nextBtn?.addEventListener('click', () => { if (document.getElementById('newSupplierName').value.trim()) { currentStep = 2; updateStepUI(); } else showToast("Enter supplier name", 'error'); });
       prevBtn?.addEventListener('click', () => { currentStep = 1; updateStepUI(); });
-      submitBtn?.addEventListener('click', () => { let name = document.getElementById('newSupplierName').value.trim(); if (!name) return; let fullAddress = document.getElementById('supplierAddress').value; if (document.getElementById('supplierCity').value) fullAddress += ", " + document.getElementById('supplierCity').value; if (document.getElementById('supplierState').value) fullAddress += ", " + document.getElementById('supplierState').value; if (document.getElementById('supplierZip').value) fullAddress += " - " + document.getElementById('supplierZip').value; let newSupplier = { id: "SUP-" + String(suppliersList.length + 1).padStart(3, '0'), name: name, address: fullAddress || "Address not provided", gst: document.getElementById('newSupplierGst').value.trim(), phone: document.getElementById('newSupplierPhone').value, email: document.getElementById('newSupplierEmail').value, state: document.getElementById('supplierState').value }; suppliersList.push(newSupplier); populateSupplierDropdown(); document.getElementById('supplierSelect').value = newSupplier.id; updateSupplierUI(); bootstrap.Modal.getInstance(document.getElementById('supplierCreateModal')).hide(); currentStep = 1; updateStepUI(); showToast(`Supplier "${name}" added`, 'success'); });
+      
+      submitBtn?.addEventListener('click', () => { 
+        let name = document.getElementById('newSupplierName').value.trim(); 
+        if (!name) return; 
+        let fullAddress = document.getElementById('supplierAddress').value; 
+        if (document.getElementById('supplierCity').value) fullAddress += ", " + document.getElementById('supplierCity').value; 
+        if (document.getElementById('supplierState').value) fullAddress += ", " + document.getElementById('supplierState').value; 
+        if (document.getElementById('supplierZip').value) fullAddress += " - " + document.getElementById('supplierZip').value; 
+        let newSupplier = { id: "SUP-" + String(suppliersList.length + 1).padStart(3, '0'), name: name, address: fullAddress || "Address not provided", gst: document.getElementById('newSupplierGst').value.trim(), phone: document.getElementById('newSupplierPhone').value, email: document.getElementById('newSupplierEmail').value, state: document.getElementById('supplierState').value }; 
+        suppliersList.push(newSupplier); 
+        populateSupplierDropdown(); 
+        document.getElementById('supplierSelect').value = newSupplier.id; 
+        updateSupplierUI(); 
+        bootstrap.Modal.getInstance(document.getElementById('supplierCreateModal')).hide(); 
+        currentStep = 1; 
+        updateStepUI(); 
+        showToast(`Supplier "${name}" added`, 'success'); 
+      });
 
-      let editCurrentStep = 1; const editStep1 = document.getElementById('editStep1'), editStep2 = document.getElementById('editStep2'), editPrevBtn = document.getElementById('editPrevStepBtn'), editNextBtn = document.getElementById('editNextStepBtn'), editSubmitBtn = document.getElementById('submitEditSupplierBtn');
-      function updateEditStepUI() { document.querySelectorAll('#supplierEditModal .step-item').forEach((el, idx) => { if (idx + 1 < editCurrentStep) el.classList.add('completed'); else el.classList.remove('completed'); if (idx + 1 === editCurrentStep) el.classList.add('active'); else el.classList.remove('active'); }); if (editCurrentStep === 1) { editStep1.classList.add('active-step'); editStep2.classList.remove('active-step'); editPrevBtn.disabled = true; editNextBtn.style.display = 'inline-flex'; editSubmitBtn.style.display = 'none'; } else { editStep1.classList.remove('active-step'); editStep2.classList.add('active-step'); editPrevBtn.disabled = false; editNextBtn.style.display = 'none'; editSubmitBtn.style.display = 'inline-flex'; } }
-      document.getElementById('editSupplierBtn')?.addEventListener('click', () => { if (!currentSupplierId) { showToast('Select a supplier first', 'error'); return; } let supplier = suppliersList.find(s => s.id === currentSupplierId); if (supplier) { document.getElementById('editSupplierName').value = supplier.name; document.getElementById('editSupplierGst').value = supplier.gst || ''; document.getElementById('editSupplierPhone').value = supplier.phone || ''; document.getElementById('editSupplierEmail').value = supplier.email || ''; let addrParts = (supplier.address || '').split(','); document.getElementById('editSupplierAddress').value = addrParts[0] || ''; document.getElementById('editSupplierCity').value = addrParts[1] ? addrParts[1].trim() : ''; document.getElementById('editSupplierState').value = supplier.state || ''; document.getElementById('editSupplierZip').value = addrParts[2] ? addrParts[2].replace('-', '').trim() : ''; editCurrentStep = 1; updateEditStepUI(); new bootstrap.Modal(document.getElementById('supplierEditModal')).show(); } });
+      let editCurrentStep = 1; 
+      const editStep1 = document.getElementById('editStep1'), editStep2 = document.getElementById('editStep2'), editPrevBtn = document.getElementById('editPrevStepBtn'), editNextBtn = document.getElementById('editNextStepBtn'), editSubmitBtn = document.getElementById('submitEditSupplierBtn');
+      
+      function updateEditStepUI() { 
+        document.querySelectorAll('#supplierEditModal .step-item').forEach((el, idx) => { 
+          if (idx + 1 < editCurrentStep) el.classList.add('completed'); 
+          else el.classList.remove('completed'); 
+          if (idx + 1 === editCurrentStep) el.classList.add('active'); 
+          else el.classList.remove('active'); 
+        }); 
+        if (editCurrentStep === 1) { 
+          editStep1.classList.add('active-step'); 
+          editStep2.classList.remove('active-step'); 
+          editPrevBtn.disabled = true; 
+          editNextBtn.style.display = 'inline-flex'; 
+          editSubmitBtn.style.display = 'none'; 
+        } else { 
+          editStep1.classList.remove('active-step'); 
+          editStep2.classList.add('active-step'); 
+          editPrevBtn.disabled = false; 
+          editNextBtn.style.display = 'none'; 
+          editSubmitBtn.style.display = 'inline-flex'; 
+        } 
+      }
+      
+      document.getElementById('editSupplierBtn')?.addEventListener('click', () => { 
+        if (!currentSupplierId) { showToast('Select a supplier first', 'error'); return; } 
+        let supplier = suppliersList.find(s => s.id === currentSupplierId); 
+        if (supplier) { 
+          document.getElementById('editSupplierName').value = supplier.name; 
+          document.getElementById('editSupplierGst').value = supplier.gst || ''; 
+          document.getElementById('editSupplierPhone').value = supplier.phone || ''; 
+          document.getElementById('editSupplierEmail').value = supplier.email || ''; 
+          let addrParts = (supplier.address || '').split(','); 
+          document.getElementById('editSupplierAddress').value = addrParts[0] || ''; 
+          document.getElementById('editSupplierCity').value = addrParts[1] ? addrParts[1].trim() : ''; 
+          document.getElementById('editSupplierState').value = supplier.state || ''; 
+          document.getElementById('editSupplierZip').value = addrParts[2] ? addrParts[2].replace('-', '').trim() : ''; 
+          editCurrentStep = 1; 
+          updateEditStepUI(); 
+          new bootstrap.Modal(document.getElementById('supplierEditModal')).show(); 
+        } 
+      });
+      
       editNextBtn?.addEventListener('click', () => { if (document.getElementById('editSupplierName').value.trim()) { editCurrentStep = 2; updateEditStepUI(); } else showToast("Enter supplier name", 'error'); });
       editPrevBtn?.addEventListener('click', () => { editCurrentStep = 1; updateEditStepUI(); });
-      editSubmitBtn?.addEventListener('click', () => { let name = document.getElementById('editSupplierName').value.trim(); if (!name) return; let fullAddress = document.getElementById('editSupplierAddress').value; if (document.getElementById('editSupplierCity').value) fullAddress += ", " + document.getElementById('editSupplierCity').value; if (document.getElementById('editSupplierState').value) fullAddress += ", " + document.getElementById('editSupplierState').value; if (document.getElementById('editSupplierZip').value) fullAddress += " - " + document.getElementById('editSupplierZip').value; let idx = suppliersList.findIndex(s => s.id === currentSupplierId); if (idx !== -1) { suppliersList[idx] = { ...suppliersList[idx], name: name, address: fullAddress, gst: document.getElementById('editSupplierGst').value, phone: document.getElementById('editSupplierPhone').value, email: document.getElementById('editSupplierEmail').value, state: document.getElementById('editSupplierState').value }; populateSupplierDropdown(); document.getElementById('supplierSelect').value = currentSupplierId; updateSupplierUI(); } bootstrap.Modal.getInstance(document.getElementById('supplierEditModal')).hide(); showToast(`Supplier "${name}" updated`, 'success'); });
+      
+      editSubmitBtn?.addEventListener('click', () => { 
+        let name = document.getElementById('editSupplierName').value.trim(); 
+        if (!name) return; 
+        let fullAddress = document.getElementById('editSupplierAddress').value; 
+        if (document.getElementById('editSupplierCity').value) fullAddress += ", " + document.getElementById('editSupplierCity').value; 
+        if (document.getElementById('editSupplierState').value) fullAddress += ", " + document.getElementById('editSupplierState').value; 
+        if (document.getElementById('editSupplierZip').value) fullAddress += " - " + document.getElementById('editSupplierZip').value; 
+        let idx = suppliersList.findIndex(s => s.id === currentSupplierId); 
+        if (idx !== -1) { 
+          suppliersList[idx] = { ...suppliersList[idx], name: name, address: fullAddress, gst: document.getElementById('editSupplierGst').value, phone: document.getElementById('editSupplierPhone').value, email: document.getElementById('editSupplierEmail').value, state: document.getElementById('editSupplierState').value }; 
+          populateSupplierDropdown(); 
+          document.getElementById('supplierSelect').value = currentSupplierId; 
+          updateSupplierUI(); 
+        } 
+        bootstrap.Modal.getInstance(document.getElementById('supplierEditModal')).hide(); 
+        showToast(`Supplier "${name}" updated`, 'success'); 
+      });
     });
-    function initDatePickers() { flatpickrOrderDate = flatpickr("#orderDate", { dateFormat: "Y-m-d", defaultDate: "2026-04-29" }); flatpickrDeliveryDate = flatpickr("#deliveryDate", { dateFormat: "Y-m-d", defaultDate: "2026-05-06" }); }
+    
     function handleLogout() { if (confirm('Logout?')) window.location.href = 'login.html'; }
   </script>
 </body>
