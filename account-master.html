@@ -151,6 +151,73 @@
       overflow-y: auto;
     }
 
+    /* Search Bar Styles */
+    .search-container {
+      margin-bottom: 16px;
+      position: relative;
+    }
+    
+    .search-input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    
+    .search-input-group i {
+      position: absolute;
+      left: 14px;
+      color: #94a3b8;
+      font-size: 0.9rem;
+      pointer-events: none;
+    }
+    
+    .search-input-group input {
+      width: 100%;
+      padding: 10px 12px 10px 38px;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      transition: all 0.2s;
+      background: #f8fafc;
+    }
+    
+    .search-input-group input:focus {
+      outline: none;
+      border-color: #233578;
+      background: white;
+      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.08);
+    }
+    
+    .search-clear-btn {
+      position: absolute;
+      right: 14px;
+      background: none;
+      border: none;
+      color: #94a3b8;
+      cursor: pointer;
+      font-size: 0.8rem;
+      padding: 0;
+      display: none;
+    }
+    
+    .search-clear-btn:hover {
+      color: #ef4444;
+    }
+    
+    .search-info {
+      font-size: 0.7rem;
+      color: #64748b;
+      margin-top: 6px;
+      padding-left: 12px;
+    }
+    
+    .highlight-match {
+      background-color: #fef08a;
+      border-radius: 4px;
+      padding: 0 2px;
+      font-weight: 600;
+    }
+    
     /* Minimal Delete Modal */
     .minimal-delete-modal .modal-content {
       border: none;
@@ -197,6 +264,10 @@
       display: flex;
       align-items: center;
       gap: 10px;
+    }
+    
+    .match-highlight {
+      position: relative;
     }
   </style>
 </head>
@@ -247,7 +318,7 @@
                     <ul class="submenu-level" id="itemsSub">
                         <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
                         <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                        <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
                     </ul>
                 </li>
 
@@ -305,8 +376,9 @@
                         <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
                         <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
                         <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                        <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
                     </ul>
                 </li>
 
@@ -341,11 +413,10 @@
               <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
                   id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
                     class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+            
               <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                <div class="hover-dd">
+                  <button class="btn bg-primary-subtle text-primary dropdown-toggle"
                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
                     onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
                       class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
@@ -505,6 +576,15 @@
                   <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill" id="accountCount">0
                     Accounts</span>
                 </div>
+                <!-- Search Bar Added Here -->
+                <div class="search-container">
+                  <div class="search-input-group">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="accountSearchInput" class="form-control" placeholder="Search accounts by name or code..." autocomplete="off">
+                    <button type="button" id="clearSearchBtn" class="search-clear-btn"><i class="fas fa-times-circle"></i></button>
+                  </div>
+                  <div class="search-info" id="searchInfo"></div>
+                </div>
                 <ul class="tree-node" id="accountTree"></ul>
               </div>
             </div>
@@ -631,8 +711,16 @@
 
     let selectedAccountId = null;
     let accountToDelete = null;
+    let currentSearchTerm = '';
 
     function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
+    
+    function highlightText(text, searchTerm) {
+      if (!searchTerm || searchTerm.trim() === '') return escapeHtml(text);
+      const escapedSearch = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const regex = new RegExp(`(${escapedSearch})`, 'gi');
+      return escapeHtml(text).replace(regex, '<span class="highlight-match">$1</span>');
+    }
 
     function generateAccountCode(parentId) {
       if (!parentId) {
@@ -646,26 +734,99 @@
       }
       return String(accounts.length + 1);
     }
+    
+    function shouldShowAccount(account, searchTerm) {
+      if (!searchTerm || searchTerm.trim() === '') return true;
+      const term = searchTerm.toLowerCase();
+      return account.name.toLowerCase().includes(term) || 
+             account.code.toLowerCase().includes(term) ||
+             (account.description && account.description.toLowerCase().includes(term));
+    }
+    
+    function getMatchingAncestors(accountId, searchTerm) {
+      if (!searchTerm || searchTerm.trim() === '') return [];
+      const ancestors = [];
+      let current = accounts.find(a => a.id === accountId);
+      while (current && current.parent) {
+        const parent = accounts.find(a => a.id === current.parent);
+        if (parent) {
+          ancestors.push(parent.id);
+          current = parent;
+        } else {
+          break;
+        }
+      }
+      return ancestors;
+    }
 
     function renderTree() {
       const container = document.getElementById('accountTree');
       if (!container) return;
       container.innerHTML = '';
 
+      const searchTerm = currentSearchTerm;
       const rootAccounts = accounts.filter(a => a.parent === null);
+      
+      let visibleCount = 0;
+      let expandedAncestors = new Set();
+      
+      // First pass: collect all matching account IDs and their ancestors
+      const matchingIds = new Set();
+      if (searchTerm && searchTerm.trim() !== '') {
+        accounts.forEach(account => {
+          if (shouldShowAccount(account, searchTerm)) {
+            matchingIds.add(account.id);
+            getMatchingAncestors(account.id, searchTerm).forEach(ancId => matchingIds.add(ancId));
+          }
+        });
+        visibleCount = matchingIds.size;
+      } else {
+        visibleCount = accounts.length;
+      }
+      
+      // Update search info
+      const searchInfo = document.getElementById('searchInfo');
+      if (searchInfo) {
+        if (searchTerm && searchTerm.trim() !== '') {
+          searchInfo.innerHTML = `<i class="fas fa-filter me-1"></i>Found ${visibleCount} matching account${visibleCount !== 1 ? 's' : ''} for "${escapeHtml(searchTerm)}"`;
+        } else {
+          searchInfo.innerHTML = '';
+        }
+      }
+      
+      // Determine which folders should be expanded based on search
+      const shouldExpand = (account) => {
+        if (searchTerm && searchTerm.trim() !== '') {
+          return matchingIds.has(account.id);
+        }
+        return account.expanded;
+      };
+      
       rootAccounts.forEach(account => {
-        renderNode(account, container);
+        if (!searchTerm || (searchTerm && matchingIds.has(account.id))) {
+          renderNode(account, container, shouldExpand, matchingIds, searchTerm);
+        }
       });
 
       document.getElementById('accountCount').innerText = accounts.length + ' Accounts';
+      
+      // Show clear button if search term exists
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (clearBtn) {
+        clearBtn.style.display = (searchTerm && searchTerm.trim() !== '') ? 'block' : 'none';
+      }
     }
 
-    function renderNode(account, parentElement) {
+    function renderNode(account, parentElement, shouldExpandFn, matchingIds, searchTerm) {
       const li = document.createElement('li');
       li.dataset.id = account.id;
 
       const children = accounts.filter(a => a.parent === account.id);
       const hasChildren = children.length > 0;
+      const isExpanded = shouldExpandFn(account);
+      
+      // For search mode, auto-expand if it has matching children
+      const shouldShowChildren = isExpanded || (searchTerm && matchingIds && matchingIds.has(account.id) && hasChildren);
 
       const div = document.createElement('div');
       div.className = 'tree-item';
@@ -677,13 +838,18 @@
       if (hasChildren || account.isFolder) {
         const toggleSpan = document.createElement('span');
         toggleSpan.className = 'toggle-icon';
-        toggleSpan.innerHTML = account.expanded ?
+        toggleSpan.innerHTML = isExpanded || shouldShowChildren ?
           '<i class="fas fa-minus-square"></i>' :
           '<i class="fas fa-plus-square"></i>';
         toggleSpan.onclick = (e) => {
           e.stopPropagation();
-          account.expanded = !account.expanded;
-          renderTree();
+          if (searchTerm && searchTerm.trim() !== '') {
+            // In search mode, don't persist expansion state
+            renderTree();
+          } else {
+            account.expanded = !account.expanded;
+            renderTree();
+          }
         };
         div.appendChild(toggleSpan);
       } else {
@@ -701,10 +867,12 @@
         '<i class="fas fa-file-alt"></i>';
       div.appendChild(iconSpan);
 
-      // Account name
+      // Account name with highlight
       const nameSpan = document.createElement('span');
       nameSpan.className = 'account-name';
-      nameSpan.innerHTML = `${escapeHtml(account.name)} <span class="account-code">(${account.code})</span>`;
+      const highlightedName = highlightText(account.name, searchTerm);
+      const highlightedCode = highlightText(account.code, searchTerm);
+      nameSpan.innerHTML = `${highlightedName} <span class="account-code">(${highlightedCode})</span>`;
       div.appendChild(nameSpan);
 
       // Type badge
@@ -745,13 +913,17 @@
 
       li.appendChild(div);
 
-      // Render children if expanded
-      if (account.expanded && children.length > 0) {
+      // Render children if should show
+      if (shouldShowChildren && children.length > 0) {
         const ul = document.createElement('ul');
         children.forEach(child => {
-          renderNode(child, ul);
+          if (!searchTerm || (searchTerm && matchingIds.has(child.id))) {
+            renderNode(child, ul, shouldExpandFn, matchingIds, searchTerm);
+          }
         });
-        li.appendChild(ul);
+        if (ul.children.length > 0) {
+          li.appendChild(ul);
+        }
       }
 
       parentElement.appendChild(li);
@@ -800,10 +972,11 @@
 
         renderTree();
         showToast(`Account "${accountToDelete.name}" deleted successfully`);
+        const deletedId = accountToDelete.id;
         accountToDelete = null;
         bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
 
-        if (selectedAccountId === accountToDelete?.id) {
+        if (selectedAccountId === deletedId) {
           resetForm();
         }
       }
@@ -832,6 +1005,21 @@
       setTimeout(() => {
         toastDiv.style.display = 'none';
       }, 3000);
+    }
+    
+    // Search functionality
+    function handleSearch() {
+      const searchInput = document.getElementById('accountSearchInput');
+      currentSearchTerm = searchInput.value.trim();
+      renderTree();
+    }
+    
+    function clearSearch() {
+      const searchInput = document.getElementById('accountSearchInput');
+      searchInput.value = '';
+      currentSearchTerm = '';
+      renderTree();
+      searchInput.focus();
     }
 
     // Form submission
@@ -896,6 +1084,17 @@
         showToast('Form reset');
       }
     });
+    
+    // Search event listeners
+    const searchInput = document.getElementById('accountSearchInput');
+    if (searchInput) {
+      searchInput.addEventListener('input', handleSearch);
+    }
+    
+    const clearBtn = document.getElementById('clearSearchBtn');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', clearSearch);
+    }
 
     function buildParentOptions() {
       const select = document.getElementById('parentAccount');

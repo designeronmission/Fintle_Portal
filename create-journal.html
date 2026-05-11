@@ -263,7 +263,7 @@
                     <ul class="submenu-level" id="itemsSub">
                         <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
                         <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                        <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
                     </ul>
                 </li>
 
@@ -321,8 +321,9 @@
                         <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
                         <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
                         <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                        <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
                     </ul>
                 </li>
 
@@ -358,9 +359,7 @@
               <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
                   id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
                     class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                  href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                    icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+            
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
@@ -497,7 +496,7 @@
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-content-between">
-                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="journals.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Journal Voucher</h4>
+                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="journals.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Journal Entry</h4>
                   <nav aria-label="breadcrumb" class="ms-auto">
                     <ol class="breadcrumb mb-0">
                       <li class="breadcrumb-item d-flex align-items-center">
@@ -506,7 +505,7 @@
                         </a>
                       </li>
                       <li class="breadcrumb-item"><a href="journals.html">Journals</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Create Journal Voucher</li>
+                      <li class="breadcrumb-item active" aria-current="page">Create Journal Entry</li>
                     </ol>
                   </nav>
                 </div>
@@ -517,7 +516,7 @@
           <form id="journalForm">
             <!-- Journal Details -->
             <div class="card-custom">
-              <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Journal Voucher Details</div>
+              <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Journal Entry Details</div>
               <div class="card-body p-4">
                 <div class="row g-4">
                   <!-- Financial Year -->
@@ -611,7 +610,7 @@
                 <i class="fas fa-undo-alt me-2"></i>Reset
               </button>
               <button type="submit" class="btn btn-primary rounded-pill px-5">
-                <i class="fas fa-save me-2"></i>Save Journal
+                <i class="fas fa-save me-2"></i>Save Journal Entries
               </button>
             </div>
             </div>

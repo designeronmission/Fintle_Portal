@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Categories</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        /* KPI Cards */
+        .dashboard-container {
+            display: flex;
+            gap: 20px;
+            background: white;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+            padding: 20px 24px;
+            border-radius: 20px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .kpi-card {
+            background: white;
+            border: 1px solid #e9eef3;
+            border-radius: 20px;
+            flex: 1;
+            min-width: 200px;
+            padding: 18px 20px;
+            transition: all 0.2s ease;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.05);
+            border-color: #cbd5e1;
+        }
+
+        .kpi-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .kpi-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #242424;
+            letter-spacing: 0.3px;
+        }
+
+        .icon-circle {
+            width: 48px;
+            height: 48px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .kpi-amount-main {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1e293b;
+            line-height: 1.2;
+        }
+
+        .kpi-sub {
+            font-size: 12px;
+            font-weight: 500;
+            color: #5f7f9e;
+            padding-top: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .count-badge {
+            background: #eff3f8;
+            border-radius: 40px;
+            padding: 2px 10px;
+            font-weight: 700;
+            color: #2a3b82;
+            font-size: 12px;
+        }
+
+        /* Table Styling */
+        .table-wrapper {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        .categories-table {
+            min-width: 1000px;
+            font-size: 0.85rem;
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .categories-table th {
+            background: #f8fafc;
+            font-weight: 600;
+            color: #1e293b;
+            padding: 14px 12px;
+            border-bottom: 1px solid #e2e8f0;
+            white-space: nowrap;
+        }
+
+        .categories-table td {
+            padding: 14px 12px;
+            vertical-align: middle;
+            border-bottom: 1px solid #eef2f6;
+            white-space: nowrap;
+            color: #1e293b;
+        }
+
+        /* Sticky Action column */
+        .categories-table th:last-child,
+        .categories-table td:last-child {
+            position: sticky;
+            right: 0;
+            background-color: white;
+            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.05);
+            z-index: 10;
+        }
+
+        .categories-table th:last-child {
+            background-color: #f8fafc;
+            z-index: 11;
+        }
+
+        /* Badges */
+        .status-badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-active {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .badge-inactive {
+            background: #fee2e2;
+            color: #ef4444;
+        }
+
+        .action-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            border: 1px solid #e2e8f0;
+            background: white;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .action-btn:hover {
+            background: #f1f5f9;
+            border-color: #cbd5e1;
+        }
+
+        .dropdown-menu {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        .dropdown-item {
+            font-size: 0.8rem;
+            padding: 8px 18px;
+        }
+
+        .dropdown-item i {
+            width: 20px;
+            margin-right: 8px;
+        }
+
+        /* Unified Actions Bar */
+        .unified-actions-card {
+            background: white;
+            border-radius: 20px;
+            padding: 12px 20px;
+            margin-bottom: 24px;
+            border: 1px solid #edf2f7;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+
+        .search-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 40px;
+            padding: 6px 18px;
+            flex: 1;
+            max-width: 350px;
+        }
+
+        .search-inline:focus-within {
+            border-color: #2a3b82;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
+        }
+
+        .search-inline input {
+            border: none;
+            background: transparent;
+            padding: 8px 0;
+            width: 100%;
+            outline: none;
+            font-size: 0.85rem;
+        }
+
+        .search-inline i {
+            color: #94a3b8;
+        }
+
+        .page-link {
+            border-radius: 8px;
+            margin: 0 2px;
+            border: none;
+            color: #475569;
+            font-weight: 500;
+        }
+
+        .page-item.active .page-link {
+            background: #2a3b82;
+            color: white;
+        }
+
+        /* Modal Styling */
+        .modal-content {
+            border-radius: 24px;
+            border: none;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.6rem 1rem;
+            font-size: 0.85rem;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+        }
+
+        .form-label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #475569;
+        }
+
+        .toast-notify {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1e293b;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            z-index: 1100;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-container {
+                padding: 16px;
+            }
+
+            .kpi-card {
+                min-width: 100%;
+            }
+
+            .unified-actions-card {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .search-inline {
+                max-width: 100%;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="main-wrapper">
+
+        <aside class="fintle-side" id="fintleSidebarRoot">
+            <div class="side-header">
+                <div class="brand-wrap">
+                    <div class="brand-logo">
+                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                    </div>
+                </div>
+            </div>
+            <div class="fintle-nav-scroll">
+                <ul class="fintle-menu-list" id="dynamicMenuList">
+                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon
+                                icon="solar:atom-line-duotone"></iconify-icon><span
+                                class="menu-text">Dashboard</span></a></li>
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
+                                icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a>
+                    </li>
+                    <li class="menu-item has-sub open" data-submenu-id="itemsSub">
+                        <div class="nav-link-side submenu-trigger-side active">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Items</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level show-sub" id="itemsSub">
+                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span
+                                        class="dot-marker"></span> Item</a></li>
+                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span
+                                        class="dot-marker"></span> HSN / SAC Codes</a></li>
+                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span
+                                        class="dot-marker"></span> Categories</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Purchase</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="purchaseSub">
+                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span
+                                        class="dot-marker"></span> Suppliers</a></li>
+                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span
+                                        class="dot-marker"></span> Purchase Order</a></li>
+                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span
+                                        class="dot-marker"></span> Purchase Bill</a></li>
+                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span
+                                        class="dot-marker"></span> Supplier Statement</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="salesSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Sales</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="salesSub">
+                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span
+                                        class="dot-marker"></span> Customers</a></li>
+                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span
+                                        class="dot-marker"></span> Enquiries</a></li>
+                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span
+                                        class="dot-marker"></span> Estimates</a></li>
+                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span
+                                        class="dot-marker"></span> Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="accSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Accounts</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="accSub">
+                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span
+                                        class="dot-marker"></span> Account Master</a></li>
+                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span
+                                        class="dot-marker"></span> Journals</a></li>
+                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span
+                                        class="dot-marker"></span> Vouchers</a></li>
+                            <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank
+                                    Payments</a></li>
+                            <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span>
+                                    General Ledger</a></li>
+                            <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-divider-custom"></li>
+                </ul>
+            </div>
+            <div class="side-footer">
+                <ul class="fintle-menu-list">
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
+                                icon="solar:settings-line-duotone"></iconify-icon><span
+                                class="menu-text">Settings</span></a></li>
+                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"><iconify-icon
+                                icon="solar:logout-2-line-duotone"></iconify-icon><span
+                                class="menu-text">Logout</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-invoice.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales
+                                        Invoice</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg"
+                                alt="Fintle-img" /></div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle"
+                            href="javascript:void(0)" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                                class="fs-6"></iconify-icon></a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul
+                                    class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)"
+                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                                            type="button" data-bs-toggle="offcanvas"
+                                            data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone"
+                                                class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a
+                                            class="nav-link position-relative" href="javascript:void(0)"><iconify-icon
+                                                icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
+                                    </li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)">
+                                            <div class="d-flex align-items-center gap-2 lh-base"><img
+                                                    src="assets/images/needs/profile.png" class="rounded-circle"
+                                                    width="35" height="35" alt="Fintle-img" /></div>
+                                        </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+
+                    <!-- Breadcrumb -->
+                    <div class="card card-body py-3 mb-2">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Category Management</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone"
+                                                        class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="items.html">Items</a></li>
+                                            <li class="breadcrumb-item active">Categories</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- KPI Cards -->
+                    <div class="dashboard-container">
+                        <div class="kpi-card">
+                            <div class="kpi-header">
+                                <span class="kpi-label">Total Categories</span>
+                                <div class="icon-circle" style="background:#eef2ff;"><i
+                                        class="fas fa-folder text-primary"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="totalCategories">0</div>
+                            <div class="kpi-sub">All categories</div>
+                        </div>
+                        <div class="kpi-card">
+                        <div class="kpi-header">
+                                <span class="kpi-label">Active</span>
+                                <div class="icon-circle" style="background:#e3f7ec;"><i class="fas fa-check-circle" style="color:#10b981"></i></div>
+                            </div>
+                            <div class="kpi-amount-main" id="activeCategories">0</div>
+                            <div class="kpi-sub"><span><i class="fas fa-box"></i> Active</span><span class="count-badge"
+                                    id="activeBadge">0</span></div>
+                        </div>
+                        <div class="kpi-card">
+                        <div class="kpi-header">
+                        <span class="kpi-label">Inactive</span>
+                        <div class="icon-circle" style="background:#fee2e2;"><i class="fas fa-ban" style="color:#ef4444"></i></div>
+                        </div>
+                            <div class="kpi-amount-main" id="inactiveCategories">0</div>
+                            <div class="kpi-sub">Inactive categories</div>
+                        </div>
+                    </div>
+
+                    <!-- Unified Actions Bar -->
+                    <div class="card overflow-hidden p-4">
+
+                        <div class="unified-actions-card">
+                            <div class="search-inline">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchCategory" placeholder="Search by name or created by...">
+                            </div>
+                            <div class="right-actions">
+                                <button class="btn btn-primary shadow-sm" id="createCategoryBtn"><i
+                                        class="fas fa-plus me-2"></i>New Category</button>
+                            </div>
+                        </div>
+
+                        <!-- Categories Table -->
+                        <div class="table-wrapper">
+                            <table class="categories-table align-middle">
+                                <thead>
+                                    <tr>
+                                        <th>S.No</th>
+                                        <th>Name</th>
+                                        <th>Status</th>
+                                        <th>Created On</th>
+                                        <th>Last Updated On</th>
+                                        <th>Created By</th>
+                                        <th>Last Updated By</th>
+                                        <th style="width:80px;">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="categoriesTableBody"></tbody>
+                            </table>
+                        </div>
+
+                        <div class="d-flex justify-content-between align-items-center py-3 flex-wrap">
+                            <span class="text-muted small">Showing <span id="rowStart">0</span>-<span
+                                    id="rowEnd">0</span> of <span id="totalRows">0</span> categories</span>
+                            <nav>
+                                <ul class="pagination pagination-sm mb-0" id="pagination"></ul>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create/Edit Category Modal -->
+    <div class="modal fade" id="categoryModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header border-0 pt-4 px-4">
+                    <h5 class="modal-title fw-bold"><span id="modalTitle">Create New Category</span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body px-4 pb-4">
+                    <form id="categoryForm">
+                        <input type="hidden" id="editCategoryId">
+                        <div class="mb-3">
+                            <label class="form-label">Category Name *</label>
+                            <input type="text" class="form-control" id="categoryName" placeholder="Enter category name"
+                                required>
+                        </div>
+                        <div class="mb-4">
+                            <label class="form-label">Status</label>
+                            <select class="form-select" id="categoryStatus">
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                            </select>
+                        </div>
+                        <div class="d-flex justify-content-end gap-3 mt-4">
+                            <button type="button" class="btn btn-outline-secondary rounded-pill px-4"
+                                data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-5">Save Category</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="liveToastMsg" class="toast-notify" style="display: none;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Category Data
+        let categories = [
+            { id: 1, name: "Electronics", status: "active", createdOn: "2024-01-15 10:30:00", lastUpdatedOn: "2024-01-15 10:30:00", createdBy: "Admin", lastUpdatedBy: "Admin" },
+            { id: 2, name: "Clothing", status: "active", createdOn: "2024-01-16 14:20:00", lastUpdatedOn: "2024-02-10 09:15:00", createdBy: "Admin", lastUpdatedBy: "Admin" },
+            { id: 3, name: "Groceries", status: "active", createdOn: "2024-02-01 11:45:00", lastUpdatedOn: "2024-02-01 11:45:00", createdBy: "Admin", lastUpdatedBy: "Admin" },
+            { id: 4, name: "Furniture", status: "inactive", createdOn: "2024-02-05 09:00:00", lastUpdatedOn: "2024-03-01 16:30:00", createdBy: "Admin", lastUpdatedBy: "Admin" },
+            { id: 5, name: "Stationery", status: "active", createdOn: "2024-02-20 13:10:00", lastUpdatedOn: "2024-02-20 13:10:00", createdBy: "Admin", lastUpdatedBy: "Admin" },
+            { id: 6, name: "Toys", status: "inactive", createdOn: "2024-03-05 10:00:00", lastUpdatedOn: "2024-03-05 10:00:00", createdBy: "Admin", lastUpdatedBy: "Admin" }
+        ];
+
+        let currentPage = 1;
+        let rowsPerPage = 8;
+        let currentSearchTerm = '';
+        let nextId = 7;
+
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            const icon = document.querySelector('#liveToastMsg i');
+            icon.className = type === 'success' ? 'fas fa-check-circle me-2' : type === 'error' ? 'fas fa-exclamation-triangle me-2' : 'fas fa-info-circle me-2';
+            toastDiv.style.background = type === 'success' ? '#10b981' : type === 'error' ? '#ef4444' : '#1e293b';
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'flex';
+            setTimeout(() => toastDiv.style.display = 'none', 3000);
+        }
+
+        function formatDateTime(dateStr) {
+            if (!dateStr) return '-';
+            let date = new Date(dateStr);
+            if (isNaN(date.getTime())) return dateStr;
+            return date.toLocaleDateString('en-IN') + ' ' + date.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function updateKPIs() {
+            const total = categories.length;
+            const active = categories.filter(c => c.status === 'active').length;
+            const inactive = categories.filter(c => c.status === 'inactive').length;
+            document.getElementById('totalCategories').innerText = total;
+            document.getElementById('activeCategories').innerText = active;
+            document.getElementById('activeBadge').innerText = active;
+            document.getElementById('inactiveCategories').innerText = inactive;
+        }
+
+        function filterCategories() {
+            let filtered = categories.filter(cat => {
+                let matchSearch = currentSearchTerm === '' ||
+                    cat.name.toLowerCase().includes(currentSearchTerm) ||
+                    cat.createdBy.toLowerCase().includes(currentSearchTerm);
+                return matchSearch;
+            });
+            return filtered;
+        }
+
+        function renderTable() {
+            let filtered = filterCategories();
+            let total = filtered.length;
+            let totalPages = Math.ceil(total / rowsPerPage);
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+            let start = (currentPage - 1) * rowsPerPage;
+            let end = Math.min(start + rowsPerPage, total);
+            let pageData = filtered.slice(start, end);
+            let tbody = document.getElementById('categoriesTableBody');
+            tbody.innerHTML = '';
+
+            if (pageData.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" class="text-center py-5 text-muted">No categories found</td></tr>';
+            } else {
+                pageData.forEach((cat, idx) => {
+                    let serialNo = start + idx + 1;
+                    let statusClass = cat.status === 'active' ? 'badge-active' : 'badge-inactive';
+                    let statusText = cat.status === 'active' ? 'Active' : 'Inactive';
+                    let row = `
+                        <tr>
+                            <td class="fw-semibold">${serialNo}</td>
+                            <td><strong>${escapeHtml(cat.name)}</strong></td>
+                            <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                            <td class="text-muted small">${formatDateTime(cat.createdOn)}</td>
+                            <td class="text-muted small">${formatDateTime(cat.lastUpdatedOn)}</td>
+                            <td>${escapeHtml(cat.createdBy)}</td>
+                            <td>${escapeHtml(cat.lastUpdatedBy)}</td>
+                            <td>
+                                <div class="dropdown">
+                                    <button class="action-btn" data-bs-toggle="dropdown"><i class="fas fa-ellipsis-v"></i></button>
+                                    <ul class="dropdown-menu dropdown-menu-end">
+                                        <li><a class="dropdown-item" href="#" onclick="editCategory(${cat.id})"><i class="fas fa-edit"></i> Edit</a></li>
+                                        <li><a class="dropdown-item" href="#" onclick="toggleCategoryStatus(${cat.id})"><i class="fas ${cat.status === 'active' ? 'fa-ban' : 'fa-check-circle'}"></i> ${cat.status === 'active' ? 'Deactivate' : 'Activate'}</a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item text-danger" href="#" onclick="deleteCategory(${cat.id})"><i class="fas fa-trash-alt"></i> Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                    tbody.insertAdjacentHTML('beforeend', row);
+                });
+            }
+
+            document.getElementById('rowStart').innerText = total ? start + 1 : 0;
+            document.getElementById('rowEnd').innerText = end;
+            document.getElementById('totalRows').innerText = total;
+
+            let pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            if (totalPages > 1) {
+                pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+                        pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+                    else if (i === currentPage - 3 || i === currentPage + 3)
+                        pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                }
+                pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
+            }
+        }
+
+        function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+
+        window.changePage = function (p) {
+            let filtered = filterCategories();
+            let pages = Math.ceil(filtered.length / rowsPerPage);
+            if (p >= 1 && p <= pages) { currentPage = p; renderTable(); }
+        };
+
+        window.editCategory = function (id) {
+            const category = categories.find(c => c.id === id);
+            if (category) {
+                document.getElementById('modalTitle').innerText = 'Edit Category';
+                document.getElementById('editCategoryId').value = category.id;
+                document.getElementById('categoryName').value = category.name;
+                document.getElementById('categoryStatus').value = category.status;
+                new bootstrap.Modal(document.getElementById('categoryModal')).show();
+            }
+        };
+
+        window.toggleCategoryStatus = function (id) {
+            const category = categories.find(c => c.id === id);
+            if (category) {
+                category.status = category.status === 'active' ? 'inactive' : 'active';
+                category.lastUpdatedOn = new Date().toISOString().slice(0, 19).replace('T', ' ');
+                category.lastUpdatedBy = "Admin";
+                updateKPIs();
+                renderTable();
+                showToast(`Category "${category.name}" ${category.status === 'active' ? 'activated' : 'deactivated'}`, 'success');
+            }
+        };
+
+        window.deleteCategory = function (id) {
+            if (confirm('Are you sure you want to delete this category? This action cannot be undone.')) {
+                const category = categories.find(c => c.id === id);
+                categories = categories.filter(c => c.id !== id);
+                updateKPIs();
+                renderTable();
+                showToast(`Category "${category.name}" deleted successfully`, 'info');
+            }
+        };
+
+        // Create/Edit Category Form Submit
+        document.getElementById('categoryForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const categoryName = document.getElementById('categoryName').value.trim();
+            if (!categoryName) {
+                showToast('Please enter category name', 'error');
+                return;
+            }
+            const categoryStatus = document.getElementById('categoryStatus').value;
+            const editId = document.getElementById('editCategoryId').value;
+            const now = new Date().toISOString().slice(0, 19).replace('T', ' ');
+
+            if (editId) {
+                // Edit existing category
+                const index = categories.findIndex(c => c.id === parseInt(editId));
+                if (index !== -1) {
+                    categories[index].name = categoryName;
+                    categories[index].status = categoryStatus;
+                    categories[index].lastUpdatedOn = now;
+                    categories[index].lastUpdatedBy = "Admin";
+                    showToast(`Category "${categoryName}" updated successfully`, 'success');
+                }
+            } else {
+                // Create new category
+                const newCategory = {
+                    id: nextId++,
+                    name: categoryName,
+                    status: categoryStatus,
+                    createdOn: now,
+                    lastUpdatedOn: now,
+                    createdBy: "Admin",
+                    lastUpdatedBy: "Admin"
+                };
+                categories.push(newCategory);
+                showToast(`Category "${categoryName}" created successfully`, 'success');
+            }
+            updateKPIs();
+            renderTable();
+            bootstrap.Modal.getInstance(document.getElementById('categoryModal')).hide();
+            document.getElementById('categoryForm').reset();
+            document.getElementById('editCategoryId').value = '';
+            document.getElementById('modalTitle').innerText = 'Create New Category';
+        });
+
+        // Search Input
+        document.getElementById('searchCategory').addEventListener('input', function () {
+            currentSearchTerm = this.value.toLowerCase();
+            currentPage = 1;
+            renderTable();
+        });
+
+        // Create New Category Button
+        document.getElementById('createCategoryBtn').addEventListener('click', function () {
+            document.getElementById('modalTitle').innerText = 'Create New Category';
+            document.getElementById('editCategoryId').value = '';
+            document.getElementById('categoryForm').reset();
+            document.getElementById('categoryStatus').value = 'active';
+            new bootstrap.Modal(document.getElementById('categoryModal')).show();
+        });
+
+        // Reset modal on close
+        document.getElementById('categoryModal').addEventListener('hidden.bs.modal', function () {
+            document.getElementById('categoryForm').reset();
+            document.getElementById('editCategoryId').value = '';
+            document.getElementById('modalTitle').innerText = 'Create New Category';
+        });
+
+        // Initial Load
+        updateKPIs();
+        renderTable();
+    </script>
+</body>
+
+</html>

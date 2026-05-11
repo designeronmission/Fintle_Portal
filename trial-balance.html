@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Trial Balance</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        :root {
+            --primary-color: #2a3b82;
+            --primary-light: #eef2ff;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+            --border-light: #e2e8f0;
+            --bg-light: #f8fafc;
+        }
+
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .btn-outline-primary {
+            border-radius: 40px;
+            padding: 9px 24px;
+            font-weight: 500;
+            border: 1.5px solid #2a3b82;
+            background: transparent;
+            color: #2a3b82;
+            transition: all 0.2s;
+        }
+
+        .btn-outline-primary:hover {
+            background: #2a3b82;
+            color: white;
+        }
+
+        /* Filter Bar */
+        .filter-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .filter-label {
+             font-size: 13px;
+            font-weight: 700;
+            color: #373737;
+            margin-bottom: 6px;
+        }
+
+        .form-control,
+        .form-select {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus,
+        .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+            outline: none;
+        }
+
+        /* Trial Balance Card */
+        .trial-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid #edf2f7;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .trial-header {
+            background: #f8fafc;
+            padding: 16px 24px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .trial-header h4 {
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .trial-header p {
+            font-size: 0.8rem;
+            color: #64748b;
+            margin: 4px 0 0 0;
+        }
+
+        /* Table Styling */
+        .table-wrapper {
+            overflow-x: auto;
+            padding: 0;
+        }
+
+        .trial-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .trial-table th {
+            background: #f8fafc;
+            font-weight: 700;
+            color: #1e293b;
+            padding: 14px 16px;
+            border-bottom: 1px solid #e2e8f0;
+            text-align: left;
+        }
+
+        .trial-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+            color: #334155;
+        }
+
+        .trial-table tr:hover td {
+            background: #fafcff;
+        }
+
+        .account-code {
+            font-family: monospace;
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-left: 8px;
+        }
+
+        .debit-amount {
+            font-weight: 600;
+            color: #10b981;
+        }
+
+        .credit-amount {
+            font-weight: 600;
+            color: #ef4444;
+        }
+
+        .total-row {
+            background: #f8fafc;
+            font-weight: 800;
+        }
+
+        .total-row td {
+            border-top: 2px solid #e2e8f0;
+            padding: 14px 16px;
+            font-weight: 800;
+        }
+
+        .total-debit {
+            color: #10b981;
+            font-size: 1rem;
+        }
+
+        .total-credit {
+            color: #ef4444;
+            font-size: 1rem;
+        }
+
+        .matched-badge {
+            background: #10b981;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .unmatched-badge {
+            background: #ef4444;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .footer-note {
+            background: #fef3c7;
+            padding: 12px 20px;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.8rem;
+            color: #d97706;
+        }
+
+        .footer-matched {
+            background: #e6f7e6;
+            color: #10b981;
+        }
+
+        .print-btn {
+            position: sticky;
+            bottom: 20px;
+            float: right;
+            margin-top: 20px;
+        }
+
+        @media print {
+
+            .filter-card,
+            .print-btn,
+            .topbar,
+            .fintle-side,
+            .breadcrumb,
+            .btn,
+            .page-wrapper>header {
+                display: none !important;
+            }
+
+            .trial-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+
+            .container-fluid {
+                padding: 0 !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <aside class="fintle-side" id="fintleSidebarRoot">
+            <div class="side-header">
+                <div class="brand-wrap">
+                    <div class="brand-logo">
+                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                    </div>
+                </div>
+            </div>
+            <div class="fintle-nav-scroll">
+                <ul class="fintle-menu-list" id="dynamicMenuList">
+                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+                    <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Items</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="itemsSub">
+                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC Codes</a></li>
+                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Purchase</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="purchaseSub">
+                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="salesSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Sales</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="salesSub">
+                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub open" data-submenu-id="accSub">
+                        <div class="nav-link-side submenu-trigger-side active">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Accounts</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level show-sub" id="accSub">
+                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                            <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                            <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                            <li class="sub-link-item"><a href="trial-balance.html" class="sub-link active"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-divider-custom"></li>
+                </ul>
+            </div>
+            <div class="side-footer">
+                <ul class="fintle-menu-list">
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li>
+                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <!-- Breadcrumb -->
+                    <div class="card card-body py-3 mb-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Trial Balance</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="account-master.html">Accounts</a></li>
+                                            <li class="breadcrumb-item active">Trial Balance</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Section -->
+                    <div class="filter-card">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-4">
+                                <label class="filter-label"> Financial Year</label>
+                                <select class="form-select" id="financialYear">
+                                    <option value="2023-24">2023-24 (April 2023 - March 2024)</option>
+                                    <option value="2024-25" selected>2024-25 (April 2024 - March 2025)</option>
+                                    <option value="2025-26">2025-26 (April 2025 - March 2026)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="filter-label"> As On Date</label>
+                                <input type="date" class="form-control" id="asOnDate" value="2025-03-31">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary me-2" id="loadTrialBtn">Load Trial Balance</button>
+                                <button class="btn btn-outline-primary shadow-sm" onclick="window.print()"><i class="fas fa-print me-2"></i>Print/Download</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trial Balance Content -->
+                    <div id="trialContainer">
+                        <div class="text-center py-5">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-3 text-muted">Loading trial balance data...</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Trial Balance Data Structure
+        let trialBalanceData = [
+            { sno: 1, accountCode: "1101", accountName: "Cash in Hand", type: "Asset", debit: 125000, credit: 0, group: "Current Assets" },
+            { sno: 2, accountCode: "1102", accountName: "Bank Account - HDFC", type: "Asset", debit: 845000, credit: 0, group: "Current Assets" },
+            { sno: 3, accountCode: "1103", accountName: "Bank Account - SBI", type: "Asset", debit: 425000, credit: 0, group: "Current Assets" },
+            { sno: 4, accountCode: "1201", accountName: "Inventory - Raw Materials", type: "Asset", debit: 350000, credit: 0, group: "Current Assets" },
+            { sno: 5, accountCode: "1202", accountName: "Inventory - Finished Goods", type: "Asset", debit: 215000, credit: 0, group: "Current Assets" },
+            { sno: 6, accountCode: "1301", accountName: "Trade Receivables - ABC Corp", type: "Asset", debit: 95000, credit: 0, group: "Current Assets" },
+            { sno: 7, accountCode: "1302", accountName: "Trade Receivables - XYZ Ltd", type: "Asset", debit: 125000, credit: 0, group: "Current Assets" },
+            { sno: 8, accountCode: "1401", accountName: "Property, Plant & Equipment", type: "Asset", debit: 1500000, credit: 0, group: "Fixed Assets" },
+            { sno: 9, accountCode: "1402", accountName: "Accumulated Depreciation", type: "Asset", debit: 0, credit: 250000, group: "Fixed Assets" },
+            { sno: 10, accountCode: "1501", accountName: "Intangible Assets", type: "Asset", debit: 125000, credit: 0, group: "Fixed Assets" },
+            
+            // Liabilities & Equity
+            { sno: 11, accountCode: "2101", accountName: "Equity Share Capital", type: "Equity", debit: 0, credit: 1000000, group: "Shareholder's Equity" },
+            { sno: 12, accountCode: "2102", accountName: "Reserves & Surplus", type: "Equity", debit: 0, credit: 425000, group: "Shareholder's Equity" },
+            { sno: 13, accountCode: "2201", accountName: "Long Term Borrowings", type: "Liability", debit: 0, credit: 500000, group: "Non-Current Liabilities" },
+            { sno: 14, accountCode: "2301", accountName: "Trade Payables - Suppliers", type: "Liability", debit: 0, credit: 185000, group: "Current Liabilities" },
+            { sno: 15, accountCode: "2302", accountName: "Accrued Expenses", type: "Liability", debit: 0, credit: 45000, group: "Current Liabilities" },
+            { sno: 16, accountCode: "2303", accountName: "Statutory Dues Payable", type: "Liability", debit: 0, credit: 35000, group: "Current Liabilities" },
+            { sno: 17, accountCode: "2304", accountName: "Short Term Provisions", type: "Liability", debit: 0, credit: 28000, group: "Current Liabilities" },
+            
+            // Income
+            { sno: 18, accountCode: "4101", accountName: "Sales Revenue", type: "Income", debit: 0, credit: 1250000, group: "Operating Income" },
+            { sno: 19, accountCode: "4102", accountName: "Service Revenue", type: "Income", debit: 0, credit: 325000, group: "Operating Income" },
+            { sno: 20, accountCode: "4201", accountName: "Discount Received", type: "Income", debit: 0, credit: 15000, group: "Other Income" },
+            
+            // Expenses
+            { sno: 21, accountCode: "5101", accountName: "Cost of Goods Sold", type: "Expense", debit: 685000, credit: 0, group: "Direct Expenses" },
+            { sno: 22, accountCode: "5201", accountName: "Salaries & Wages", type: "Expense", debit: 125000, credit: 0, group: "Operating Expenses" },
+            { sno: 23, accountCode: "5202", accountName: "Rent & Utilities", type: "Expense", debit: 85000, credit: 0, group: "Operating Expenses" },
+            { sno: 24, accountCode: "5203", accountName: "Marketing & Advertising", type: "Expense", debit: 45000, credit: 0, group: "Operating Expenses" },
+            { sno: 25, accountCode: "5204", accountName: "Office Supplies", type: "Expense", debit: 12000, credit: 0, group: "Operating Expenses" },
+            { sno: 26, accountCode: "5301", accountName: "Depreciation Expense", type: "Expense", debit: 25000, credit: 0, group: "Non-Operating Expenses" },
+            { sno: 27, accountCode: "5302", accountName: "Interest Expense", type: "Expense", debit: 18000, credit: 0, group: "Non-Operating Expenses" }
+        ];
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function calculateTotals() {
+            let totalDebit = 0, totalCredit = 0;
+            trialBalanceData.forEach(account => {
+                totalDebit += account.debit;
+                totalCredit += account.credit;
+            });
+            return { totalDebit, totalCredit };
+        }
+
+        function renderTrialBalance() {
+            const container = document.getElementById('trialContainer');
+            const financialYear = document.getElementById('financialYear').value;
+            const asOnDate = document.getElementById('asOnDate').value;
+            const formattedDate = asOnDate ? new Date(asOnDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Not selected';
+            
+            const { totalDebit, totalCredit } = calculateTotals();
+            const isMatched = Math.abs(totalDebit - totalCredit) < 1;
+            const difference = Math.abs(totalDebit - totalCredit);
+            
+            // Group accounts by group
+            const groupedAccounts = {};
+            trialBalanceData.forEach(account => {
+                if (!groupedAccounts[account.group]) {
+                    groupedAccounts[account.group] = [];
+                }
+                groupedAccounts[account.group].push(account);
+            });
+            
+            let html = `
+                <div class="trial-card">
+                    <div class="trial-header">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h4>Trial Balance</h4>
+                                <p> As on ${formattedDate} | Financial Year: ${financialYear}</p>
+                            </div>
+                            <div>
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                                    Amounts in INR
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="table-wrapper">
+                        <table class="trial-table">
+                            <thead>
+                                <tr>
+                                    <th style="width: 60px;">#</th>
+                                    <th>Account Code</th>
+                                    <th>Account Name</th>
+                                    <th>Group</th>
+                                    <th style="text-align: right; width: 180px;">Debit (₹)</th>
+                                    <th style="text-align: right; width: 180px;">Credit (₹)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+            
+            let serialNo = 1;
+            // Sort groups in logical order: Assets, Liabilities, Equity, Income, Expenses
+            const groupOrder = ["Current Assets", "Fixed Assets", "Non-Current Liabilities", "Current Liabilities", "Shareholder's Equity", "Operating Income", "Other Income", "Direct Expenses", "Operating Expenses", "Non-Operating Expenses"];
+            
+            for (const groupName of groupOrder) {
+                if (groupedAccounts[groupName]) {
+                    // Add group header row
+                    html += `
+                        <tr style="background: #f1f5f9;">
+                            <td colspan="4" style="font-weight: 700; color: #2a3b82;"><i class="fas fa-folder-open me-2"></i>${groupName}</td>
+                            <td style="text-align: right; font-weight: 700;"></td>
+                            <td style="text-align: right; font-weight: 700;"></td>
+                        </tr>
+                    `;
+                    
+                    groupedAccounts[groupName].forEach(account => {
+                        html += `
+                            <tr>
+                                <td>${serialNo++}</td>
+                                <td><span class="account-code">${account.accountCode}</span></td>
+                                <td><strong>${account.accountName}</strong></td>
+                                <td><span class="badge bg-secondary-subtle text-secondary px-2 py-1 rounded-pill" style="font-size:0.7rem;">${account.type}</span></td>
+                                <td style="text-align: right;" class="${account.debit > 0 ? 'debit-amount' : ''}">${account.debit > 0 ? formatCurrency(account.debit) : '-'}</td>
+                                <td style="text-align: right;" class="${account.credit > 0 ? 'credit-amount' : ''}">${account.credit > 0 ? formatCurrency(account.credit) : '-'}</td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
+            
+            // Grand Total Row
+            html += `
+                            <tr class="total-row">
+                                <td colspan="4" style="font-weight: 800;"><i class="fas fa-calculator me-2"></i>GRAND TOTAL</td>
+                                <td style="text-align: right; font-weight: 800; color: #10b981;">${formatCurrency(totalDebit)}</td>
+                                <td style="text-align: right; font-weight: 800; color: #ef4444;">${formatCurrency(totalCredit)}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            `;
+            
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+        
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'block';
+            setTimeout(() => toastDiv.style.display = 'none', 2500);
+        }
+        
+        function loadTrialBalance() {
+            const financialYear = document.getElementById('financialYear').value;
+            const asOnDate = document.getElementById('asOnDate').value;
+            
+            // Show loading state
+            const container = document.getElementById('trialContainer');
+            container.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Loading trial balance data...</p>
+                </div>
+            `;
+            
+            // Simulate API delay
+            setTimeout(() => {
+                // Adjust data based on financial year
+                if (financialYear === '2023-24') {
+                    trialBalanceData[0].debit = 105000;  // Cash in Hand
+                    trialBalanceData[1].debit = 745000;  // HDFC Bank
+                    trialBalanceData[17].credit = 1150000; // Sales Revenue
+                    trialBalanceData[20].debit = 585000;   // COGS
+                } else if (financialYear === '2024-25') {
+                    trialBalanceData[0].debit = 125000;
+                    trialBalanceData[1].debit = 845000;
+                    trialBalanceData[17].credit = 1250000;
+                    trialBalanceData[20].debit = 685000;
+                } else if (financialYear === '2025-26') {
+                    trialBalanceData[0].debit = 145000;
+                    trialBalanceData[1].debit = 945000;
+                    trialBalanceData[17].credit = 1400000;
+                    trialBalanceData[20].debit = 785000;
+                }
+                
+                renderTrialBalance();
+                showToast(`Trial Balance loaded for ${financialYear} as on ${new Date(asOnDate).toLocaleDateString('en-IN')}`, 'success');
+            }, 500);
+        }
+        
+        // Set default date
+        function setDefaultDate() {
+            const today = new Date();
+            let targetYear = today.getFullYear();
+            if (today.getMonth() > 2) {
+                targetYear = today.getFullYear() + 1;
+            }
+            document.getElementById('asOnDate').value = `${targetYear}-03-31`;
+        }
+        
+        // Event Listeners
+        document.getElementById('loadTrialBtn').addEventListener('click', loadTrialBalance);
+        
+        // Initial Load
+        setDefaultDate();
+        loadTrialBalance();
+    </script>
+</body>
+
+</html>

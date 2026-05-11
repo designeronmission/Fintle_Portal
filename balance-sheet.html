@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Balance Sheet</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 9px 20px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .btn-outline-primary {
+            border-radius: 40px;
+            padding: 9px 24px;
+            font-weight: 500;
+        }
+
+        /* Filter Bar */
+        .filter-card {
+            background: white;
+            border-radius: 20px;
+            padding: 20px 24px;
+            margin-bottom: 24px;
+            border: 1px solid #edf2f7;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+        }
+
+        .filter-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #373737;
+            margin-bottom: 6px;
+        }
+
+        .form-control, .form-select {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+            outline: none;
+        }
+
+        /* Balance Sheet Card */
+        .balance-sheet-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid #edf2f7;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .balance-header {
+            background: #f8fafc;
+            padding: 16px 24px;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        .balance-header h4 {
+            font-weight: 700;
+            color: #1e293b;
+            margin: 0;
+        }
+
+        .balance-header p {
+            font-size: 0.8rem;
+            color: #414141;
+            margin: 4px 0 0 0;
+        }
+
+        .section-title {
+            font-size: 17px;
+            font-weight: 700;
+            color: #2a3b82;
+            background: #eef2ff;
+            padding: 12px 20px;
+            margin: 0;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .account-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid #f1f5f9;
+            transition: background 0.2s;
+        }
+
+        .account-row:hover {
+            background: #fafcff;
+        }
+
+        .account-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #334155;
+        }
+
+        .account-name i {
+            width: 24px;
+            color: #94a3b8;
+            margin-right: 8px;
+        }
+
+        .sub-account {
+            padding-left: 48px;
+        }
+
+        .sub-account .account-name {
+            font-weight: 400;
+            color: #475569;
+        }
+
+        .account-amount {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1e293b;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 20px;
+            background: #f8fafc;
+            border-top: 2px solid #e2e8f0;
+            font-weight: 700;
+        }
+
+        .total-row .account-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: #1e293b;
+        }
+
+        .total-row .account-amount {
+            font-weight: 800;
+            font-size: 1rem;
+            color: #2a3b82;
+        }
+
+        .grand-total-row {
+            background: #eef2ff;
+            border-top: 2px solid #2a3b82;
+        }
+
+        .grand-total-row .account-name {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #2a3b82;
+        }
+
+        .grand-total-row .account-amount {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #2a3b82;
+        }
+
+        .difference-warning {
+            background: #fef3c7;
+            color: #d97706;
+            padding: 12px 20px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            margin-top: 16px;
+        }
+
+        .difference-warning i {
+            margin-right: 8px;
+        }
+
+        .print-btn {
+            position: sticky;
+            bottom: 20px;
+            float: right;
+            margin-top: 20px;
+        }
+
+        @media print {
+            .filter-card, .print-btn, .topbar, .fintle-side, .breadcrumb, .btn, .page-wrapper>header {
+                display: none !important;
+            }
+            .balance-sheet-card {
+                box-shadow: none;
+                border: 1px solid #ddd;
+            }
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .container-fluid {
+                padding: 0 !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filter-row {
+                flex-direction: column;
+                gap: 12px;
+            }
+            .account-row {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <aside class="fintle-side" id="fintleSidebarRoot">
+            <div class="side-header">
+                <div class="brand-wrap">
+                    <div class="brand-logo">
+                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                    </div>
+                </div>
+            </div>
+            <div class="fintle-nav-scroll">
+                <ul class="fintle-menu-list" id="dynamicMenuList">
+                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+                    <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Items</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="itemsSub">
+                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC Codes</a></li>
+                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Purchase</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="purchaseSub">
+                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="salesSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Sales</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="salesSub">
+                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub open" data-submenu-id="accSub">
+                        <div class="nav-link-side submenu-trigger-side active">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;">
+                                    <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                    <span class="menu-text">Accounts</span>
+                                </span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level show-sub" id="accSub">
+                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                            <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                            <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                           <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-divider-custom"></li>
+                </ul>
+            </div>
+            <div class="side-footer">
+                <ul class="fintle-menu-list">
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li>
+                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <!-- Breadcrumb -->
+                    <div class="card card-body py-3 mb-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Balance Sheet</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="account-master.html">Accounts</a></li>
+                                            <li class="breadcrumb-item active">Balance Sheet</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Filter Section -->
+                    <div class="filter-card">
+                        <div class="row g-3 align-items-end">
+                            <div class="col-md-4">
+                                <label class="filter-label">Financial Year</label>
+                                <select class="form-select" id="financialYear">
+                                    <option value="2023-24">2023-24 (April 2023 - March 2024)</option>
+                                    <option value="2024-25" selected>2024-25 (April 2024 - March 2025)</option>
+                                    <option value="2025-26">2025-26 (April 2025 - March 2026)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="filter-label">As On Date</label>
+                                <input type="date" class="form-control" id="asOnDate" value="2025-03-31">
+                            </div>
+                            <div class="col-md-4">
+                                <button class="btn btn-primary me-2" id="loadBalanceSheetBtn"></i>Load Balance Sheet</button>
+                                  <button class="btn btn-outline-primary shadow-sm" onclick="window.print()"><i class="fas fa-print me-2"></i>Print / Download</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Balance Sheet Content -->
+                    <div id="balanceSheetContainer">
+                        <!-- Dynamic content will be loaded here -->
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Balance Sheet Data Structure
+        let balanceSheetData = {
+            liabilities: {
+                total: 0,
+                sections: [
+                    {
+                        name: "Shareholder's Funds",
+                        accounts: [
+                            { name: "Equity Share Capital", amount: 1000000 },
+                            { name: "Reserves & Surplus", amount: 250000 }
+                        ]
+                    },
+                    {
+                        name: "Non-Current Liabilities",
+                        accounts: [
+                            { name: "Long Term Borrowings", amount: 500000 },
+                            { name: "Deferred Tax Liabilities", amount: 25000 },
+                            { name: "Other Long Term Liabilities", amount: 15000 }
+                        ]
+                    },
+                    {
+                        name: "Current Liabilities",
+                        accounts: [
+                            { name: "Short Term Borrowings", amount: 100000 },
+                            { name: "Trade Payables", amount: 75000 },
+                            { name: "Other Current Liabilities", amount: 35000 },
+                            { name: "Short Term Provisions", amount: 20000 }
+                        ]
+                    }
+                ]
+            },
+            assets: {
+                total: 0,
+                sections: [
+                    {
+                        name: "Non-Current Assets",
+                        accounts: [
+                            { name: "Property, Plant & Equipment", amount: 800000 },
+                            { name: "Capital Work-in-Progress", amount: 50000 },
+                            { name: "Intangible Assets", amount: 30000 },
+                            { name: "Non-Current Investments", amount: 100000 }
+                        ]
+                    },
+                    {
+                        name: "Current Assets",
+                        accounts: [
+                            { name: "Inventories", amount: 150000 },
+                            { name: "Trade Receivables", amount: 125000 },
+                            { name: "Cash & Bank Balances", amount: 80000 },
+                            { name: "Short Term Loans & Advances", amount: 45000 },
+                            { name: "Other Current Assets", amount: 25000 }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
+        }
+
+        function calculateTotals() {
+            // Calculate Liabilities Total
+            let liabilitiesTotal = 0;
+            balanceSheetData.liabilities.sections.forEach(section => {
+                section.accounts.forEach(acc => {
+                    liabilitiesTotal += acc.amount;
+                });
+            });
+            balanceSheetData.liabilities.total = liabilitiesTotal;
+
+            // Calculate Assets Total
+            let assetsTotal = 0;
+            balanceSheetData.assets.sections.forEach(section => {
+                section.accounts.forEach(acc => {
+                    assetsTotal += acc.amount;
+                });
+            });
+            balanceSheetData.assets.total = assetsTotal;
+        }
+
+        function renderBalanceSheet() {
+            calculateTotals();
+            
+            const container = document.getElementById('balanceSheetContainer');
+            const financialYear = document.getElementById('financialYear').value;
+            const asOnDate = document.getElementById('asOnDate').value;
+            
+            const formattedDate = asOnDate ? new Date(asOnDate).toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' }) : 'Not selected';
+            
+            let difference = balanceSheetData.assets.total - balanceSheetData.liabilities.total;
+            let isBalanced = Math.abs(difference) < 1;
+            
+            let html = `
+                <div class="balance-sheet-card">
+                    <div class="balance-header">
+                        <div class="d-flex justify-content-between align-items-center flex-wrap">
+                            <div>
+                                <h4>Balance Sheet</h4>
+                                <p>As on ${formattedDate} | Financial Year: ${financialYear}</p>
+                            </div>
+                            <div class="text-end">
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
+                                    <i class="fas fa-rupee-sign me-1"></i> Amounts in INR
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row g-0">
+                        <!-- Liabilities Section (Left) -->
+                        <div class="col-md-6 border-end">
+                            <div class="section-title">
+                            Liabilities
+                            </div>
+                            <div class="balance-section">
+            `;
+            
+            // Render Liabilities Sections
+            balanceSheetData.liabilities.sections.forEach(section => {
+                let sectionTotal = 0;
+                section.accounts.forEach(acc => { sectionTotal += acc.amount; });
+                
+                html += `
+                    <div class="section-group">
+                        <div class="account-row" style="background: #f1f5f9; font-weight: 600;">
+                            <span class="account-name"><i class="fas fa-folder-open"></i>${section.name}</span>
+                            <span class="account-amount">${formatCurrency(sectionTotal)}</span>
+                        </div>
+                `;
+                
+                section.accounts.forEach(account => {
+                    html += `
+                        <div class="account-row sub-account">
+                            <span class="account-name"><i class="far fa-circle"></i>${account.name}</span>
+                            <span class="account-amount">${formatCurrency(account.amount)}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            });
+            
+            // Liabilities Total Row
+            html += `
+                            <div class="total-row">
+                                <span class="account-name"><i class="fas fa-calculator"></i>Total Liabilities</span>
+                                <span class="account-amount">${formatCurrency(balanceSheetData.liabilities.total)}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Assets Section (Right) -->
+                    <div class="col-md-6">
+                        <div class="section-title">
+                           Asset
+                        </div>
+                        <div class="balance-section">
+            `;
+            
+            // Render Assets Sections
+            balanceSheetData.assets.sections.forEach(section => {
+                let sectionTotal = 0;
+                section.accounts.forEach(acc => { sectionTotal += acc.amount; });
+                
+                html += `
+                    <div class="section-group">
+                        <div class="account-row" style="background: #f1f5f9; font-weight: 600;">
+                            <span class="account-name"><i class="fas fa-folder-open"></i>${section.name}</span>
+                            <span class="account-amount">${formatCurrency(sectionTotal)}</span>
+                        </div>
+                `;
+                
+                section.accounts.forEach(account => {
+                    html += `
+                        <div class="account-row sub-account">
+                            <span class="account-name"><i class="far fa-circle"></i>${account.name}</span>
+                            <span class="account-amount">${formatCurrency(account.amount)}</span>
+                        </div>
+                    `;
+                });
+                
+                html += `</div>`;
+            });
+            
+            // Assets Total Row
+            html += `
+                            <div class="total-row">
+                                <span class="account-name"><i class="fas fa-calculator"></i>Total Assets</span>
+                                <span class="account-amount">${formatCurrency(balanceSheetData.assets.total)}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            html += `</div>`;
+            
+            container.innerHTML = html;
+        }
+        
+        // Function to simulate loading data based on selected date/year
+        // This can be extended to fetch from API/database
+        function loadBalanceSheetData() {
+            const financialYear = document.getElementById('financialYear').value;
+            const asOnDate = document.getElementById('asOnDate').value;
+            
+            // Show loading state
+            const container = document.getElementById('balanceSheetContainer');
+            container.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p class="mt-3 text-muted">Loading balance sheet data...</p>
+                </div>
+            `;
+            
+            // Simulate API call delay
+            setTimeout(() => {
+                // Here you can modify data based on financial year or date
+                // For demo, we adjust some values dynamically based on selected year
+                if (financialYear === '2023-24') {
+                    balanceSheetData.liabilities.sections[0].accounts[0].amount = 950000;
+                    balanceSheetData.liabilities.sections[0].accounts[1].amount = 220000;
+                    balanceSheetData.assets.sections[0].accounts[0].amount = 780000;
+                    balanceSheetData.assets.sections[1].accounts[2].amount = 65000;
+                } else if (financialYear === '2024-25') {
+                    balanceSheetData.liabilities.sections[0].accounts[0].amount = 1000000;
+                    balanceSheetData.liabilities.sections[0].accounts[1].amount = 250000;
+                    balanceSheetData.assets.sections[0].accounts[0].amount = 800000;
+                    balanceSheetData.assets.sections[1].accounts[2].amount = 80000;
+                } else if (financialYear === '2025-26') {
+                    balanceSheetData.liabilities.sections[0].accounts[0].amount = 1100000;
+                    balanceSheetData.liabilities.sections[0].accounts[1].amount = 280000;
+                    balanceSheetData.assets.sections[0].accounts[0].amount = 850000;
+                    balanceSheetData.assets.sections[1].accounts[2].amount = 95000;
+                }
+                
+                // Recalculate and render
+                calculateTotals();
+                renderBalanceSheet();
+                showToast(`Balance sheet loaded for ${financialYear} as on ${new Date(asOnDate).toLocaleDateString('en-IN')}`, 'success');
+            }, 500);
+        }
+        
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'block';
+            setTimeout(() => toastDiv.style.display = 'none', 2500);
+        }
+        
+        // Event Listeners
+        document.getElementById('loadBalanceSheetBtn').addEventListener('click', loadBalanceSheetData);
+        
+        // Set default date to end of current financial year (March 31 of current/next year)
+        function setDefaultDate() {
+            const today = new Date();
+            const currentYear = today.getFullYear();
+            // If current date is after March 31, show March 31 of next year
+            let targetYear = currentYear;
+            if (today.getMonth() > 2) { // After March
+                targetYear = currentYear + 1;
+            }
+            const defaultDate = `${targetYear}-03-31`;
+            document.getElementById('asOnDate').value = defaultDate;
+        }
+        
+        // Initial Load
+        setDefaultDate();
+        loadBalanceSheetData();
+        
+        // Handle logout
+        function handleLogout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = 'login.html';
+            }
+        }
+    </script>
+</body>
+
+</html>
