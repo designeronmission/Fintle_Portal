@@ -45,8 +45,8 @@
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
         }
 
-        .filter-label {
-            font-size: 0.75rem;
+             .filter-label {
+             font-size: 13px;
             font-weight: 700;
             color: #373737;
             margin-bottom: 6px;
@@ -120,12 +120,21 @@
             font-size: 0.85rem;
             font-weight: 500;
             color: #334155;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .account-name i {
-            width: 24px;
+            width: 20px;
             color: #94a3b8;
-            margin-right: 8px;
+            font-size: 0.7rem;
+        }
+
+        /* Dot icon styling - filled circle */
+        .account-name .fa-circle {
+            color: #94a3b8;
+            font-size: 0.55rem;
         }
 
         .sub-account {
@@ -395,8 +404,8 @@
                                 <input type="date" class="form-control" id="asOnDate" value="2025-03-31">
                             </div>
                             <div class="col-md-4">
-                                <button class="btn btn-primary me-2" id="loadBalanceSheetBtn"></i>Load Balance Sheet</button>
-                                  <button class="btn btn-outline-primary shadow-sm" onclick="window.print()"><i class="fas fa-print me-2"></i>Print / Download</button>
+                                <button class="btn btn-primary me-2" id="loadBalanceSheetBtn">Load Balance Sheet</button>
+                                <button class="btn btn-outline-primary shadow-sm" onclick="window.print()">Print / Download</button>
                             </div>
                         </div>
                     </div>
@@ -538,7 +547,7 @@
                         <!-- Liabilities Section (Left) -->
                         <div class="col-md-6 border-end">
                             <div class="section-title">
-                            Liabilities
+                                Liabilities & Equity
                             </div>
                             <div class="balance-section">
             `;
@@ -559,7 +568,7 @@
                 section.accounts.forEach(account => {
                     html += `
                         <div class="account-row sub-account">
-                            <span class="account-name"><i class="far fa-circle"></i>${account.name}</span>
+                            <span class="account-name"><i class="fas fa-circle"></i>${account.name}</span>
                             <span class="account-amount">${formatCurrency(account.amount)}</span>
                         </div>
                     `;
@@ -580,7 +589,7 @@
                     <!-- Assets Section (Right) -->
                     <div class="col-md-6">
                         <div class="section-title">
-                           Asset
+                            Assets
                         </div>
                         <div class="balance-section">
             `;
@@ -601,7 +610,7 @@
                 section.accounts.forEach(account => {
                     html += `
                         <div class="account-row sub-account">
-                            <span class="account-name"><i class="far fa-circle"></i>${account.name}</span>
+                            <span class="account-name"><i class="fas fa-circle"></i>${account.name}</span>
                             <span class="account-amount">${formatCurrency(account.amount)}</span>
                         </div>
                     `;
@@ -627,7 +636,6 @@
         }
         
         // Function to simulate loading data based on selected date/year
-        // This can be extended to fetch from API/database
         function loadBalanceSheetData() {
             const financialYear = document.getElementById('financialYear').value;
             const asOnDate = document.getElementById('asOnDate').value;
@@ -645,21 +653,23 @@
             
             // Simulate API call delay
             setTimeout(() => {
-                // Here you can modify data based on financial year or date
-                // For demo, we adjust some values dynamically based on selected year
+                // Update data based on financial year
                 if (financialYear === '2023-24') {
                     balanceSheetData.liabilities.sections[0].accounts[0].amount = 950000;
                     balanceSheetData.liabilities.sections[0].accounts[1].amount = 220000;
+                    balanceSheetData.liabilities.sections[1].accounts[0].amount = 480000;
                     balanceSheetData.assets.sections[0].accounts[0].amount = 780000;
                     balanceSheetData.assets.sections[1].accounts[2].amount = 65000;
                 } else if (financialYear === '2024-25') {
                     balanceSheetData.liabilities.sections[0].accounts[0].amount = 1000000;
                     balanceSheetData.liabilities.sections[0].accounts[1].amount = 250000;
+                    balanceSheetData.liabilities.sections[1].accounts[0].amount = 500000;
                     balanceSheetData.assets.sections[0].accounts[0].amount = 800000;
                     balanceSheetData.assets.sections[1].accounts[2].amount = 80000;
                 } else if (financialYear === '2025-26') {
                     balanceSheetData.liabilities.sections[0].accounts[0].amount = 1100000;
                     balanceSheetData.liabilities.sections[0].accounts[1].amount = 280000;
+                    balanceSheetData.liabilities.sections[1].accounts[0].amount = 520000;
                     balanceSheetData.assets.sections[0].accounts[0].amount = 850000;
                     balanceSheetData.assets.sections[1].accounts[2].amount = 95000;
                 }
@@ -682,13 +692,12 @@
         // Event Listeners
         document.getElementById('loadBalanceSheetBtn').addEventListener('click', loadBalanceSheetData);
         
-        // Set default date to end of current financial year (March 31 of current/next year)
+        // Set default date to end of current financial year
         function setDefaultDate() {
             const today = new Date();
             const currentYear = today.getFullYear();
-            // If current date is after March 31, show March 31 of next year
             let targetYear = currentYear;
-            if (today.getMonth() > 2) { // After March
+            if (today.getMonth() > 2) {
                 targetYear = currentYear + 1;
             }
             const defaultDate = `${targetYear}-03-31`;
