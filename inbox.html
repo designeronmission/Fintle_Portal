@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr" data-bs-theme="light">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Inbox</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+    <link rel="stylesheet" href="assets/libs/css/custom.css" />
+
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+        <aside class="fintle-side" id="fintleSidebarRoot">
+            <div class="side-header">
+                <div class="brand-wrap">
+                    <div class="brand-logo">
+                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+                    </div>
+                </div>
+            </div>
+            <div class="fintle-nav-scroll">
+                <ul class="fintle-menu-list" id="dynamicMenuList">
+                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon
+                                icon="solar:atom-line-duotone"></iconify-icon><span
+                                class="menu-text">Dashboard</span></a></li>
+                    <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon
+                                icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap"><span
+                                    style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                                        icon="solar:box-minimalistic-line-duotone"></iconify-icon><span
+                                        class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div>
+                        </div>
+                        <ul class="submenu-level" id="itemsSub">
+                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span
+                                        class="dot-marker"></span> Item</a></li>
+                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span
+                                        class="dot-marker"></span> HSN / SAC Codes</a></li>
+                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span
+                                        class="dot-marker"></span> Categories</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap"><span
+                                    style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                                        icon="solar:cart-large-line-duotone"></iconify-icon><span
+                                        class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="purchaseSub">
+                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span
+                                        class="dot-marker"></span> Suppliers</a></li>
+                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span
+                                        class="dot-marker"></span> Purchase Order</a></li>
+                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span
+                                        class="dot-marker"></span> Purchase Bill</a></li>
+                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span
+                                        class="dot-marker"></span> Supplier Statement</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="salesSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap"><span
+                                    style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                                        icon="solar:chart-2-line-duotone"></iconify-icon><span
+                                        class="menu-text">Sales</span></span><span class="dropdown-arrow">▶</span></div>
+                        </div>
+                        <ul class="submenu-level" id="salesSub">
+                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span
+                                        class="dot-marker"></span> Customers</a></li>
+                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span
+                                        class="dot-marker"></span> Enquiries</a></li>
+                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span
+                                        class="dot-marker"></span> Estimates</a></li>
+                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span
+                                        class="dot-marker"></span> Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub open" data-submenu-id="accSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap"><span
+                                    style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                                        icon="solar:wallet-line-duotone"></iconify-icon><span
+                                        class="menu-text">Accounts</span></span><span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level show-sub" id="accSub">
+                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span
+                                        class="dot-marker"></span> Account Master</a></li>
+                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span
+                                        class="dot-marker"></span> Journals</a></li>
+                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span
+                                        class="dot-marker"></span> Vouchers</a></li>
+                            <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span
+                                        class="dot-marker"></span> Bank Payments</a></li>
+                            <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span
+                                        class="dot-marker"></span> General Ledger</a></li>
+                            <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span
+                                        class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span
+                                        class="dot-marker"></span> Balance Sheet</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-divider-custom"></li>
+                </ul>
+            </div>
+            <div class="side-footer">
+                <ul class="fintle-menu-list">
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
+                                icon="solar:settings-line-duotone"></iconify-icon><span
+                                class="menu-text">Settings</span></a></li>
+                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"
+                            id="logoutActionBtn"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span
+                                class="menu-text">Logout</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a
+                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
+                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                                        onclick="location.href='create-invoice.html'"><iconify-icon
+                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales
+                                        Invoice</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg"
+                                alt="Fintle-img" /></div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle"
+                            href="javascript:void(0)" data-bs-toggle="collapse"
+                            data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                                class="fs-6"></iconify-icon></a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul
+                                    class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)"
+                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                                            type="button" data-bs-toggle="offcanvas"
+                                            data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone"
+                                                class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item d-block d-xl-none"><a
+                                            class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+                                            data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                                                icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a
+                                            class="nav-link position-relative" href="javascript:void(0)" id="drop2"
+                                            aria-expanded="false"><iconify-icon icon="solar:bell-bing-line-duotone"
+                                                class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"
+                                            id="drop1" aria-expanded="false">
+                                            <div class="d-flex align-items-center gap-2 lh-base"><img
+                                                    src="assets/images/needs/profile.png" class="rounded-circle"
+                                                    width="35" height="35" alt="Fintle-img" /></div>
+                                        </a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <div class="card card-body py-3 mb-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Inbox</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center"><a
+                                                    class="text-muted text-decoration-none d-flex"
+                                                    href="index.html"><iconify-icon icon="solar:home-2-line-duotone"
+                                                        class="fs-6"></iconify-icon></a></li>
+                                            <li class="breadcrumb-item active">Inbox</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="inbox-container">
+                        <div class="inbox-header d-flex justify-content-between align-items-center flex-wrap gap-2">
+                            <h5 class="fw-semibold mb-0"><i class="fas fa-envelope me-2"></i>Messages</h5>
+                            <span class="text-muted small"><i class="fas fa-sync-alt me-1"></i>Last updated: <span
+                                    id="lastUpdated">Just now</span></span>
+                        </div>
+
+
+
+                        <div class="inbox-actions">
+                            <div class="search-wrapper">
+                                <i class="fas fa-search"></i>
+                                <input type="text" id="searchInput"
+                                    placeholder="Search by sender, subject or content...">
+                            </div>
+                            <!-- Centered Tabs Section - matching Customer page design -->
+                            <div class="inbox-tabs-wrapper">
+                                <div class="inbox-tabs">
+                                    <button class="inbox-tab active" data-tab="untagged">
+                                        <i class="fas fa-envelope-open me-2"></i>Untagged Mail
+                                        <span class="tab-count" id="untaggedCount">0</span>
+                                    </button>
+                                    <button class="inbox-tab" data-tab="tagged">
+                                        <i class="fas fa-tag me-2"></i>Tagged Mail
+                                        <span class="tab-count" id="taggedCount">0</span>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="action-group">
+                                <div class="account-switch" id="accountSwitch">
+                                    <img src="assets/images/needs/profile.png" alt="Avatar"
+                                        onerror="this.src='https://placehold.co/35x35'">
+                                    <span id="currentAccount">support@fintle.com</span>
+                                    <i class="fas fa-chevron-down"></i>
+                                </div>
+                                <select id="statusFilter" class="status-dropdown">
+                                    <option value="all">All Status</option>
+                                    <option value="untagged">Untagged</option>
+                                    <option value="tagged">Tagged</option>
+                                    <option value="new">New</option>
+                                </select>
+                                <button class="refresh-btn" id="refreshBtn"><i class="fas fa-sync-alt"></i></button>
+                            </div>
+                        </div>
+
+                        <div class="mail-list" id="mailList">
+                            <!-- Mail items will be rendered here -->
+                        </div>
+
+                        <div class="bulk-actions" id="bulkActions" style="display: none;">
+                            <input type="checkbox" id="selectAllCheckbox">
+                            <label for="selectAllCheckbox" class="small mb-0">Select All</label>
+                            <div class="vr"></div>
+                            <button class="btn btn-sm btn-outline-primary" id="bulkTagBtn"><i
+                                    class="fas fa-tag me-1"></i>Tag Selected</button>
+                            <button class="btn btn-sm btn-outline-secondary" id="bulkUntagBtn"><i
+                                    class="fas fa-tag me-1"></i>Untag Selected</button>
+                            <button class="btn btn-sm btn-outline-danger" id="bulkDeleteBtn"><i
+                                    class="fas fa-trash-alt me-1"></i>Delete Selected</button>
+                        </div>
+
+                        <!-- Pagination Section -->
+                        <div class="pagination-container">
+                            <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
+                                <div class="pagination-info"><i class="fas fa-table me-1 text-muted"></i><span>Showing
+                                        <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span><span
+                                        class="mx-1 text-muted">of</span><strong id="totalRows">0</strong><span
+                                        class="text-muted"> Messages</span></div>
+                                <nav>
+                                    <ul class="pagination" id="pagination"></ul>
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Account Switch Dropdown Modal -->
+    <div class="modal fade" id="accountSwitchModal" tabindex="-1">
+        <div class="modal-dialog modal-dialog-centered modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Switch Account</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="list-group list-group-flush">
+                        <div class="list-group-item d-flex align-items-center gap-3 account-option"
+                            data-account="support@fintle.com" style="cursor: pointer;">
+                            <img src="assets/images/needs/profile.png" width="32" height="32" class="rounded-circle"
+                                onerror="this.src='https://placehold.co/32x32'">
+                            <div><strong>support@fintle.com</strong>
+                                <div class="small text-muted">Primary Account</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item d-flex align-items-center gap-3 account-option"
+                            data-account="admin@fintle.com" style="cursor: pointer;">
+                            <img src="assets/images/needs/profile.png" width="32" height="32" class="rounded-circle"
+                                onerror="this.src='https://placehold.co/32x32'">
+                            <div><strong>admin@fintle.com</strong>
+                                <div class="small text-muted">Admin Account</div>
+                            </div>
+                        </div>
+                        <div class="list-group-item d-flex align-items-center gap-3 account-option"
+                            data-account="billing@fintle.com" style="cursor: pointer;">
+                            <img src="assets/images/needs/profile.png" width="32" height="32" class="rounded-circle"
+                                onerror="this.src='https://placehold.co/32x32'">
+                            <div><strong>billing@fintle.com</strong>
+                                <div class="small text-muted">Billing Account</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
+        style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Sample Mail Data
+        let mails = [
+            { id: 1, from: "Pinterest", fromEmail: "confirm@account.pinterest.com", subject: "👋 Please confirm your email", preview: "Hey there! We need you to confirm your email address to get started with Pinterest...", content: "Please click the link to confirm your email address.", date: "2026-05-10T10:30:00", tagged: false, starred: false, status: "new" },
+            { id: 2, from: "LinkedIn", fromEmail: "notifications@linkedin.com", subject: "You have 5 new connection requests", preview: "Your network is growing! Connect with professionals in your industry to expand your opportunities...", content: "5 new connection requests waiting for you.", date: "2026-05-09T14:20:00", tagged: false, starred: false, status: "new" },
+            { id: 3, from: "Amazon", fromEmail: "order-update@amazon.in", subject: "Your order #IN-234567 has been shipped", preview: "Your package is on its way! Track your delivery here and expect delivery within 3-5 business days...", content: "Order shipped via Blue Dart. Tracking ID: BD123456789", date: "2026-05-08T09:15:00", tagged: true, starred: true, status: "tagged" },
+            { id: 4, from: "Twitter", fromEmail: "info@twitter.com", subject: "Security alert: New login detected", preview: "We noticed a login to your account from a new device. If this wasn't you, please secure your account...", content: "Login from Chrome on Windows at 8:45 AM. Was this you?", date: "2026-05-07T18:45:00", tagged: false, starred: false, status: "untagged" },
+            { id: 5, from: "QuickBooks", fromEmail: "alerts@quickbooks.com", subject: "Invoice INV-001 is overdue", preview: "Your payment is 5 days past due. Please settle the amount to avoid service interruption...", content: "Invoice #INV-001 for ₹25,000 is overdue by 5 days.", date: "2026-05-06T11:00:00", tagged: true, starred: false, status: "tagged" },
+            { id: 6, from: "Zoho CRM", fromEmail: "notify@zoho.com", subject: "New lead assigned to you", preview: "A new lead has been assigned to your pipeline. Review and take action...", content: "Lead: Acme Corp - Contact: John Doe", date: "2026-05-05T08:30:00", tagged: false, starred: false, status: "untagged" },
+            { id: 7, from: "Stripe", fromEmail: "support@stripe.com", subject: "Payment received: ₹15,000", preview: "You've received a payment from Tech Solutions Inc. The funds will be available shortly...", content: "Payment of ₹15,000 credited to your account.", date: "2026-05-04T16:20:00", tagged: true, starred: true, status: "tagged" },
+            { id: 8, from: "Slack", fromEmail: "no-reply@slack.com", subject: "Team meeting scheduled", preview: "You have a meeting scheduled with the dev team. Click to add to your calendar...", content: "Meeting tomorrow at 11 AM - Discuss Q2 roadmap.", date: "2026-05-03T13:45:00", tagged: false, starred: false, status: "untagged" },
+            { id: 9, from: "Google Workspace", fromEmail: "admin@google.com", subject: "New storage limit alert", preview: "Your Google Workspace storage is 85% full. Consider upgrading to avoid disruption...", content: "Upgrade your storage plan to continue smoothly.", date: "2026-05-02T10:10:00", tagged: false, starred: false, status: "new" },
+            { id: 10, from: "Microsoft 365", fromEmail: "message@microsoft.com", subject: "Your subscription renews soon", preview: "Your Microsoft 365 subscription will renew on April 1. Review your billing details...", content: "₹999 will be charged to your saved card.", date: "2026-05-01T09:00:00", tagged: true, starred: false, status: "tagged" }
+        ];
+
+        let currentTab = 'untagged';
+        let currentSearchTerm = '';
+        let currentStatusFilter = 'all';
+        let currentAccount = 'support@fintle.com';
+        let selectedMails = new Set();
+        let currentPage = 1;
+        let rowsPerPage = 8;
+
+        function formatDate(dateString) {
+            const date = new Date(dateString);
+            const now = new Date();
+            const diffTime = Math.abs(now - date);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+            if (diffDays === 0) return 'Today';
+            if (diffDays === 1) return 'Yesterday';
+            if (diffDays < 7) return `${diffDays} days ago`;
+            if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+            return date.toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
+        }
+
+        function getFilteredMails() {
+            let filtered = [...mails];
+
+            if (currentTab === 'untagged') filtered = filtered.filter(m => !m.tagged);
+            else if (currentTab === 'tagged') filtered = filtered.filter(m => m.tagged);
+
+            if (currentSearchTerm) {
+                const search = currentSearchTerm.toLowerCase();
+                filtered = filtered.filter(m =>
+                    m.from.toLowerCase().includes(search) ||
+                    m.fromEmail.toLowerCase().includes(search) ||
+                    m.subject.toLowerCase().includes(search) ||
+                    m.preview.toLowerCase().includes(search)
+                );
+            }
+
+            if (currentStatusFilter === 'untagged') filtered = filtered.filter(m => !m.tagged);
+            else if (currentStatusFilter === 'tagged') filtered = filtered.filter(m => m.tagged);
+            else if (currentStatusFilter === 'new') filtered = filtered.filter(m => m.status === 'new');
+
+            return filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+
+        function updateCounts() {
+            const untagged = mails.filter(m => !m.tagged).length;
+            const tagged = mails.filter(m => m.tagged).length;
+            document.getElementById('untaggedCount').innerText = untagged;
+            document.getElementById('taggedCount').innerText = tagged;
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('liveToastMsg');
+            document.getElementById('toastText').innerText = message;
+            toast.style.display = 'block';
+            setTimeout(() => toast.style.display = 'none', 2500);
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]);
+        }
+
+        function renderMailList() {
+            const filtered = getFilteredMails();
+            const total = filtered.length;
+            const totalPages = Math.ceil(total / rowsPerPage);
+
+            if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = Math.min(start + rowsPerPage, total);
+            const pageData = filtered.slice(start, end);
+
+            const container = document.getElementById('mailList');
+
+            if (pageData.length === 0) {
+                container.innerHTML = `
+          <div class="empty-state">
+            <i class="fas fa-inbox"></i>
+            <p class="mb-0">No messages found</p>
+            <small class="text-muted">Try changing your search or filter</small>
+          </div>
+        `;
+                document.getElementById('bulkActions').style.display = 'none';
+                document.getElementById('rowStart').innerText = '0';
+                document.getElementById('rowEnd').innerText = '0';
+                document.getElementById('totalRows').innerText = '0';
+                document.getElementById('pagination').innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = pageData.map(mail => `
+        <div class="mail-item" data-id="${mail.id}">
+          <div class="mail-checkbox">
+            <input type="checkbox" class="form-check-input mail-select" data-id="${mail.id}" ${selectedMails.has(mail.id) ? 'checked' : ''}>
+          </div>
+          <div class="mail-star ${mail.starred ? 'starred' : ''}" data-id="${mail.id}">
+            <i class="fas fa-star"></i>
+          </div>
+          <div class="mail-from">
+            <div class="mail-from-name">${escapeHtml(mail.from)}</div>
+            <div class="mail-from-email">${escapeHtml('<' + mail.fromEmail + '>')}</div>
+          </div>
+          <div class="mail-content">
+            <div class="mail-subject">
+              ${escapeHtml(mail.subject)}
+              ${mail.status === 'new' ? '<span class="new-badge">New</span>' : ''}
+            </div>
+            <div class="mail-preview">${escapeHtml(mail.preview)}</div>
+          </div>
+          <div class="mail-date">${formatDate(mail.date)}</div>
+          <div class="mail-badge">
+            ${mail.tagged ? '<span class="status-badge status-tagged"><i class="fas fa-tag me-1"></i>Tagged</span>' : '<span class="status-badge status-untagged">Untagged</span>'}
+          </div>
+        </div>
+      `).join('');
+
+            const hasSelected = selectedMails.size > 0;
+            document.getElementById('bulkActions').style.display = hasSelected ? 'flex' : 'none';
+
+            const selectAll = document.getElementById('selectAllCheckbox');
+            if (selectAll) {
+                selectAll.checked = pageData.length > 0 && pageData.every(m => selectedMails.has(m.id));
+                selectAll.indeterminate = selectedMails.size > 0 && selectedMails.size < pageData.length;
+            }
+
+            document.getElementById('rowStart').innerText = total ? start + 1 : 0;
+            document.getElementById('rowEnd').innerText = end;
+            document.getElementById('totalRows').innerText = total;
+
+            // Render pagination
+            const pagination = document.getElementById('pagination');
+            pagination.innerHTML = '';
+            if (totalPages > 1) {
+                pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+                for (let i = 1; i <= totalPages; i++) {
+                    if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2)) {
+                        pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+                    } else if (i === currentPage - 3 || i === currentPage + 3) {
+                        pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+                    }
+                }
+                pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
+            }
+
+            updateCounts();
+        }
+
+        function changePage(page) {
+            const filtered = getFilteredMails();
+            const totalPages = Math.ceil(filtered.length / rowsPerPage);
+            if (page >= 1 && page <= totalPages) {
+                currentPage = page;
+                renderMailList();
+            }
+        }
+
+        function refreshInbox() {
+            document.getElementById('lastUpdated').innerText = new Date().toLocaleTimeString();
+            showToast('Inbox refreshed');
+            renderMailList();
+        }
+
+        // Event Listeners
+        document.querySelectorAll('.inbox-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.inbox-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentTab = tab.dataset.tab;
+                currentPage = 1;
+                selectedMails.clear();
+                renderMailList();
+            });
+        });
+
+        document.getElementById('searchInput')?.addEventListener('input', (e) => {
+            currentSearchTerm = e.target.value;
+            currentPage = 1;
+            selectedMails.clear();
+            renderMailList();
+        });
+
+        document.getElementById('statusFilter')?.addEventListener('change', (e) => {
+            currentStatusFilter = e.target.value;
+            currentPage = 1;
+            selectedMails.clear();
+            renderMailList();
+        });
+
+        document.getElementById('refreshBtn')?.addEventListener('click', refreshInbox);
+
+        const accountSwitchBtn = document.getElementById('accountSwitch');
+        const accountSwitchModal = new bootstrap.Modal(document.getElementById('accountSwitchModal'));
+        accountSwitchBtn?.addEventListener('click', () => accountSwitchModal.show());
+
+        document.querySelectorAll('.account-option').forEach(option => {
+            option.addEventListener('click', () => {
+                currentAccount = option.dataset.account;
+                document.getElementById('currentAccount').innerText = currentAccount;
+                accountSwitchModal.hide();
+                showToast(`Switched to ${currentAccount}`);
+                refreshInbox();
+            });
+        });
+
+        document.getElementById('mailList')?.addEventListener('click', (e) => {
+            const star = e.target.closest('.mail-star');
+            if (star) {
+                const id = parseInt(star.dataset.id);
+                const mail = mails.find(m => m.id === id);
+                if (mail) {
+                    mail.starred = !mail.starred;
+                    renderMailList();
+                    showToast(mail.starred ? 'Starred' : 'Unstarred');
+                }
+            }
+        });
+
+        document.getElementById('mailList')?.addEventListener('change', (e) => {
+            if (e.target.classList.contains('mail-select')) {
+                const id = parseInt(e.target.dataset.id);
+                if (e.target.checked) selectedMails.add(id);
+                else selectedMails.delete(id);
+                renderMailList();
+            }
+        });
+
+        document.getElementById('selectAllCheckbox')?.addEventListener('change', (e) => {
+            const filtered = getFilteredMails();
+            const start = (currentPage - 1) * rowsPerPage;
+            const end = Math.min(start + rowsPerPage, filtered.length);
+            const pageData = filtered.slice(start, end);
+            if (e.target.checked) {
+                pageData.forEach(m => selectedMails.add(m.id));
+            } else {
+                pageData.forEach(m => selectedMails.delete(m.id));
+            }
+            renderMailList();
+        });
+
+        document.getElementById('bulkTagBtn')?.addEventListener('click', () => {
+            selectedMails.forEach(id => {
+                const mail = mails.find(m => m.id === id);
+                if (mail && !mail.tagged) {
+                    mail.tagged = true;
+                    mail.status = 'tagged';
+                }
+            });
+            selectedMails.clear();
+            renderMailList();
+            showToast('Selected messages tagged');
+        });
+
+        document.getElementById('bulkUntagBtn')?.addEventListener('click', () => {
+            selectedMails.forEach(id => {
+                const mail = mails.find(m => m.id === id);
+                if (mail && mail.tagged) {
+                    mail.tagged = false;
+                    mail.status = 'untagged';
+                }
+            });
+            selectedMails.clear();
+            renderMailList();
+            showToast('Selected messages untagged');
+        });
+
+        document.getElementById('bulkDeleteBtn')?.addEventListener('click', () => {
+            if (confirm(`Delete ${selectedMails.size} message(s)?`)) {
+                mails = mails.filter(m => !selectedMails.has(m.id));
+                selectedMails.clear();
+                currentPage = 1;
+                renderMailList();
+                showToast('Messages deleted');
+            }
+        });
+
+        window.changePage = changePage;
+        refreshInbox();
+
+        function handleLogout() {
+            if (confirm('Logout?')) window.location.href = 'login.html';
+        }
+    </script>
+</body>
+
+</html>

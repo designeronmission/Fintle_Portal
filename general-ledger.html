@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -10,17 +9,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
-    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+      <link rel="stylesheet" href="assets/libs/css/styles.css" />
 
     <style>
-        :root {
-            --primary-color: #2a3b82;
-            --primary-light: #eef2ff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --border-light: #e2e8f0;
-            --bg-light: #f8fafc;
-        }
 
         .btn-primary {
             background-color: #2a3b82;
@@ -45,7 +36,6 @@
             border: 1.5px solid #2a3b82;
             background: transparent;
             color: #2a3b82;
-            transition: all 0.2s;
         }
 
         .btn-outline-primary:hover {
@@ -60,15 +50,12 @@
             padding: 9px 20px;
             font-weight: 600;
             color: white;
-            transition: all 0.2s;
         }
 
         .btn-success-custom:hover {
             background-color: #059669;
-            transform: translateY(-1px);
         }
 
-        /* Filter Card */
         .filter-card {
             background: white;
             border-radius: 20px;
@@ -85,23 +72,18 @@
             margin-bottom: 6px;
         }
 
-        .form-control,
-        .form-select {
+        .form-control, .form-select {
             border-radius: 12px;
             border: 1px solid #e2e8f0;
             padding: 0.7rem 1rem;
             font-size: 0.85rem;
-            transition: all 0.2s;
         }
 
-        .form-control:focus,
-        .form-select:focus {
+        .form-control:focus, .form-select:focus {
             border-color: #2a3b82;
             box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
-            outline: none;
         }
 
-        /* Ledger Card */
         .ledger-card {
             background: white;
             border-radius: 24px;
@@ -120,12 +102,6 @@
             font-weight: 700;
             color: #1e293b;
             margin: 0;
-        }
-
-        .ledger-header p {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin: 4px 0 0 0;
         }
 
         .account-summary {
@@ -156,15 +132,9 @@
             color: #1b1b1b;
         }
 
-        .summary-value.debit {
-            color: #10b981;
-        }
+        .summary-value.debit { color: #10b981; }
+        .summary-value.credit { color: #ef4444; }
 
-        .summary-value.credit {
-            color: #ef4444;
-        }
-
-        /* Table Styling */
         .table-wrapper {
             overflow-x: auto;
         }
@@ -196,15 +166,8 @@
             background: #fafcff;
         }
 
-        .debit-amount {
-            font-weight: 600;
-            color: #10b981;
-        }
-
-        .credit-amount {
-            font-weight: 600;
-            color: #ef4444;
-        }
+        .debit-amount { font-weight: 600; color: #10b981; }
+        .credit-amount { font-weight: 600; color: #ef4444; }
 
         .total-row {
             background: #f8fafc;
@@ -220,10 +183,6 @@
             color: #2a3b82;
             font-weight: 600;
             text-decoration: none;
-        }
-
-        .voucher-link:hover {
-            text-decoration: underline;
         }
 
         .badge-voucher {
@@ -243,191 +202,162 @@
         }
 
         @media print {
-
-            .filter-card,
-            .print-btn,
-            .topbar,
-            .fintle-side,
-            .breadcrumb,
-            .btn,
-            .page-wrapper>header {
+            .filter-card, .print-btn, .topbar, .fintle-side, .breadcrumb, .btn, .page-wrapper>header {
                 display: none !important;
             }
+            .ledger-card { box-shadow: none; border: 1px solid #ddd; }}
 
-            .ledger-card {
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
-
-            body {
-                background: white;
-                padding: 0;
-                margin: 0;
-            }
-        }
     </style>
 </head>
-
 <body>
 
-    <div id="main-wrapper">
+<div id="main-wrapper" style="display: flex;">
 
         <aside class="fintle-side" id="fintleSidebarRoot">
-            <div class="side-header">
-                <div class="brand-wrap">
-                    <div class="brand-logo">
-                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
-                    </div>
+        <!-- Header brand section -->
+        <div class="side-header">
+            <div class="brand-wrap">
+                <div class="brand-logo">
+                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
                 </div>
             </div>
-            <div class="fintle-nav-scroll">
-                <ul class="fintle-menu-list" id="dynamicMenuList">
-                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon
-                                icon="solar:atom-line-duotone"></iconify-icon><span
-                                class="menu-text">Dashboard</span></a></li>
-                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
-                                icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a>
-                    </li>
-                    <li class="menu-item has-sub" data-submenu-id="itemsSub">
-                        <div class="nav-link-side submenu-trigger-side">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
-                                        icon="solar:box-minimalistic-line-duotone"></iconify-icon><span
-                                        class="menu-text">Items</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level" id="itemsSub">
-                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span
-                                        class="dot-marker"></span> Item</a></li>
-                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span
-                                        class="dot-marker"></span> HSN / SAC Codes</a></li>
-                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span
-                                        class="dot-marker"></span> Categories</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-                        <div class="nav-link-side submenu-trigger-side">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
-                                        icon="solar:cart-large-line-duotone"></iconify-icon><span
-                                        class="menu-text">Purchase</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level" id="purchaseSub">
-                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span
-                                        class="dot-marker"></span> Suppliers</a></li>
-                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span
-                                        class="dot-marker"></span> Purchase Order</a></li>
-                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span
-                                        class="dot-marker"></span> Purchase Bill</a></li>
-                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span
-                                        class="dot-marker"></span> Supplier Statement</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-sub" data-submenu-id="salesSub">
-                        <div class="nav-link-side submenu-trigger-side">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
-                                        icon="solar:chart-2-line-duotone"></iconify-icon><span
-                                        class="menu-text">Sales</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level" id="salesSub">
-                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span
-                                        class="dot-marker"></span> Customers</a></li>
-                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span
-                                        class="dot-marker"></span> Enquiries</a></li>
-                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span
-                                        class="dot-marker"></span> Estimates</a></li>
-                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span
-                                        class="dot-marker"></span> Invoices</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-sub open" data-submenu-id="accSub">
-                        <div class="nav-link-side submenu-trigger-side active">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
-                                        icon="solar:wallet-line-duotone"></iconify-icon><span
-                                        class="menu-text">Accounts</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level show-sub" id="accSub">
-                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span
-                                        class="dot-marker"></span> Account Master</a></li>
-                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span
-                                        class="dot-marker"></span> Journals</a></li>
-                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span
-                                        class="dot-marker"></span> Vouchers</a></li>
-                            <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank
-                                    Payments</a></li>
-                            <li class="sub-link-item"><a href="general-ledger.html" class="sub-link active"><span
-                                        class="dot-marker"></span> General Ledger</a></li>
-                            <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span
-                                        class="dot-marker"></span> Trial Balance</a></li>
-                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span
-                                        class="dot-marker"></span> Balance Sheet</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-divider-custom"></li>
-                </ul>
-            </div>
-            <div class="side-footer">
-                <ul class="fintle-menu-list">
-                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
-                                icon="solar:settings-line-duotone"></iconify-icon><span
-                                class="menu-text">Settings</span></a></li>
-                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"><iconify-icon
-                                icon="solar:logout-2-line-duotone"></iconify-icon><span
-                                class="menu-text">Logout</span></a></li>
-                </ul>
-            </div>
-        </aside>
+        </div>
 
-        <div class="page-wrapper">
-            <header class="topbar">
+        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+        <div class="fintle-nav-scroll">
+            <ul class="fintle-menu-list" id="dynamicMenuList">
+                <!-- Dashboard item -->
+                <li class="menu-item">
+                    <a href="index.html" class="nav-link-side" id="dashboardNav">
+                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+                        <span class="menu-text">Dashboard</span>
+                    </a>
+                </li>
+
+                <!-- Inbox -->
+               <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+
+                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+                <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                    <div class="nav-link-side submenu-trigger-side active">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                                <span class="menu-text">Items</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="itemsSub">
+                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
+                        <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                    </ul>
+                </li>
+
+                <!-- PURCHASE (open by default) -->
+                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                                <span class="menu-text">Purchase</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="purchaseSub">
+                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                    </ul>
+                </li>
+
+                <!-- SALES with submenu -->
+                <li class="menu-item has-sub" data-submenu-id="salesSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                                <span class="menu-text">Sales</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level" id="salesSub">
+                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                    </ul>
+                </li>
+
+                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+                <li class="menu-item has-sub open" data-submenu-id="accSub">
+                    <div class="nav-link-side submenu-trigger-side">
+                        <div class="trigger-wrap">
+                            <span style="display: flex; align-items: center; gap: 12px;">
+                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                                <span class="menu-text">Accounts</span>
+                            </span>
+                            <span class="dropdown-arrow">▶</span>
+                        </div>
+                    </div>
+                    <ul class="submenu-level show-sub" id="accSub">
+                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                        <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                        <li class="sub-link-item"><a href="general-ledger.html" class="sub-link active"><span class="dot-marker"></span> General Ledger</a></li>
+                        <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                    </ul>
+                </li>
+
+                <!-- Divider -->
+                <li class="menu-divider-custom"></li>
+            </ul>
+        </div>
+
+        <!-- Footer section: settings & logout -->
+        <div class="side-footer">
+            <ul class="fintle-menu-list">
+                <li class="menu-item">
+                    <a href="#" class="nav-link-side">
+                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+                        <span class="menu-text">Settings</span>
+                    </a>
+                </li>
+                <li class="menu-item logout-link">
+                    <a href="#" class="nav-link-side" id="logoutActionBtn">
+                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+                        <span class="menu-text">Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </aside>
+
+    <div class="page-wrapper">
+   
+           <header class="topbar">
                 <div class="with-vertical">
                     <nav class="navbar navbar-expand-lg p-0">
                         <ul class="navbar-nav">
-                            <li class="nav-item d-flex d-xl-none"><a
-                                    class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
-                                    href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                                        class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
                             <li class="nav-item d-none d-lg-flex dropdown">
-                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                                        style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                                        onclick="location.href='create-invoice.html'"><iconify-icon
-                                            icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales
-                                        Invoice</button></div>
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
                             </li>
                         </ul>
-                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg"
-                                alt="Fintle-img"/></div>
-                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle"
-                            href="javascript:void(0)" data-bs-toggle="collapse"
-                            data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
-                                class="fs-6"></iconify-icon></a>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
                         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                             <div class="d-flex align-items-center justify-content-between">
-                                <ul
-                                    class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                                    <li class="nav-item dropdown"><a href="javascript:void(0)"
-                                            class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                                            type="button" data-bs-toggle="offcanvas"
-                                            data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone"
-                                                class="fs-6"></iconify-icon></a></li>
-                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a
-                                            class="nav-link position-relative" href="javascript:void(0)"><iconify-icon
-                                                icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
-                                    </li>
-                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)">
-                                            <div class="d-flex align-items-center gap-2 lh-base"><img
-                                                    src="assets/images/needs/profile.png" class="rounded-circle"
-                                                    width="35" height="35" alt="Fintle-img" /></div>
-                                        </a></li>
+                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li>
                                 </ul>
                             </div>
                         </div>
@@ -435,9 +365,11 @@
                 </div>
             </header>
 
-            <div class="body-wrapper p-3">
-                <div class="container-fluid p-0">
-                    <!-- Breadcrumb -->
+
+        <div class="body-wrapper p-3">
+            <div class="container-fluid p-0">
+
+                  <!-- Breadcrumb -->
                     <div class="card card-body py-3 mb-3">
                         <div class="row align-items-center">
                             <div class="col-12">
@@ -446,8 +378,10 @@
                                     <nav aria-label="breadcrumb" class="ms-auto">
                                         <ol class="breadcrumb">
                                             <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html"><iconify-icon icon="solar:home-2-line-duotone"
-                                                        class="fs-6"></iconify-icon></a></li>
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
+                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                                                </a>
+                                            </li>
                                             <li class="breadcrumb-item"><a href="account-master.html">Accounts</a></li>
                                             <li class="breadcrumb-item active">General Ledger</li>
                                         </ol>
@@ -457,77 +391,71 @@
                         </div>
                     </div>
 
-                    <!-- Filter Section -->
-                    <div class="filter-card">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label class="filter-label"> Financial Year</label>
-                                <select class="form-select" id="financialYear">
-                                    <option value="2023-24">2023-24 (April 2023 - March 2024)</option>
-                                    <option value="2024-25" selected>2024-25 (April 2024 - March 2025)</option>
-                                    <option value="2025-26">2025-26 (April 2025 - March 2026)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="filter-label"> From Date</label>
-                                <input type="date" class="form-control" id="fromDate">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="filter-label"> To Date</label>
-                                <input type="date" class="form-control" id="toDate">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="filter-label"> Account Head</label>
-                                <select class="form-select" id="accountHead">
-                                    <option value="">-- Select Account Head --</option>
-                                </select>
-                            </div>
+                <!-- Filter Card -->
+                <div class="filter-card">
+                    <div class="row g-3">
+                        <div class="col-md-3">
+                            <label class="filter-label">Financial Year</label>
+                            <select class="form-select" id="financialYear">
+                                <option value="2023-24">2023-24 (April 2023 - March 2024)</option>
+                                <option value="2024-25" selected>2024-25 (April 2024 - March 2025)</option>
+                                <option value="2025-26">2025-26 (April 2025 - March 2026)</option>
+                            </select>
                         </div>
-                        <div class="row g-3 mt-2">
-                            <div class="col-md-3">
-                                <label class="filter-label">Account</label>
-                                <select class="form-select" id="accountSelect">
-                                    <option value="">-- Select Account --</option>
-                                </select>
-                            </div>
-                            <div class="col-md-9 d-flex align-items-end justify-content-end gap-3">
-                                <button class="btn btn-primary" id="viewLedgerBtn">View Ledger</button>
-                                <button class="btn btn-success-custom" id="downloadLedgerBtn">Download</button>
-                                <button class="btn btn-outline-primary" onclick="window.print()">Print</button>
-                            </div>
+                        <div class="col-md-3">
+                            <label class="filter-label">From Date</label>
+                            <input type="date" class="form-control" id="fromDate">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="filter-label">To Date</label>
+                            <input type="date" class="form-control" id="toDate">
+                        </div>
+                        <div class="col-md-3">
+                            <label class="filter-label">Account Head</label>
+                            <select class="form-select" id="accountHead">
+                                <option value="">-- Select Account Head --</option>
+                            </select>
                         </div>
                     </div>
-
-                    <!-- General Ledger Content -->
-                    <div id="ledgerContainer">
-                        <div class="text-center py-5">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <p class="mt-3 text-muted">Select an account and date range to view ledger</p>
+                    <div class="row g-3 mt-2">
+                        <div class="col-md-3">
+                            <label class="filter-label">Account</label>
+                            <select class="form-select" id="accountSelect">
+                                <option value="">-- Select Account --</option>
+                            </select>
                         </div>
+                        <div class="col-md-9 d-flex align-items-end justify-content-end gap-3">
+                            <button class="btn btn-primary" id="viewLedgerBtn">View Ledger</button>
+                            <button class="btn btn-success-custom" id="downloadLedgerBtn">Download CSV</button>
+                            <button class="btn btn-outline-primary" onclick="window.print()">Print</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ledger Display -->
+                <div id="ledgerContainer">
+                    <div class="text-center py-5">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-3 text-muted">Select an account and click 'View Ledger'</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Toast Notification -->
-    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
-        style="display:none; z-index:9999;">
-        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
-    </div>
+<div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+    <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+</div>
 
-    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/js/simplebar.min.js"></script>
-    <script src="assets/libs/js/app.init.js"></script>
-    <script src="assets/libs/js/theme.js"></script>
-    <script src="assets/libs/js/app.min.js"></script>
-    <script src="assets/libs/js/sidebarmenu.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-    <script>
-        // Account Heads and Sub-Accounts Data
+<script>
+    (function() {
+        // ---------- DATA MODELS ----------
         const accountHeads = [
             { id: "assets", name: "Assets" },
             { id: "liabilities", name: "Liabilities" },
@@ -554,7 +482,7 @@
             { id: "rent", name: "Rent Expense", head: "expense", code: "5202", openingBalance: 85000, type: "debit" }
         ];
 
-        // Sample Ledger Transactions
+        // Expanded transaction dataset for robust reporting (ensuring multiple accounts have demo entries)
         let ledgerTransactions = [
             { sno: 1, date: "2024-04-05", voucherType: "Payment", voucherNo: "PMT-001", description: "Office rent payment", credit: 0, debit: 85000, accountId: "rent" },
             { sno: 2, date: "2024-04-10", voucherType: "Payment", voucherNo: "PMT-002", description: "Salary paid", credit: 0, debit: 125000, accountId: "salaries" },
@@ -567,14 +495,19 @@
             { sno: 9, date: "2024-05-25", voucherType: "Receipt", voucherNo: "REC-003", description: "Service income", credit: 75000, debit: 0, accountId: "service_revenue" },
             { sno: 10, date: "2024-06-10", voucherType: "Purchase", voucherNo: "PO-002", description: "Raw materials", credit: 0, debit: 125000, accountId: "inventory" },
             { sno: 11, date: "2024-06-15", voucherType: "Payment", voucherNo: "PMT-005", description: "Loan repayment", credit: 0, debit: 50000, accountId: "borrowings" },
-            { sno: 12, date: "2024-06-20", voucherType: "Receipt", voucherNo: "REC-004", description: "Sales invoice #INV-101", credit: 185000, debit: 0, accountId: "sales" }
+            { sno: 12, date: "2024-06-20", voucherType: "Receipt", voucherNo: "REC-004", description: "Sales invoice #INV-101", credit: 185000, debit: 0, accountId: "sales" },
+            { sno: 13, date: "2024-07-01", voucherType: "Payment", voucherNo: "PMT-006", description: "Cash withdrawal", credit: 0, debit: 40000, accountId: "cash" },
+            { sno: 14, date: "2024-08-12", voucherType: "Receipt", voucherNo: "REC-005", description: "Interest received", credit: 12000, debit: 0, accountId: "cash" },
+            { sno: 15, date: "2024-09-05", voucherType: "Journal", voucherNo: "JRN-002", description: "Goods distributed as samples", credit: 0, debit: 15000, accountId: "cogs" }
         ];
 
+        // Helper functions
         function formatCurrency(amount) {
             return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
         }
 
         function formatDate(dateString) {
+            if (!dateString) return '';
             return new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
         }
 
@@ -586,6 +519,17 @@
             setTimeout(() => toastDiv.style.display = 'none', 2500);
         }
 
+        function getOpeningBalance(accountId) {
+            const account = accounts.find(acc => acc.id === accountId);
+            return account ? account.openingBalance : 0;
+        }
+
+        function getAccountType(accountId) {
+            const acc = accounts.find(a => a.id === accountId);
+            return acc ? acc.type : 'debit';
+        }
+
+        // Populate account heads + sub account filtering
         function populateAccountHeads() {
             const headSelect = document.getElementById('accountHead');
             headSelect.innerHTML = '<option value="">-- Select Account Head --</option>';
@@ -593,208 +537,205 @@
                 headSelect.innerHTML += `<option value="${head.id}">${head.name}</option>`;
             });
 
-            document.getElementById('accountHead').addEventListener('change', function () {
-                const selectedHead = this.value;
-                const accountSelect = document.getElementById('accountSelect');
+            const accountSelect = document.getElementById('accountSelect');
+            const populateAccounts = (headId) => {
                 accountSelect.innerHTML = '<option value="">-- Select Account --</option>';
-
-                const filteredAccounts = accounts.filter(acc => acc.head === selectedHead);
-                filteredAccounts.forEach(acc => {
+                const filtered = headId ? accounts.filter(acc => acc.head === headId) : accounts;
+                filtered.forEach(acc => {
                     accountSelect.innerHTML += `<option value="${acc.id}" data-type="${acc.type}" data-code="${acc.code}">${acc.code} - ${acc.name}</option>`;
                 });
+            };
+
+            document.getElementById('accountHead').addEventListener('change', function(e) {
+                populateAccounts(e.target.value);
             });
+            // initial load: show all accounts
+            populateAccounts('');
         }
 
+        // Set default dates to current financial year (April 1 - March 31)
         function setDefaultDates() {
             const today = new Date();
             const currentYear = today.getFullYear();
-            let targetYear = currentYear;
-            if (today.getMonth() > 2) {
-                targetYear = currentYear + 1;
+            let startYear = currentYear;
+            let endYear = currentYear + 1;
+            if (today.getMonth() < 3) { // before April
+                startYear = currentYear - 1;
+                endYear = currentYear;
             }
-            document.getElementById('fromDate').value = `${currentYear}-04-01`;
-            document.getElementById('toDate').value = `${targetYear}-03-31`;
+            document.getElementById('fromDate').value = `${startYear}-04-01`;
+            document.getElementById('toDate').value = `${endYear}-03-31`;
         }
 
-        function getOpeningBalance(accountId) {
-            const account = accounts.find(acc => acc.id === accountId);
-            return account ? account.openingBalance : 0;
-        }
-
+        // Core ledger rendering (fixed infinite loading issue & ensures data shows)
         function renderLedger() {
             const accountId = document.getElementById('accountSelect').value;
             const fromDate = document.getElementById('fromDate').value;
             const toDate = document.getElementById('toDate').value;
             const financialYear = document.getElementById('financialYear').value;
 
+            const container = document.getElementById('ledgerContainer');
+
             if (!accountId) {
-                document.getElementById('ledgerContainer').innerHTML = `
+                container.innerHTML = `
                     <div class="text-center py-5">
                         <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
                         <p class="text-muted">Please select an account to view ledger</p>
                     </div>
                 `;
                 return;
-         }
-
-            const account = accounts.find(acc => acc.id === accountId);
-            const openingBalance = getOpeningBalance(accountId);
-
-            // Filter transactions for selected account and date range
-            let filteredTransactions = ledgerTransactions.filter(t => t.accountId === accountId);
-            if (fromDate) {
-                filteredTransactions = filteredTransactions.filter(t => t.date >= fromDate);
-            }
-            if (toDate) {
-                filteredTransactions = filteredTransactions.filter(t => t.date <= toDate);
             }
 
-            // Sort by date
-            filteredTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
-
-            // Calculate running balance
-            let runningBalance = openingBalance;
-            let totalDebit = 0;
-            let totalCredit = 0;
-
-            const transactionsWithBalance = filteredTransactions.map(t => {
-                const amount = t.debit > 0 ? t.debit : t.credit;
-                if (t.debit > 0) {
-                    runningBalance += t.debit;
-                    totalDebit += t.debit;
-                } else {
-                    runningBalance -= t.credit;
-                    totalCredit += t.credit;
-                }
-                return { ...t, runningBalance: runningBalance };
-            });
-
-            const closingBalance = runningBalance;
-
-            const container = document.getElementById('ledgerContainer');
-            const formattedFromDate = fromDate ? new Date(fromDate).toLocaleDateString('en-IN') : 'Start';
-            const formattedToDate = toDate ? new Date(toDate).toLocaleDateString('en-IN') : 'End';
-
-            let html = `
-                <div class="ledger-card">
-                    <div class="ledger-header">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <div>
-                                <h4>General Ledger</h4>
-                                <p> ${financialYear} | ${formattedFromDate} to ${formattedToDate}</p>
-                            </div>
-                            <div>
-                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-                                    <i class="fas fa-rupee-sign me-1"></i> Amounts in INR
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="account-summary">
-                        <div class="summary-item">
-                            <span class="summary-label">Account Name</span>
-                            <span class="summary-value">${account.code} - ${account.name}</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Account Type</span>
-                            <span class="summary-value">${account.head.toUpperCase()}</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Opening Balance</span>
-                            <span class="summary-value ${account.type === 'debit' ? 'debit' : 'credit'}">${formatCurrency(openingBalance)} ${account.type === 'debit' ? 'Dr' : 'Cr'}</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Closing Balance</span>
-                            <span class="summary-value ${closingBalance > openingBalance ? 'debit' : 'credit'}">${formatCurrency(Math.abs(closingBalance))} ${closingBalance >= 0 ? 'Dr' : 'Cr'}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="table-wrapper">
-                        <table class="ledger-table">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Date</th>
-                                    <th>Voucher Type</th>
-                                    <th>Voucher No</th>
-                                    <th>Description</th>
-                                    <th style="text-align: right;">Debit (₹)</th>
-                                    <th style="text-align: right;">Credit (₹)</th>
-                                    <th style="text-align: right;">Balance (₹)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="background: #f8fafc;">
-                                    <td colspan="7" style="font-weight: 600;">Opening Balance</td>
-                                    <td style="text-align: right; font-weight: 600;">${formatCurrency(openingBalance)} ${account.type === 'debit' ? 'Dr' : 'Cr'}</td>
-                                </tr>`;
-
-            if (transactionsWithBalance.length === 0) {
-                html += `<tr><td colspan="8" class="text-center py-4 text-muted">No transactions found for the selected period</td></tr>`;
-            } else {
-                transactionsWithBalance.forEach((t, idx) => {
-                    html += `
-                        <tr>
-                            <td>${idx + 1}</td>
-                            <td>${formatDate(t.date)}</td>
-                            <td><span class="badge-voucher">${t.voucherType}</span></td>
-                            <td><a href="#" class="voucher-link" onclick="viewVoucher('${t.voucherNo}')">${t.voucherNo}</a></td>
-                            <td>${t.description}</td>
-                            <td style="text-align: right;" class="${t.debit > 0 ? 'debit-amount' : ''}">${t.debit > 0 ? formatCurrency(t.debit) : '-'}</td>
-                            <td style="text-align: right;" class="${t.credit > 0 ? 'credit-amount' : ''}">${t.credit > 0 ? formatCurrency(t.credit) : '-'}</td>
-                            <td style="text-align: right; font-weight: 500;">${formatCurrency(Math.abs(t.runningBalance))} ${t.runningBalance >= 0 ? 'Dr' : 'Cr'}</td>
-                        </tr>
-                    `;
-                });
-            }
-
-            html += `
-                                <tr class="total-row">
-                                    <td colspan="5" style="font-weight: 800;">TOTAL</td>
-                                    <td style="text-align: right; font-weight: 800; color: #10b981;">${formatCurrency(totalDebit)}</td>
-                                    <td style="text-align: right; font-weight: 800; color: #ef4444;">${formatCurrency(totalCredit)}</td>
-                                    <td style="text-align: right; font-weight: 800;">${formatCurrency(Math.abs(closingBalance))} ${closingBalance >= 0 ? 'Dr' : 'Cr'}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            // Show loading state while processing (fixes perception of blank)
+            container.innerHTML = `
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div>
+                    <p class="mt-2">Loading ledger...</p>
                 </div>
             `;
 
-            container.innerHTML = html;
-            showToast(`Ledger loaded for ${account.name}`, 'success');
+            // simulate micro delay for smooth UX (but instant data)
+            setTimeout(() => {
+                const account = accounts.find(acc => acc.id === accountId);
+                if (!account) {
+                    container.innerHTML = `<div class="alert alert-danger">Account not found</div>`;
+                    return;
+                }
+
+                const openingBalanceRaw = getOpeningBalance(accountId);
+                let openingBalance = openingBalanceRaw;
+                const accountNormalType = account.type; // 'debit' or 'credit'
+
+                // Filter transactions: match account & date range
+                let filtered = ledgerTransactions.filter(t => t.accountId === accountId);
+                if (fromDate) filtered = filtered.filter(t => t.date >= fromDate);
+                if (toDate) filtered = filtered.filter(t => t.date <= toDate);
+                filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
+
+                let runningBalance = openingBalance;
+                let totalDebit = 0, totalCredit = 0;
+                const rows = [];
+
+                for (let tx of filtered) {
+                    let debitAmt = tx.debit || 0;
+                    let creditAmt = tx.credit || 0;
+                    if (debitAmt > 0) {
+                        runningBalance += debitAmt;
+                        totalDebit += debitAmt;
+                    } else if (creditAmt > 0) {
+                        runningBalance -= creditAmt;
+                        totalCredit += creditAmt;
+                    }
+                    rows.push({
+                        ...tx,
+                        runningBalance: runningBalance,
+                        debit: debitAmt,
+                        credit: creditAmt
+                    });
+                }
+
+                const closingBalance = runningBalance;
+
+                // Build table HTML
+                let html = `
+                    <div class="ledger-card">
+                        <div class="ledger-header">
+                            <div class="d-flex justify-content-between align-items-center flex-wrap">
+                                <div>
+                                    <h4>General Ledger</h4>
+                                    <p>${financialYear} | ${fromDate ? formatDate(fromDate) : 'Start'} to ${toDate ? formatDate(toDate) : 'End'}</p>
+                                </div>
+                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">Amounts in INR</span>
+                            </div>
+                        </div>
+                        <div class="account-summary">
+                            <div class="summary-item"><span class="summary-label">Account Name</span><span class="summary-value">${account.code} - ${account.name}</span></div>
+                            <div class="summary-item"><span class="summary-label">Account Type</span><span class="summary-value">${account.head.toUpperCase()}</span></div>
+                            <div class="summary-item"><span class="summary-label">Opening Balance</span><span class="summary-value ${accountNormalType === 'debit' ? 'debit' : 'credit'}">${formatCurrency(openingBalance)} ${accountNormalType === 'debit' ? 'Dr' : 'Cr'}</span></div>
+                            <div class="summary-item"><span class="summary-label">Closing Balance</span><span class="summary-value ${closingBalance >= 0 ? (accountNormalType === 'debit' ? 'debit' : 'credit') : (accountNormalType === 'credit' ? 'debit' : 'credit')}">${formatCurrency(Math.abs(closingBalance))} ${closingBalance >= 0 ? (accountNormalType === 'debit' ? 'Dr' : 'Cr') : (accountNormalType === 'debit' ? 'Cr' : 'Dr')}</span></div>
+                        </div>
+                        <div class="table-wrapper">
+                            <table class="ledger-table">
+                                <thead><tr><th>S.No</th><th>Date</th><th>Voucher Type</th><th>Voucher No</th><th>Description</th><th style="text-align:right">Debit (₹)</th><th style="text-align:right">Credit (₹)</th><th style="text-align:right">Balance (₹)</th></tr></thead>
+                                <tbody>
+                                    <tr style="background:#f8fafc;"><td colspan="7" style="font-weight:600">Opening Balance</td><td style="text-align:right; font-weight:600">${formatCurrency(openingBalance)} ${accountNormalType === 'debit' ? 'Dr' : 'Cr'}</td></tr>
+                `;
+
+                if (rows.length === 0) {
+                    html += `<tr><td colspan="8" class="text-center py-4 text-muted">No transactions found for the selected period</td></tr>`;
+                } else {
+                    rows.forEach((t, idx) => {
+                        const balanceSign = t.runningBalance >= 0 ? 'Dr' : 'Cr';
+                        html += `<tr>
+                            <td>${idx+1}</td>
+                            <td>${formatDate(t.date)}</td>
+                            <td><span class="badge-voucher">${t.voucherType}</span></td>
+                            <td><a href="#" class="voucher-link" onclick="viewVoucher('${t.voucherNo}'); return false;">${t.voucherNo}</a></td>
+                            <td>${t.description}</td>
+                            <td style="text-align:right" class="${t.debit > 0 ? 'debit-amount' : ''}">${t.debit > 0 ? formatCurrency(t.debit) : '-'}</td>
+                            <td style="text-align:right" class="${t.credit > 0 ? 'credit-amount' : ''}">${t.credit > 0 ? formatCurrency(t.credit) : '-'}</td>
+                            <td style="text-align:right; font-weight:500">${formatCurrency(Math.abs(t.runningBalance))} ${balanceSign}</td>
+                        </tr>`;
+                    });
+                }
+
+                html += `<tr class="total-row"><td colspan="5" style="font-weight:800">TOTAL</td>
+                        <td style="text-align:right; font-weight:800; color:#10b981">${formatCurrency(totalDebit)}</td>
+                        <td style="text-align:right; font-weight:800; color:#ef4444">${formatCurrency(totalCredit)}</td>
+                        <td style="text-align:right; font-weight:800">${formatCurrency(Math.abs(closingBalance))} ${closingBalance >= 0 ? (accountNormalType === 'debit' ? 'Dr' : 'Cr') : (accountNormalType === 'debit' ? 'Cr' : 'Dr')}</td>
+                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML = html;
+                showToast(`Ledger loaded for ${account.name}`, 'success');
+            }, 50); // slight delay ensures loading indicator visible but data appears quickly
         }
 
+        // Download CSV (fix missing fields, proper balance calc)
         function downloadLedger() {
             const accountId = document.getElementById('accountSelect').value;
             if (!accountId) {
                 showToast('Please select an account first', 'error');
                 return;
             }
-
             const account = accounts.find(acc => acc.id === accountId);
             const fromDate = document.getElementById('fromDate').value;
             const toDate = document.getElementById('toDate').value;
             const financialYear = document.getElementById('financialYear').value;
 
-            let csvContent = `General Ledger Report\n`;
-            csvContent += `Account: ${account.code} - ${account.name}\n`;
-            csvContent += `Financial Year: ${financialYear}\n`;
-            csvContent += `Period: ${fromDate} to ${toDate}\n\n`;
-            csvContent += `S.No,Date,Voucher Type,Voucher No,Description,Debit (₹),Credit (₹),Balance (₹)\n`;
+            let filtered = ledgerTransactions.filter(t => t.accountId === accountId);
+            if (fromDate) filtered = filtered.filter(t => t.date >= fromDate);
+            if (toDate) filtered = filtered.filter(t => t.date <= toDate);
+            filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
 
-            const filteredTransactions = ledgerTransactions.filter(t => t.accountId === accountId);
             let runningBalance = getOpeningBalance(accountId);
+            let rowsCsv = [];
+            for (let tx of filtered) {
+                if (tx.debit > 0) runningBalance += tx.debit;
+                else if (tx.credit > 0) runningBalance -= tx.credit;
+                rowsCsv.push({
+                    date: tx.date,
+                    voucherType: tx.voucherType,
+                    voucherNo: tx.voucherNo,
+                    description: tx.description,
+                    debit: tx.debit,
+                    credit: tx.credit,
+                    balance: runningBalance
+                });
+            }
 
-            filteredTransactions.forEach((t, idx) => {
-                const amount = t.debit > 0 ? t.debit : t.credit;
-                if (t.debit > 0) runningBalance += t.debit;
-                else runningBalance -= t.credit;
-                csvContent += `${idx + 1},${t.date},${t.voucherType},${t.voucherNo},"${t.description}",${t.debit},${t.credit},${runningBalance}\n`;
+            let csv = `"General Ledger Report"\n`;
+            csv += `"Account","${account.code} - ${account.name}"\n`;
+            csv += `"Financial Year","${financialYear}"\n`;
+            csv += `"Period","${fromDate} to ${toDate}"\n\n`;
+            csv += `"S.No","Date","Voucher Type","Voucher No","Description","Debit (₹)","Credit (₹)","Balance (₹)"\n`;
+            rowsCsv.forEach((r, idx) => {
+                csv += `"${idx+1}","${r.date}","${r.voucherType}","${r.voucherNo}","${r.description.replace(/"/g, '""')}",${r.debit},${r.credit},${r.balance}\n`;
             });
-
-            const blob = new Blob([csvContent], { type: 'text/csv' });
+            const blob = new Blob([csv], { type: 'text/csv' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
             a.href = url;
@@ -806,20 +747,26 @@
             showToast('Ledger downloaded successfully', 'success');
         }
 
-        function viewVoucher(voucherNo) {
-            showToast(`Opening voucher ${voucherNo}`, 'info');
-            // In production, redirect to voucher details page
-            // window.location.href = `voucher-details.html?id=${voucherNo}`;
-        }
+        window.viewVoucher = function(voucherNo) {
+            showToast(`Opening voucher ${voucherNo} (demo)`, 'info');
+            // you can implement modal or redirect
+        };
 
-        // Event Listeners
+        // Attach events
         document.getElementById('viewLedgerBtn').addEventListener('click', renderLedger);
         document.getElementById('downloadLedgerBtn').addEventListener('click', downloadLedger);
-
-        // Initialize
+        
+        // Initialize dropdowns, default dates, but ensure no auto-load leads to endless loading.
         populateAccountHeads();
         setDefaultDates();
-    </script>
-</body>
 
+        // On first load, show welcome message (not auto-loading ledger incorrectly)
+        // To prevent "first time open loading loading" confusion, we explicitly show empty state.
+        const container = document.getElementById('ledgerContainer');
+        if (container) {
+            container.innerHTML = `<div class="text-center py-5"><i class="fas fa-book-open fa-3x text-muted mb-3"></i><p class="text-muted">Select an account and click 'View Ledger' to see transactions</p></div>`;
+        }
+    })();
+</script>
+</body>
 </html>

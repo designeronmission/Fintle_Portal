@@ -397,7 +397,7 @@
             text-decoration: underline;
         }
 
-        /* Modal Styling */
+        /* Modal Styling - kept for edit/view but not used for new payment navigation */
         .modal-content {
             border-radius: 24px;
             border: none;
@@ -450,7 +450,7 @@
             <div class="fintle-nav-scroll">
                 <ul class="fintle-menu-list" id="dynamicMenuList">
                     <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
-                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+                    <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
                     <li class="menu-item has-sub" data-submenu-id="itemsSub">
                         <div class="nav-link-side submenu-trigger-side">
                             <div class="trigger-wrap">
@@ -611,6 +611,7 @@
                             </div>
 
                             <div class="btn-create-right">
+                                <!-- UPDATED: Navigate to create-payment.html without modal -->
                                 <button class="btn btn-primary shadow-sm" id="createPaymentBtn"><i class="fas fa-plus me-2"></i>New Payment</button>
                             </div>
                         </div>
@@ -649,12 +650,12 @@
         </div>
     </div>
 
-    <!-- Add/Edit Payment Modal -->
+    <!-- Modal for Edit/View only (not used for new payment) -->
     <div class="modal fade" id="paymentModal" tabindex="-1">
         <div class="modal-dialog modal-dialog-centered modal-lg">
             <div class="modal-content">
                 <div class="modal-header border-0 pt-4 px-4">
-                    <h5 class="modal-title fw-bold"><span id="modalTitle">Add New Payment</span></h5>
+                    <h5 class="modal-title fw-bold"><span id="modalTitle">Edit Payment</span></h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body px-4 pb-4">
@@ -677,7 +678,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label required-field">Voucher No</label>
-                                <input type="text" class="form-control" id="voucherNo" placeholder="Auto-generated" required>
+                                <input type="text" class="form-control" id="voucherNo" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label required-field">Bank Account</label>
@@ -693,7 +694,7 @@
                         <div class="row">
                             <div class="col-md-6 mb-3">
                                 <label class="form-label required-field">Amount (₹)</label>
-                                <input type="number" class="form-control" id="amount" step="0.01" placeholder="Enter amount" required>
+                                <input type="number" class="form-control" id="amount" step="0.01" required>
                             </div>
                             <div class="col-md-6 mb-3">
                                 <label class="form-label required-field">Status</label>
@@ -706,11 +707,11 @@
                         </div>
                         <div class="mb-3">
                             <label class="form-label required-field">Description</label>
-                            <textarea class="form-control" id="description" rows="3" placeholder="Enter payment description" required></textarea>
+                            <textarea class="form-control" id="description" rows="3" required></textarea>
                         </div>
                         <div class="d-flex justify-content-end gap-3 mt-4">
                             <button type="button" class="btn btn-outline-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancel</button>
-                            <button type="submit" class="btn btn-primary rounded-pill px-5">Save Payment</button>
+                            <button type="submit" class="btn btn-primary rounded-pill px-5">Save Changes</button>
                         </div>
                     </form>
                 </div>
@@ -909,10 +910,9 @@
 
         function resetModal() {
             document.getElementById('editPaymentId').value = '';
-            document.getElementById('modalTitle').innerText = 'Add New Payment';
+            document.getElementById('modalTitle').innerText = 'Edit Payment';
             document.getElementById('paymentForm').reset();
             document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('voucherNo').value = `BP-${new Date().getFullYear()}-${String(bankPayments.length + 1).padStart(3, '0')}`;
         }
 
         function viewPayment(voucherNo) {
@@ -980,36 +980,22 @@
                     paymentData.createdBy = bankPayments[index].createdBy;
                     bankPayments[index] = { ...bankPayments[index], ...paymentData };
                     showToast('Payment updated successfully');
+                    updateKPIs();
+                    renderTable();
+                    bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
                 }
-            } else {
-                paymentData.id = nextId++;
-                paymentData.createdOn = now;
-                paymentData.createdBy = "Admin";
-                bankPayments.push(paymentData);
-                showToast('Payment added successfully');
             }
-            updateKPIs();
-            renderTable();
-            bootstrap.Modal.getInstance(document.getElementById('paymentModal')).hide();
-            resetModal();
         });
 
-        // Event Listeners
+        // NEW: Direct navigation to create-payment.html without modal
+        document.getElementById('createPaymentBtn')?.addEventListener('click', () => {
+            window.location.href = 'create-payment.html';
+        });
+
         document.getElementById('globalSearchInput')?.addEventListener('input', function () {
             currentSearchTerm = this.value;
             currentPage = 1;
             renderTable();
-        });
-
-        document.getElementById('financialYearFilter')?.addEventListener('change', function () {
-            currentFinancialYear = this.value;
-            currentPage = 1;
-            renderTable();
-        });
-
-        document.getElementById('createPaymentBtn')?.addEventListener('click', () => {
-            resetModal();
-            new bootstrap.Modal(document.getElementById('paymentModal')).show();
         });
 
         document.querySelectorAll('.payment-tab').forEach(btn => btn.addEventListener('click', () => {
@@ -1019,9 +1005,6 @@
             currentPage = 1;
             renderTable();
         }));
-
-        // Set default date
-        document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
 
         // Initialize
         updateKPIs();

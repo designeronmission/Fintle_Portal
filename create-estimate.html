@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr" data-bs-theme="light">
 
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fintle | Create Estimate</title>
@@ -11,723 +11,60 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
+    <link rel="stylesheet" href="assets/libs/css/custom.css" />
 
-  <style>
-    #coverLetterText {
-      min-height: 160px;
-    }
-
-    #termsText {
-      min-height: 160px;
-    }
-
-    .btn-theme-primary {
-      background: #233578;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .btn-theme-secondary {
-      background: #f1f5f9;
-      color: #1e293b;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .scanner-badge {
-      background: #f1f5f9;
-      color: #233578;
-      border-radius: 5px;
-      padding: 6px 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .scanner-badge:hover {
-      background: #233578;
-      color: white;
-      border-color: #233578;
-    }
-
-    .barcode-container {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .clone-line-btn {
-      background: #233578;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 6px 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .clone-line-btn:hover {
-      background: #0f1f4a;
-    }
-
-    .logo-box {
-      width: 150px;
-      height: 60px;
-      background-color: #f8fafc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #64748b;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px dashed #cbd5e1;
-      border-radius: 12px;
-    }
-
-    .logo-box:hover {
-      background-color: #eef2ff;
-      border-color: #3b82f6;
-    }
-
-    .logo-box img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .upload-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      font-size: 10px;
-      text-align: center;
-      padding: 2px;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-
-    .logo-box:hover .upload-overlay {
-      opacity: 1;
-    }
-
-    .upload-input-hidden {
-      display: none;
-    }
-
-    .invoice-card {
-      background: #fff;
-      border-radius: 28px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      border: 1px solid #eef2f8;
-    }
-
-    .section-badge {
-      font-weight: 700;
-      color: #181818;
-      margin-bottom: 8px;
-    }
-
-    .form-control,
-    .form-select {
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-      border-color: #233578;
-      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
-      outline: none;
-    }
-
-    /* Customer Display Card */
-    .customer-info-card {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 0;
-      border: 1px solid #eef2f8;
-    }
-
-    .customer-info-row {
-      display: flex;
-      align-items: flex-start;
-      padding: 12px 16px;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .customer-info-row:last-child {
-      border-bottom: none;
-    }
-
-    .customer-info-label {
-      width: 110px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .customer-info-value {
-      flex: 1;
-      font-size: 0.85rem;
-      color: #1e293b;
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    /* Items Table */
-    .custom-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .custom-table th {
-      background: #fafcff;
-      padding: 14px 12px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      border-bottom: 1px solid #e9edf2;
-      color: #1e2a3e;
-      white-space: nowrap;
-    }
-
-    .custom-table td {
-      padding: 16px 12px;
-      vertical-align: top;
-      border-bottom: 1px solid #f0f3f9;
-    }
-
-    .custom-table th.col-item-col,
-    .custom-table td.col-item-col {
-      width: 28% !important;
-      min-width: 320px;
-    }
-
-    .custom-table th.col-tax-col,
-    .custom-table td.col-tax-col {
-      width: 10% !important;
-      min-width: 100px;
-    }
-
-    .item-description-textarea {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      padding: 8px 12px;
-      font-size: 0.8rem;
-      margin-top: 8px;
-      resize: vertical;
-    }
-
-    .custom-select-wrapper {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      width: 100%;
-    }
-
-    .custom-select-wrapper select {
-      flex: 1;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      padding: 8px 12px;
-      height: 44px;
-      font-size: 0.85rem;
-    }
-
-    .item-plus-icon {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #233578;
-    }
-
-    .item-plus-icon:hover {
-      background: #233578;
-      color: white;
-    }
-
-    .delete-row-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #ef4444;
-    }
-
-    .btn-add {
-      background: none;
-      color: #233578;
-      border: 2px dashed #233578;
-      padding: 10px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: 600;
-      border-radius: 12px;
-      transition: all 0.2s;
-    }
-
-    .btn-add:hover {
-      background: #eef2ff;
-    }
-
-    /* Summary Card */
-    .invoice-summary-card {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid rgba(35, 53, 120, 0.1);
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .summary-row:last-of-type {
-      border-bottom: none;
-    }
-
-    .summary-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #475569;
-    }
-
-    .summary-value {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1e293b;
-    }
-
-    .summary-total {
-      background: linear-gradient(135deg, #233578 0%, #35448d 100%);
-      border-radius: 14px;
-      padding: 20px 24px;
-      margin-top: 16px;
-      color: white;
-    }
-
-    .summary-total .summary-value {
-      color: white;
-      font-size: 1.6rem;
-      font-weight: 800;
-    }
-
-    /* Action Buttons */
-    .action-btn-group {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    .btn-primary {
-      background: #233578;
-      border: none;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      background: #1a2c5e;
-    }
-
-    /* Collapsible Sections */
-    .collapse-section {
-      border-top: 1px solid #eef2f8;
-      background: #fafcff;
-    }
-
-    .collapse-header {
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .collapse-header:hover {
-      background: #f1f5f9;
-    }
-
-    .collapse-icon {
-      transition: transform 0.2s;
-    }
-
-    .collapse-header[aria-expanded="true"] .collapse-icon {
-      transform: rotate(90deg);
-    }
-
-    /* Edit Columns Modal */
-    .column-toggle-card {
-      background: white;
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      border: 1px solid #eef2f6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .form-switch .form-check-input {
-      width: 2.2rem;
-      height: 1.2rem;
-      cursor: pointer;
-    }
-
-    .form-switch .form-check-input:checked {
-      background-color: #233578;
-      border-color: #233578;
-    }
-
-    /* Create Item Modal */
-    .create-item-container {
-      padding: 20px;
-    }
-
-    .theme-label {
-      font-size: 0.75rem;
-      font-weight: 700;
-      color: #1d1d1d;
-      margin-bottom: 6px;
-      display: block;
-    }
-
-    .theme-input,
-    .theme-select {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-    }
-
-    /* Step Form */
-    .step-indicator {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .step-indicator:before {
-      content: '';
-      position: absolute;
-      margin-left: auto;
-      top: 20px;
-      left: 0;
-      width: 370px;
-      right: 0;
-      height: 2px;
-      background: #e2e8f0;
-      z-index: 1;
-      margin-right: auto;
-    }
-
-    .step-item {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      flex: 1;
-    }
-
-    .step-circle {
-      width: 40px;
-      height: 40px;
-      background: #e2e8f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      font-weight: bold;
-    }
-
-    .step-item.active .step-circle {
-      background: #233578;
-      color: white;
-      box-shadow: 0 4px 10px rgba(35, 53, 120, 0.3);
-    }
-
-    .step-item.completed .step-circle {
-      background: #10b981;
-      color: white;
-    }
-
-    .step-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #64748b;
-    }
-
-    .step-item.active .step-label {
-      color: #233578;
-      font-weight: 700;
-    }
-
-    .form-step {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .form-step.active-step {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateX(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .edit-columns-btn {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 6px 16px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .edit-columns-btn:hover {
-      background: #e2e8f0;
-    }
-
-    .tax-breakdown-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      font-size: 0.8rem;
-      border-bottom: 1px dashed #e9edf2;
-    }
-
-    .tax-badge {
-    background: #f3f3f3;
-    padding: 11px 12px;
-    border-radius: 5px;
-    color: black;
-    font-size: 0.75rem;
-    font-weight: 500;
-    display: inline-block;
-    }
-
-    @media (max-width: 768px) {
-
-      .custom-table th.col-item-col,
-      .custom-table td.col-item-col {
-        min-width: 250px;
-      }
-
-      .action-btn-group {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
   <div id="main-wrapper">
 
-
-        <aside class="fintle-side" id="fintleSidebarRoot">
-        <!-- Header brand section -->
-        <div class="side-header">
-            <div class="brand-wrap">
-                <div class="brand-logo">
-                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
-                </div>
-            </div>
+    <aside class="fintle-side" id="fintleSidebarRoot">
+      <div class="side-header">
+        <div class="brand-wrap">
+          <div class="brand-logo">
+            <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+          </div>
         </div>
-
-        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
-        <div class="fintle-nav-scroll">
-            <ul class="fintle-menu-list" id="dynamicMenuList">
-                <!-- Dashboard item -->
-                <li class="menu-item">
-                    <a href="index.html" class="nav-link-side" id="dashboardNav">
-                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                        <span class="menu-text">Dashboard</span>
-                    </a>
-                </li>
-
-                <!-- Inbox -->
-                <li class="menu-item">
-                    <a href="#" class="nav-link-side">
-                        <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
-                        <span class="menu-text">Inbox</span>
-                    </a>
-                </li>
-
-                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
-                <li class="menu-item has-sub" data-submenu-id="itemsSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                                <span class="menu-text">Items</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="itemsSub">
-                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
-                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
-                        <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
-                    </ul>
-                </li>
-
-                <!-- PURCHASE (open by default) -->
-                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
-                                <span class="menu-text">Purchase</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div> 
-                    <ul class="submenu-level" id="purchaseSub">
-                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
-                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
-                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
-                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
-                    </ul>
-                </li>
-
-                <!-- SALES with submenu -->
-                <li class="menu-item has-sub open" data-submenu-id="salesSub">
-                    <div class="nav-link-side submenu-trigger-side active">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                <span class="menu-text">Sales</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level show-sub" id="salesSub">
-                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
-                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
-                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
-                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
-                    </ul>
-                </li>
-
-                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
-                <li class="menu-item has-sub" data-submenu-id="accSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
-                                <span class="menu-text">Accounts</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="accSub">
-                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
-                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
-                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
-                        <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
-                        <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
-                        <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
-                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
-                    </ul>
-                </li>
-
-                <!-- Divider -->
-                <li class="menu-divider-custom"></li>
-            </ul>
-        </div>
-
-        <!-- Footer section: settings & logout -->
-        <div class="side-footer">
-            <ul class="fintle-menu-list">
-                <li class="menu-item">
-                    <a href="#" class="nav-link-side">
-                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                        <span class="menu-text">Settings</span>
-                    </a>
-                </li>
-                <li class="menu-item logout-link">
-                    <a href="#" class="nav-link-side" id="logoutActionBtn">
-                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                        <span class="menu-text">Logout</span>
-                    </a>
-                </li>
-            </ul>
-        </div>
+      </div>
+      <div class="fintle-nav-scroll">
+        <ul class="fintle-menu-list" id="dynamicMenuList">
+          <li class="menu-item"><a href="index.html" class="nav-link-side" id="dashboardNav"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+          <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+          <li class="menu-item has-sub" data-submenu-id="itemsSub">
+            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level" id="itemsSub"><li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li><li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC Codes</a></li><li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li></ul>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level" id="purchaseSub"><li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li><li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li><li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li><li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li></ul>
+          </li>
+          <li class="menu-item has-sub open" data-submenu-id="salesSub">
+            <div class="nav-link-side submenu-trigger-side active"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level show-sub" id="salesSub"><li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li><li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li><li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li><li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li></ul>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="accSub">
+            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level" id="accSub"><li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li><li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li><li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li><li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li><li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li><li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li><li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li></ul>
+          </li>
+          <li class="menu-divider-custom"></li>
+        </ul>
+      </div>
+      <div class="side-footer">
+        <ul class="fintle-menu-list"><li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li><li class="menu-item logout-link"><a href="#" class="nav-link-side" id="logoutActionBtn"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li></ul>
+      </div>
     </aside>
-
-
 
     <div class="page-wrapper">
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
-                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                    class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link"
-                  href="javascript:void(0)"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a>
-              </li>
-              <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                    style="font-size: 13px;" onclick="location.href='create-enquiry.html'"><iconify-icon
-                      icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Estimate</button></div>
-              </li>
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-xl-flex nav-icon-hover-bg rounded-circle"><a class="nav-link" href="javascript:void(0)"><iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-lg-flex dropdown"><div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px;" onclick="location.href='create-enquiry.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Estimate</button></div></li>
             </ul>
-            <div class="d-flex align-items-center gap-3 ms-auto">
-              <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" />
-            </div>
+            <div class="d-flex align-items-center gap-3 ms-auto"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" alt="profile" /></div>
           </nav>
         </div>
       </header>
@@ -737,17 +74,8 @@
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-content-between">
-                  <h4 class="mb-4 mb-sm-0 card-title fw-bold">
-                    <a href="Estimate.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>
-                    Create Estimate
-                  </h4>
-                  <nav class="ms-auto">
-                    <ol class="breadcrumb mb-0">
-                      <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                      <li class="breadcrumb-item"><a href="Estimate.html">Estimates</a></li>
-                      <li class="breadcrumb-item active">Create Estimate</li>
-                    </ol>
-                  </nav>
+                  <h4 class="mb-4 mb-sm-0 card-title fw-bold"><a href="Estimate.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>Create Estimate</h4>
+                  <nav class="ms-auto"><ol class="breadcrumb mb-0"><li class="breadcrumb-item"><a href="index.html">Dashboard</a></li><li class="breadcrumb-item"><a href="Estimate.html">Estimates</a></li><li class="breadcrumb-item active">Create Estimate</li></ol></nav>
                 </div>
               </div>
             </div>
@@ -755,34 +83,19 @@
 
           <div class="invoice-container-fluid">
             <div class="invoice-card">
-              <!-- Header with Logo -->
               <div class="p-2 p-lg-4 d-flex flex-wrap justify-content-between align-items-start border-bottom">
-                <div>
-                  <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()">
-                    <span id="logoPlaceholder">COMPANY LOGO</span><img id="logoImage" style="display:none;" alt="Logo">
-                    <div class="upload-overlay">Click to upload logo</div><input type="file" id="logoUpload"
-                      class="upload-input-hidden" accept="image/*">
-                  </div>
-                </div>
-                <div class="text-end">
-                  <div><span class="badge bg-light text-dark border px-3 py-2 rounded-pill"
-                      id="estimateNumberDisplay">EST-2025-001</span></div>
-                </div>
+                <div><div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()"><span id="logoPlaceholder">COMPANY LOGO</span><img id="logoImage" style="display:none;" alt="Logo"><div class="upload-overlay">Click to upload logo</div><input type="file" id="logoUpload" class="upload-input-hidden" accept="image/*"></div></div>
+                <div class="text-end"><div><span class="badge bg-light text-dark border px-3 py-2 rounded-pill" id="estimateNumberDisplay">EST-2025-001</span></div></div>
               </div>
 
-              <!-- Main Form Fields -->
               <div class="p-4">
                 <div class="row g-4 mb-4">
                   <div class="col-md-6">
                     <div class="section-badge">Customer <span class="text-danger">*</span></div>
                     <div class="d-flex gap-3 flex-wrap align-items-center">
-                      <select id="customerSelect" class="form-select" style="flex:1;">
-                        <option value="">-- Select Customer --</option>
-                      </select>
-                      <button class="btn btn-outline-primary" id="newCustomerBtn"><iconify-icon
-                          icon="solar:user-plus-bold" width="14"></iconify-icon> Create Customer</button>
-                      <button class="btn btn-outline-dark" id="editCustomerBtn"><iconify-icon
-                          icon="solar:pen-2-bold"></iconify-icon> Edit Details</button>
+                      <select id="customerSelect" class="form-select" style="flex:1;"><option value="">-- Select Customer --</option></select>
+                      <button class="btn btn-outline-primary" id="newCustomerBtn"><iconify-icon icon="solar:user-plus-bold" width="14"></iconify-icon> Create Customer</button>
+                      <button class="btn btn-outline-dark" id="editCustomerBtn"><iconify-icon icon="solar:pen-2-bold"></iconify-icon> Edit Details</button>
                     </div>
                     <div class="customer-info-card mt-3" id="customerDisplayCard">
                       <div class="customer-info-row"><div class="customer-info-label">Name</div><div class="customer-info-value" id="displayCustomerName">--</div></div>
@@ -795,24 +108,18 @@
                   <div class="col-md-6">
                     <div class="col-md-12 mb-2"><div class="section-badge">Title</div><input type="text" class="form-control" id="estimateTitle" placeholder="e.g., Proposal for Website Development" value="Estimate for Services"></div>
                     <div class="col-md-12 mb-2"><div class="section-badge">Currency</div><select class="form-select" id="currencySelect"><option value="INR">INR (₹)</option><option value="USD">USD ($)</option><option value="EUR">EUR (€)</option></select></div>
-                    <div class="col-md-12 mb-2"><div class="section-badge">Estimate Date</div><input type="date" id="issueDate" class="form-control" value="2026-05-02"></div>
-                    <div class="col-md-12"><div class="section-badge">Valid Until</div><select id="dueDatePreset" class="form-select"><option value="net15">Net 15</option><option value="net30" selected>Net 30</option><option value="net45">Net 45</option><option value="custom">Custom Date</option></select><div id="customDateContainer" style="display: none;" class="mt-2"><input type="text" id="customDueDatePicker" class="form-control" placeholder="Select date"></div><div class="mt-2"><span class="badge bg-light text-dark" id="dueDatePreview">Valid until: 2026-06-01</span></div></div>
+                    <div class="col-md-12 mb-2"><div class="section-badge">Estimate Date</div><input type="date" id="issueDate" class="form-control" value="2026-05-12"></div>
+                    <div class="col-md-12"><div class="section-badge">Valid Until</div><select id="dueDatePreset" class="form-select"><option value="net15">Net 15</option><option value="net30" selected>Net 30</option><option value="net45">Net 45</option><option value="custom">Custom Date</option></select><div id="customDateContainer" style="display: none;" class="mt-2"><input type="text" id="customDueDatePicker" class="form-control" placeholder="Select date"></div><div class="mt-2"><span class="badge bg-light text-dark" id="dueDatePreview">Valid until: 2026-06-11</span></div></div>
                   </div>
                 </div>
                 <div class="mb-4"><div class="section-badge">Description</div><textarea class="form-control" id="estimateDescription" rows="2" placeholder="Brief description of this estimate..."></textarea></div>
               </div>
 
-              <!-- Line Items Section with Enhanced Tax -->
               <div class="p-4">
                 <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-                  <div class="d-flex align-items-center gap-3">
-                    <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon>List of Items</h5>
-                    <button class="edit-columns-btn" type="button" data-bs-toggle="modal" data-bs-target="#editColumnsModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5"/></svg> Edit columns</button>
-                  </div>
+                  <div class="d-flex align-items-center gap-3"><h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon>List of Items</h5><button class="edit-columns-btn" type="button" data-bs-toggle="modal" data-bs-target="#editColumnsModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5"/></svg> Edit columns</button></div>
                   <div class="d-flex gap-2">
-                    <div class="dropdown"><button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"><span id="taxModeDropdown">Tax Exclusive</span></button>
-                      <ul class="dropdown-menu"><li><a class="dropdown-item tax-mode-option" href="#" data-mode="exclusive">Tax Exclusive</a></li><li><a class="dropdown-item tax-mode-option" href="#" data-mode="inclusive">Tax Inclusive</a></li><li><a class="dropdown-item tax-mode-option" href="#" data-mode="none">No Tax</a></li></ul>
-                    </div>
+                    <div class="dropdown"><button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"><span id="taxModeDropdown">Tax Exclusive</span></button><ul class="dropdown-menu"><li><a class="dropdown-item tax-mode-option" href="#" data-mode="exclusive">Tax Exclusive</a></li><li><a class="dropdown-item tax-mode-option" href="#" data-mode="inclusive">Tax Inclusive</a></li><li><a class="dropdown-item tax-mode-option" href="#" data-mode="none">No Tax</a></li></ul></div>
                     <span class="scanner-badge" id="scanBarcodeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2"/><path fill="currentColor" d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z"/></svg> Scan Barcode</span>
                     <button class="clone-line-btn" id="addLineItemTopBtn" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Add Line Item</button>
                   </div>
@@ -820,20 +127,20 @@
                 <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3"><div class="input-group"><span class="input-group-text bg-white"><iconify-icon icon="solar:scanner-line-duotone"></iconify-icon></span><input type="text" id="barcodeInput" class="form-control" placeholder="Scan or type barcode / item code"><button class="btn btn-outline-secondary" id="closeScannerBtn">Close</button></div></div>
                 <div class="table-responsive">
                   <table class="custom-table" id="itemsMainTable">
-                    <thead id="tableHeaderRow"><tr><th class="col-item-col">Item / Description</th><th class="col-code-col">Code</th><th class="col-price-col">Price</th><th class="col-qty-col">Qty</th><th class="col-unit-col">Unit</th><th class="col-tax-col">Tax Details</th><th>Tax Amount</th><th>Total Amount</th><th></th></tr></thead>
+                    <thead id="tableHeaderRow">
+                      <tr><th class="col-item-col">Item / Description</th><th class="col-code-col">Code</th><th class="col-price-col">Price</th><th class="col-qty-col">Qty</th><th class="col-unit-col">Unit</th><th class="col-tax-col">Tax (%)</th><th>Tax Amount</th><th>Total Amount</th><th></th></tr>
+                    </thead>
                     <tbody id="itemsTableBody"></tbody>
                   </table>
                 </div>
-                <div class="mt-4"><button class="btn-add" id="addItemRowBtn"> Add Line Item</button></div>
+                <div class="mt-4"><button class="btn-add" id="addItemRowBtn">+ Add Line Item</button></div>
               </div>
 
-              <!-- Cover Letter & Terms Collapsible Sections -->
               <div class="collapse-section col-lg-12 row card-body p-4">
                 <div class="border-top col-lg-6"><div class="collapse-header d-flex justify-content-between align-items-center p-3" data-bs-toggle="collapse" data-bs-target="#coverLetterCollapse" aria-expanded="false"><div class="section-badge mb-0">Cover Letter</div><iconify-icon icon="solar:alt-arrow-right-bold" class="collapse-icon"></iconify-icon></div><div class="collapse" id="coverLetterCollapse"><div class="p-3 pt-0"><div class="d-flex justify-content-end mb-2"><div class="dropdown"><button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"><iconify-icon icon="solar:document-text-bold-duotone"></iconify-icon> Select Template</button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item cover-letter-template" data-template="standard">Standard Cover Letter</a></li><li><a class="dropdown-item cover-letter-template" data-template="professional">Professional</a></li><li><a class="dropdown-item cover-letter-template" data-template="friendly">Friendly</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item cover-letter-template" data-template="custom">Custom Message</a></li></ul></div></div><textarea class="form-control" id="coverLetterText" rows="4" placeholder="Dear Customer,&#10;&#10;Thank you for considering our proposal. We look forward to working with you.&#10;&#10;Best regards,&#10;Fintle Team"></textarea></div></div></div>
                 <div class="border-top col-lg-6"><div class="collapse-header d-flex justify-content-between align-items-center p-3" data-bs-toggle="collapse" data-bs-target="#termsCollapse" aria-expanded="false"><div class="section-badge mb-0">Terms & Conditions</div><iconify-icon icon="solar:alt-arrow-right-bold" class="collapse-icon"></iconify-icon></div><div class="collapse" id="termsCollapse"><div class="p-3 pt-0"><div class="d-flex justify-content-end mb-2"><div class="dropdown"><button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"><iconify-icon icon="solar:document-text-bold-duotone"></iconify-icon> Select Terms</button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item terms-template" data-terms="standard">Standard Terms</a></li><li><a class="dropdown-item terms-template" data-terms="net30">Net 30 Payment Terms</a></li><li><a class="dropdown-item terms-template" data-terms="advance">Advance Payment Terms</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item terms-template" data-terms="custom">Custom Terms</a></li></ul></div></div><textarea class="form-control" id="termsText" rows="4" placeholder="1. This estimate is valid for 30 days.&#10;2. Payment terms: Net 30 days from invoice date.&#10;3. All prices are exclusive of applicable taxes."></textarea></div></div></div>
               </div>
 
-              <!-- Summary Section with Tax Breakdown -->
               <div class="row g-0 border-top">
                 <div class="col-md-7 p-4"><div class="section-badge">Additional Notes</div><textarea class="form-control" rows="2" id="estimateNotes" placeholder="Additional notes, bank details, etc."></textarea></div>
                 <div class="col-md-5 p-4 border-start">
@@ -845,7 +152,6 @@
                 </div>
               </div>
 
-              <!-- Action Buttons -->
               <div class="p-4 bg-light bg-opacity-25 border-top d-flex justify-content-between flex-wrap gap-3">
                 <div class="small text-muted"><iconify-icon icon="solar:info-circle-line-duotone"></iconify-icon> Fill all required fields</div>
                 <div class="action-btn-group"><button class="btn btn-outline-danger rounded-pill px-4" id="cancelBtn">Cancel</button><button class="btn btn-outline-dark rounded-pill px-4" id="previewBtn">Preview Estimate</button><div class="dropdown"><button class="btn btn-primary rounded-pill px-4 dropdown-toggle" data-bs-toggle="dropdown">Save & Send</button><ul class="dropdown-menu dropdown-menu-end"><li><a class="dropdown-item" id="saveAndSendOption">Save & Send to Customer</a></li><li><hr class="dropdown-divider"></li><li><a class="dropdown-item" id="saveDraftOnly">Save as Draft</a></li></ul></div></div>
@@ -858,7 +164,7 @@
   </div>
 
   <!-- Modals -->
-  <div class="modal fade" id="editColumnsModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Customize Columns</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="column-toggle-card"><span>Item / Description</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleItem" checked></div></div><div class="column-toggle-card"><span>Code</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleCode" checked></div></div><div class="column-toggle-card"><span>Price</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="togglePrice" checked></div></div><div class="column-toggle-card"><span>Quantity</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleQty" checked></div></div><div class="column-toggle-card"><span>Unit</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleUnit" checked></div></div><div class="column-toggle-card"><span>Tax Details</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleTax" checked></div></div></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="applyColumnVisibility">Apply</button></div></div></div></div>
+  <div class="modal fade" id="editColumnsModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Customize Columns</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="column-toggle-card"><span>Item / Description</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleItem" checked></div></div><div class="column-toggle-card"><span>Code</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleCode" checked></div></div><div class="column-toggle-card"><span>Price</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="togglePrice" checked></div></div><div class="column-toggle-card"><span>Quantity</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleQty" checked></div></div><div class="column-toggle-card"><span>Unit</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleUnit" checked></div></div><div class="column-toggle-card"><span>Tax (%)</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleTax" checked></div></div></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="applyColumnVisibility">Apply</button></div></div></div></div>
   <div class="modal fade" id="createItemModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fw-bold">Create New Item</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="create-item-container"><div class="row g-4"><div class="col-12"><label class="theme-label">Item Name <span class="required-star">*</span></label><input type="text" id="newItemName" class="theme-input" placeholder="Enter item name"></div><div class="col-md-6"><label class="theme-label">Item Type</label><select id="newItemType" class="theme-select"><option value="product">Product (Goods)</option><option value="service">Service</option></select></div><div class="col-md-6"><label class="theme-label">Units</label><select id="newItemUnit" class="theme-select"><option value="PCS">Pieces (PCS)</option><option value="Hour">Hour</option><option value="Month">Month</option><option value="Year">Year</option><option value="KG">Kilogram (KG)</option></select></div><div class="col-md-6"><label class="theme-label">Sale Price</label><input type="number" id="newItemPrice" class="theme-input" value="0" step="any"></div><div class="col-md-6"><label class="theme-label">Tax Rate (%)</label><select id="newItemGst" class="theme-select"><option value="0">0% (No Tax)</option><option value="5">5%</option><option value="12" selected>12%</option><option value="18">18%</option><option value="28">28%</option></select></div><div class="col-md-12"><label class="theme-label">Tax Type</label><select id="newItemTaxType" class="theme-select"><option value="GST">GST (Single Rate)</option><option value="IGST">IGST (Integrated)</option><option value="CGST_SGST">CGST + SGST (Split 50-50)</option></select></div><div class="col-md-6"><label class="theme-label">Barcode / SKU</label><input type="text" id="newItemCode" class="theme-input" placeholder="Enter barcode or SKU"></div><div class="col-md-6"><label class="theme-label">Initial Stock</label><input type="number" id="newItemStock" class="theme-input" value="0" step="any"></div><div class="col-12 mt-3"><div class="d-flex justify-content-end gap-3"><button class="btn-theme-secondary" id="resetFormBtn">Reset</button><button class="btn-theme-primary" id="createNewItemBtn">Create Item</button></div></div></div></div></div></div></div></div>
   <div class="modal fade modal-rounded" id="customerCreateModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header border-0 pt-4"><h5 class="modal-title fw-bold">Create New Customer</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><div class="step-indicator"><div class="step-item active" data-step="1"><div class="step-circle">1</div><div class="step-label">Basic Info</div></div><div class="step-item" data-step="2"><div class="step-circle">2</div><div class="step-label">Address Details</div></div></div><div id="step1" class="form-step active-step"><div class="row g-3"><div class="col-md-12"><label class="form-label fw-semibold">Company Name <span class="text-danger">*</span></label><input type="text" id="newCustNameModal" class="form-control form-sleek" placeholder="Enter company name"></div><div class="col-md-6"><label class="form-label fw-semibold">Customer ID (Optional)</label><input type="text" id="newCustIdModal" class="form-control form-sleek" placeholder="Auto-generated if empty"></div><div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text" id="newCustGstModal" class="form-control form-sleek" placeholder="Enter GST number"></div><div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email" id="newCustEmail" class="form-control form-sleek" placeholder="customer@example.com"></div><div class="col-md-12"><label class="form-label fw-semibold">Phone Number</label><input type="tel" id="newCustPhone" class="form-control form-sleek" placeholder="+91 XXXXX XXXXX"></div></div></div><div id="step2" class="form-step"><div class="row g-3"><div class="col-12"><h6 class="fw-bold mb-3">Billing Address</h6></div><div class="col-12"><label class="form-label">Address Line</label><textarea id="billAddress" class="form-control form-sleek" rows="2" placeholder="Street address, P.O. Box, etc."></textarea></div><div class="col-md-4"><label class="form-label">City</label><input id="billCity" class="form-control form-sleek" placeholder="City"></div><div class="col-md-4"><label class="form-label">State</label><input id="billState" class="form-control form-sleek" placeholder="State"></div><div class="col-md-4"><label class="form-label">Zip Code</label><input id="billZip" class="form-control form-sleek" placeholder="Postal code"></div><div class="col-12 mt-3"><div class="form-check mb-2"><input class="form-check-input" type="checkbox" id="sameAsBilling"><label class="form-check-label fw-semibold"> Same as Billing Address</label></div><h6 class="fw-bold mb-3">Shipping Address</h6></div><div class="col-12"><label class="form-label">Address Line</label><textarea id="shipAddress" class="form-control form-sleek" rows="2" placeholder="Shipping address"></textarea></div><div class="col-md-4"><label class="form-label">City</label><input id="shipCity" class="form-control form-sleek" placeholder="City"></div><div class="col-md-4"><label class="form-label">State</label><input id="shipState" class="form-control form-sleek" placeholder="State"></div><div class="col-md-4"><label class="form-label">Zip Code</label><input id="shipZip" class="form-control form-sleek" placeholder="Postal code"></div></div></div></div><div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill" id="prevStepBtn" disabled>Previous</button><button class="btn btn-primary rounded-pill px-4" id="nextStepBtn">Next</button><button class="btn btn-success rounded-pill px-4" id="submitCustomerBtn" style="display:none;">Create Customer</button></div></div></div></div>
   <div class="modal fade" id="editCustomerModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Edit Customer</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><div class="row g-3"><div class="col-12"><label>Company Name</label><input type="text" id="editCustomerName" class="form-control"></div><div class="col-12"><label>Address</label><textarea id="editCustomerAddress" class="form-control" rows="2"></textarea></div><div class="col-12"><label>State</label><input type="text" id="editCustomerState" class="form-control" placeholder="State"></div><div class="col-12"><label>GST Number</label><input type="text" id="editCustomerGST" class="form-control"></div><div class="col-12"><label>Phone</label><input type="text" id="editCustomerPhone" class="form-control"></div><div class="col-12"><label>Email</label><input type="email" id="editCustomerEmail" class="form-control"></div></div></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="saveCustomerEditBtn">Save</button></div></div></div></div>
@@ -885,6 +191,8 @@
     let currentCustomerId = "CUST-001", flatpickrInstance = null;
 
     function getSymbol() { return currentCurrency === 'INR' ? '₹' : currentCurrency === 'USD' ? '$' : '€'; }
+    function formatMoney(amt) { return `${getSymbol()} ${amt.toFixed(2)}`; }
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]); }
     function updateDisplayCard(cust) { if(cust){ document.getElementById('displayCustomerName').innerText = cust.name; document.getElementById('displayCustomerAddress').innerText = cust.address; document.getElementById('displayCustomerGST').innerText = cust.gst || '--'; document.getElementById('displayCustomerPhone').innerText = cust.phone || '--'; document.getElementById('displayCustomerEmail').innerText = cust.email || '--'; } }
     function updateCustomerUI() { let cust = customersList.find(c => c.id === document.getElementById('customerSelect').value); currentCustomerId = cust?.id || ""; updateDisplayCard(cust); recalcTotals(); }
     function populateCustomers() { let sel = document.getElementById('customerSelect'); sel.innerHTML = '<option value="">-- Select Customer --</option>'; customersList.forEach(c => { let opt = document.createElement('option'); opt.value = c.id; opt.innerHTML = `${c.name} (${c.id})`; sel.appendChild(opt); }); if (customersList.length) sel.value = customersList[0].id; updateCustomerUI(); }
@@ -895,7 +203,10 @@
       let customerState = currentCustomer?.state || "Karnataka";
       let isInterState = (customerState !== companyState);
       document.querySelectorAll('#itemsTableBody tr').forEach(row => {
-        let price = parseFloat(row.querySelector('.item-price')?.value) || 0, qty = parseFloat(row.querySelector('.item-qty')?.value) || 0, taxRate = parseFloat(row.querySelector('.item-tax-rate')?.value) || 0, taxTypeRaw = row.querySelector('.item-tax-type')?.value || "GST", effectiveTaxType = taxTypeRaw;
+        let price = parseFloat(row.querySelector('.item-price')?.value) || 0, qty = parseFloat(row.querySelector('.item-qty')?.value) || 0;
+        let taxRate = parseFloat(row.querySelector('.item-tax-select')?.value) || 0;
+        let taxTypeRaw = row.querySelector('.item-tax-type')?.value || "GST";
+        let effectiveTaxType = taxTypeRaw;
         if (taxTypeRaw === "GST" && isInterState) effectiveTaxType = "IGST";
         if (taxTypeRaw === "IGST" && !isInterState) effectiveTaxType = "GST";
         let base = price * qty, taxAmount = 0;
@@ -907,32 +218,50 @@
           else if (effectiveTaxType === "IGST") taxMap.set('IGST', (taxMap.get('IGST') || 0) + taxAmount);
           else taxMap.set('GST', (taxMap.get('GST') || 0) + taxAmount);
         }
+        row.querySelector('.item-tax-amount').innerHTML = formatMoney(taxAmount);
         let totalWithTax = (taxMode === 'none') ? base : (taxMode === 'exclusive' ? base + taxAmount : price * qty);
-        row.querySelector('.item-tax-amount').innerHTML = `${getSymbol()} ${taxAmount.toFixed(2)}`;
-        row.querySelector('.item-total-amount').innerHTML = `${getSymbol()} ${totalWithTax.toFixed(2)}`;
+        row.querySelector('.item-total-amount').innerHTML = formatMoney(totalWithTax);
       });
       let totalTax = 0; taxMap.forEach(v => totalTax += v);
       let grandTotal = subtotal + totalTax;
-      document.getElementById('subtotalVal').innerHTML = `${getSymbol()} ${subtotal.toFixed(2)}`;
-      document.getElementById('grandTotalVal').innerHTML = `${getSymbol()} ${grandTotal.toFixed(2)}`;
+      document.getElementById('subtotalVal').innerHTML = formatMoney(subtotal);
+      document.getElementById('grandTotalVal').innerHTML = formatMoney(grandTotal);
       let breakdownHtml = '<div class="summary-label mb-2">Tax Breakdown</div>';
       if (taxMap.size === 0) breakdownHtml += '<div class="tax-breakdown-item"><span>No Tax</span><span>0.00</span></div>';
-      else taxMap.forEach((amt, label) => { breakdownHtml += `<div class="tax-breakdown-item"><span>${label}</span><span>${getSymbol()} ${amt.toFixed(2)}</span></div>`; });
+      else taxMap.forEach((amt, label) => { breakdownHtml += `<div class="tax-breakdown-item"><span>${label}</span><span>${formatMoney(amt)}</span></div>`; });
       document.getElementById('taxBreakdownArea').innerHTML = breakdownHtml;
     }
 
     function createItemRow(item, qty = 1) {
       let tr = document.createElement('tr');
-      let displayTax = `${item.taxRate}% ${item.taxType === "CGST_SGST" ? "CGST+SGST" : item.taxType}`;
-      tr.innerHTML = `<td class="col-item-col"><div class="custom-select-wrapper"><select class="form-select item-dropdown">${globalItemsList.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone"></iconify-icon></button></div><textarea class="item-description-textarea" rows="1" placeholder="Description / notes">${escapeHtml(item.desc || '')}</textarea></td><td class="col-code-col"><input type="text" class="form-control item-code" value="${escapeHtml(item.code)}"></td><td class="col-price-col"><input type="number" step="any" class="form-control item-price" value="${item.price}"></td><td class="col-qty-col"><input type="number" step="any" class="form-control item-qty text-center" value="${qty}"></td><td class="col-unit-col"><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></td><td class="col-tax-col"><input type="hidden" class="item-tax-rate" value="${item.taxRate}"><input type="hidden" class="item-tax-type" value="${item.taxType}"><span class="tax-badge">${displayTax}</span></td><td class="item-tax-amount fw-semibold text-dark pt-4">0.00</td><td class="item-total-amount fw-bold text-dark pt-4">0.00</td><td><button class="delete-row-btn text-danger"><iconify-icon icon="solar:trash-bin-minimalistic-bold"></iconify-icon></button></td>`;
-      let dropdown = tr.querySelector('.item-dropdown'), priceInp = tr.querySelector('.item-price'), qtyInp = tr.querySelector('.item-qty');
+      tr.innerHTML = `<td class="col-item-col"><div class="custom-select-wrapper"><select class="form-select item-dropdown">${globalItemsList.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone"></iconify-icon></button></div><textarea class="item-description-textarea" rows="1" placeholder="Description / notes">${escapeHtml(item.desc || '')}</textarea></td>
+        <td class="col-code-col"><input type="text" class="form-control item-code" value="${escapeHtml(item.code)}"></td>
+        <td class="col-price-col"><input type="number" step="any" class="form-control item-price" value="${item.price}"></td>
+        <td class="col-qty-col"><input type="number" step="any" class="form-control item-qty text-center" value="${qty}"></td>
+        <td class="col-unit-col"><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></td>
+        <td class="col-tax-col">
+          <select class="tax-select-dropdown item-tax-select">
+            <option value="0" ${item.taxRate === 0 ? 'selected' : ''}>0% (No Tax)</option>
+            <option value="5" ${item.taxRate === 5 ? 'selected' : ''}>5%</option>
+            <option value="12" ${item.taxRate === 12 ? 'selected' : ''}>12%</option>
+            <option value="18" ${item.taxRate === 18 ? 'selected' : ''}>18%</option>
+            <option value="28" ${item.taxRate === 28 ? 'selected' : ''}>28%</option>
+          </select>
+          <input type="hidden" class="item-tax-type" value="${item.taxType}">
+        </td>
+        <td class="item-tax-amount fw-semibold text-dark pt-4">0.00</td>
+        <td class="item-total-amount fw-bold text-dark pt-4">0.00</td>
+        <td class="text-center"><button class="delete-row-btn text-danger"><iconify-icon icon="solar:trash-bin-minimalistic-bold"></iconify-icon></button></td>`;
+      
+      let dropdown = tr.querySelector('.item-dropdown'), priceInp = tr.querySelector('.item-price'), qtyInp = tr.querySelector('.item-qty'), taxSelect = tr.querySelector('.item-tax-select'), taxTypeHidden = tr.querySelector('.item-tax-type');
       let update = () => recalcTotals();
-      dropdown.addEventListener('change', () => { let f = globalItemsList.find(i => i.id === dropdown.value); if (f) { priceInp.value = f.price; tr.querySelector('.item-code').value = f.code; tr.querySelector('.item-unit').value = f.unit; tr.querySelector('.item-tax-rate').value = f.taxRate; tr.querySelector('.item-tax-type').value = f.taxType; tr.querySelector('textarea').value = f.desc || ''; let display = `${f.taxRate}% ${f.taxType === "CGST_SGST" ? "CGST+SGST" : f.taxType}`; tr.querySelector('.col-tax-col span').innerText = display; update(); } });
+      dropdown.addEventListener('change', () => { let f = globalItemsList.find(i => i.id === dropdown.value); if (f) { priceInp.value = f.price; tr.querySelector('.item-code').value = f.code; tr.querySelector('.item-unit').value = f.unit; taxSelect.value = f.taxRate; taxTypeHidden.value = f.taxType; tr.querySelector('textarea').value = f.desc || ''; update(); } });
+      taxSelect.addEventListener('change', () => { taxTypeHidden.value = taxSelect.value === "18" ? "GST" : taxTypeHidden.value; update(); });
       priceInp.addEventListener('input', update); qtyInp.addEventListener('input', update);
       tr.querySelector('.delete-row-btn').addEventListener('click', () => { tr.remove(); recalcTotals(); });
       update(); return tr;
     }
-    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[m]); }
+
     function refreshDropdowns() { document.querySelectorAll('.item-dropdown').forEach(sel => { let cur = sel.value; sel.innerHTML = globalItemsList.map(i => `<option value="${i.id}">${escapeHtml(i.name)}</option>`).join(''); if (globalItemsList.some(i => i.id === cur)) sel.value = cur; }); }
     function applyColumnVisibility() { let showItem = document.getElementById('toggleItem')?.checked, showCode = document.getElementById('toggleCode')?.checked, showPrice = document.getElementById('togglePrice')?.checked, showQty = document.getElementById('toggleQty')?.checked, showUnit = document.getElementById('toggleUnit')?.checked, showTax = document.getElementById('toggleTax')?.checked; document.querySelectorAll('.col-item-col').forEach(el => el.style.display = showItem ? '' : 'none'); document.querySelectorAll('.col-code-col').forEach(el => el.style.display = showCode ? '' : 'none'); document.querySelectorAll('.col-price-col').forEach(el => el.style.display = showPrice ? '' : 'none'); document.querySelectorAll('.col-qty-col').forEach(el => el.style.display = showQty ? '' : 'none'); document.querySelectorAll('.col-unit-col').forEach(el => el.style.display = showUnit ? '' : 'none'); document.querySelectorAll('.col-tax-col').forEach(el => el.style.display = showTax ? '' : 'none'); let headers = document.querySelectorAll('#tableHeaderRow th'); if(headers[0]) headers[0].style.display = showItem ? '' : 'none'; if(headers[1]) headers[1].style.display = showCode ? '' : 'none'; if(headers[2]) headers[2].style.display = showPrice ? '' : 'none'; if(headers[3]) headers[3].style.display = showQty ? '' : 'none'; if(headers[4]) headers[4].style.display = showUnit ? '' : 'none'; if(headers[5]) headers[5].style.display = showTax ? '' : 'none'; }
 
@@ -944,7 +273,7 @@
       let tbody = document.getElementById('itemsTableBody'); tbody.innerHTML = ''; tbody.appendChild(createItemRow(globalItemsList[0], 1)); tbody.appendChild(createItemRow(globalItemsList[1], 1));
       document.getElementById('customerSelect')?.addEventListener('change', updateCustomerUI);
       document.getElementById('currencySelect')?.addEventListener('change', (e) => { currentCurrency = e.target.value; recalcTotals(); });
-      document.querySelectorAll('.tax-mode-option').forEach(opt => opt.addEventListener('click', (e) => { taxMode = opt.dataset.mode; let txt = { exclusive: 'Tax Exclusive', inclusive: 'Tax Inclusive', none: 'No Tax' }; document.getElementById('taxModeDropdown').innerHTML = txt[taxMode]; recalcTotals(); document.querySelectorAll('.item-price, .item-qty').forEach(inp => inp.dispatchEvent(new Event('input'))); }));
+      document.querySelectorAll('.tax-mode-option').forEach(opt => opt.addEventListener('click', (e) => { e.preventDefault(); taxMode = opt.dataset.mode; let txt = { exclusive: 'Tax Exclusive', inclusive: 'Tax Inclusive', none: 'No Tax' }; document.getElementById('taxModeDropdown').innerHTML = txt[taxMode]; recalcTotals(); }));
       document.getElementById('addItemRowBtn')?.addEventListener('click', () => { document.getElementById('itemsTableBody').appendChild(createItemRow(globalItemsList[0], 1)); recalcTotals(); });
       document.getElementById('addLineItemTopBtn')?.addEventListener('click', () => { document.getElementById('itemsTableBody').appendChild(createItemRow(globalItemsList[0], 1)); recalcTotals(); });
       document.getElementById('applyColumnVisibility')?.addEventListener('click', applyColumnVisibility);

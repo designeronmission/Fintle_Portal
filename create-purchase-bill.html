@@ -10,539 +10,8 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
-  <style>
-    /* ========== EXACT SAME STYLES AS REFERENCE (Estimate page) ========== */
-    #coverLetterText {
-      min-height: 160px;
-    }
+  <link rel="stylesheet" href="assets/libs/css/custom.css" />
 
-    #termsText {
-      min-height: 160px;
-    }
-
-    .btn-theme-primary {
-      background: #233578;
-      color: white;
-      border: none;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .btn-theme-secondary {
-      background: #f1f5f9;
-      color: #1e293b;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .scanner-badge {
-      background: #f1f5f9;
-      color: #233578;
-      border-radius: 5px;
-      padding: 6px 20px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .scanner-badge:hover {
-      background: #233578;
-      color: white;
-      border-color: #233578;
-    }
-
-    .barcode-container {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 12px;
-      margin-bottom: 16px;
-      border: 1px solid #e2e8f0;
-    }
-
-    .clone-line-btn {
-      background: #233578;
-      color: white;
-      border: none;
-      border-radius: 5px;
-      padding: 6px 20px;
-      font-size: 0.8rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .clone-line-btn:hover {
-      background: #0f1f4a;
-    }
-
-    .logo-box {
-      width: 150px;
-      height: 60px;
-      background-color: #f8fafc;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-      color: #64748b;
-      position: relative;
-      overflow: hidden;
-      cursor: pointer;
-      transition: all 0.2s ease;
-      border: 1px dashed #cbd5e1;
-      border-radius: 12px;
-    }
-
-    .logo-box:hover {
-      background-color: #eef2ff;
-      border-color: #3b82f6;
-    }
-
-    .logo-box img {
-      max-width: 100%;
-      max-height: 100%;
-      object-fit: contain;
-    }
-
-    .upload-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(0, 0, 0, 0.6);
-      color: white;
-      font-size: 10px;
-      text-align: center;
-      padding: 2px;
-      opacity: 0;
-      transition: opacity 0.2s;
-      pointer-events: none;
-    }
-
-    .logo-box:hover .upload-overlay {
-      opacity: 1;
-    }
-
-    .upload-input-hidden {
-      display: none;
-    }
-
-    .invoice-card {
-      background: #fff;
-      border-radius: 28px;
-      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.08);
-      overflow: hidden;
-      border: 1px solid #eef2f8;
-    }
-
-    .section-badge {
-      font-weight: 700;
-      color: #181818;
-      margin-bottom: 8px;
-    }
-
-    .form-control,
-    .form-select {
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      padding: 0.6rem 1rem;
-      font-size: 0.85rem;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-      border-color: #233578;
-      box-shadow: 0 0 0 3px rgba(35, 53, 120, 0.1);
-      outline: none;
-    }
-
-    .customer-info-card,
-    .supplier-info-card {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 0;
-      border: 1px solid #eef2f8;
-    }
-
-    .customer-info-row,
-    .supplier-info-row {
-      display: flex;
-      align-items: flex-start;
-      padding: 12px 16px;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .customer-info-row:last-child,
-    .supplier-info-row:last-child {
-      border-bottom: none;
-    }
-
-    .customer-info-label,
-    .supplier-info-label {
-      width: 110px;
-      font-size: 0.7rem;
-      font-weight: 600;
-      color: #475569;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .customer-info-value,
-    .supplier-info-value {
-      flex: 1;
-      font-size: 0.85rem;
-      color: #1e293b;
-      font-weight: 500;
-      word-break: break-word;
-    }
-
-    .custom-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    .custom-table th {
-      background: #fafcff;
-      padding: 14px 12px;
-      font-weight: 600;
-      font-size: 0.8rem;
-      border-bottom: 1px solid #e9edf2;
-      color: #1e2a3e;
-      white-space: nowrap;
-    }
-
-    .custom-table td {
-      padding: 16px 12px;
-      vertical-align: top;
-      border-bottom: 1px solid #f0f3f9;
-    }
-
-    .custom-table th.col-item-col,
-    .custom-table td.col-item-col {
-      width: 28% !important;
-      min-width: 320px;
-    }
-
-    .custom-table th.col-tax-col,
-    .custom-table td.col-tax-col {
-      width: 10% !important;
-      min-width: 100px;
-    }
-
-    .item-description-textarea {
-      width: 100%;
-      border-radius: 10px;
-      border: 1px solid #e2e8f0;
-      padding: 8px 12px;
-      font-size: 0.8rem;
-      margin-top: 8px;
-      resize: vertical;
-    }
-
-    .custom-select-wrapper {
-      display: flex;
-      gap: 8px;
-      align-items: center;
-      width: 100%;
-    }
-
-    .custom-select-wrapper select {
-      flex: 1;
-      border-radius: 8px;
-      border: 1px solid #e2e8f0;
-      padding: 8px 12px;
-      height: 44px;
-      font-size: 0.85rem;
-    }
-
-    .item-plus-icon {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 8px;
-      width: 44px;
-      height: 44px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #233578;
-    }
-
-    .item-plus-icon:hover {
-      background: #233578;
-      color: white;
-    }
-
-    .delete-row-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      color: #ef4444;
-    }
-
-    .btn-add {
-      background: none;
-      color: #233578;
-      border: 2px dashed #233578;
-      padding: 10px;
-      cursor: pointer;
-      width: 100%;
-      font-weight: 600;
-      border-radius: 5px;
-      transition: all 0.2s;
-    }
-
-    .btn-add:hover {
-      background: #eef2ff;
-    }
-
-    .invoice-summary-card {
-      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-      border-radius: 20px;
-      padding: 24px;
-      border: 1px solid rgba(35, 53, 120, 0.1);
-    }
-
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid #e9edf2;
-    }
-
-    .summary-row:last-of-type {
-      border-bottom: none;
-    }
-
-    .summary-label {
-      font-size: 0.85rem;
-      font-weight: 600;
-      color: #475569;
-    }
-
-    .summary-value {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #1e293b;
-    }
-
-    .summary-total {
-      background: linear-gradient(135deg, #233578 0%, #35448d 100%);
-      border-radius: 14px;
-      padding: 20px 24px;
-      margin-top: 16px;
-      color: white;
-    }
-
-    .summary-total .summary-value {
-      color: white;
-      font-size: 1.6rem;
-      font-weight: 800;
-    }
-
-    .action-btn-group {
-      display: flex;
-      gap: 12px;
-      justify-content: flex-end;
-    }
-
-    .btn-primary {
-      background: #233578;
-      border: none;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
-    }
-
-    .btn-primary:hover {
-      background: #1a2c5e;
-    }
-
-    .collapse-section {
-      border-top: 1px solid #eef2f8;
-      background: #fafcff;
-    }
-
-    .collapse-header {
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .collapse-header:hover {
-      background: #f1f5f9;
-    }
-
-    .collapse-icon {
-      transition: transform 0.2s;
-    }
-
-    .collapse-header[aria-expanded="true"] .collapse-icon {
-      transform: rotate(90deg);
-    }
-
-    .edit-columns-btn {
-      background: #f1f5f9;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 6px 16px;
-      font-size: 0.75rem;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-
-    .edit-columns-btn:hover {
-      background: #e2e8f0;
-    }
-
-    .tax-breakdown-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      font-size: 0.8rem;
-      border-bottom: 1px dashed #e9edf2;
-    }
-
-    .tax-badge {
-      background: #f3f3f3;
-      padding: 11px 12px;
-      border-radius: 5px;
-      color: black;
-      font-size: 0.75rem;
-      font-weight: 500;
-      display: inline-block;
-    }
-
-    .step-indicator {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 30px;
-      position: relative;
-    }
-
-    .step-indicator:before {
-      content: '';
-      position: absolute;
-      margin-left: auto;
-      top: 20px;
-      left: 0;
-      width: 370px;
-      right: 0;
-      height: 2px;
-      background: #e2e8f0;
-      z-index: 1;
-      margin-right: auto;
-    }
-
-    .step-item {
-      text-align: center;
-      position: relative;
-      z-index: 2;
-      flex: 1;
-    }
-
-    .step-circle {
-      width: 40px;
-      height: 40px;
-      background: #e2e8f0;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 8px;
-      font-weight: bold;
-    }
-
-    .step-item.active .step-circle {
-      background: #233578;
-      color: white;
-      box-shadow: 0 4px 10px rgba(35, 53, 120, 0.3);
-    }
-
-    .step-item.completed .step-circle {
-      background: #10b981;
-      color: white;
-    }
-
-    .step-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #64748b;
-    }
-
-    .step-item.active .step-label {
-      color: #233578;
-      font-weight: 700;
-    }
-
-    .form-step {
-      display: none;
-      animation: fadeIn 0.3s ease;
-    }
-
-    .form-step.active-step {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateX(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateX(0);
-      }
-    }
-
-    .column-toggle-card {
-      background: white;
-      border-radius: 14px;
-      padding: 14px 18px;
-      margin-bottom: 10px;
-      border: 1px solid #eef2f6;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .form-switch .form-check-input {
-      width: 2.2rem;
-      height: 1.2rem;
-      cursor: pointer;
-    }
-
-    .form-switch .form-check-input:checked {
-      background-color: #233578;
-      border-color: #233578;
-    }
-
-    @media (max-width: 768px) {
-
-      .custom-table th.col-item-col,
-      .custom-table td.col-item-col {
-        min-width: 250px;
-      }
-
-      .action-btn-group {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
 </head>
 
 <body>
@@ -550,7 +19,6 @@
   <div id="main-wrapper" style="display: flex;">
 
     <aside class="fintle-side" id="fintleSidebarRoot">
-      <!-- Header brand section -->
       <div class="side-header">
         <div class="brand-wrap">
           <div class="brand-logo">
@@ -558,571 +26,137 @@
           </div>
         </div>
       </div>
-
-      <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
       <div class="fintle-nav-scroll">
         <ul class="fintle-menu-list" id="dynamicMenuList">
-          <!-- Dashboard item -->
-          <li class="menu-item">
-            <a href="index.html" class="nav-link-side" id="dashboardNav">
-              <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-              <span class="menu-text">Dashboard</span>
-            </a>
-          </li>
-
-          <!-- Inbox -->
-          <li class="menu-item">
-            <a href="#" class="nav-link-side">
-              <iconify-icon icon="solar:inbox-line-duotone"></iconify-icon>
-              <span class="menu-text">Inbox</span>
-            </a>
-          </li>
-
-          <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+          <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+          <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
           <li class="menu-item has-sub" data-submenu-id="itemsSub">
-            <div class="nav-link-side submenu-trigger-side">
-              <div class="trigger-wrap">
-                <span style="display: flex; align-items: center; gap: 12px;">
-                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                  <span class="menu-text">Items</span>
-                </span>
-                <span class="dropdown-arrow">▶</span>
-              </div>
-            </div>
-            <ul class="submenu-level" id="itemsSub">
-              <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span>
-                  Item</a></li>
-              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Product Stock</a>
-              </li>
-              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a>
-              </li>
-            </ul>
+            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level" id="itemsSub"><li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Product Stock</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Categories</a></li></ul>
           </li>
-
-          <!-- PURCHASE (open by default) -->
           <li class="menu-item has-sub open" data-submenu-id="purchaseSub">
-            <div class="nav-link-side submenu-trigger-side active">
-              <div class="trigger-wrap">
-                <span style="display: flex; align-items: center; gap: 12px;">
-                  <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
-                  <span class="menu-text">Purchase</span>
-                </span>
-                <span class="dropdown-arrow">▶</span>
-              </div>
-            </div>
-            <ul class="submenu-level show-sub" id="purchaseSub">
-              <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span>
-                  Suppliers</a></li>
-              <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span>
-                  Purchase Order</a></li>
-              <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span>
-                  Purchase Bill</a></li>
-              <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span
-                    class="dot-marker"></span> Supplier Statement</a></li>
-            </ul>
+            <div class="nav-link-side submenu-trigger-side active"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level show-sub" id="purchaseSub"><li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li><li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li><li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li><li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li></ul>
           </li>
-
-          <!-- SALES with submenu -->
           <li class="menu-item has-sub" data-submenu-id="salesSub">
-            <div class="nav-link-side submenu-trigger-side">
-              <div class="trigger-wrap">
-                <span style="display: flex; align-items: center; gap: 12px;">
-                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                  <span class="menu-text">Sales</span>
-                </span>
-                <span class="dropdown-arrow">▶</span>
-              </div>
-            </div>
-            <ul class="submenu-level" id="salesSub">
-              <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span>
-                  Customers</a></li>
-              <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span>
-                  Enquiries</a></li>
-              <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span>
-                  Estimates</a></li>
-              <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span>
-                  Invoices</a></li>
-            </ul>
+            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level" id="salesSub"><li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li><li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li><li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li><li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li></ul>
           </li>
-
-          <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
           <li class="menu-item has-sub" data-submenu-id="accSub">
-            <div class="nav-link-side submenu-trigger-side">
-              <div class="trigger-wrap">
-                <span style="display: flex; align-items: center; gap: 12px;">
-                  <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
-                  <span class="menu-text">Accounts</span>
-                </span>
-                <span class="dropdown-arrow">▶</span>
-              </div>
-            </div>
-            <ul class="submenu-level" id="accSub">
-              <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span>
-                  Account Master</a></li>
-              <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span>
-                  Journals</a></li>
-              <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span>
-                  Vouchers</a></li>
-              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a>
-              </li>
-              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a>
-              </li>
-              <li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a>
-              </li>
-            </ul>
+            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span><span class="dropdown-arrow">▶</span></div></div>
+            <ul class="submenu-level" id="accSub"><li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li><li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li><li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li></ul>
           </li>
-
-          <!-- Divider -->
           <li class="menu-divider-custom"></li>
         </ul>
       </div>
-
-      <!-- Footer section: settings & logout -->
       <div class="side-footer">
-        <ul class="fintle-menu-list">
-          <li class="menu-item">
-            <a href="#" class="nav-link-side">
-              <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-              <span class="menu-text">Settings</span>
-            </a>
-          </li>
-          <li class="menu-item logout-link">
-            <a href="#" class="nav-link-side" id="logoutActionBtn">
-              <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-              <span class="menu-text">Logout</span>
-            </a>
-          </li>
-        </ul>
+        <ul class="fintle-menu-list"><li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li><li class="menu-item logout-link"><a href="#" class="nav-link-side" id="logoutActionBtn"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li></ul>
       </div>
     </aside>
 
-
-    <!-- MAIN CONTENT -->
     <div class="page-wrapper">
-
-      <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
-            <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
-                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
-                    class="fs-6"></iconify-icon></a></li>
-            
-              <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
-                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
-                    onclick="location.href='create-purchase-order.html'"><iconify-icon
-                      icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Purchase Order</button>
-                </div>
-              </li>
-            </ul>
-            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-            </div>
-            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
-                class="fs-6"></iconify-icon></a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <div class="d-flex align-items-center justify-content-between">
-                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown"><a href="javascript:void(0)"
-                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
-                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
-                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
-                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
-                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
-                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
-                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
-                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
-                          class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                      </div>
-                      <div class="message-body" data-simplebar><a href="javascript:void(0)"
-                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
-                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
-                              icon="solar:widget-3-line-duotone"></iconify-icon></span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span>
-                            </div><span class="d-block text-truncate text-truncate fs-11">Just see the my new
-                              admin!</span>
-                          </div>
-                        </a><a href="javascript:void(0)"
-                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
-                              icon="solar:calendar-line-duotone"></iconify-icon></span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span>
-                            </div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a></div>
-                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button>
-                      </div>
-                    </div>
-                  </li>
-                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
-                      aria-expanded="false">
-                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
-                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
-                    </a>
-                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
-                      <div class="position-relative px-4 pt-3 pb-2">
-                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img
-                            src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
-                            alt="Fintle-img" />
-                          <div>
-                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
-                            <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
-                                class="__cf_email__">[email&#160;protected]</a></p>
-                          </div>
-                        </div>
-                        <div class="message-body"><a href="../main/page-user-profile.html"
-                            class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html"
-                            class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html"
-                            class="p-2 dropdown-item h6 rounded-1">My Invoice <span
-                              class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
-                            href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account
-                            Settings</a><a href="../main/authentication-login2.html"
-                            class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+            <ul class="navbar-nav"><li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item d-none d-lg-flex dropdown"><div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-purchase-order.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Purchase Order</button></div></li></ul>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav"><div class="d-flex align-items-center justify-content-between"><ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center"><li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li></ul></div></div>
           </nav>
-          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
-            <nav class="sidebar-nav scroll-sidebar">
-              <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
-                  class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo"
-                    class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas"
-                  aria-label="Close"></button></div>
-              <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
-                <ul id="sidebarnav">
-                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
-                      aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone"
-                          class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
-                    <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
-                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
-                              class="fs-11 d-block text-body-color">New messages arrived</span>
-                          </div>
-                        </a></li>
-                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
-                          class="d-flex align-items-center">
-                          <div
-                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:bill-list-bold-duotone"
-                              class="fs-7 text-secondary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
-                              class="fs-11 d-block text-body-color">Get latest invoice</span>
-                          </div>
-                        </a></li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
         </div>
       </header>
-<div class="body-wrapper">
-      <div class="container-fluid p-3">
-        <div class="invoice-card">
-          <!-- Header with Logo -->
-          <div class="p-2 p-lg-4 d-flex flex-wrap justify-content-between align-items-start border-bottom">
-            <div>
-              <div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()"><span
-                  id="logoPlaceholder">COMPANY LOGO</span><img id="logoImage" style="display:none;" alt="Logo">
-                <div class="upload-overlay">Click to upload logo</div><input type="file" id="logoUpload"
-                  class="upload-input-hidden" accept="image/*">
-              </div>
+      <div class="body-wrapper">
+        <div class="container-fluid p-3">
+          <div class="invoice-card">
+            <div class="p-2 p-lg-4 d-flex flex-wrap justify-content-between align-items-start border-bottom">
+              <div><div class="logo-box" id="companyLogoBox" onclick="document.getElementById('logoUpload').click()"><span id="logoPlaceholder">COMPANY LOGO</span><img id="logoImage" style="display:none;" alt="Logo"><div class="upload-overlay">Click to upload logo</div><input type="file" id="logoUpload" class="upload-input-hidden" accept="image/*"></div></div>
+              <div class="text-end"><div><span class="badge bg-light text-dark border px-3 py-2 rounded-pill" id="billNumberDisplay">PB-2025-001</span></div></div>
             </div>
-            <div class="text-end">
-              <div><span class="badge bg-light text-dark border px-3 py-2 rounded-pill"
-                  id="billNumberDisplay">PB-2025-001</span></div>
-            </div>
-          </div>
 
-          <!-- Supplier Section (like Customer section in estimate) -->
-          <div class="p-4">
-            <div class="row g-4 mb-4">
-              <div class="col-md-6">
-                <div class="section-badge">Supplier <span class="text-danger">*</span></div>
-                <div class="d-flex gap-3 flex-wrap align-items-center">
-                  <select id="supplierSelect" class="form-select" style="flex:1;">
-                    <option value="">-- Select Supplier --</option>
-                  </select>
-                  <button class="btn btn-outline-primary" id="newSupplierBtn"><iconify-icon icon="solar:user-plus-bold"
-                      width="14"></iconify-icon> Create Supplier</button>
-                  <button class="btn btn-outline-dark" id="editSupplierBtn"><iconify-icon
-                      icon="solar:pen-2-bold"></iconify-icon> Edit Details</button>
+            <div class="p-4">
+              <div class="row g-4 mb-4">
+                <div class="col-md-6">
+                  <div class="section-badge">Supplier <span class="text-danger">*</span></div>
+                  <div class="d-flex gap-3 flex-wrap align-items-center">
+                    <select id="supplierSelect" class="form-select" style="flex:1;"><option value="">-- Select Supplier --</option></select>
+                    <button class="btn btn-outline-primary" id="newSupplierBtn"><iconify-icon icon="solar:user-plus-bold" width="14"></iconify-icon> Create Supplier</button>
+                    <button class="btn btn-outline-dark" id="editSupplierBtn"><iconify-icon icon="solar:pen-2-bold"></iconify-icon> Edit Details</button>
+                  </div>
+                  <div class="supplier-info-card mt-3" id="supplierDisplayCard">
+                    <div class="supplier-info-row"><div class="supplier-info-label">Name</div><div class="supplier-info-value" id="displaySupplierName">--</div></div>
+                    <div class="supplier-info-row"><div class="supplier-info-label">Address</div><div class="supplier-info-value" id="displaySupplierAddress">--</div></div>
+                    <div class="supplier-info-row"><div class="supplier-info-label">GSTIN</div><div class="supplier-info-value" id="displaySupplierGST">--</div></div>
+                    <div class="supplier-info-row"><div class="supplier-info-label">Phone</div><div class="supplier-info-value" id="displaySupplierPhone">--</div></div>
+                    <div class="supplier-info-row"><div class="supplier-info-label">Email</div><div class="supplier-info-value" id="displaySupplierEmail">--</div></div>
+                  </div>
                 </div>
-                <div class="supplier-info-card mt-3" id="supplierDisplayCard">
-                  <div class="supplier-info-row">
-                    <div class="supplier-info-label">Name</div>
-                    <div class="supplier-info-value" id="displaySupplierName">--</div>
-                  </div>
-                  <div class="supplier-info-row">
-                    <div class="supplier-info-label">Address</div>
-                    <div class="supplier-info-value" id="displaySupplierAddress">--</div>
-                  </div>
-                  <div class="supplier-info-row">
-                    <div class="supplier-info-label">GSTIN</div>
-                    <div class="supplier-info-value" id="displaySupplierGST">--</div>
-                  </div>
-                  <div class="supplier-info-row">
-                    <div class="supplier-info-label">Phone</div>
-                    <div class="supplier-info-value" id="displaySupplierPhone">--</div>
-                  </div>
-                  <div class="supplier-info-row">
-                    <div class="supplier-info-label">Email</div>
-                    <div class="supplier-info-value" id="displaySupplierEmail">--</div>
-                  </div>
+                <div class="col-md-6">
+                  <div class="col-md-12 mb-2"><div class="section-badge">Currency</div><select class="form-select" id="currencySelect"><option value="INR">INR (₹)</option><option value="USD">USD ($)</option><option value="EUR">EUR (€)</option></select></div>
+                  <div class="col-md-12 mb-2"><div class="section-badge">Purchase Date</div><input type="date" id="purchaseDate" class="form-control" value="2026-05-12"></div>
+                  <div class="col-md-12 mb-2"><div class="section-badge">Delivery Date</div><input type="date" id="deliveryDate" class="form-control" value="2026-05-19"></div>
+                  <div class="col-md-12"><div class="section-badge">Reference # (PO)</div><input type="text" id="referenceNo" class="form-control" placeholder="PO-1234"></div>
+                  <div class="col-md-12 mt-2"><div class="section-badge">Supplier Bill No.</div><input type="text" id="supplierBillNo" class="form-control" placeholder="Inv/SB-001"></div>
                 </div>
               </div>
-              <div class="col-md-6">
-                <div class="col-md-12 mb-2">
-                  <div class="section-badge">Currency</div><select class="form-select" id="currencySelect">
-                    <option value="INR">INR (₹)</option>
-                    <option value="USD">USD ($)</option>
-                    <option value="EUR">EUR (€)</option>
-                  </select>
-                </div>
-                <div class="col-md-12 mb-2">
-                  <div class="section-badge">Purchase Date</div><input type="date" id="purchaseDate"
-                    class="form-control" value="2026-05-08">
-                </div>
-                <div class="col-md-12 mb-2">
-                  <div class="section-badge">Delivery Date</div><input type="date" id="deliveryDate"
-                    class="form-control" value="2026-05-15">
-                </div>
-                <div class="col-md-12">
-                  <div class="section-badge">Reference # (PO)</div><input type="text" id="referenceNo"
-                    class="form-control" placeholder="PO-1234">
-                </div>
-                <div class="col-md-12 mt-2">
-                  <div class="section-badge">Supplier Bill No.</div><input type="text" id="supplierBillNo"
-                    class="form-control" placeholder="Inv/SB-001">
-                </div>
-              </div>
+              <div class="mb-4"><div class="section-badge">Description / Notes</div><textarea class="form-control" id="billDescription" rows="2" placeholder="Additional notes, terms...">Payment due within 30 days. Thank you for your business.</textarea></div>
             </div>
-            <div class="mb-4">
-              <div class="section-badge">Description / Notes</div><textarea class="form-control" id="billDescription"
-                rows="2"
-                placeholder="Additional notes, terms...">Payment due within 30 days. Thank you for your business.</textarea>
-            </div>
-          </div>
 
-          <!-- Line Items Section with Enhanced Tax (exactly like estimate) -->
-          <div class="p-4">
-            <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
-              <div class="d-flex align-items-center gap-3">
-                <h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon> List
-                  of Items</h5><button class="edit-columns-btn" type="button" data-bs-toggle="modal"
-                  data-bs-target="#editColumnsModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                    viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5" />
-                  </svg> Edit columns</button>
-              </div>
-              <div class="d-flex gap-2">
-                <div class="dropdown"><button class="btn btn-light dropdown-toggle" type="button"
-                    data-bs-toggle="dropdown"><span id="taxModeDropdown">Tax Exclusive</span></button>
-                  <ul class="dropdown-menu">
-                    <li><a class="dropdown-item tax-mode-option" href="#" data-mode="exclusive">Tax Exclusive</a></li>
-                    <li><a class="dropdown-item tax-mode-option" href="#" data-mode="inclusive">Tax Inclusive</a></li>
-                    <li><a class="dropdown-item tax-mode-option" href="#" data-mode="none">No Tax</a></li>
-                  </ul>
-                </div><span class="scanner-badge" id="scanBarcodeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="18"
-                    height="18" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2z" />
-                    <path fill="currentColor"
-                      d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z" />
-                  </svg> Scan Barcode</span><button class="clone-line-btn" id="addLineItemTopBtn" type="button"><svg
-                    xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24">
-                    <path fill="currentColor"
-                      d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z" />
-                  </svg> Add Line Item</button>
-              </div>
-            </div>
-            <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3">
-              <div class="input-group"><span class="input-group-text bg-white"><iconify-icon
-                    icon="solar:scanner-line-duotone"></iconify-icon></span><input type="text" id="barcodeInput"
-                  class="form-control" placeholder="Scan or type barcode / item code"><button
-                  class="btn btn-outline-secondary" id="closeScannerBtn">Close</button></div>
-            </div>
-            <div class="table-responsive">
-              <table class="custom-table" id="itemsMainTable">
-                <thead id="tableHeaderRow">
-                  <tr>
-                    <th class="col-item-col">Item / Description</th>
-                    <th class="col-code-col">Code</th>
-                    <th class="col-price-col">Price</th>
-                    <th class="col-qty-col">Qty</th>
-                    <th class="col-unit-col">Unit</th>
-                    <th class="col-tax-col">Tax Details</th>
-                    <th>Tax Amount</th>
-                    <th>Total Amount</th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody id="itemsTableBody"></tbody>
-              </table>
-              <div class="mt-4"><button class="btn-add" id="addItemRowBtn">+ Add Line Item</button></div>
-            </div>
-          </div>
-
-          <!-- Summary Section with Tax Breakdown (exact match) -->
-          <div class="row g-0 border-top" style="flex-direction: row-reverse;">
-            <div class="col-md-6 p-4">
-              <div class="invoice-summary-card">
-                <div class="summary-row"><span class="summary-label">Subtotal</span><span class="summary-value"
-                    id="subtotalVal">₹ 0.00</span></div>
-                <div id="taxBreakdownArea" style="margin:5px 0;"></div>
-                <div class="summary-row"><span class="summary-label">Shipping Charge</span>
-                  <div style="width: 140px;"><input type="number" id="shippingCharge"
-                      class="form-control form-control-sm text-end" value="0" step="10" style="border-radius: 8px;">
-                  </div>
+            <div class="p-4">
+              <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+                <div class="d-flex align-items-center gap-3"><h5 class="fw-semibold mb-0"><iconify-icon icon="solar:receipt-check-bold-duotone"></iconify-icon> List of Items</h5><button class="edit-columns-btn" type="button" data-bs-toggle="modal" data-bs-target="#editColumnsModal"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="currentColor" d="M10.825 22q-.675 0-1.162-.45t-.588-1.1L8.85 18.8q-.325-.125-.612-.3t-.563-.375l-1.55.65q-.625.275-1.25.05t-.975-.8l-1.175-2.05q-.35-.575-.2-1.225t.675-1.075l1.325-1Q4.5 12.5 4.5 12.337v-.675q0-.162.025-.337l-1.325-1Q2.675 9.9 2.525 9.25t.2-1.225L3.9 5.975q.35-.575.975-.8t1.25.05l1.55.65q.275-.2.575-.375t.6-.3l.225-1.65q.1-.65.588-1.1T10.825 2h2.35q.675 0 1.163.45t.587 1.1l.225 1.65q.325.125.613.3t.562.375l1.55-.65q.625-.275 1.25-.05t.975.8l1.175 2.05q.35.575.2 1.225t-.675 1.075l-1.325 1q.025.175.025.338v.674q0 .163-.05.338l1.325 1q.525.425.675 1.075t-.2 1.225l-1.2 2.05q-.35.575-.975.8t-1.25-.05l-1.5-.65q-.275.2-.575.375t-.6.3l-.225 1.65q-.1.65-.587 1.1t-1.163.45zm1.225-6.5q1.45 0 2.475-1.025T15.55 12t-1.025-2.475T12.05 8.5q-1.475 0-2.488 1.025T8.55 12t1.013 2.475T12.05 15.5" /></svg> Edit columns</button></div>
+                <div class="d-flex gap-2">
+                  <div class="dropdown"><button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown"><span id="taxModeDropdown">Tax Exclusive</span></button><ul class="dropdown-menu"><li><a class="dropdown-item tax-mode-option" href="#" data-mode="exclusive">Tax Exclusive</a></li><li><a class="dropdown-item tax-mode-option" href="#" data-mode="inclusive">Tax Inclusive</a></li><li><a class="dropdown-item tax-mode-option" href="#" data-mode="none">No Tax</a></li></ul></div>
+                  <span class="scanner-badge" id="scanBarcodeBtn"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path fill="currentColor" d="M4 4h4V2H4c-1.1 0-2 .9-2 2v4h2zm0 12H2v4c0 1.1.9 2 2 2h4v-2H4zm16 4h-4v2h4c1.1 0 2-.9 2-2v-4h-2zm0-18h-4v2h4v4h2V4c0-1.1-.9-2-2-2z"/><path fill="currentColor" d="M9.5 5h-3C5.67 5 5 5.67 5 6.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 9H7V7h2zm.5 4h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5M9 17H7v-2h2zm5.5-6h3c.83 0 1.5-.67 1.5-1.5v-3c0-.83-.67-1.5-1.5-1.5h-3c-.83 0-1.5.67-1.5 1.5v3c0 .83.67 1.5 1.5 1.5m.5-4h2v2h-2zm-2 6h2v2h-2zm2 2h2v2h-2zm2 2h2v2h-2zm0-4h2v2h-2z"/></svg> Scan Barcode</span>
+                  <button class="clone-line-btn" id="addLineItemTopBtn" type="button"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M11 13H6q-.425 0-.712-.288T5 12t.288-.712T6 11h5V6q0-.425.288-.712T12 5t.713.288T13 6v5h5q.425 0 .713.288T19 12t-.288.713T18 13h-5v5q0 .425-.288.713T12 19t-.712-.288T11 18z"/></svg> Add Line Item</button>
                 </div>
-                <div class="summary-total">
-                  <div class="d-flex justify-content-between"><span class="summary-label"
-                      style="color:rgba(255,255,255,0.9);">Total Amount</span><span class="summary-value"
-                      id="grandTotalVal">₹ 0.00</span></div>
+              </div>
+              <div id="barcodeScannerPanel" style="display:none;" class="barcode-container mb-3"><div class="input-group"><span class="input-group-text bg-white"><iconify-icon icon="solar:scanner-line-duotone"></iconify-icon></span><input type="text" id="barcodeInput" class="form-control" placeholder="Scan or type barcode / item code"><button class="btn btn-outline-secondary" id="closeScannerBtn">Close</button></div></div>
+              <div class="table-responsive">
+                <table class="custom-table" id="itemsMainTable">
+                  <thead id="tableHeaderRow"><tr><th class="col-item-col">Item / Description</th><th class="col-code-col">Code</th><th class="col-price-col">Price</th><th class="col-qty-col">Qty</th><th class="col-unit-col">Unit</th><th class="col-tax-col">Tax (%)</th><th>Tax Amount</th><th>Total Amount</th><th></th></tr></thead>
+                  <tbody id="itemsTableBody"></tbody>
+                </table>
+                <div class="mt-4"><button class="btn-add" id="addItemRowBtn">+ Add Line Item</button></div>
+              </div>
+            </div>
+
+            <div class="row g-0 border-top" style="flex-direction: row-reverse;">
+              <div class="col-md-6 p-4">
+                <div class="invoice-summary-card">
+                  <div class="summary-row"><span class="summary-label">Subtotal</span><span class="summary-value" id="subtotalVal">₹ 0.00</span></div>
+                  <div id="taxBreakdownArea" style="margin:5px 0;"></div>
+                  <div class="summary-row"><span class="summary-label">Shipping Charge</span><div style="width:140px;"><input type="number" id="shippingCharge" class="form-control form-control-sm text-end" value="0" step="10" style="border-radius:8px;"></div></div>
+                  <div class="summary-total"><div class="d-flex justify-content-between"><span class="summary-label" style="color:rgba(255,255,255,0.9);">Total Amount</span><span class="summary-value" id="grandTotalVal">₹ 0.00</span></div></div>
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Action Buttons -->
-          <div class="p-4 bg-light bg-opacity-25 border-top d-flex justify-content-between flex-wrap gap-3">
-            <div class="small text-muted"><iconify-icon icon="solar:info-circle-line-duotone"></iconify-icon> Fill all
-              required fields</div>
-            <div class="action-btn-group"><button class="btn btn-outline-danger rounded-pill px-4"
-                id="cancelBtn">Cancel</button><button class="btn btn-outline-dark rounded-pill px-4"
-                id="previewBtn">Preview Bill</button><button class="btn btn-primary rounded-pill px-4"
-                id="saveBillBtn">Save Purchase Bill</button></div>
+            <div class="p-4 bg-light bg-opacity-25 border-top d-flex justify-content-between flex-wrap gap-3">
+              <div class="small text-muted"><iconify-icon icon="solar:info-circle-line-duotone"></iconify-icon> Fill all required fields</div>
+              <div class="action-btn-group"><button class="btn btn-outline-danger rounded-pill px-4" id="cancelBtn">Cancel</button><button class="btn btn-outline-dark rounded-pill px-4" id="previewBtn">Preview Bill</button><button class="btn btn-primary rounded-pill px-4" id="saveBillBtn">Save Purchase Bill</button></div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div></div>
+  </div>
 
   <!-- Modals -->
-  <div class="modal fade" id="editColumnsModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Customize Columns</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body">
-          <div class="column-toggle-card"><span>Item / Description</span>
-            <div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleItem"
-                checked></div>
-          </div>
-          <div class="column-toggle-card"><span>Code</span>
-            <div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleCode"
-                checked></div>
-          </div>
-          <div class="column-toggle-card"><span>Price</span>
-            <div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="togglePrice"
-                checked></div>
-          </div>
-          <div class="column-toggle-card"><span>Quantity</span>
-            <div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleQty"
-                checked></div>
-          </div>
-          <div class="column-toggle-card"><span>Unit</span>
-            <div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleUnit"
-                checked></div>
-          </div>
-          <div class="column-toggle-card"><span>Tax Details</span>
-            <div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleTax"
-                checked></div>
-          </div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button
-            class="btn btn-primary" id="applyColumnVisibility">Apply</button></div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade modal-rounded" id="supplierCreateModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
-      <div class="modal-content">
-        <div class="modal-header border-0 pt-4">
-          <h5 class="modal-title fw-bold">Create New Supplier</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="row g-3">
-            <div class="col-md-12"><label class="form-label fw-semibold">Supplier Name <span
-                  class="text-danger">*</span></label><input type="text" id="newSupplierName" class="form-control">
-            </div>
-            <div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text"
-                id="newSupplierGst" class="form-control"></div>
-            <div class="col-md-6"><label class="form-label fw-semibold">Phone Number</label><input type="tel"
-                id="newSupplierPhone" class="form-control"></div>
-            <div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email"
-                id="newSupplierEmail" class="form-control"></div>
-            <div class="col-12"><label class="form-label fw-semibold">Address</label><textarea id="supplierAddress"
-                class="form-control" rows="2"></textarea></div>
-          </div>
-        </div>
-        <div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill"
-            data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary rounded-pill px-4"
-            id="submitSupplierBtn">Create Supplier</button></div>
-      </div>
-    </div>
-  </div>
-  <div class="modal fade" id="editSupplierModal" tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Edit Supplier</h5><button type="button" class="btn-close"
-            data-bs-dismiss="modal"></button>
-        </div>
-        <div class="modal-body p-4">
-          <div class="row g-3">
-            <div class="col-12"><label>Supplier Name</label><input type="text" id="editSupplierName"
-                class="form-control"></div>
-            <div class="col-12"><label>Address</label><textarea id="editSupplierAddress" class="form-control"
-                rows="2"></textarea></div>
-            <div class="col-12"><label>GST Number</label><input type="text" id="editSupplierGST" class="form-control">
-            </div>
-            <div class="col-12"><label>Phone</label><input type="text" id="editSupplierPhone" class="form-control">
-            </div>
-            <div class="col-12"><label>Email</label><input type="email" id="editSupplierEmail" class="form-control">
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button
-            class="btn btn-primary" id="saveSupplierEditBtn">Save</button></div>
-      </div>
-    </div>
-  </div>
+  <div class="modal fade" id="editColumnsModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Customize Columns</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="column-toggle-card"><span>Item / Description</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleItem" checked></div></div><div class="column-toggle-card"><span>Code</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleCode" checked></div></div><div class="column-toggle-card"><span>Price</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="togglePrice" checked></div></div><div class="column-toggle-card"><span>Quantity</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleQty" checked></div></div><div class="column-toggle-card"><span>Unit</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleUnit" checked></div></div><div class="column-toggle-card"><span>Tax (%)</span><div class="form-switch"><input class="form-check-input column-toggle" type="checkbox" id="toggleTax" checked></div></div></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="applyColumnVisibility">Apply</button></div></div></div></div>
+
+  <div class="modal fade modal-rounded" id="supplierCreateModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered modal-lg"><div class="modal-content"><div class="modal-header border-0 pt-4"><h5 class="modal-title fw-bold">Create New Supplier</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><div class="row g-3"><div class="col-md-12"><label class="form-label fw-semibold">Supplier Name <span class="text-danger">*</span></label><input type="text" id="newSupplierName" class="form-control"></div><div class="col-md-6"><label class="form-label fw-semibold">GST Number</label><input type="text" id="newSupplierGst" class="form-control"></div><div class="col-md-6"><label class="form-label fw-semibold">Phone Number</label><input type="tel" id="newSupplierPhone" class="form-control"></div><div class="col-md-12"><label class="form-label fw-semibold">Email Address</label><input type="email" id="newSupplierEmail" class="form-control"></div><div class="col-12"><label class="form-label fw-semibold">Address</label><textarea id="supplierAddress" class="form-control" rows="2"></textarea></div></div></div><div class="modal-footer border-0 pb-4"><button class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary rounded-pill px-4" id="submitSupplierBtn">Create Supplier</button></div></div></div></div>
+
+  <div class="modal fade" id="editSupplierModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title">Edit Supplier</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body p-4"><div class="row g-3"><div class="col-12"><label>Supplier Name</label><input type="text" id="editSupplierName" class="form-control"></div><div class="col-12"><label>Address</label><textarea id="editSupplierAddress" class="form-control" rows="2"></textarea></div><div class="col-12"><label>GST Number</label><input type="text" id="editSupplierGST" class="form-control"></div><div class="col-12"><label>Phone</label><input type="text" id="editSupplierPhone" class="form-control"></div><div class="col-12"><label>Email</label><input type="email" id="editSupplierEmail" class="form-control"></div></div></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="saveSupplierEditBtn">Save</button></div></div></div></div>
+
+  <div class="modal fade" id="createItemModal" tabindex="-1"><div class="modal-dialog modal-lg modal-dialog-centered"><div class="modal-content"><div class="modal-header"><h5 class="modal-title fw-bold">Create New Item</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class="create-item-container"><div class="row g-4"><div class="col-12"><label class="theme-label">Item Name <span class="required-star">*</span></label><input type="text" id="newItemName" class="theme-input" placeholder="Enter item name"></div><div class="col-md-6"><label class="theme-label">Item Code</label><input type="text" id="newItemCode" class="theme-input" placeholder="Item code/SKU"></div><div class="col-md-6"><label class="theme-label">Unit</label><select id="newItemUnit" class="theme-select"><option value="PCS">Pieces (PCS)</option><option value="KG">Kilogram (KG)</option><option value="Hour">Hour</option><option value="Month">Month</option></select></div><div class="col-md-6"><label class="theme-label">Unit Price</label><input type="number" id="newItemPrice" class="theme-input" value="0" step="any"></div><div class="col-md-6"><label class="theme-label">GST Rate (%)</label><select id="newItemGst" class="theme-select"><option value="0">0% (No Tax)</option><option value="5">5%</option><option value="12" selected>12%</option><option value="18">18%</option><option value="28">28%</option></select></div><div class="col-12"><label class="theme-label">Description</label><textarea id="newItemDesc" class="theme-input" rows="2" placeholder="Item description"></textarea></div></div></div></div><div class="modal-footer"><button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button><button class="btn btn-primary" id="createNewItemBtn">Create Item</button></div></div></div></div>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
   <script>
     (function () {
-      // Data
       let suppliers = [{ id: "SUP-001", name: "ABC Enterprises", address: "123 Business Park, Mumbai", gst: "27AAACA1234A1Z", phone: "+91 9876543210", email: "contact@abc.com" }, { id: "SUP-002", name: "XYZ Solutions", address: "456 Tech Plaza, Bangalore", gst: "29AAACA5678B2Z", phone: "+91 9876543211", email: "info@xyz.com" }];
-      let Item = [{ id: "itm1", name: "Laptop Pro", code: "LAP123", price: 45000, unit: "PCS", taxRate: 18, desc: "High performance laptop" }, { id: "itm2", name: "Wireless Mouse", code: "MOU456", price: 800, unit: "PCS", taxRate: 12, desc: "Ergonomic wireless mouse" }, { id: "itm3", name: "USB Cable", code: "USB789", price: 150, unit: "PCS", taxRate: 5, desc: "Type-C fast charging cable" }];
+      let itemsCatalog = [{ id: "itm1", name: "Laptop Pro", code: "LAP123", price: 45000, unit: "PCS", taxRate: 18, desc: "High performance laptop" }, { id: "itm2", name: "Wireless Mouse", code: "MOU456", price: 800, unit: "PCS", taxRate: 12, desc: "Ergonomic wireless mouse" }, { id: "itm3", name: "USB Cable", code: "USB789", price: 150, unit: "PCS", taxRate: 5, desc: "Type-C fast charging cable" }];
       let currentSupplierId = suppliers[0]?.id || "";
       let taxMode = 'exclusive';
       let currentCurrency = 'INR';
@@ -1150,11 +184,28 @@
 
       function createItemRow(item, qty = 1) {
         let tr = document.createElement('tr');
-        let displayTax = `${item.taxRate}%`;
-        tr.innerHTML = `<td class="col-item-col"><div class="custom-select-wrapper"><select class="form-select item-select">${Item.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" data-bs-toggle="modal" data-bs-target="#createItemModal" style="display:none;"><iconify-icon icon="solar:add-circle-line-duotone"></iconify-icon></button></div><textarea class="item-description-textarea" rows="1" placeholder="Description / notes">${escapeHtml(item.desc || '')}</textarea></td><td class="col-code-col"><input type="text" class="form-control item-code" value="${escapeHtml(item.code || '')}" readonly></td><td class="col-price-col"><input type="number" step="any" class="form-control item-price" value="${item.price}"></td><td class="col-qty-col"><input type="number" step="any" class="form-control item-qty text-center" value="${qty}"></td><td class="col-unit-col"><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></table><td class="col-tax-col"><input type="hidden" class="item-tax-rate" value="${item.taxRate}"><span class="tax-badge">${displayTax}</span></td><td class="item-tax-amount fw-semibold text-dark pt-4">0.00</td><td class="item-total-amount fw-bold text-dark pt-4">0.00</td><td class="text-center"><button class="delete-row-btn"><iconify-icon icon="solar:trash-bin-minimalistic-bold"></iconify-icon></button></td>`;
-        let dropdown = tr.querySelector('.item-select'), priceInp = tr.querySelector('.item-price'), qtyInp = tr.querySelector('.item-qty');
+        tr.innerHTML = `<td class="col-item-col"><div class="custom-select-wrapper"><select class="form-select item-select">${itemsCatalog.map(i => `<option value="${i.id}" ${i.id === item.id ? 'selected' : ''}>${escapeHtml(i.name)}</option>`).join('')}</select><button type="button" class="item-plus-icon" data-bs-toggle="modal" data-bs-target="#createItemModal"><iconify-icon icon="solar:add-circle-line-duotone"></iconify-icon></button></div><textarea class="item-description-textarea" rows="1" placeholder="Description / notes">${escapeHtml(item.desc || '')}</textarea></td>
+          <td class="col-code-col"><input type="text" class="form-control item-code" value="${escapeHtml(item.code || '')}" readonly></td>
+          <td class="col-price-col"><input type="number" step="any" class="form-control item-price" value="${item.price}"></td>
+          <td class="col-qty-col"><input type="number" step="any" class="form-control item-qty text-center" value="${qty}"></td>
+          <td class="col-unit-col"><input type="text" class="form-control item-unit" value="${escapeHtml(item.unit)}"></td>
+          <td class="col-tax-col">
+            <select class="tax-select-dropdown item-tax-select">
+              <option value="0" ${item.taxRate === 0 ? 'selected' : ''}>0% (No Tax)</option>
+              <option value="5" ${item.taxRate === 5 ? 'selected' : ''}>5%</option>
+              <option value="12" ${item.taxRate === 12 ? 'selected' : ''}>12%</option>
+              <option value="18" ${item.taxRate === 18 ? 'selected' : ''}>18%</option>
+              <option value="28" ${item.taxRate === 28 ? 'selected' : ''}>28%</option>
+            </select>
+            <input type="hidden" class="item-tax-rate" value="${item.taxRate}">
+          </td>
+          <td class="item-tax-amount fw-semibold text-dark pt-4">0.00</td>
+          <td class="item-total-amount fw-bold text-dark pt-4">0.00</td>
+          <td class="text-center"><button class="delete-row-btn"><iconify-icon icon="solar:trash-bin-minimalistic-bold"></iconify-icon></button></td>`;
+        let dropdown = tr.querySelector('.item-select'), priceInp = tr.querySelector('.item-price'), qtyInp = tr.querySelector('.item-qty'), taxSelect = tr.querySelector('.item-tax-select'), taxRateHidden = tr.querySelector('.item-tax-rate');
         let update = () => recalcTotals();
-        dropdown.addEventListener('change', () => { let found = Item.find(i => i.id === dropdown.value); if (found) { priceInp.value = found.price; tr.querySelector('.item-code').value = found.code || ''; tr.querySelector('.item-unit').value = found.unit; tr.querySelector('.item-tax-rate').value = found.taxRate; tr.querySelector('.tax-badge').innerText = `${found.taxRate}%`; tr.querySelector('textarea').value = found.desc || ''; update(); } });
+        dropdown.addEventListener('change', () => { let found = itemsCatalog.find(i => i.id === dropdown.value); if (found) { priceInp.value = found.price; tr.querySelector('.item-code').value = found.code || ''; tr.querySelector('.item-unit').value = found.unit; taxSelect.value = found.taxRate; taxRateHidden.value = found.taxRate; tr.querySelector('textarea').value = found.desc || ''; update(); } });
+        taxSelect.addEventListener('change', () => { taxRateHidden.value = taxSelect.value; update(); });
         priceInp.addEventListener('input', update); qtyInp.addEventListener('input', update);
         tr.querySelector('.delete-row-btn').addEventListener('click', () => { tr.remove(); recalcTotals(); });
         update(); return tr;
@@ -1168,7 +219,7 @@
           if (taxMode === 'exclusive') { taxAmount = base * taxRate / 100; subtotal += base; }
           else if (taxMode === 'inclusive') { let priceExcl = price / (1 + taxRate / 100); let baseExcl = priceExcl * qty; taxAmount = base - baseExcl; subtotal += baseExcl; }
           else { subtotal += base; }
-          if (taxMode !== 'none' && taxAmount > 0) taxMap.set(taxRate, (taxMap.get(taxRate) || 0) + taxAmount);
+          if (taxMode !== 'none' && taxAmount > 0) taxMap.set(`${taxRate}%`, (taxMap.get(`${taxRate}%`) || 0) + taxAmount);
           row.querySelector('.item-tax-amount').innerHTML = formatMoney(taxAmount);
           let totalWithTax = (taxMode === 'none') ? base : (taxMode === 'exclusive' ? base + taxAmount : price * qty);
           row.querySelector('.item-total-amount').innerHTML = formatMoney(totalWithTax);
@@ -1180,21 +231,21 @@
         document.getElementById('grandTotalVal').innerHTML = formatMoney(grandTotal);
         let breakdownHtml = '<div class="summary-label mb-2">Tax Breakdown</div>';
         if (taxMap.size === 0) breakdownHtml += '<div class="tax-breakdown-item"><span>No Tax</span><span>0.00</span></div>';
-        else taxMap.forEach((amt, rate) => { breakdownHtml += `<div class="tax-breakdown-item"><span>GST ${rate}%</span><span>${formatMoney(amt)}</span></div>`; });
+        else taxMap.forEach((amt, rate) => { breakdownHtml += `<div class="tax-breakdown-item"><span>GST ${rate}</span><span>${formatMoney(amt)}</span></div>`; });
         document.getElementById('taxBreakdownArea').innerHTML = breakdownHtml;
       }
 
-      function addLineItem() { document.getElementById('itemsTableBody').appendChild(createItemRow(Item[0], 1)); recalcTotals(); }
+      function addLineItem() { document.getElementById('itemsTableBody').appendChild(createItemRow(itemsCatalog[0], 1)); recalcTotals(); }
       function applyColumnVisibility() {
         let showItem = document.getElementById('toggleItem')?.checked, showCode = document.getElementById('toggleCode')?.checked, showPrice = document.getElementById('togglePrice')?.checked, showQty = document.getElementById('toggleQty')?.checked, showUnit = document.getElementById('toggleUnit')?.checked, showTax = document.getElementById('toggleTax')?.checked;
         document.querySelectorAll('.col-item-col').forEach(el => el.style.display = showItem ? '' : 'none'); document.querySelectorAll('.col-code-col').forEach(el => el.style.display = showCode ? '' : 'none'); document.querySelectorAll('.col-price-col').forEach(el => el.style.display = showPrice ? '' : 'none'); document.querySelectorAll('.col-qty-col').forEach(el => el.style.display = showQty ? '' : 'none'); document.querySelectorAll('.col-unit-col').forEach(el => el.style.display = showUnit ? '' : 'none'); document.querySelectorAll('.col-tax-col').forEach(el => el.style.display = showTax ? '' : 'none');
-        let headers = document.querySelectorAll('#tableHeaderRow th'); if (headers[0]) headers[0].style.display = showItem ? '' : ''; if (headers[1]) headers[1].style.display = showCode ? '' : ''; if (headers[2]) headers[2].style.display = showPrice ? '' : ''; if (headers[3]) headers[3].style.display = showQty ? '' : ''; if (headers[4]) headers[4].style.display = showUnit ? '' : ''; if (headers[5]) headers[5].style.display = showTax ? '' : '';
+        let headers = document.querySelectorAll('#tableHeaderRow th'); if (headers[1]) headers[1].style.display = showCode ? '' : 'none'; if (headers[2]) headers[2].style.display = showPrice ? '' : 'none'; if (headers[3]) headers[3].style.display = showQty ? '' : 'none'; if (headers[4]) headers[4].style.display = showUnit ? '' : 'none'; if (headers[5]) headers[5].style.display = showTax ? '' : 'none';
       }
 
       document.addEventListener('DOMContentLoaded', () => {
         populateSupplierSelect();
         let tbody = document.getElementById('itemsTableBody'); tbody.innerHTML = '';
-        tbody.appendChild(createItemRow(Item[0], 1)); tbody.appendChild(createItemRow(Item[1], 1));
+        tbody.appendChild(createItemRow(itemsCatalog[0], 1)); tbody.appendChild(createItemRow(itemsCatalog[1], 1));
         recalcTotals();
         document.getElementById('supplierSelect')?.addEventListener('change', updateSupplierDisplay);
         document.getElementById('currencySelect')?.addEventListener('change', (e) => { currentCurrency = e.target.value; recalcTotals(); });
@@ -1204,7 +255,7 @@
         document.getElementById('applyColumnVisibility')?.addEventListener('click', applyColumnVisibility);
         document.getElementById('scanBarcodeBtn')?.addEventListener('click', () => { let p = document.getElementById('barcodeScannerPanel'); p.style.display = p.style.display === 'none' ? 'block' : 'none'; });
         document.getElementById('closeScannerBtn')?.addEventListener('click', () => document.getElementById('barcodeScannerPanel').style.display = 'none');
-        document.getElementById('barcodeInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { let code = e.target.value; let found = Item.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase())); if (found) { document.getElementById('itemsTableBody').appendChild(createItemRow(found, 1)); recalcTotals(); e.target.value = ''; document.getElementById('barcodeScannerPanel').style.display = 'none'; alert(`Added: ${found.name}`); } else alert('Item not found'); } });
+        document.getElementById('barcodeInput')?.addEventListener('keypress', (e) => { if (e.key === 'Enter') { let code = e.target.value; let found = itemsCatalog.find(i => i.code === code || i.name.toLowerCase().includes(code.toLowerCase())); if (found) { document.getElementById('itemsTableBody').appendChild(createItemRow(found, 1)); recalcTotals(); e.target.value = ''; document.getElementById('barcodeScannerPanel').style.display = 'none'; alert(`Added: ${found.name}`); } else alert('Item not found'); } });
         document.getElementById('logoUpload')?.addEventListener('change', function (e) { if (e.target.files[0]) { let reader = new FileReader(); reader.onload = ev => { document.getElementById('logoImage').src = ev.target.result; document.getElementById('logoImage').style.display = 'block'; document.getElementById('logoPlaceholder').style.display = 'none'; }; reader.readAsDataURL(e.target.files[0]); } });
         document.getElementById('cancelBtn')?.addEventListener('click', () => { if (confirm('Discard changes?')) window.location.reload(); });
         document.getElementById('previewBtn')?.addEventListener('click', () => alert('Preview mode - Bill ready for review'));
@@ -1217,6 +268,9 @@
         let editModal = new bootstrap.Modal(document.getElementById('editSupplierModal'));
         document.getElementById('editSupplierBtn')?.addEventListener('click', () => { let sup = suppliers.find(s => s.id === currentSupplierId); if (!sup) { alert('Select a supplier first'); return; } document.getElementById('editSupplierName').value = sup.name; document.getElementById('editSupplierAddress').value = sup.address; document.getElementById('editSupplierGST').value = sup.gst; document.getElementById('editSupplierPhone').value = sup.phone; document.getElementById('editSupplierEmail').value = sup.email; editModal.show(); });
         document.getElementById('saveSupplierEditBtn')?.addEventListener('click', () => { let idx = suppliers.findIndex(s => s.id === currentSupplierId); if (idx !== -1) { suppliers[idx].name = document.getElementById('editSupplierName').value; suppliers[idx].address = document.getElementById('editSupplierAddress').value; suppliers[idx].gst = document.getElementById('editSupplierGST').value; suppliers[idx].phone = document.getElementById('editSupplierPhone').value; suppliers[idx].email = document.getElementById('editSupplierEmail').value; populateSupplierSelect(); editModal.hide(); alert('Supplier updated'); recalcTotals(); } });
+
+        // Create Item functionality
+        document.getElementById('createNewItemBtn')?.addEventListener('click', () => { let name = document.getElementById('newItemName').value.trim(); if (!name) { alert('Item name required'); return; } let newItem = { id: "itm_" + Date.now(), name: name, code: document.getElementById('newItemCode').value || name.substring(0, 3).toUpperCase(), price: parseFloat(document.getElementById('newItemPrice').value) || 0, unit: document.getElementById('newItemUnit').value, taxRate: parseFloat(document.getElementById('newItemGst').value) || 0, desc: document.getElementById('newItemDesc').value || "" }; itemsCatalog.push(newItem); document.querySelectorAll('#itemsTableBody .item-select').forEach(select => { let curVal = select.value; select.innerHTML = itemsCatalog.map(i => `<option value="${i.id}">${escapeHtml(i.name)}</option>`).join(''); if (itemsCatalog.some(i => i.id === curVal)) select.value = curVal; }); bootstrap.Modal.getInstance(document.getElementById('createItemModal')).hide(); alert(`Item "${name}" created`); });
 
         document.getElementById('billNumberDisplay').innerText = `PB-${new Date().getFullYear()}-${String(billCounter).padStart(3, '0')}`;
         billCounter++;

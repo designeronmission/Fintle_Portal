@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fintle | Create New Payment</title>
+    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+
+    <style>
+
+    
+        /* Form Card Styles */
+        .form-card {
+            background: white;
+            border-radius: 24px;
+            border: 1px solid #edf2f7;
+            padding: 32px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+        }
+
+        .form-section-title {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #eef2ff;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-section-title i {
+            color: #2a3b82;
+            font-size: 1.2rem;
+        }
+
+        .form-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: #475569;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .required-field::after {
+            content: " *";
+            color: #ef4444;
+        }
+
+        .form-control,
+        .form-select,
+        textarea.form-control {
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 0.7rem 1rem;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .form-control:focus,
+        .form-select:focus,
+        textarea.form-control:focus {
+            border-color: #2a3b82;
+            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
+            outline: none;
+        }
+
+        .input-group-custom {
+            position: relative;
+        }
+
+        .input-group-custom .input-icon {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .input-group-custom .form-control,
+        .input-group-custom .form-select {
+            padding-left: 38px;
+        }
+
+        .btn-primary {
+            background-color: #2a3b82;
+            border-color: #2a3b82;
+            color: #fff;
+            border-radius: 40px;
+            padding: 10px 28px;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1f2e6e;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
+        }
+
+        .btn-outline-secondary {
+            border-radius: 40px;
+            padding: 10px 28px;
+            font-weight: 500;
+            border: 1.5px solid #e2e8f0;
+            background: white;
+            color: #475569;
+        }
+
+        .btn-outline-secondary:hover {
+            background: #f8fafc;
+            border-color: #cbd5e1;
+            color: #1e293b;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            margin-top: 32px;
+            padding-top: 24px;
+            border-top: 1px solid #eef2f6;
+        }
+
+        .info-badge {
+            background: #eef2ff;
+            color: #2a3b82;
+            padding: 6px 14px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 600;
+        }
+
+        .voucher-preview {
+            background: #f8fafc;
+            border-radius: 12px;
+            padding: 12px 16px;
+            border: 1px solid #e2e8f0;
+            font-family: monospace;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #2a3b82;
+        }
+
+        .breadcrumb-item a {
+            text-decoration: none;
+            color: #64748b;
+        }
+
+        .breadcrumb-item.active {
+            color: #2a3b82;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .form-card {
+                padding: 20px;
+            }
+            .action-buttons {
+                flex-direction: column;
+            }
+            .action-buttons .btn {
+                width: 100%;
+            }
+        }
+
+        /* Account Head & Account dropdown styling */
+        .account-group {
+            background: #fefce8;
+            border-radius: 16px;
+            padding: 16px;
+            margin-top: 8px;
+            border: 1px solid #fde047;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main-wrapper">
+        <!-- Sidebar -->
+        <aside class="fintle-side" id="fintleSidebarRoot">
+            <div class="side-header p-3">
+                <div class="brand-wrap">
+                    <div class="brand-logo">
+                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle" onerror="this.src='https://placehold.co/120x40?text=Fintle'">
+                    </div>
+                </div>
+            </div>
+            <div class="fintle-nav-scroll">
+                <ul class="fintle-menu-list" id="dynamicMenuList">
+                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+                    <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+                    <li class="menu-item has-sub" data-submenu-id="itemsSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="itemsSub">
+                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
+                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC Codes</a></li>
+                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="purchaseSub">
+                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
+                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
+                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
+                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub" data-submenu-id="salesSub">
+                        <div class="nav-link-side submenu-trigger-side">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level" id="salesSub">
+                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
+                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
+                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
+                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-item has-sub open" data-submenu-id="accSub">
+                        <div class="nav-link-side submenu-trigger-side active">
+                            <div class="trigger-wrap">
+                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span>
+                                <span class="dropdown-arrow">▶</span>
+                            </div>
+                        </div>
+                        <ul class="submenu-level show-sub" id="accSub">
+                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
+                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
+                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
+                            <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
+                            <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
+                            <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
+                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
+                        </ul>
+                    </li>
+                    <li class="menu-divider-custom"></li>
+                </ul>
+            </div>
+            <div class="side-footer">
+                <ul class="fintle-menu-list">
+                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li>
+                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <div class="page-wrapper">
+            <header class="topbar">
+                <div class="with-vertical">
+                    <nav class="navbar navbar-expand-lg p-0">
+                        <ul class="navbar-nav">
+                            <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
+                            <li class="nav-item d-none d-lg-flex dropdown">
+                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+                            </li>
+                        </ul>
+                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
+                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
+                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                            <div class="d-flex align-items-center justify-content-between">
+                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                                    <li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
+                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </header>
+
+            <div class="body-wrapper p-3">
+                <div class="container-fluid p-0">
+                    <!-- Breadcrumb -->
+                    <div class="card card-body py-3 mb-3">
+                        <div class="row align-items-center">
+                            <div class="col-12">
+                                <div class="d-sm-flex align-items-center justify-space-between">
+                                    <h4 class="mb-4 mb-sm-0 card-title">Create New Payment</h4>
+                                    <nav aria-label="breadcrumb" class="ms-auto">
+                                        <ol class="breadcrumb">
+                                            <li class="breadcrumb-item d-flex align-items-center">
+                                                <a class="text-muted text-decoration-none d-flex" href="index.html"><iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon></a>
+                                            </li>
+                                            <li class="breadcrumb-item"><a href="account-master.html">Accounts</a></li>
+                                            <li class="breadcrumb-item"><a href="bank-payments.html">Bank Payments</a></li>
+                                            <li class="breadcrumb-item active">Create Payment</li>
+                                        </ol>
+                                    </nav>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Main Form Card with exact fields -->
+                    <div class="form-card">
+                        <div class="form-section-title">
+                            <i class="fas fa-credit-card"></i>
+                            <span>Payment Information</span>
+                            <span class="info-badge ms-auto">All fields marked with * are required</span>
+                        </div>
+
+                        <form id="createPaymentForm" novalidate>
+                            <!-- Row 1: Financial Year & Date -->
+                            <div class="row g-4">
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Financial Year</label>
+                                    <select class="form-select" id="financialYear" required>
+                                        <option value="">-- Select Financial Year --</option>
+                                        <option value="2023-24">2023-24 (April 2023 - March 2024)</option>
+                                        <option value="2024-25" selected>2024-25 (April 2024 - March 2025)</option>
+                                        <option value="2025-26">2025-26 (April 2025 - March 2026)</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select financial year</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Date</label>
+                                    <div class="input-group-custom">
+                                        <i class="fas fa-calendar-alt input-icon"></i>
+                                        <input type="date" class="form-control" id="paymentDate" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please select payment date</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 2: Voucher No & Bank Account -->
+                            <div class="row g-4 mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Voucher No</label>
+                                    <div class="input-group-custom">
+                                        <i class="fas fa-hashtag input-icon"></i>
+                                        <input type="text" class="form-control" id="voucherNo" placeholder="Auto-generated" readonly style="background:#f8fafc; font-weight:600;">
+                                    </div>
+                                    <small class="text-muted">Auto-generated based on financial year</small>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Bank Account</label>
+                                    <select class="form-select" id="bankAccount" required>
+                                        <option value="">-- Select Bank Account --</option>
+                                        <option value="HDFC Bank - 123456789">HDFC Bank - 123456789 (Current Account)</option>
+                                        <option value="SBI Bank - 987654321">SBI Bank - 987654321 (Savings Account)</option>
+                                        <option value="ICICI Bank - 456789123">ICICI Bank - 456789123 (Current Account)</option>
+                                        <option value="Axis Bank - 789123456">Axis Bank - 789123456 (Business Account)</option>
+                                        <option value="Kotak Bank - 654321987">Kotak Bank - 654321987 (Savings Account)</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select bank account</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 3: Account Head & Account (Dynamic) -->
+                            <div class="row g-4 mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Account Head</label>
+                                    <select class="form-select" id="accountHead" required>
+                                        <option value="">-- Select Account Head --</option>
+                                        <option value="assets">Assets</option>
+                                        <option value="liabilities">Liabilities</option>
+                                        <option value="equity">Shareholder's Equity</option>
+                                        <option value="income">Income</option>
+                                        <option value="expense">Expenses</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select account head</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Account</label>
+                                    <select class="form-select" id="accountSelect" required disabled>
+                                        <option value="">-- First select Account Head --</option>
+                                    </select>
+                                    <div class="invalid-feedback">Please select account</div>
+                                </div>
+                            </div>
+
+                            <!-- Row 4: Amount & Description -->
+                            <div class="row g-4 mt-3">
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Amount (₹)</label>
+                                    <div class="input-group-custom">
+                                        <i class="fas fa-rupee-sign input-icon"></i>
+                                        <input type="number" class="form-control" id="amount" step="0.01" placeholder="Enter amount" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please enter valid amount</div>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label required-field">Description</label>
+                                    <div class="input-group-custom">
+                                        <i class="fas fa-align-left input-icon"></i>
+                                        <input type="text" class="form-control" id="description" placeholder="Enter payment description / purpose" required>
+                                    </div>
+                                    <div class="invalid-feedback">Please enter description</div>
+                                </div>
+                            </div>
+
+
+                            <!-- Action Buttons -->
+                            <div class="action-buttons">
+                                <button type="button" class="btn btn-outline-secondary" onclick="window.location.href='bank-payments.html'">
+                                    <i class="fas fa-arrow-left me-2"></i>Cancel & Go Back
+                                </button>
+                                <button type="button" class="btn btn-outline-secondary" id="resetBtn">
+                                    <i class="fas fa-undo-alt me-2"></i>Reset Form
+                                </button>
+                                <button type="submit" class="btn btn-primary" id="submitBtn">
+                                    <i class="fas fa-check-circle me-2"></i>Create Payment
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
+        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    </div>
+
+    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/libs/js/simplebar.min.js"></script>
+    <script src="assets/libs/js/app.init.js"></script>
+    <script src="assets/libs/js/theme.js"></script>
+    <script src="assets/libs/js/app.min.js"></script>
+    <script src="assets/libs/js/sidebarmenu.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+
+    <script>
+        // Account data matching the General Ledger structure
+        const accountHeads = [
+            { id: "assets", name: "Assets" },
+            { id: "liabilities", name: "Liabilities" },
+            { id: "equity", name: "Shareholder's Equity" },
+            { id: "income", name: "Income" },
+            { id: "expense", name: "Expenses" }
+        ];
+
+        const accounts = [
+            { id: "cash", name: "Cash in Hand", head: "assets", code: "1101", type: "debit" },
+            { id: "hdfc_bank", name: "HDFC Bank", head: "assets", code: "1102", type: "debit" },
+            { id: "sbi_bank", name: "SBI Bank", head: "assets", code: "1103", type: "debit" },
+            { id: "inventory", name: "Inventory", head: "assets", code: "1201", type: "debit" },
+            { id: "receivables", name: "Trade Receivables", head: "assets", code: "1301", type: "debit" },
+            { id: "fixed_assets", name: "Fixed Assets", head: "assets", code: "1401", type: "debit" },
+            { id: "payables", name: "Trade Payables", head: "liabilities", code: "2101", type: "credit" },
+            { id: "borrowings", name: "Long Term Borrowings", head: "liabilities", code: "2201", type: "credit" },
+            { id: "share_capital", name: "Equity Share Capital", head: "equity", code: "3101", type: "credit" },
+            { id: "reserves", name: "Reserves & Surplus", head: "equity", code: "3102", type: "credit" },
+            { id: "sales", name: "Sales Revenue", head: "income", code: "4101", type: "credit" },
+            { id: "service_revenue", name: "Service Revenue", head: "income", code: "4102", type: "credit" },
+            { id: "cogs", name: "Cost of Goods Sold", head: "expense", code: "5101", type: "debit" },
+            { id: "salaries", name: "Salaries Expense", head: "expense", code: "5201", type: "debit" },
+            { id: "rent", name: "Rent Expense", head: "expense", code: "5202", type: "debit" }
+        ];
+
+        // Set default date to today
+        document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+
+        // Generate voucher number based on financial year
+        function generateVoucherNumber() {
+            const financialYear = document.getElementById('financialYear').value;
+            if (!financialYear) return 'BP-XXXX-XXX';
+            const yearPrefix = financialYear.split('-')[0];
+            let currentSeq = localStorage.getItem('paymentCount');
+            if (!currentSeq) currentSeq = '111';
+            const nextSeq = String(parseInt(currentSeq) + 1).padStart(3, '0');
+            return `BP-${yearPrefix}-${nextSeq}`;
+        }
+
+        function updateVoucherPreview() {
+            const fy = document.getElementById('financialYear').value;
+            if (fy) {
+                const yearPrefix = fy.split('-')[0];
+                let currentSeq = localStorage.getItem('paymentCount');
+                if (!currentSeq) currentSeq = '111';
+                const nextSeq = String(parseInt(currentSeq) + 1).padStart(3, '0');
+                const voucher = `BP-${yearPrefix}-${nextSeq}`;
+                document.getElementById('voucherNo').value = voucher;
+                document.getElementById('voucherPreviewText').innerText = voucher;
+            } else {
+                document.getElementById('voucherNo').value = '';
+                document.getElementById('voucherPreviewText').innerText = 'Select financial year first';
+            }
+        }
+
+        // Populate Account dropdown based on selected Account Head
+        function populateAccountDropdown() {
+            const selectedHead = document.getElementById('accountHead').value;
+            const accountSelect = document.getElementById('accountSelect');
+            
+            if (!selectedHead) {
+                accountSelect.innerHTML = '<option value="">-- First select Account Head --</option>';
+                accountSelect.disabled = true;
+                accountSelect.required = false;
+                return;
+            }
+            
+            const filteredAccounts = accounts.filter(acc => acc.head === selectedHead);
+            accountSelect.innerHTML = '<option value="">-- Select Account --</option>';
+            
+            filteredAccounts.forEach(acc => {
+                accountSelect.innerHTML += `<option value="${acc.id}" data-code="${acc.code}" data-type="${acc.type}">${acc.code} - ${acc.name}</option>`;
+            });
+            
+            accountSelect.disabled = false;
+            accountSelect.required = true;
+        }
+
+        // Event listeners for dynamic dropdowns
+        document.getElementById('accountHead').addEventListener('change', populateAccountDropdown);
+        document.getElementById('financialYear').addEventListener('change', updateVoucherPreview);
+        
+        // Initial voucher generation
+        updateVoucherPreview();
+        populateAccountDropdown(); // initialize disabled state
+
+        // Show toast message
+        function showToast(message, type = 'success') {
+            const toastDiv = document.getElementById('liveToastMsg');
+            const toastText = document.getElementById('toastText');
+            toastText.innerHTML = message;
+            toastDiv.style.display = 'block';
+            setTimeout(() => toastDiv.style.display = 'none', 3000);
+        }
+
+        // Reset form
+        document.getElementById('resetBtn').addEventListener('click', function() {
+            document.getElementById('createPaymentForm').reset();
+            document.getElementById('paymentDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('financialYear').value = '2024-25';
+            document.getElementById('accountHead').value = '';
+            populateAccountDropdown();
+            updateVoucherPreview();
+            document.querySelectorAll('.is-invalid').forEach(el => el.classList.remove('is-invalid'));
+            showToast('Form has been reset', 'info');
+        });
+
+        // Form submission handler
+        document.getElementById('createPaymentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate required fields
+            let isValid = true;
+            const requiredFields = ['financialYear', 'paymentDate', 'bankAccount', 'accountHead', 'accountSelect', 'amount', 'description'];
+            
+            requiredFields.forEach(fieldId => {
+                const field = document.getElementById(fieldId);
+                if (!field.value || (field.value.trim && field.value.trim() === '')) {
+                    field.classList.add('is-invalid');
+                    isValid = false;
+                } else {
+                    field.classList.remove('is-invalid');
+                }
+            });
+            
+            // Additional amount validation
+            const amount = parseFloat(document.getElementById('amount').value);
+            if (isNaN(amount) || amount <= 0) {
+                document.getElementById('amount').classList.add('is-invalid');
+                isValid = false;
+            }
+            
+            if (!isValid) {
+                showToast('Please fill all required fields correctly', 'error');
+                return;
+            }
+            
+            // Get selected account details
+            const accountSelect = document.getElementById('accountSelect');
+            const selectedAccountId = accountSelect.value;
+            const selectedOption = accountSelect.options[accountSelect.selectedIndex];
+            const accountCode = selectedOption?.getAttribute('data-code') || '';
+            const accountName = selectedOption?.text?.split(' - ')[1] || '';
+            
+            // Collect payment data
+            const paymentData = {
+                id: Date.now(),
+                voucherNo: document.getElementById('voucherNo').value,
+                date: document.getElementById('paymentDate').value,
+                financialYear: document.getElementById('financialYear').value,
+                bankAccount: document.getElementById('bankAccount').value,
+                accountHead: document.getElementById('accountHead').value,
+                accountId: selectedAccountId,
+                accountCode: accountCode,
+                accountName: accountName,
+                amount: amount,
+                description: document.getElementById('description').value,
+                paymentMode: document.getElementById('paymentMode').value || '',
+                status: document.getElementById('paymentStatus').value,
+                utrNo: document.getElementById('utrNo').value || '',
+                createdOn: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                createdBy: "Admin",
+                lastUpdatedOn: new Date().toISOString().slice(0, 19).replace('T', ' '),
+                lastUpdatedBy: "Admin"
+            };
+            
+            // Store in localStorage
+            let existingPayments = localStorage.getItem('bankPayments');
+            let paymentsArray = existingPayments ? JSON.parse(existingPayments) : [];
+            paymentsArray.push(paymentData);
+            localStorage.setItem('bankPayments', JSON.stringify(paymentsArray));
+            
+            // Update sequence counter
+            let currentSeq = localStorage.getItem('paymentCount');
+            let newSeq = currentSeq ? parseInt(currentSeq) + 1 : 112;
+            localStorage.setItem('paymentCount', newSeq);
+            
+            showToast(`Payment ${paymentData.voucherNo} created successfully! Redirecting...`, 'success');
+            
+            // Redirect to bank payments page after 1.5 seconds
+            setTimeout(() => {
+                window.location.href = 'bank-payments.html';
+            }, 1500);
+        });
+        
+        // Remove invalid class on input
+        document.querySelectorAll('.form-control, .form-select').forEach(field => {
+            field.addEventListener('input', function() {
+                this.classList.remove('is-invalid');
+            });
+            field.addEventListener('change', function() {
+                this.classList.remove('is-invalid');
+            });
+        });
+        
+        // Sidebar toggle for mobile
+        document.getElementById('headerCollapse')?.addEventListener('click', function() {
+            const sidebar = document.querySelector('.fintle-side');
+            if (sidebar) {
+                const transform = sidebar.style.transform;
+                sidebar.style.transform = transform === 'translateX(0px)' ? 'translateX(-100%)' : 'translateX(0px)';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
