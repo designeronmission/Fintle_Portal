@@ -752,7 +752,6 @@
 
 
     /* account master */
-
     .tree-container {
       background: white;
       border-radius: 16px;
@@ -777,20 +776,33 @@
     .tree-item {
       display: flex;
       align-items: center;
-      padding: 8px 12px;
-      margin: 2px 0;
-      border-radius: 8px;
+      justify-content: space-between;
+      padding: 10px 12px;
+      margin: 4px 0;
+      border-radius: 10px;
       cursor: pointer;
       transition: all 0.2s;
-      gap: 10px;
+      gap: 12px;
+      background: white;
+      border: 1px solid transparent;
     }
 
     .tree-item:hover {
       background: #f8fafc;
+      border-color: #e2e8f0;
     }
 
     .tree-item.active {
       background: #eef2ff;
+      border-color: #c7d2fe;
+    }
+
+    .tree-item-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex: 1;
+      min-width: 0;
     }
 
     .toggle-icon {
@@ -801,14 +813,22 @@
       justify-content: center;
       cursor: pointer;
       color: #64748b;
+      flex-shrink: 0;
+      transition: color 0.2s;
+    }
+    .toggle-icon:hover {
+      color: #233578;
     }
 
     .folder-icon {
       color: #2a3b82;
+      flex-shrink: 0;
+      width: 20px;
     }
-
     .file-icon {
       color: #64748b;
+      flex-shrink: 0;
+      width: 20px;
     }
 
     .account-name {
@@ -822,13 +842,53 @@
       font-size: 0.7rem;
       color: #94a3b8;
       margin-left: 6px;
+      font-weight: normal;
     }
 
+    /* Right side badges container - always visible at end */
+    .tree-item-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+
+    .type-badge {
+      font-size: 0.65rem;
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .type-assets {
+      background: #0284c7;
+      color: white;
+    }
+    .type-liabilities {
+      background: #dc2626;
+      color: white;
+    }
+    .type-equity {
+      background: #059669;
+      color: white;
+    }
+    .type-income {
+      background: #d97706;
+      color: white;
+    }
+    .type-expense {
+      background: #7c3aed;
+      color: white;
+    }
+
+    /* Account actions - edit/delete buttons */
     .account-actions {
       display: flex;
       gap: 6px;
+      align-items: center;
       opacity: 0;
-      transition: opacity 0.2s;
+      transition: opacity 0.2s ease;
     }
 
     .tree-item:hover .account-actions {
@@ -836,64 +896,34 @@
     }
 
     .account-action {
-      width: 28px;
-      height: 28px;
+      width: 30px;
+      height: 30px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      border-radius: 6px;
+      border-radius: 8px;
       cursor: pointer;
       color: #64748b;
+      background: white;
+      transition: all 0.2s;
+      border: 1px solid #e2e8f0;
     }
 
     .account-action:hover {
-      background: #e2e8f0;
+      background: #233578;
+      color: white;
+      border-color: #233578;
     }
 
-    .type-badge {
-      font-size: 0.65rem;
-      padding: 2px 8px;
-      border-radius: 20px;
-      font-weight: 500;
-    }
-
-    .type-assets {
-      background: #e0f2fe;
-      color: #0369a1;
-    }
-
-    .type-liabilities {
-      background: #fee2e2;
-      color: #b91c1c;
-    }
-
-    .type-equity {
-      background: #e6f7e6;
-      color: #10b981;
-    }
-
-    .type-income {
-      background: #fff3e3;
-      color: #d97706;
-    }
-
-    .type-expense {
-      background: #f3e8ff;
-      color: #7c3aed;
-    }
-
-    .form-card {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      border: 1px solid #e2e8f0;
-      height: calc(100vh - 200px);
-      overflow-y: auto;
+    .account-action.delete-action:hover {
+      background: #dc2626;
+      color: white;
+      border-color: #dc2626;
     }
 
     /* Search Bar Styles */
     .search-container {
-      margin-bottom: 16px;
+      margin-bottom: 20px;
       position: relative;
     }
     
@@ -957,7 +987,17 @@
       padding: 0 2px;
       font-weight: 600;
     }
-    
+
+    /* Form Card */
+    .form-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      border: 1px solid #e2e8f0;
+      height: calc(100vh - 200px);
+      overflow-y: auto;
+    }
+
     /* Minimal Delete Modal */
     .minimal-delete-modal .modal-content {
       border: none;
@@ -1012,7 +1052,11 @@
     }
 
 
-      /* Pagination - Clean & Below Table */
+
+    
+
+
+    /* Pagination - Clean & Below Table */
     .pagination-container {
       margin-top: 20px;
       padding-top: 16px;
@@ -1460,3 +1504,344 @@
         min-width: auto;
       }
     }
+
+
+
+
+
+
+     /* Main card container */
+    .voucher-card {
+      width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.02);
+      padding: 1.5rem 2rem 2rem 2rem;
+      transition: all 0.2s ease;
+    }
+
+    .relative-form {
+      position: relative;
+      width: 100%;
+      min-height: 460px;
+      margin-top: 0.5rem;
+    }
+
+    /* Header / Issue Date row */
+.header-row-bg {
+    background-color: #f0f4fa;
+    height: 60px;
+    width: 100%;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+    .issue-date-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+    }
+
+    .issue-date-label {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #3c4b5f;
+      letter-spacing: 0.2px;
+    }
+
+    .issue-date-input {
+      border: 1px solid #e2e8f0;
+      background: white;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-family: 'Inter', monospace;
+      font-size: 0.85rem;
+      color: #1e293b;
+      width: 180px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .issue-date-input:focus {
+      outline: none;
+      border-color: #2a3b82;
+      box-shadow: 0 0 0 2px rgba(42, 59, 130, 0.1);
+    }
+
+    /* Flatpickr calendar customization */
+    .flatpickr-calendar {
+      font-family: 'Inter', sans-serif;
+      border-radius: 16px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }
+
+    .flatpickr-day.selected {
+      background: #2a3b82;
+      border-color: #2a3b82;
+    }
+
+    /* Two column layout */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #151515;
+    }
+
+    .field-input {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      background: white;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .field-input:focus,
+    .description-input:focus,
+    .amount-input:focus {
+      outline: none;
+      border-color: #2a3b82;
+      box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
+    }
+
+    /* description area */
+    .description-section {
+      margin-bottom: 2rem;
+    }
+
+    .description-label {
+      font-weight: 500;
+    font-size: 0.85rem;
+    color: #151515;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .description-input {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      resize: vertical;
+      background: white;
+      min-height: 85px;
+      line-height: 1.45;
+    }
+
+    /* Amount Section - Now with Left Side Amount in Words */
+    .amount-wrapper {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .amount-in-words-box {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid #eef2f8;
+      min-height: 85px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .amount-words-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      color: #5b6e8c;
+      margin-bottom: 8px;
+    }
+
+    .amount-words-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e293b;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .amount-words-value.empty {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .amount-panel {
+      background-color: #f0f4fa;
+      border-radius: 5px;
+      padding: 0.7rem 1.2rem 0.9rem 1.2rem;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .amount-label-top {
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+      color: #4b5565;
+      letter-spacing: 0.3px;
+    }
+
+    .amount-input {
+      border: 1px solid white;
+      background: white;
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Inter', monospace;
+      color: #0f172a;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .amount-input:focus {
+      border-color: #2a3b82;
+    }
+
+    /* Buttons row */
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 2rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #eef2f8;
+    }
+
+    .btn-cancel {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 10px 28px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .btn-save {
+      background: #2a3b82;
+      border: none;
+      border-radius: 40px;
+      padding: 10px 32px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: white;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-save:hover {
+      background: #1f2e6e;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(42, 59, 130, 0.2);
+    }
+
+    /* toast notification */
+    .alert-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* responsiveness */
+    @media (max-width: 992px) {
+      .fintle-side {
+        transform: translateX(-100%);
+      }
+      .page-wrapper {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .voucher-card {
+        padding: 1.2rem;
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .amount-wrapper {
+        flex-direction: column;
+      }
+      .amount-panel {
+        width: 100%;
+      }
+      .header-row-bg {
+        justify-content: flex-start;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+    }
+
+    .field-input[type="text"],
+    .field-input[type="date"] {
+      font-size: 0.9rem;
+    }
+
+    ::placeholder {
+      color: #b9c2d0;
+      font-weight: 400;
+    }
+
+    .badge-voucher {
+    background: #2a3b82;
+    color: white;
+    padding: 6px 16px;
+    border-radius: 30px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}

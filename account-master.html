@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fintle | Account Master</title>
-  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+  <link rel="shortcut icon" type="image/png" href="#">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
@@ -19,6 +19,7 @@
 
   <div id="main-wrapper">
     <aside class="fintle-side" id="fintleSidebarRoot">
+      <!-- Header brand section -->
       <div class="side-header">
         <div class="brand-wrap">
           <div class="brand-logo">
@@ -26,31 +27,139 @@
           </div>
         </div>
       </div>
+
+      <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
       <div class="fintle-nav-scroll">
         <ul class="fintle-menu-list" id="dynamicMenuList">
-          <li class="menu-item"><a href="index.html" class="nav-link-side" id="dashboardNav"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
-          <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+          <!-- Dashboard item -->
+          <li class="menu-item">
+            <a href="index.html" class="nav-link-side" id="dashboardNav">
+              <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+              <span class="menu-text">Dashboard</span>
+            </a>
+          </li>
+
+          <!-- Inbox -->
+          <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon
+                icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+
+          <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
           <li class="menu-item has-sub" data-submenu-id="itemsSub">
-            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div></div>
-            <ul class="submenu-level" id="itemsSub"><li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li><li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC Codes</a></li><li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li></ul>
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="menu-text">Items</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="itemsSub">
+              <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a>
+              </li>
+              <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC
+                  Codes</a></li>
+              <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span>
+                  Categories</a></li>
+            </ul>
           </li>
+
+          <!-- PURCHASE (open by default) -->
           <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span></div></div>
-            <ul class="submenu-level" id="purchaseSub"><li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li><li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li><li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li><li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li></ul>
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                  <span class="menu-text">Purchase</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="purchaseSub">
+              <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span>
+                  Suppliers</a></li>
+              <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span>
+                  Purchase Order</a></li>
+              <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span>
+                  Purchase Bill</a></li>
+              <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span
+                    class="dot-marker"></span> Supplier Statement</a></li>
+            </ul>
           </li>
+
+          <!-- SALES with submenu -->
           <li class="menu-item has-sub" data-submenu-id="salesSub">
-            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span><span class="dropdown-arrow">▶</span></div></div>
-            <ul class="submenu-level" id="salesSub"><li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li><li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li><li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li><li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li></ul>
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="menu-text">Sales</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="salesSub">
+              <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span>
+                  Customers</a></li>
+              <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span>
+                  Enquiries</a></li>
+              <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span>
+                  Estimates</a></li>
+              <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span>
+                  Invoices</a></li>
+            </ul>
           </li>
+
+          <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
           <li class="menu-item has-sub open" data-submenu-id="accSub">
-            <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span><span class="dropdown-arrow">▶</span></div></div>
-            <ul class="submenu-level show-sub" id="accSub"><li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li><li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li><li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li><li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li><li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li><li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li><li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li></ul>
+            <div class="nav-link-side submenu-trigger-side active">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                  <span class="menu-text">Accounts</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level show-sub" id="accSub">
+              <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span>
+                  Account Master</a></li>
+              <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span>
+                  Journals</a></li>
+              <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span>
+                  Vouchers</a></li>
+              <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span>
+                  Bank Payments</a></li>
+              <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span>
+                  General Ledger</a></li>
+              <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span>
+                  Trial Balance</a></li>
+              <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span>
+                  Balance Sheet</a></li>
+            </ul>
           </li>
+
+          <!-- Divider -->
           <li class="menu-divider-custom"></li>
         </ul>
       </div>
+
+      <!-- Footer section: settings & logout -->
       <div class="side-footer">
-        <ul class="fintle-menu-list"><li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li><li class="menu-item logout-link"><a href="#" class="nav-link-side" id="logoutActionBtn"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li></ul>
+        <ul class="fintle-menu-list">
+          <li class="menu-item">
+            <a href="#" class="nav-link-side">
+              <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+              <span class="menu-text">Settings</span>
+            </a>
+          </li>
+          <li class="menu-item logout-link">
+            <a href="#" class="nav-link-side" id="logoutActionBtn">
+              <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+              <span class="menu-text">Logout</span>
+            </a>
+          </li>
+        </ul>
       </div>
     </aside>
 
@@ -59,25 +168,162 @@
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
-              <li class="nav-item d-none d-lg-flex dropdown"><div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div></li>
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
+                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                    class="fs-6"></iconify-icon></a></li>
+
+              <li class="nav-item d-none d-lg-flex dropdown">
+                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
+                    style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
+                    onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone"
+                      class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
+              </li>
+
             </ul>
-            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
-            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav"><div class="d-flex align-items-center justify-content-between"><ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center"><li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li><li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li></ul></div></div>
+            <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
+            </div>
+
+
+            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
+              data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone"
+                class="fs-6"></iconify-icon></a>
+
+
+
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+              <div class="d-flex align-items-center justify-content-between">
+
+
+                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+                  <li class="nav-item dropdown"><a href="javascript:void(0)"
+                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
+                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon
+                        icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item d-block d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle"
+                      href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#searchModal"><iconify-icon
+                        icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon></a></li>
+                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative"
+                      href="javascript:void(0)" id="drop2" aria-expanded="false"><iconify-icon
+                        icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a>
+                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
+                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5><span
+                          class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
+                      </div>
+                      <div class="message-body" data-simplebar><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger"><iconify-icon
+                              icon="solar:widget-3-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Launch Admin</h6><span class="d-block fs-2">9:30 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just see the my new
+                              admin!</span>
+                          </div>
+                        </a><a href="javascript:void(0)"
+                          class="py-6 px-7 d-flex align-items-center dropdown-item gap-3"><span
+                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary"><iconify-icon
+                              icon="solar:calendar-line-duotone"></iconify-icon></span>
+                          <div class="w-75">
+                            <div class="d-flex align-items-center justify-content-between">
+                              <h6 class="mb-1 fw-semibold">Event today</h6><span class="d-block fs-2">9:15 AM</span>
+                            </div><span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
+                              event</span>
+                          </div>
+                        </a></div>
+                      <div class="py-6 px-7 mb-1"><button class="btn btn-primary w-100">See All Notifications</button>
+                      </div>
+                    </div>
+                  </li>
+                  <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)" id="drop1"
+                      aria-expanded="false">
+                      <div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png"
+                          class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div>
+                    </a>
+                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up">
+                      <div class="position-relative px-4 pt-3 pb-2">
+                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6"><img
+                            src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
+                            alt="Fintle-img" />
+                          <div>
+                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span></h5>
+                            <p class="mb-0 text-dark"><a href="/cdn-cgi/l/email-protection"
+                                class="__cf_email__">[email&#160;protected]</a></p>
+                          </div>
+                        </div>
+                        <div class="message-body"><a href="../main/page-user-profile.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Profile</a><a href="../main/page-pricing.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Subscription</a><a href="../main/app-invoice.html"
+                            class="p-2 dropdown-item h6 rounded-1">My Invoice <span
+                              class="badge bg-danger-subtle text-danger rounded ms-8">4</span></a><a
+                            href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">Account
+                            Settings</a><a href="../main/authentication-login2.html"
+                            class="p-2 dropdown-item h6 rounded-1">Sign Out</a></div>
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
           </nav>
-          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar"><nav class="sidebar-nav scroll-sidebar"><div class="offcanvas-header justify-content-between"><a href="../main/index.html" class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button></div><div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)"><ul id="sidebarnav"><li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)" aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone" class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a><ul aria-expanded="false" class="collapse first-level my-3 ps-3"><li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center"><div class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center"><iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon></div><div><h6 class="mb-0 bg-hover-primary">Chat Application</h6><span class="fs-11 d-block text-body-color">New messages arrived</span></div></a></li><li class="sidebar-item py-2"><a href="../main/app-invoice.html" class="d-flex align-items-center"><div class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center"><iconify-icon icon="solar:bill-list-bold-duotone" class="fs-7 text-secondary"></iconify-icon></div><div><h6 class="mb-0 bg-hover-primary">Invoice App</h6><span class="fs-11 d-block text-body-color">Get latest invoice</span></div></a></li></ul></li></ul></div></nav></div>
+          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar">
+            <nav class="sidebar-nav scroll-sidebar">
+              <div class="offcanvas-header justify-content-between"><a href="../main/index.html"
+                  class="text-nowrap logo-img"><img src="assets/images/logo/fintle_logo.png" alt="Logo"
+                    class="logo-image" /></a><button type="button" class="btn-close" data-bs-dismiss="offcanvas"
+                  aria-label="Close"></button></div>
+              <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
+                <ul id="sidebarnav">
+                  <li class="sidebar-item"><a class="sidebar-link has-arrow ms-0" href="javascript:void(0)"
+                      aria-expanded="false"><span><iconify-icon icon="solar:slider-vertical-line-duotone"
+                          class="fs-7"></iconify-icon></span><span class="hide-menu">Apps</span></a>
+                    <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
+                      <li class="sidebar-item py-2"><a href="../main/app-chat.html" class="d-flex align-items-center">
+                          <div
+                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6><span
+                              class="fs-11 d-block text-body-color">New messages arrived</span>
+                          </div>
+                        </a></li>
+                      <li class="sidebar-item py-2"><a href="../main/app-invoice.html"
+                          class="d-flex align-items-center">
+                          <div
+                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
+                            <iconify-icon icon="solar:bill-list-bold-duotone"
+                              class="fs-7 text-secondary"></iconify-icon>
+                          </div>
+                          <div>
+                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6><span
+                              class="fs-11 d-block text-body-color">Get latest invoice</span>
+                          </div>
+                        </a></li>
+                    </ul>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
         </div>
       </header>
 
       <div class="body-wrapper p-3">
         <div class="container-fluid p-0">
-          <div class="card card-body py-3 mb-3">
+          <div class="card card-body py-3 mb-2 border-0 shadow-sm" style="border-radius: 16px;">
             <div class="row align-items-center">
               <div class="col-12">
-                <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title">Account Master</h4>
-                  <nav aria-label="breadcrumb" class="ms-auto"><ol class="breadcrumb"><li class="breadcrumb-item d-flex align-items-center"><a class="text-muted text-decoration-none d-flex" href="index.html"><iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon></a></li><li class="breadcrumb-item active">Account Master</li></ol></nav>
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-4 mb-sm-0 card-title fw-bold">Account Master</h4>
+                  <nav class="ms-auto">
+                    <ol class="breadcrumb mb-0">
+                      <li class="breadcrumb-item"> <a class="text-muted text-decoration-none d-flex" href="index.html">
+                          <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
+                        </a>
+                    </ol>
+                  </nav>
                 </div>
               </div>
             </div>
@@ -88,13 +334,16 @@
               <div class="tree-container">
                 <div class="d-flex justify-content-between align-items-center mb-3 pb-2 border-bottom">
                   <h5 class="fw-semibold mb-0">Chart of Accounts</h5>
-                  <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill" id="accountCount">0 Accounts</span>
+                  <span class="badge bg-primary-subtle text-primary px-3 py-1 rounded-pill" id="accountCount">0
+                    Accounts</span>
                 </div>
                 <div class="search-container">
                   <div class="search-input-group">
                     <i class="fas fa-search"></i>
-                    <input type="text" id="accountSearchInput" class="form-control" placeholder="Search accounts by name or code..." autocomplete="off">
-                    <button type="button" id="clearSearchBtn" class="search-clear-btn"><i class="fas fa-times-circle"></i></button>
+                    <input type="text" id="accountSearchInput" class="form-control"
+                      placeholder="Search accounts by name or code..." autocomplete="off">
+                    <button type="button" id="clearSearchBtn" class="search-clear-btn"><i
+                        class="fas fa-times-circle"></i></button>
                   </div>
                   <div class="search-info" id="searchInfo"></div>
                 </div>
@@ -136,11 +385,14 @@
                   </div>
                   <div class="mb-4">
                     <label class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Optional description"></textarea>
+                    <textarea class="form-control" id="description" rows="3"
+                      placeholder="Optional description"></textarea>
                   </div>
                   <div class="d-flex justify-content-end gap-3">
-                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="resetBtn"><i class="fas fa-undo-alt me-2"></i>Reset</button>
-                    <button type="submit" class="btn btn-primary rounded-pill px-4" id="submitBtn"><i class="fas fa-save me-2"></i>Create Account</button>
+                    <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="resetBtn"><i
+                        class="fas fa-undo-alt me-2"></i>Reset</button>
+                    <button type="submit" class="btn btn-primary rounded-pill px-4" id="submitBtn"><i
+                        class="fas fa-save me-2"></i>Create Account</button>
                   </div>
                 </form>
               </div>
@@ -151,36 +403,38 @@
     </div>
   </div>
 
+  <!-- Delete Modal -->
   <div class="modal fade minimal-delete-modal" id="deleteModal" tabindex="-1">
     <div class="modal-dialog modal-dialog-centered modal-sm">
       <div class="modal-content">
-        <div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button></div>
-        <div class="modal-body"><i class="fas fa-trash-alt text-danger mb-3" style="font-size: 2rem;"></i><h5 class="mb-2">Delete Account?</h5><p class="text-muted mb-0">Are you sure you want to delete <strong id="deleteAccountName"></strong>? This action cannot be undone. All sub-accounts will also be deleted.</p></div>
-        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button></div>
+        <div class="modal-header"><button type="button" class="btn-close" data-bs-dismiss="modal"
+            aria-label="Close"></button></div>
+        <div class="modal-body"><i class="fas fa-trash-alt text-danger mb-3" style="font-size: 2rem;"></i>
+          <h5 class="mb-2">Delete Account?</h5>
+          <p class="text-muted mb-0">Are you sure you want to delete <strong id="deleteAccountName"></strong>? This
+            action cannot be undone. All sub-accounts will also be deleted.</p>
+        </div>
+        <div class="modal-footer"><button type="button" class="btn btn-outline-secondary"
+            data-bs-dismiss="modal">Cancel</button><button type="button" class="btn btn-danger"
+            id="confirmDeleteBtn">Delete</button></div>
       </div>
     </div>
   </div>
 
-  <div id="liveToastMsg" class="toast-notify" style="display: none;"><i class="fas fa-bell me-2"></i> <span id="toastText">Action</span></div>
+  <div id="liveToastMsg" class="toast-notify" style="display: none;"><i class="fas fa-bell me-2"></i> <span
+      id="toastText">Action</span></div>
 
-  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/libs/js/simplebar.min.js"></script>
-  <script src="assets/libs/js/app.init.js"></script>
-  <script src="assets/libs/js/theme.js"></script>
-  <script src="assets/libs/js/app.min.js"></script>
-  <script src="assets/libs/js/sidebarmenu.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
   <script>
-    // Account Data Structure - ALL folder accounts have expanded: true by default (first time open all tree)
+    // Account Data
     let accounts = [
       { id: "assets", name: "Assets", code: "1", parent: null, type: "assets", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "liabilities", name: "Liabilities", code: "2", parent: null, type: "liabilities", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "equity", name: "Equity", code: "3", parent: null, type: "equity", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "income", name: "Income", code: "4", parent: null, type: "income", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "expense", name: "Expense", code: "5", parent: null, type: "expense", level: 0, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
-
-      // Sub-parents - all expanded by default
       { id: "assets_current", name: "Current Assets", code: "1.1", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "assets_fixed", name: "Fixed Assets", code: "1.2", parent: "assets", type: "assets", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "assets_cash", name: "Cash & Bank", code: "1.1.1", parent: "assets_current", type: "assets", level: 2, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
@@ -188,8 +442,6 @@
       { id: "liab_current", name: "Current Liabilities", code: "2.1", parent: "liabilities", type: "liabilities", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "income_operating", name: "Operating Revenue", code: "4.1", parent: "income", type: "income", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
       { id: "expense_direct", name: "Direct Expenses", code: "5.1", parent: "expense", type: "expense", level: 1, isFolder: true, expanded: true, openingBalance: 0, description: "", isSystem: true },
-
-      // Leaf accounts
       { id: "bank_hdfc", name: "HDFC Bank", code: "1.1.1.1", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 25000, description: "HDFC Current Account", isSystem: false },
       { id: "bank_sbi", name: "SBI Bank", code: "1.1.1.2", parent: "assets_cash", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 15000, description: "SBI Business Account", isSystem: false },
       { id: "debtor_abc", name: "ABC Enterprises", code: "1.1.2.1", parent: "assets_sundry_debtors", type: "assets", level: 3, isFolder: false, expanded: false, openingBalance: 50000, description: "Outstanding receivables", isSystem: false },
@@ -200,182 +452,126 @@
     let accountToDelete = null;
     let currentSearchTerm = '';
 
-    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, function (m) { return m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'; }); }
-    
-    function highlightText(text, searchTerm) {
-      if (!searchTerm || searchTerm.trim() === '') return escapeHtml(text);
-      const escapedSearch = searchTerm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedSearch})`, 'gi');
-      return escapeHtml(text).replace(regex, '<span class="highlight-match">$1</span>');
-    }
+    function escapeHtml(str) { if (!str) return ''; return String(str).replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : '&gt;'); }
+    function highlightText(text, term) { if (!term) return escapeHtml(text); const regex = new RegExp(`(${term.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi'); return escapeHtml(text).replace(regex, '<span class="highlight-match">$1</span>'); }
 
     function generateAccountCode(parentId) {
-      if (!parentId) {
-        const rootCount = accounts.filter(a => a.parent === null).length + 1;
-        return String(rootCount);
-      }
+      if (!parentId) return String(accounts.filter(a => a.parent === null).length + 1);
       const parent = accounts.find(a => a.id === parentId);
-      if (parent) {
-        const siblings = accounts.filter(a => a.parent === parentId);
-        return parent.code + '.' + (siblings.length + 1);
-      }
+      if (parent) { const siblings = accounts.filter(a => a.parent === parentId); return parent.code + '.' + (siblings.length + 1); }
       return String(accounts.length + 1);
     }
-    
-    function shouldShowAccount(account) {
-      if (!currentSearchTerm || currentSearchTerm.trim() === '') return true;
-      const term = currentSearchTerm.toLowerCase();
-      return account.name.toLowerCase().includes(term) || 
-             account.code.toLowerCase().includes(term) ||
-             (account.description && account.description.toLowerCase().includes(term));
-    }
-    
-    function getMatchingAncestors(accountId) {
-      if (!currentSearchTerm || currentSearchTerm.trim() === '') return [];
-      const ancestors = [];
-      let current = accounts.find(a => a.id === accountId);
-      while (current && current.parent) {
-        const parent = accounts.find(a => a.id === current.parent);
-        if (parent) {
-          ancestors.push(parent.id);
-          current = parent;
-        } else break;
-      }
-      return ancestors;
+
+    function hasChildren(accId) { return accounts.some(a => a.parent === accId); }
+    function shouldShowAccount(acc) { if (!currentSearchTerm) return true; const t = currentSearchTerm.toLowerCase(); return acc.name.toLowerCase().includes(t) || acc.code.toLowerCase().includes(t); }
+    function getMatchingAncestors(id) { const ancestors = []; let cur = accounts.find(a => a.id === id); while (cur && cur.parent) { const p = accounts.find(a => a.id === cur.parent); if (p) { ancestors.push(p.id); cur = p; } else break; } return ancestors; }
+
+    function getParentClass(account) {
+      if (!hasChildren(account.id) && account.parent !== null) return '';
+      return `parent-${account.type}`;
     }
 
     function renderTree() {
       const container = document.getElementById('accountTree');
       if (!container) return;
       container.innerHTML = '';
-
-      const searchTerm = currentSearchTerm;
-      const rootAccounts = accounts.filter(a => a.parent === null);
-      
-      let visibleCount = 0;
-      const matchingIds = new Set();
-      
-      if (searchTerm && searchTerm.trim() !== '') {
-        accounts.forEach(account => {
-          if (shouldShowAccount(account)) {
-            matchingIds.add(account.id);
-            getMatchingAncestors(account.id).forEach(ancId => matchingIds.add(ancId));
-          }
-        });
-        visibleCount = matchingIds.size;
-      } else {
-        visibleCount = accounts.length;
-      }
-      
+      const term = currentSearchTerm;
+      let matchingIds = new Set();
+      if (term) { accounts.forEach(acc => { if (shouldShowAccount(acc)) { matchingIds.add(acc.id); getMatchingAncestors(acc.id).forEach(id => matchingIds.add(id)); } }); }
+      const visibleCount = term ? matchingIds.size : accounts.length;
       const searchInfo = document.getElementById('searchInfo');
-      if (searchInfo) {
-        if (searchTerm && searchTerm.trim() !== '') {
-          searchInfo.innerHTML = `<i class="fas fa-filter me-1"></i>Found ${visibleCount} matching account${visibleCount !== 1 ? 's' : ''} for "${escapeHtml(searchTerm)}"`;
-        } else {
-          searchInfo.innerHTML = '';
-        }
-      }
-      
-      const shouldExpand = (account) => {
-        if (searchTerm && searchTerm.trim() !== '') return matchingIds.has(account.id);
-        return account.expanded === true;
-      };
-      
-      rootAccounts.forEach(account => {
-        if (!searchTerm || (searchTerm && matchingIds.has(account.id))) {
-          renderNode(account, container, shouldExpand, matchingIds, searchTerm);
-        }
-      });
-
+      if (searchInfo) searchInfo.innerHTML = term ? `<i class="fas fa-filter me-1"></i>Found ${visibleCount} matching account${visibleCount !== 1 ? 's' : ''} for "${escapeHtml(term)}"` : '';
       document.getElementById('accountCount').innerText = accounts.length + ' Accounts';
-      
       const clearBtn = document.getElementById('clearSearchBtn');
-      if (clearBtn) clearBtn.style.display = (searchTerm && searchTerm.trim() !== '') ? 'block' : 'none';
+      if (clearBtn) clearBtn.style.display = (term && term.trim() !== '') ? 'block' : 'none';
+      const roots = accounts.filter(a => a.parent === null);
+      roots.forEach(root => { if (!term || matchingIds.has(root.id)) renderNode(root, container, (acc) => term ? matchingIds.has(acc.id) : acc.expanded === true, matchingIds, term); });
     }
 
-    function renderNode(account, parentElement, shouldExpandFn, matchingIds, searchTerm) {
+    function renderNode(account, parentEl, shouldExpandFn, matchingIds, searchTerm) {
       const li = document.createElement('li');
-      li.dataset.id = account.id;
-
       const children = accounts.filter(a => a.parent === account.id);
-      const hasChildren = children.length > 0;
-      const isExpanded = shouldExpandFn(account);
-      const shouldShowChildren = isExpanded && hasChildren;
+      const hasKids = children.length > 0;
+      const expanded = shouldExpandFn(account);
 
       const div = document.createElement('div');
       div.className = 'tree-item';
       if (account.id === selectedAccountId) div.classList.add('active');
 
-      if (hasChildren || account.isFolder) {
+      // Add parent background class for accounts that have children (folders)
+      const parentClass = getParentClass(account);
+      if (parentClass) div.classList.add(parentClass);
+
+      const leftDiv = document.createElement('div');
+      leftDiv.className = 'tree-item-left';
+
+      // Toggle
+      if (hasKids || account.isFolder) {
         const toggleSpan = document.createElement('span');
         toggleSpan.className = 'toggle-icon';
-        toggleSpan.innerHTML = isExpanded ? '<i class="fas fa-minus-square"></i>' : '<i class="fas fa-plus-square"></i>';
-        toggleSpan.onclick = (e) => {
-          e.stopPropagation();
-          if (searchTerm && searchTerm.trim() !== '') {
-            renderTree();
-          } else {
-            account.expanded = !account.expanded;
-            renderTree();
-          }
-        };
-        div.appendChild(toggleSpan);
-      } else {
-        const spacer = document.createElement('span');
-        spacer.style.width = '24px';
-        spacer.style.display = 'inline-block';
-        div.appendChild(spacer);
-      }
+        toggleSpan.innerHTML = expanded ? '<i class="fas fa-minus-square"></i>' : '<i class="fas fa-plus-square"></i>';
+        toggleSpan.onclick = (e) => { e.stopPropagation(); if (searchTerm) renderTree(); else { account.expanded = !account.expanded; renderTree(); } };
+        leftDiv.appendChild(toggleSpan);
+      } else { const sp = document.createElement('span'); sp.style.width = '24px'; leftDiv.appendChild(sp); }
 
+      // Icon
       const iconSpan = document.createElement('span');
       iconSpan.className = account.isFolder ? 'folder-icon' : 'file-icon';
       iconSpan.innerHTML = account.isFolder ? '<i class="fas fa-folder"></i>' : '<i class="fas fa-file-alt"></i>';
-      div.appendChild(iconSpan);
+      leftDiv.appendChild(iconSpan);
 
+      // Name
       const nameSpan = document.createElement('span');
       nameSpan.className = 'account-name';
-      const highlightedName = highlightText(account.name, searchTerm);
-      const highlightedCode = highlightText(account.code, searchTerm);
-      nameSpan.innerHTML = `${highlightedName} <span class="account-code">(${highlightedCode})</span>`;
-      div.appendChild(nameSpan);
+      nameSpan.innerHTML = `${highlightText(account.name, searchTerm)}<span class="account-code">(${highlightText(account.code, searchTerm)})</span>`;
+      leftDiv.appendChild(nameSpan);
 
+      div.appendChild(leftDiv);
+
+      // Right side: badge + actions
+      const rightDiv = document.createElement('div');
+      rightDiv.className = 'tree-item-right';
+
+      // Type badge
       const typeBadge = document.createElement('span');
       typeBadge.className = `type-badge type-${account.type}`;
       typeBadge.innerText = account.type.charAt(0).toUpperCase() + account.type.slice(1);
-      div.appendChild(typeBadge);
+      rightDiv.appendChild(typeBadge);
 
+      // Actions (Edit/Delete) - appear on hover
+      const actionsDiv = document.createElement('div');
+      actionsDiv.className = 'account-actions';
       if (!account.isSystem) {
-        const actionsDiv = document.createElement('div');
-        actionsDiv.className = 'account-actions';
-
         const editBtn = document.createElement('span');
         editBtn.className = 'account-action';
         editBtn.innerHTML = '<i class="fas fa-edit"></i>';
-        editBtn.onclick = (e) => { e.stopPropagation(); editAccount(account); };
+        editBtn.onclick = (e) => { e.stopPropagation(); selectAccount(account); };
 
         const deleteBtn = document.createElement('span');
-        deleteBtn.className = 'account-action';
+        deleteBtn.className = 'account-action delete-action';
         deleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
         deleteBtn.onclick = (e) => { e.stopPropagation(); confirmDelete(account); };
 
         actionsDiv.appendChild(editBtn);
         actionsDiv.appendChild(deleteBtn);
-        div.appendChild(actionsDiv);
+        rightDiv.appendChild(actionsDiv);
+      } else {
+        // Empty spacer to maintain alignment
+        const spacer = document.createElement('span');
+        spacer.style.width = '68px';
+        rightDiv.appendChild(spacer);
       }
 
-      div.onclick = () => { selectAccount(account); };
+      div.appendChild(rightDiv);
+      div.onclick = () => selectAccount(account);
       li.appendChild(div);
 
-      if (shouldShowChildren && children.length > 0) {
+      if (expanded && hasKids) {
         const ul = document.createElement('ul');
-        children.forEach(child => {
-          if (!searchTerm || (searchTerm && matchingIds.has(child.id))) {
-            renderNode(child, ul, shouldExpandFn, matchingIds, searchTerm);
-          }
-        });
-        if (ul.children.length > 0) li.appendChild(ul);
+        children.forEach(child => { if (!searchTerm || matchingIds.has(child.id)) renderNode(child, ul, shouldExpandFn, matchingIds, searchTerm); });
+        if (ul.children.length) li.appendChild(ul);
       }
-      parentElement.appendChild(li);
+      parentEl.appendChild(li);
     }
 
     function selectAccount(account) {
@@ -387,13 +583,9 @@
       document.getElementById('accountType').value = account.type;
       document.getElementById('openingBalance').value = account.openingBalance || 0;
       document.getElementById('description').value = account.description || '';
-      const formTitle = document.getElementById('formTitle');
-      const submitBtn = document.getElementById('submitBtn');
-      if (formTitle) formTitle.innerHTML = 'Edit Account Head';
-      if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Update Account';
+      document.getElementById('formTitle').innerHTML = 'Edit Account Head';
+      document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save me-2"></i>Update Account';
     }
-
-    function editAccount(account) { selectAccount(account); }
 
     function confirmDelete(account) {
       accountToDelete = account;
@@ -403,19 +595,18 @@
 
     document.getElementById('confirmDeleteBtn')?.addEventListener('click', () => {
       if (accountToDelete) {
-        function deleteChildren(parentId) {
+        const deleteRecursive = (parentId) => {
           const children = accounts.filter(a => a.parent === parentId);
-          children.forEach(child => { deleteChildren(child.id); const index = accounts.findIndex(a => a.id === child.id); if (index !== -1) accounts.splice(index, 1); });
-        }
-        deleteChildren(accountToDelete.id);
-        const index = accounts.findIndex(a => a.id === accountToDelete.id);
-        if (index !== -1) accounts.splice(index, 1);
+          children.forEach(child => { deleteRecursive(child.id); const idx = accounts.findIndex(a => a.id === child.id); if (idx !== -1) accounts.splice(idx, 1); });
+        };
+        deleteRecursive(accountToDelete.id);
+        const idx = accounts.findIndex(a => a.id === accountToDelete.id);
+        if (idx !== -1) accounts.splice(idx, 1);
         renderTree();
-        showToast(`Account "${accountToDelete.name}" deleted successfully`);
-        const deletedId = accountToDelete.id;
-        accountToDelete = null;
+        showToast(`Account "${accountToDelete.name}" deleted`);
+        if (selectedAccountId === accountToDelete.id) resetForm();
         bootstrap.Modal.getInstance(document.getElementById('deleteModal')).hide();
-        if (selectedAccountId === deletedId) resetForm();
+        accountToDelete = null;
       }
     });
 
@@ -427,100 +618,61 @@
       document.getElementById('accountType').value = 'assets';
       document.getElementById('openingBalance').value = '0';
       document.getElementById('description').value = '';
-      const formTitle = document.getElementById('formTitle');
-      const submitBtn = document.getElementById('submitBtn');
-      if (formTitle) formTitle.innerHTML = 'Add Account Head';
-      if (submitBtn) submitBtn.innerHTML = '<i class="fas fa-save me-2"></i>Create Account';
+      document.getElementById('formTitle').innerHTML = 'Add Account Head';
+      document.getElementById('submitBtn').innerHTML = '<i class="fas fa-save me-2"></i>Create Account';
       renderTree();
+      buildParentOptions();
     }
 
-    function showToast(message) {
-      const toastDiv = document.getElementById('liveToastMsg');
-      const toastText = document.getElementById('toastText');
-      toastText.innerHTML = message;
-      toastDiv.style.display = 'flex';
-      setTimeout(() => { toastDiv.style.display = 'none'; }, 3000);
-    }
-    
-    function handleSearch() {
-      const searchInput = document.getElementById('accountSearchInput');
-      currentSearchTerm = searchInput.value.trim();
-      renderTree();
-    }
-    
-    function clearSearch() {
-      const searchInput = document.getElementById('accountSearchInput');
-      searchInput.value = '';
-      currentSearchTerm = '';
-      renderTree();
-      searchInput.focus();
-    }
+    function showToast(msg) { const toast = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerText = msg; toast.style.display = 'flex'; setTimeout(() => toast.style.display = 'none', 3000); }
+    function handleSearch() { currentSearchTerm = document.getElementById('accountSearchInput').value.trim(); renderTree(); }
+    function clearSearch() { document.getElementById('accountSearchInput').value = ''; currentSearchTerm = ''; renderTree(); }
 
     document.getElementById('accountForm')?.addEventListener('submit', (e) => {
       e.preventDefault();
-      const accountName = document.getElementById('accountName').value.trim();
-      if (!accountName) { showToast('Please enter account name'); return; }
+      const accName = document.getElementById('accountName').value.trim();
+      if (!accName) { showToast('Please enter account name'); return; }
       const parentId = document.getElementById('parentAccount').value;
-      const accountType = document.getElementById('accountType').value;
-      let accountCode = document.getElementById('accountCode').value.trim();
-      if (!accountCode) accountCode = generateAccountCode(parentId);
+      const accType = document.getElementById('accountType').value;
+      let code = document.getElementById('accountCode').value.trim();
+      if (!code) code = generateAccountCode(parentId);
+      const opening = parseFloat(document.getElementById('openingBalance').value) || 0;
+      const desc = document.getElementById('description').value;
+
       if (selectedAccountId) {
-        const index = accounts.findIndex(a => a.id === selectedAccountId);
-        if (index !== -1) {
-          accounts[index].name = accountName;
-          accounts[index].code = accountCode;
-          accounts[index].type = accountType;
-          accounts[index].openingBalance = parseFloat(document.getElementById('openingBalance').value) || 0;
-          accounts[index].description = document.getElementById('description').value;
-          if (parentId !== accounts[index].parent) accounts[index].parent = parentId;
-          showToast(`Account "${accountName}" updated successfully`);
+        const idx = accounts.findIndex(a => a.id === selectedAccountId);
+        if (idx !== -1) {
+          accounts[idx].name = accName; accounts[idx].code = code; accounts[idx].type = accType;
+          accounts[idx].openingBalance = opening; accounts[idx].description = desc;
+          if (parentId !== accounts[idx].parent) accounts[idx].parent = parentId;
+          showToast(`Account "${accName}" updated`);
         }
       } else {
-        const newId = 'acc_' + Date.now();
         const parentObj = accounts.find(a => a.id === parentId);
         const newLevel = parentObj ? parentObj.level + 1 : 0;
-        const newAccount = {
-          id: newId, name: accountName, code: accountCode, parent: parentId || null,
-          type: accountType, level: newLevel, isFolder: false, isSystem: false,
-          expanded: false, openingBalance: parseFloat(document.getElementById('openingBalance').value) || 0,
-          description: document.getElementById('description').value
-        };
+        const newId = 'acc_' + Date.now();
+        const newAccount = { id: newId, name: accName, code: code, parent: parentId || null, type: accType, level: newLevel, isFolder: false, isSystem: false, expanded: false, openingBalance: opening, description: desc };
         accounts.push(newAccount);
-        showToast(`Account "${accountName}" created successfully`);
+        showToast(`Account "${accName}" created`);
       }
       renderTree();
       resetForm();
+      buildParentOptions();
     });
 
-    document.getElementById('resetBtn')?.addEventListener('click', () => {
-      if (confirm('Reset all form fields?')) { resetForm(); showToast('Form reset'); }
-    });
-    
-    const searchInput = document.getElementById('accountSearchInput');
-    if (searchInput) searchInput.addEventListener('input', handleSearch);
-    const clearBtn = document.getElementById('clearSearchBtn');
-    if (clearBtn) clearBtn.addEventListener('click', clearSearch);
+    document.getElementById('resetBtn')?.addEventListener('click', () => { if (confirm('Reset all fields?')) resetForm(); });
+    document.getElementById('accountSearchInput')?.addEventListener('input', handleSearch);
+    document.getElementById('clearSearchBtn')?.addEventListener('click', clearSearch);
 
     function buildParentOptions() {
       const select = document.getElementById('parentAccount');
-      if (!select) return;
-      const options = [{ value: "", label: "-- Select Parent Account (Optional) --" }];
-      accounts.forEach(acc => {
-        if (acc.isFolder && acc.id !== selectedAccountId) {
-          const indent = "  ".repeat(acc.level);
-          options.push({ value: acc.id, label: indent + "└ " + acc.name + ` (${acc.type})` });
-        }
-      });
-      select.innerHTML = options.map(opt => `<option value="${opt.value}">${opt.label}</option>`).join('');
+      const opts = [{ value: "", label: "-- Select Parent Account (Optional) --" }];
+      accounts.forEach(acc => { if (acc.isFolder && acc.id !== selectedAccountId) { const indent = "  ".repeat(acc.level); opts.push({ value: acc.id, label: indent + "└ " + acc.name + ` (${acc.type})` }); } });
+      select.innerHTML = opts.map(opt => `<option value="${opt.value}">${escapeHtml(opt.label)}</option>`).join('');
     }
 
-    function init() {
-      buildParentOptions();
-      renderTree();
-    }
+    function init() { buildParentOptions(); renderTree(); }
     init();
-
-    function handleLogout() { if (confirm('Are you sure you want to logout?')) window.location.href = 'login.html'; }
   </script>
 </body>
 

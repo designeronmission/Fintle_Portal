@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fintle | Create Voucher</title>
@@ -10,177 +10,17 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+  <!-- Flatpickr Calendar Plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
+   <link rel="stylesheet" href="assets/libs/css/custom.css" />
 
-  <style>
-
-    .form-card {
-      background: white;
-      border-radius: 24px;
-      border: 1px solid #e9eef3;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
-      overflow: hidden;
-    }
-
-    .form-header {
-      padding: 24px 28px;
-      border-bottom: 1px solid #e9eef3;
-      background: #ffffff;
-    }
-
-    .form-header h4 {
-      font-weight: 700;
-      color: #1e293b;
-      margin-bottom: 4px;
-    }
-
-    .form-header p {
-      font-size: 0.85rem;
-      color: #64748b;
-      margin: 0;
-    }
-
-    .form-body {
-      padding: 28px;
-    }
-
-    .form-label {
-      font-weight: 600;
-      color: #242424;
-      margin-bottom: 6px;
-    }
-
-    .required-field:after {
-      content: '*';
-      color: #ef4444;
-      margin-left: 4px;
-    }
-
-    .form-control,
-    .form-select {
-      border-radius: 12px;
-      border: 1px solid #e2e8f0;
-      padding: 10px 14px;
-      font-size: 0.9rem;
-      transition: all 0.2s ease;
-    }
-
-    .form-control:focus,
-    .form-select:focus {
-      border-color: #2a3b82;
-      box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
-      outline: none;
-    }
-
-    textarea.form-control {
-      resize: vertical;
-    }
-
-    .btn-save {
-      background: #2a3b82;
-      border: none;
-      border-radius: 40px;
-      padding: 10px 28px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      transition: all 0.2s;
-    }
-
-    .btn-save:hover {
-      background: #1f2e6e;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(42, 59, 130, 0.2);
-    }
-
-    .btn-cancel {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 10px 28px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      color: #475569;
-      transition: all 0.2s;
-    }
-
-    .btn-cancel:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-      color: #1e293b;
-    }
-
-    .divider-light {
-      border-top: 1px solid #eef2f6;
-      margin: 24px 0 16px;
-    }
-
-    .breadcrumb-item a {
-      text-decoration: none;
-      color: #64748b;
-    }
-
-    .breadcrumb-item.active {
-      color: #2a3b82;
-      font-weight: 500;
-    }
-
-    .alert-toast {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #1e293b;
-      color: white;
-      padding: 12px 20px;
-      border-radius: 48px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      z-index: 1100;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
-    }
-
-    .amount-preview-box {
-      background: #f8fafc;
-      border-radius: 16px;
-      padding: 16px 20px;
-      border: 1px solid #e9eef3;
-    }
-
-    .amount-label {
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-
-    .amount-value {
-      font-size: 1.6rem;
-      font-weight: 700;
-      color: #1e293b;
-      line-height: 1.2;
-    }
-
-    @media (max-width: 768px) {
-      .form-body {
-        padding: 20px;
-      }
-      .form-header {
-        padding: 18px 20px;
-      }
-      .amount-value {
-        font-size: 1.3rem;
-      }
-    }
-  </style>
 </head>
 
 <body>
 
-  <div id="main-wrapper">
-          <aside class="fintle-side" id="fintleSidebarRoot">
+<div id="main-wrapper">
+        <aside class="fintle-side" id="fintleSidebarRoot">
         <!-- Header brand section -->
         <div class="side-header">
             <div class="brand-wrap">
@@ -243,7 +83,7 @@
 
                 <!-- SALES with submenu -->
                 <li class="menu-item has-sub" data-submenu-id="salesSub">
-                    <div class="nav-link-side submenu-trigger-side active">
+                    <div class="nav-link-side submenu-trigger-side">
                         <div class="trigger-wrap">
                             <span style="display: flex; align-items: center; gap: 12px;">
                                 <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
@@ -262,7 +102,7 @@
 
                 <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
                 <li class="menu-item has-sub open" data-submenu-id="accSub">
-                    <div class="nav-link-side submenu-trigger-side">
+                    <div class="nav-link-side submenu-trigger-side active">
                         <div class="trigger-wrap">
                             <span style="display: flex; align-items: center; gap: 12px;">
                                 <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
@@ -306,8 +146,8 @@
         </div>
     </aside>
 
-    <div class="page-wrapper">
-   <header class="topbar">
+  <div class="page-wrapper">
+       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
@@ -444,125 +284,83 @@
         </div>
       </header>
 
-
-      <div class="body-wrapper p-3">
-        <div class="container-fluid p-0">
-              <div class="card card-body py-3 mb-2">
+    <div class="body-wrapper p-3">
+      <div class="container-fluid p-0">
+           <div class="card card-body py-3 mb-2 border-0 shadow-sm" style="border-radius: 16px;">
             <div class="row align-items-center">
               <div class="col-12">
-                <div class="d-sm-flex align-items-center justify-space-between">
-                  <h4 class="mb-4 mb-sm-0 card-title"><a href="vouchers.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a> Create New Voucher</h4>
-                  <nav aria-label="breadcrumb" class="ms-auto">
-                    <ol class="breadcrumb">
-                      <li class="breadcrumb-item d-flex align-items-center">
-                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                <div class="d-sm-flex align-items-center justify-content-between">
+                  <h4 class="mb-4 mb-sm-0 card-title fw-bold"><a href="vouchers.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>Create Voucher</h4>
+                  <nav class="ms-auto"><ol class="breadcrumb mb-0">  <li class="breadcrumb-item"> <a class="text-muted text-decoration-none d-flex" href="index.html">
                           <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                        </a>
-                      </li>
-                      <li class="breadcrumb-item"><a href="#">Accounts</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Vouchers</li>
-                    </ol>
-                  </nav>
+                        </a></li><li class="breadcrumb-item"><a href="vouchers.html">Voucher</a></li><li class="breadcrumb-item active">Create Voucher</li></ol></nav>
                 </div>
               </div>
             </div>
           </div>
-          <div class="form-container">
 
-            <!-- Main Form Card -->
-            <div class="form-card">
-              <div class="form-body">
-                <form id="voucherForm">
-                  <!-- Row 1: Financial Year & Date -->
-                  <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                      <label class="form-label required-field">Financial Year</label>
-                      <select class="form-select" id="financialYear" required>
-                        <option value="">Select Financial Year</option>
-                        <option value="2025-26">2025-26</option>
-                        <option value="2024-25">2024-25</option>
-                        <option value="2023-24">2023-24</option>
-                        <option value="2022-23">2022-23</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label required-field">Date</label>
-                      <input type="date" class="form-control" id="voucherDate" required>
-                    </div>
-                    <div class="col-md-4">
-                    <label class="form-label required-field">Voucher No</label>
-                    <input type="text" class="form-control" id="voucherNo" placeholder="Auto-generated or manual" value="VCH-2025-013">
-                    </div>
-                  </div>
-
-                  <!-- Row 3: Account Head & Account (side by side) -->
-                  <div class="row g-3 mb-4">
-                    <div class="col-md-4">
-                      <label class="form-label required-field">Account Head</label>
-                      <select class="form-select" id="accountHead" required>
-                        <option value="">Select Account Head</option>
-                        <option value="Assets">Assets</option>
-                        <option value="Liabilities">Liabilities</option>
-                        <option value="Equity">Equity</option>
-                        <option value="Income">Income</option>
-                        <option value="Expense">Expense</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                      <label class="form-label required-field">Account</label>
-                      <select class="form-select" id="accountName" required>
-                        <option value="">Select Account</option>
-                        <option value="Cash on Hand">Cash on Hand</option>
-                        <option value="HDFC Bank">HDFC Bank</option>
-                        <option value="SBI Bank">SBI Bank</option>
-                        <option value="Sundry Debtors">Sundry Debtors</option>
-                        <option value="Fixed Assets">Fixed Assets</option>
-                        <option value="Current Liabilities">Current Liabilities</option>
-                        <option value="Equity Capital">Equity Capital</option>
-                        <option value="Sales Revenue">Sales Revenue</option>
-                        <option value="Rent Expense">Rent Expense</option>
-                        <option value="Office Supplies">Office Supplies</option>
-                        <option value="Travel Expense">Travel Expense</option>
-                      </select>
-                    </div>
-                    <div class="col-md-4">
-                    <label class="form-label required-field">Amount (₹)</label>
-                    <input type="number" class="form-control" id="amount" placeholder="Enter amount" step="any" required>
-                    </div>
-                  </div>
-
-                  <!-- Row 5: Description -->
-                  <div class="mb-4">
-                    <label class="form-label">Description</label>
-                    <textarea class="form-control" id="description" rows="3" placeholder="Enter voucher description (optional)"></textarea>
-                  </div>
-
-                  <div class="divider-light"></div>
-
-                  <!-- Action Buttons -->
-                  <div class="d-flex gap-3 justify-content-end mt-3">
-                    <button type="button" class="btn btn-cancel" onclick="cancelVoucher()">
-                      <i class="fas fa-times me-2"></i>Cancel
-                    </button>
-                    <button type="submit" class="btn btn-save text-white">
-                      <i class="fas fa-save me-2"></i>Save Voucher
-                    </button>
-                  </div>
-                </form>
+        <div class="voucher-card">
+          <div class="relative-form">
+            <!-- Header with Issue Date + Voucher Number Badge on Right -->
+            <div class="header-row-bg">
+              <div class="badge-voucher" id="voucherBadge">VCH-2026-042</div>
+              <div class="issue-date-wrapper">
+                <span class="issue-date-label">Issue Date</span>
+                <input type="text" class="issue-date-input" id="issueDateInput" placeholder="Select date" value="2026-05-13">
               </div>
+            </div>
+
+            <!-- Voucher Number + Recipient / Entity -->
+            <div class="two-col-grid">
+              <div class="field-group">
+                <label class="field-label">Voucher Number</label>
+                <input type="text" class="field-input" id="voucherNumberInput" placeholder="e.g., VCH-2026-001" value="">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Recipient / Entity</label>
+                <input type="text" class="field-input" id="recipientInput" placeholder="Customer, Supplier, or Party name" value="">
+              </div>
+            </div>
+
+            <!-- Description Field -->
+            <div class="description-section">
+              <label class="description-label">Description</label>
+              <textarea class="description-input" id="descriptionInput" placeholder="Enter voucher description, reference, or additional notes..."></textarea>
+            </div>
+
+            <!-- Amount Section: Left side Amount in Words + Right side Amount Input -->
+            <div class="amount-wrapper">
+              <!-- LEFT SIDE: Amount in Words Display -->
+              <div class="amount-in-words-box">
+                <div class="amount-words-label">Amount in Words</div>
+                <div class="amount-words-value" id="amountInWordsDisplay">—</div>
+              </div>
+              
+              <!-- RIGHT SIDE: Amount Panel -->
+              <div class="amount-panel">
+                <span class="amount-label-top">Voucher Amount</span>
+                <input type="text" class="amount-input" id="amountInput" placeholder="₹ 0.00" value="">
+              </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+              <button type="button" class="btn-save" id="saveBtn">Save Voucher</button>
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Toast Notification -->
-  <div id="liveToastMsg" class="alert-toast" style="display: none;">
-    <i class="fas fa-check-circle me-2"></i> <span id="toastText">Action completed</span>
-  </div>
+<!-- Toast Notification -->
+<div id="liveToastMsg" class="alert-toast" style="display: none;">
+  <i class="fas fa-check-circle me-2"></i> <span id="toastText">Action completed</span>
+</div>
 
- 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
   <script src="assets/libs/js/app.init.js"></script>
@@ -571,200 +369,277 @@
   <script src="assets/libs/js/sidebarmenu.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-  <script>
-    // Helper function to show toast messages
-    function showToast(message, type = 'success') {
-      const toastDiv = document.getElementById('liveToastMsg');
-      const toastText = document.getElementById('toastText');
-      toastText.innerHTML = message;
-      toastDiv.style.display = 'flex';
-      setTimeout(() => {
-        toastDiv.style.display = 'none';
-      }, 2800);
+<script>
+  // ======================== NUMBER TO WORDS CONVERTER (Indian Rupees Format) ========================
+  function numberToWordsIndian(amount) {
+    if (amount === 0 || isNaN(amount) || amount === null) return '';
+    
+    const num = parseFloat(amount);
+    if (isNaN(num)) return '';
+    
+    const rupees = Math.floor(num);
+    const paise = Math.round((num - rupees) * 100);
+    
+    const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+    
+    function convertToWords(n) {
+      if (n === 0) return '';
+      if (n < 20) return ones[n];
+      if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + ones[n % 10] : '');
+      if (n < 1000) return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' ' + convertToWords(n % 100) : '');
+      if (n < 100000) return convertToWords(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertToWords(n % 1000) : '');
+      if (n < 10000000) return convertToWords(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convertToWords(n % 100000) : '');
+      return convertToWords(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 !== 0 ? ' ' + convertToWords(n % 10000000) : '');
     }
-
-    // Update amount preview as user types
-    function updateAmountPreview() {
-      const amountInput = document.getElementById('amount');
-      const amountPreview = document.getElementById('amountPreview');
-      let amount = parseFloat(amountInput.value);
-      if (isNaN(amount) || amount <= 0) {
-        amountPreview.innerHTML = '₹ 0.00';
+    
+    let rupeesWords = convertToWords(rupees);
+    let result = rupeesWords ? rupeesWords + ' Rupees' : '';
+    
+    if (paise > 0) {
+      const paiseWords = convertToWords(paise);
+      result += (result ? ' and ' : '') + paiseWords + ' Paise';
+    }
+    
+    return result + ' Only';
+  }
+  
+  // Update Amount in Words dynamically
+  function updateAmountInWords() {
+    const amountInput = document.getElementById('amountInput');
+    const amountWordsSpan = document.getElementById('amountInWordsDisplay');
+    let rawValue = amountInput.value;
+    let numericValue = parseFloat(rawValue.replace(/,/g, ''));
+    
+    if (isNaN(numericValue) || numericValue <= 0) {
+      amountWordsSpan.innerHTML = '—';
+      amountWordsSpan.classList.add('empty');
+    } else {
+      const words = numberToWordsIndian(numericValue);
+      amountWordsSpan.innerHTML = words;
+      amountWordsSpan.classList.remove('empty');
+    }
+  }
+  
+  // Format amount input helper with thousand separators (Indian numbering)
+  function formatAmountWithCommas(value) {
+    let raw = value.toString().replace(/[^0-9.-]/g, '');
+    if (raw === '' || raw === '-') return '';
+    let num = parseFloat(raw);
+    if (isNaN(num)) return '';
+    
+    let parts = raw.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1].slice(0, 2) : '';
+    
+    let lastThree = integerPart.slice(-3);
+    let otherNumbers = integerPart.slice(0, -3);
+    if (otherNumbers !== '') {
+      lastThree = ',' + lastThree;
+    }
+    let formatted = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return formatted + decimalPart;
+  }
+  
+  function handleAmountInput(e) {
+    let rawValue = e.target.value;
+    let numericRaw = rawValue.replace(/[^0-9.-]/g, '');
+    if (numericRaw === '') {
+      e.target.value = '';
+      updateAmountInWords();
+      return;
+    }
+    let num = parseFloat(numericRaw);
+    if (!isNaN(num)) {
+      e.target.value = numericRaw;
+    } else {
+      e.target.value = '';
+    }
+    updateAmountInWords();
+  }
+  
+  function formatAmountOnBlur() {
+    let val = amountInput.value.trim();
+    if (val === '') {
+      amountInput.value = '';
+      updateAmountInWords();
+      return;
+    }
+    let num = parseFloat(val);
+    if (!isNaN(num)) {
+      let formatted = formatAmountWithCommas(num.toFixed(2));
+      amountInput.value = formatted;
+    } else {
+      if (val === '') amountInput.value = '';
+    }
+    updateAmountInWords();
+  }
+  
+  function getRawAmountValue() {
+    let raw = amountInput.value;
+    if (!raw) return 0;
+    let cleaned = raw.replace(/,/g, '');
+    let num = parseFloat(cleaned);
+    return isNaN(num) ? 0 : num;
+  }
+  
+  // ======================== CALENDAR PLUGIN (Flatpickr) ========================
+  let flatpickrInstance = null;
+  function initCalendar() {
+    const dateInput = document.getElementById('issueDateInput');
+    if (dateInput && typeof flatpickr !== 'undefined') {
+      flatpickrInstance = flatpickr(dateInput, {
+        dateFormat: "Y-m-d",
+        defaultDate: "2026-05-13",
+        allowInput: true,
+        theme: "light",
+        position: "auto"
+      });
+    }
+  }
+  
+  // ======================== VOUCHER CRUD OPERATIONS ========================
+  function showToast(message, isError = false) {
+    const toastDiv = document.getElementById('liveToastMsg');
+    const toastTextSpan = document.getElementById('toastText');
+    toastTextSpan.innerText = message;
+    toastDiv.style.display = 'flex';
+    toastDiv.style.background = isError ? '#b91c1c' : '#1e293b';
+    setTimeout(() => {
+      toastDiv.style.display = 'none';
+      toastDiv.style.background = '#1e293b';
+    }, 2600);
+  }
+  
+  function generateVoucherNumber() {
+    const year = new Date().getFullYear();
+    const randomSeq = Math.floor(Math.random() * 900) + 100;
+    return `VCH-${year}-${randomSeq}`;
+  }
+  
+  // Update the badge with current voucher number
+  function updateVoucherBadge() {
+    const badge = document.getElementById('voucherBadge');
+    const voucherNumber = voucherNumberInput.value.trim();
+    if (badge) {
+      if (voucherNumber) {
+        badge.textContent = voucherNumber;
       } else {
-        amountPreview.innerHTML = `₹ ${amount.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        badge.textContent = 'Not Set';
       }
     }
-
-    // Set default date to today
-    function setDefaultDate() {
-      const today = new Date().toISOString().split('T')[0];
-      document.getElementById('voucherDate').value = today;
+  }
+  
+  function resetFormFields() {
+    const today = new Date().toISOString().split('T')[0];
+    if (flatpickrInstance) {
+      flatpickrInstance.setDate(today);
+    } else {
+      document.getElementById('issueDateInput').value = today;
     }
-
-    // Generate suggested voucher number
-    function generateSuggestedVoucherNo() {
-      const today = new Date();
-      const year = today.getFullYear();
-      const randomNum = Math.floor(Math.random() * 900) + 100;
-      return `VCH-${year}-${randomNum}`;
-    }
-
-    // Collect form data and validate
-    function collectVoucherData() {
-      const financialYear = document.getElementById('financialYear').value;
-      const voucherDate = document.getElementById('voucherDate').value;
-      const voucherNo = document.getElementById('voucherNo').value.trim();
-      const accountHead = document.getElementById('accountHead').value;
-      const accountName = document.getElementById('accountName').value;
-      const amount = document.getElementById('amount').value;
-      const description = document.getElementById('description').value;
-
-      // Validation
-      if (!financialYear) {
-        showToast('Please select Financial Year', 'error');
-        return null;
-      }
-      if (!voucherDate) {
-        showToast('Please select Date', 'error');
-        return null;
-      }
-      if (!voucherNo) {
-        showToast('Please enter Voucher Number', 'error');
-        return null;
-      }
-      if (!accountHead) {
-        showToast('Please select Account Head', 'error');
-        return null;
-      }
-      if (!accountName) {
-        showToast('Please select Account', 'error');
-        return null;
-      }
-      if (!amount || parseFloat(amount) <= 0) {
-        showToast('Please enter a valid Amount greater than zero', 'error');
-        return null;
-      }
-
-      return {
-        financialYear,
-        date: voucherDate,
-        voucherNo,
-        accountHead,
-        accountName,
-        amount: parseFloat(amount),
-        description: description || '',
-        createdOn: new Date().toLocaleString(),
-        createdBy: 'Current User',
-        status: 'draft',
-        lastUpdatedOn: new Date().toLocaleString(),
-        lastUpdatedBy: 'Current User'
-      };
-    }
-
-    // Save Voucher Handler
-    document.getElementById('voucherForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const voucherData = collectVoucherData();
-      if (voucherData) {
-        // Get existing vouchers from localStorage or initialize
-        let existingVouchers = JSON.parse(localStorage.getItem('fintle_vouchers') || '[]');
-        
-        // Create new voucher object with unique ID
-        const newVoucher = {
-          id: Date.now(),
-          ...voucherData
-        };
-        
-        existingVouchers.push(newVoucher);
-        localStorage.setItem('fintle_vouchers', JSON.stringify(existingVouchers));
-        
-        showToast(`Voucher ${voucherData.voucherNo} created successfully!`, 'success');
-        
-        // Optionally redirect after 1.5 seconds
-        setTimeout(() => {
-          window.location.href = 'vouchers.html';
-        }, 1500);
-      }
-    });
-
-    // Cancel function - redirect back to vouchers list
-    function cancelVoucher() {
-      if (confirm('Are you sure you want to cancel? Any unsaved data will be lost.')) {
-        window.location.href = 'vouchers.html';
-      }
-    }
-
-    // Handle logout
-    function handleLogout() {
-      if (confirm('Are you sure you want to logout?')) {
-        window.location.href = 'login.html';
-      }
-    }
-
-    // Dynamic account options based on Account Head selection
-    const accountOptionsMap = {
-      'Assets': ['Cash on Hand', 'HDFC Bank', 'SBI Bank', 'Sundry Debtors', 'Fixed Assets', 'Item', 'Prepaid Expenses'],
-      'Liabilities': ['Current Liabilities', 'Accounts Payable', 'Bank Loan', 'Salary Payable', 'Tax Payable'],
-      'Equity': ['Equity Capital', 'Retained Earnings', 'Owner\'s Equity', 'Common Stock'],
-      'Income': ['Sales Revenue', 'Service Income', 'Interest Income', 'Commission Received', 'Rent Income'],
-      'Expense': ['Rent Expense', 'Salary Expense', 'Office Supplies', 'Travel Expense', 'Utilities Expense', 'Depreciation']
+    const newVoucherNo = generateVoucherNumber();
+    voucherNumberInput.value = newVoucherNo;
+    updateVoucherBadge();
+    recipientInput.value = '';
+    descriptionInput.value = '';
+    amountInput.value = '';
+    updateAmountInWords();
+    showToast('Form cleared, ready for new voucher', false);
+  }
+  
+  function collectVoucherData() {
+    const issueDate = document.getElementById('issueDateInput').value;
+    const voucherNumber = voucherNumberInput.value.trim();
+    const recipient = recipientInput.value.trim();
+    const description = descriptionInput.value.trim();
+    let rawAmount = getRawAmountValue();
+    
+    if (!issueDate) { showToast('Please select Issue Date', true); return null; }
+    if (!voucherNumber) { showToast('Voucher Number is required', true); return null; }
+    if (!recipient) { showToast('Recipient / Entity is required', true); return null; }
+    if (rawAmount === 0 || isNaN(rawAmount) || rawAmount <= 0) { showToast('Please enter a valid Voucher Amount greater than zero', true); return null; }
+    
+    return {
+      issueDate, voucherNumber, recipientEntity: recipient,
+      description, voucherAmount: rawAmount,
+      amountInWords: numberToWordsIndian(rawAmount),
+      createdOn: new Date().toISOString(), id: Date.now()
     };
-
-    function populateAccountsByHead(selectedHead) {
-      const accountSelect = document.getElementById('accountName');
-      if (!accountSelect) return;
-      
-      // Clear existing options
-      accountSelect.innerHTML = '<option value="">Select Account</option>';
-      
-      if (selectedHead && accountOptionsMap[selectedHead]) {
-        accountOptionsMap[selectedHead].forEach(account => {
-          const option = document.createElement('option');
-          option.value = account;
-          option.textContent = account;
-          accountSelect.appendChild(option);
-        });
-      } else {
-        // Default options if no head selected
-        const defaultAccounts = ['Cash on Hand', 'HDFC Bank', 'SBI Bank', 'Sundry Debtors', 'Fixed Assets', 'Current Liabilities', 'Equity Capital', 'Sales Revenue', 'Rent Expense'];
-        defaultAccounts.forEach(account => {
-          const option = document.createElement('option');
-          option.value = account;
-          option.textContent = account;
-          accountSelect.appendChild(option);
-        });
-      }
+  }
+  
+  function saveVoucherHandler() {
+    const voucherData = collectVoucherData();
+    if (!voucherData) return;
+    let existingVouchers = [];
+    try {
+      const stored = localStorage.getItem('fintle_vouchers_clean');
+      if (stored) existingVouchers = JSON.parse(stored);
+    } catch(e) { console.warn(e); }
+    existingVouchers.push(voucherData);
+    localStorage.setItem('fintle_vouchers_clean', JSON.stringify(existingVouchers));
+    showToast(`Voucher ${voucherData.voucherNumber} saved successfully!`, false);
+    setTimeout(() => {
+      if (confirm('Voucher saved! Create another? OK to clear form, Cancel to keep editing.')) resetFormFields();
+    }, 200);
+  }
+  
+  function cancelForm() {
+    if (confirm('Cancel voucher creation? All unsaved data will be lost.')) resetFormFields();
+  }
+  
+  // DOM Elements
+  const voucherNumberInput = document.getElementById('voucherNumberInput');
+  const recipientInput = document.getElementById('recipientInput');
+  const descriptionInput = document.getElementById('descriptionInput');
+  const amountInput = document.getElementById('amountInput');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const saveBtn = document.getElementById('saveBtn');
+  
+  // Event Listeners
+  amountInput.addEventListener('input', handleAmountInput);
+  amountInput.addEventListener('blur', formatAmountOnBlur);
+  saveBtn.addEventListener('click', saveVoucherHandler);
+  cancelBtn.addEventListener('click', cancelForm);
+  
+  // Update badge when voucher number changes
+  voucherNumberInput.addEventListener('input', updateVoucherBadge);
+  
+  descriptionInput.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      saveVoucherHandler();
     }
-
-    // Event listener for Account Head change
-    document.getElementById('accountHead').addEventListener('change', function() {
-      populateAccountsByHead(this.value);
+  });
+  
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    initCalendar();
+    if (!voucherNumberInput.value.trim()) {
+      voucherNumberInput.value = generateVoucherNumber();
+    }
+    updateVoucherBadge();
+    if (amountInput.value) formatAmountOnBlur();
+    else updateAmountInWords();
+    descriptionInput.placeholder = "Enter voucher description (e.g., Rent payment, Invoice settlement, etc.)";
+  });
+  
+  // Sidebar toggle for mobile
+  document.getElementById('headerCollapse')?.addEventListener('click', function() {
+    const sidebar = document.getElementById('fintleSidebarRoot');
+    if (sidebar.style.transform === 'translateX(0px)' || !sidebar.style.transform) sidebar.style.transform = 'translateX(-100%)';
+    else sidebar.style.transform = 'translateX(0px)';
+  });
+  
+  document.querySelectorAll('.has-sub .submenu-trigger-side').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const parent = this.closest('.has-sub');
+      const submenu = parent.querySelector('.submenu-level');
+      if (submenu) { submenu.classList.toggle('show-sub'); parent.classList.toggle('open'); }
     });
-
-    // Event listener for amount input to update preview
-    document.getElementById('amount').addEventListener('input', updateAmountPreview);
-
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', function() {
-      setDefaultDate();
-      
-      // Set a sample voucher number if empty
-      const voucherNoInput = document.getElementById('voucherNo');
-      if (voucherNoInput && !voucherNoInput.value) {
-        voucherNoInput.value = generateSuggestedVoucherNo();
-      }
-      
-      // Initialize account dropdown
-      populateAccountsByHead(document.getElementById('accountHead').value);
-      
-      // Initialize amount preview
-      updateAmountPreview();
-    });
-
-    // Make functions global for onclick handlers
-    window.cancelVoucher = cancelVoucher;
-    window.handleLogout = handleLogout;
-  </script>
+  });
+  
+  document.getElementById('logoutActionBtn')?.addEventListener('click', (e) => { e.preventDefault(); showToast('Logged out (demo)'); });
+</script>
 </body>
-
 </html>

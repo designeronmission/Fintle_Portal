@@ -2,806 +2,943 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fintle | General Ledger</title>
-    <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
-    <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fintle | Create Voucher</title>
+  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232a3b82'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+  <!-- Flatpickr Calendar Plugin CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 
-    <style>
-        :root {
-            --primary-color: #2a3b82;
-            --primary-light: #eef2ff;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --border-light: #e2e8f0;
-            --bg-light: #f8fafc;
-        }
+  <style>
+    /* Sidebar Styles - Modern Fintle Design */
+    .fintle-side {
+      position: fixed;
+      left: 0;
+      top: 0;
+      width: 280px;
+      height: 100vh;
+      background: #ffffff;
+      border-right: 1px solid #eef2f8;
+      display: flex;
+      flex-direction: column;
+      z-index: 1030;
+      transition: all 0.2s ease;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.02);
+    }
 
-        .btn-primary {
-            background-color: #2a3b82;
-            border-color: #2a3b82;
-            color: #fff;
-            border-radius: 40px;
-            padding: 9px 20px;
-            font-weight: 600;
-            transition: all 0.2s;
-        }
+    .side-header {
+      padding: 24px 24px 20px 24px;
+      border-bottom: 1px solid #eef2f8;
+    }
 
-        .btn-primary:hover {
-            background-color: #1f2e6e;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(42, 59, 130, 0.2);
-        }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+    }
 
-        .btn-outline-primary {
-            border-radius: 40px;
-            padding: 9px 24px;
-            font-weight: 500;
-            border: 1.5px solid #2a3b82;
-            background: transparent;
-            color: #2a3b82;
-            transition: all 0.2s;
-        }
+    .brand-logo img {
+      height: 36px;
+      width: auto;
+    }
 
-        .btn-outline-primary:hover {
-            background: #2a3b82;
-            color: white;
-        }
+    .fintle-nav-scroll {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 12px;
+    }
 
-        .btn-success-custom {
-            background-color: #10b981;
-            border: none;
-            border-radius: 40px;
-            padding: 9px 20px;
-            font-weight: 600;
-            color: white;
-            transition: all 0.2s;
-        }
+    .fintle-menu-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
 
-        .btn-success-custom:hover {
-            background-color: #059669;
-            transform: translateY(-1px);
-        }
+    .menu-item {
+      margin-bottom: 4px;
+    }
 
-        /* Filter Card */
-        .filter-card {
-            background: white;
-            border-radius: 20px;
-            padding: 24px;
-            margin-bottom: 24px;
-            border: 1px solid #edf2f7;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
-        }
+    .nav-link-side {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 16px;
+      border-radius: 14px;
+      color: #334155;
+      font-weight: 500;
+      font-size: 0.9rem;
+      transition: all 0.2s;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-        .filter-label {
-            font-size: 13px;
-            font-weight: 700;
-            color: #373737;
-            margin-bottom: 6px;
-        }
+    .nav-link-side .trigger-wrap {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+    }
 
-        .form-control,
-        .form-select {
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            padding: 0.7rem 1rem;
-            font-size: 0.85rem;
-            transition: all 0.2s;
-        }
+    .nav-link-side span:first-child {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
 
-        .form-control:focus,
-        .form-select:focus {
-            border-color: #2a3b82;
-            box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
-            outline: none;
-        }
+    .nav-link-side iconify-icon {
+      font-size: 1.3rem;
+    }
 
-        /* Ledger Card */
-        .ledger-card {
-            background: white;
-            border-radius: 24px;
-            border: 1px solid #edf2f7;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-        }
+    .nav-link-side:hover {
+      background: #f1f5f9;
+      color: #1e293b;
+    }
 
-        .ledger-header {
-            background: #f8fafc;
-            padding: 16px 24px;
-            border-bottom: 2px solid #e2e8f0;
-        }
+    .menu-item.active .nav-link-side {
+      background: #2a3b82;
+      color: white;
+    }
 
-        .ledger-header h4 {
-            font-weight: 700;
-            color: #1e293b;
-            margin: 0;
-        }
+    .dropdown-arrow {
+      font-size: 10px;
+      transition: transform 0.2s;
+      color: #94a3b8;
+    }
 
-        .ledger-header p {
-            font-size: 0.75rem;
-            color: #64748b;
-            margin: 4px 0 0 0;
-        }
+    .has-sub.open .dropdown-arrow {
+      transform: rotate(90deg);
+    }
 
-        .account-summary {
-            background: #eef2ff;
-            padding: 16px 24px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 16px;
-            border-bottom: 1px solid #e2e8f0;
-        }
+    .submenu-level {
+      list-style: none;
+      padding-left: 28px;
+      margin-top: 6px;
+      margin-bottom: 8px;
+      display: none;
+    }
 
-        .summary-item {
-            display: flex;
-            flex-direction: column;
-        }
+    .submenu-level.show-sub {
+      display: block;
+    }
 
-        .summary-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #64748b;
-        }
+    .sub-link-item {
+      margin-bottom: 4px;
+    }
 
-        .summary-value {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1b1b1b;
-        }
+    .sub-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 12px;
+      border-radius: 12px;
+      color: #475569;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
 
-        .summary-value.debit {
-            color: #10b981;
-        }
+    .sub-link:hover {
+      background: #f8fafc;
+      color: #2a3b82;
+    }
 
-        .summary-value.credit {
-            color: #ef4444;
-        }
+    .dot-marker {
+      width: 6px;
+      height: 6px;
+      background-color: #cbd5e1;
+      border-radius: 50%;
+      display: inline-block;
+    }
 
-        /* Table Styling */
-        .table-wrapper {
-            overflow-x: auto;
-        }
+    .side-footer {
+      padding: 20px 16px 28px;
+      border-top: 1px solid #eef2f8;
+    }
 
-        .ledger-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
+    .logout-link .nav-link-side {
+      color: #ef4444;
+    }
 
-        .ledger-table th {
-            background: #f8fafc;
-            font-weight: 700;
-            color: #1e293b;
-            padding: 14px 16px;
-            border-bottom: 1px solid #e2e8f0;
-            text-align: left;
-            white-space: nowrap;
-        }
+    .page-wrapper {
+      margin-left: 280px;
+      min-height: 100vh;
+      background: #f5f7fb;
+    }
 
-        .ledger-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid #f1f5f9;
-            vertical-align: middle;
-            color: #334155;
-        }
+    /* Topbar */
+    .topbar {
+      background: white;
+      padding: 0 24px;
+      border-bottom: 1px solid #eef2f8;
+      height: 70px;
+      display: flex;
+      align-items: center;
+    }
 
-        .ledger-table tr:hover td {
-            background: #fafcff;
-        }
+    .navbar-nav {
+      width: 100%;
+    }
 
-        .debit-amount {
-            font-weight: 600;
-            color: #10b981;
-        }
+    .btn-primary-subtle {
+      background: #eef2ff;
+      color: #2a3b82;
+    }
 
-        .credit-amount {
-            font-weight: 600;
-            color: #ef4444;
-        }
+    .btn-primary-subtle:hover {
+      background: #e0e7ff;
+    }
 
-        .total-row {
-            background: #f8fafc;
-            font-weight: 800;
-        }
+    /* Main card container */
+    .voucher-card {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 6px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.02);
+      padding: 1.5rem 2rem 2rem 2rem;
+      transition: all 0.2s ease;
+    }
 
-        .total-row td {
-            border-top: 2px solid #e2e8f0;
-            padding: 14px 16px;
-        }
+    .relative-form {
+      position: relative;
+      width: 100%;
+      min-height: 460px;
+      margin-top: 0.5rem;
+    }
 
-        .voucher-link {
-            color: #2a3b82;
-            font-weight: 600;
-            text-decoration: none;
-        }
+    /* Header / Issue Date row */
+    .header-row-bg {
+      background-color: #f0f4fa;
+      height: 60px;
+      width: 100%;
+      border-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      margin-bottom: 2rem;
+      position: relative;
+    }
 
-        .voucher-link:hover {
-            text-decoration: underline;
-        }
+    .badge-voucher {
+      background: #2a3b82;
+      color: white;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
 
-        .badge-voucher {
-            background: #eef2ff;
-            color: #2a3b82;
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.7rem;
-            font-weight: 600;
-        }
+    .issue-date-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: transparent;
+    }
 
-        .print-btn {
-            position: sticky;
-            bottom: 20px;
-            float: right;
-            margin-top: 20px;
-        }
+    .issue-date-label {
+      font-weight: 500;
+      font-size: 0.9rem;
+      color: #3c4b5f;
+      letter-spacing: 0.2px;
+    }
 
-        @media print {
+    .issue-date-input {
+      border: 1px solid #e2e8f0;
+      background: white;
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-family: 'Inter', monospace;
+      font-size: 0.85rem;
+      color: #1e293b;
+      width: 180px;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
 
-            .filter-card,
-            .print-btn,
-            .topbar,
-            .fintle-side,
-            .breadcrumb,
-            .btn,
-            .page-wrapper>header {
-                display: none !important;
-            }
+    .issue-date-input:focus {
+      outline: none;
+      border-color: #2a3b82;
+      box-shadow: 0 0 0 2px rgba(42, 59, 130, 0.1);
+    }
 
-            .ledger-card {
-                box-shadow: none;
-                border: 1px solid #ddd;
-            }
+    /* Flatpickr calendar customization */
+    .flatpickr-calendar {
+      font-family: 'Inter', sans-serif;
+      border-radius: 16px;
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
+    }
 
-            body {
-                background: white;
-                padding: 0;
-                margin: 0;
-            }
-        }
-    </style>
+    .flatpickr-day.selected {
+      background: #2a3b82;
+      border-color: #2a3b82;
+    }
+
+    /* Two column layout */
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.8rem;
+      margin-bottom: 2rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .field-label {
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #475569;
+      letter-spacing: 0.2px;
+    }
+
+    .field-input {
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      background: white;
+      transition: all 0.2s;
+      width: 100%;
+    }
+
+    .field-input:focus,
+    .description-input:focus,
+    .amount-input:focus {
+      outline: none;
+      border-color: #2a3b82;
+      box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
+    }
+
+    /* description area */
+    .description-section {
+      margin-bottom: 2rem;
+    }
+
+    .description-label {
+      font-weight: 500;
+      font-size: 0.85rem;
+      color: #475569;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .description-input {
+      width: 100%;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 12px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      resize: vertical;
+      background: white;
+      min-height: 85px;
+      line-height: 1.45;
+    }
+
+    /* Amount Section - Left side Amount in Words + Right side Amount Input */
+    .amount-wrapper {
+      display: flex;
+      gap: 1.5rem;
+      margin-top: 0.5rem;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+
+    .amount-in-words-box {
+      flex: 1;
+      background: #f8fafc;
+      border-radius: 12px;
+      padding: 0.9rem 1.2rem;
+      border: 1px solid #eef2f8;
+      min-height: 85px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .amount-words-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      font-weight: 600;
+      color: #5b6e8c;
+      margin-bottom: 8px;
+    }
+
+    .amount-words-value {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: #1e293b;
+      line-height: 1.4;
+      word-break: break-word;
+    }
+
+    .amount-words-value.empty {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .amount-panel {
+      background-color: #f0f4fa;
+      border-radius: 5px;
+      padding: 0.7rem 1.2rem 0.9rem 1.2rem;
+      width: 320px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .amount-label-top {
+      font-weight: 500;
+      font-size: 0.85rem;
+      margin-bottom: 5px;
+      color: #4b5565;
+      letter-spacing: 0.3px;
+    }
+
+    .amount-input {
+      border: 1px solid white;
+      background: white;
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: 'Inter', monospace;
+      color: #0f172a;
+      width: 100%;
+      transition: all 0.2s;
+    }
+
+    .amount-input:focus {
+      border-color: #2a3b82;
+    }
+
+    /* Buttons row */
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 2rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid #eef2f8;
+    }
+
+    .btn-cancel {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 10px 28px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      transition: 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+    }
+
+    .btn-save {
+      background: #2a3b82;
+      border: none;
+      border-radius: 40px;
+      padding: 10px 32px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: white;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    .btn-save:hover {
+      background: #1f2e6e;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 14px rgba(42, 59, 130, 0.2);
+    }
+
+    /* toast notification */
+    .alert-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #1e293b;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 60px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+      font-family: 'Inter', sans-serif;
+    }
+
+    /* responsiveness */
+    @media (max-width: 992px) {
+      .fintle-side {
+        transform: translateX(-100%);
+      }
+      .page-wrapper {
+        margin-left: 0;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .voucher-card {
+        padding: 1.2rem;
+      }
+      .two-col-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .amount-wrapper {
+        flex-direction: column;
+      }
+      .amount-panel {
+        width: 100%;
+      }
+      .header-row-bg {
+        flex-direction: column;
+        height: auto;
+        padding: 12px;
+        gap: 10px;
+      }
+    }
+
+    .field-input[type="text"],
+    .field-input[type="date"] {
+      font-size: 0.9rem;
+    }
+
+    ::placeholder {
+      color: #b9c2d0;
+      font-weight: 400;
+    }
+  </style>
 </head>
 
 <body>
 
-    <div id="main-wrapper">
-
-        <aside class="fintle-side" id="fintleSidebarRoot">
-            <div class="side-header">
-                <div class="brand-wrap">
-                    <div class="brand-logo">
-                        <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
-                    </div>
-                </div>
-            </div>
-            <div class="fintle-nav-scroll">
-                <ul class="fintle-menu-list" id="dynamicMenuList">
-                    <li class="menu-item"><a href="index.html" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
-                    <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
-                    <li class="menu-item has-sub" data-submenu-id="itemsSub">
-                        <div class="nav-link-side submenu-trigger-side">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level" id="itemsSub">
-                            <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
-                            <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC Codes</a></li>
-                            <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-                        <div class="nav-link-side submenu-trigger-side">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level" id="purchaseSub">
-                            <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
-                            <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
-                            <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
-                            <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-sub" data-submenu-id="salesSub">
-                        <div class="nav-link-side submenu-trigger-side">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level" id="salesSub">
-                            <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
-                            <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
-                            <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
-                            <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-item has-sub open" data-submenu-id="accSub">
-                        <div class="nav-link-side submenu-trigger-side active">
-                            <div class="trigger-wrap">
-                                <span style="display: flex; align-items: center; gap: 12px;"><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span>
-                                <span class="dropdown-arrow">▶</span>
-                            </div>
-                        </div>
-                        <ul class="submenu-level show-sub" id="accSub">
-                            <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
-                            <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
-                            <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
-                             <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
-                            <li class="sub-link-item"><a href="general-ledger.html" class="sub-link active"><span class="dot-marker"></span> General Ledger</a></li>
-                            <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
-                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
-                        </ul>
-                    </li>
-                    <li class="menu-divider-custom"></li>
-                </ul>
-            </div>
-            <div class="side-footer">
-                <ul class="fintle-menu-list">
-                    <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li>
-                    <li class="menu-item logout-link"><a href="#" class="nav-link-side"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li>
-                </ul>
-            </div>
-        </aside>
-
-        <div class="page-wrapper">
-            <header class="topbar">
-                <div class="with-vertical">
-                    <nav class="navbar navbar-expand-lg p-0">
-                        <ul class="navbar-nav">
-                            <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon></a></li>
-                            <li class="nav-item d-none d-lg-flex dropdown">
-                                <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;" onclick="location.href='create-invoice.html'"><iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>Create Sales Invoice</button></div>
-                            </li>
-                        </ul>
-                        <div class="d-block d-lg-none py-9 py-xl-0"><img src="../assets/images/logos/logo.svg" alt="Fintle-img" /></div>
-                        <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav"><iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon></a>
-                        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                            <div class="d-flex align-items-center justify-content-between">
-                                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                                    <li class="nav-item dropdown"><a href="javascript:void(0)" class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"><iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon></a></li>
-                                    <li class="nav-item dropdown nav-icon-hover-bg rounded-circle"><a class="nav-link position-relative" href="javascript:void(0)"><iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon></a></li>
-                                    <li class="nav-item dropdown"><a class="nav-link" href="javascript:void(0)"><div class="d-flex align-items-center gap-2 lh-base"><img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35" alt="Fintle-img" /></div></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </header>
-
-            <div class="body-wrapper p-3">
-                <div class="container-fluid p-0">
-                    <!-- Breadcrumb -->
-                    <div class="card card-body py-3 mb-3">
-                        <div class="row align-items-center">
-                            <div class="col-12">
-                                <div class="d-sm-flex align-items-center justify-space-between">
-                                    <h4 class="mb-4 mb-sm-0 card-title">General Ledger</h4>
-                                    <nav aria-label="breadcrumb" class="ms-auto">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item d-flex align-items-center">
-                                                <a class="text-muted text-decoration-none d-flex" href="index.html">
-                                                    <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                                                </a>
-                                            </li>
-                                            <li class="breadcrumb-item"><a href="account-master.html">Accounts</a></li>
-                                            <li class="breadcrumb-item active">General Ledger</li>
-                                        </ol>
-                                    </nav>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Filter Section -->
-                    <div class="filter-card">
-                        <div class="row g-3">
-                            <div class="col-md-3">
-                                <label class="filter-label"> Financial Year</label>
-                                <select class="form-select" id="financialYear">
-                                    <option value="2023-24">2023-24 (April 2023 - March 2024)</option>
-                                    <option value="2024-25" selected>2024-25 (April 2024 - March 2025)</option>
-                                    <option value="2025-26">2025-26 (April 2025 - March 2026)</option>
-                                </select>
-                            </div>
-                            <div class="col-md-3">
-                                <label class="filter-label"> From Date</label>
-                                <input type="date" class="form-control" id="fromDate">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="filter-label"> To Date</label>
-                                <input type="date" class="form-control" id="toDate">
-                            </div>
-                            <div class="col-md-3">
-                                <label class="filter-label"> Account Head</label>
-                                <select class="form-select" id="accountHead">
-                                    <option value="">-- Select Account Head --</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row g-3 mt-2">
-                            <div class="col-md-3">
-                                <label class="filter-label"> Account</label>
-                                <select class="form-select" id="accountSelect">
-                                    <option value="">-- Select Account --</option>
-                                </select>
-                            </div>
-                            <div class="col-md-9 d-flex align-items-end justify-content-end gap-3">
-                                <button class="btn btn-primary" id="viewLedgerBtn">View Ledger</button>
-                                <button class="btn btn-success-custom" id="downloadLedgerBtn">Download</button>
-                                <button class="btn btn-outline-primary" onclick="window.print()">Print</button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- General Ledger Content -->
-                    <div id="ledgerContainer">
-                        <div class="text-center py-5">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <p class="mt-3 text-muted">Select an account and date range to view ledger</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
+<div id="main-wrapper">
+  <aside class="fintle-side" id="fintleSidebarRoot">
+    <div class="side-header">
+      <div class="brand-wrap">
+        <div class="brand-logo">
+          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 50'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='28' fill='%232a3b82' font-weight='bold'%3EFintle%3C/text%3E%3C/svg%3E" alt="Fintle" style="height: 32px;">
         </div>
+      </div>
     </div>
-
-    <!-- Toast Notification -->
-    <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;">
-        <i class="fas fa-bell me-2"></i> <span id="toastText"></span>
+    <div class="fintle-nav-scroll">
+      <ul class="fintle-menu-list">
+        <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+        <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+        <li class="menu-item has-sub" data-submenu-id="itemsSub">
+          <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div></div>
+          <ul class="submenu-level" id="itemsSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Item</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li></ul>
+        </li>
+        <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+          <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span></div></div>
+          <ul class="submenu-level" id="purchaseSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li></ul>
+        </li>
+        <li class="menu-item has-sub" data-submenu-id="salesSub">
+          <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span><span class="dropdown-arrow">▶</span></div></div>
+          <ul class="submenu-level" id="salesSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Customers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Invoices</a></li></ul>
+        </li>
+        <li class="menu-item has-sub open" data-submenu-id="accSub">
+          <div class="nav-link-side submenu-trigger-side active"><div class="trigger-wrap"><span><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span><span class="dropdown-arrow">▶</span></div></div>
+          <ul class="submenu-level show-sub" id="accSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Account Master</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Journals</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li></ul>
+        </li>
+      </ul>
     </div>
+    <div class="side-footer">
+      <ul class="fintle-menu-list"><li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li><li class="menu-item logout-link"><a href="#" class="nav-link-side" id="logoutActionBtn"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li></ul>
+    </div>
+  </aside>
 
-    <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/libs/js/simplebar.min.js"></script>
-    <script src="assets/libs/js/app.init.js"></script>
-    <script src="assets/libs/js/theme.js"></script>
-    <script src="assets/libs/js/app.min.js"></script>
-    <script src="assets/libs/js/sidebarmenu.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+  <div class="page-wrapper">
+    <header class="topbar">
+      <div class="with-vertical w-100">
+        <nav class="navbar navbar-expand-lg p-0 w-100">
+          <ul class="navbar-nav me-auto">
+            <li class="nav-item d-flex d-xl-none"><a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-5"></iconify-icon></a></li>
+            <li class="nav-item d-none d-lg-flex"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size:13px" onclick="alert('Create sales invoice demo')"><iconify-icon icon="solar:add-plus-line-duotone"></iconify-icon> Create Sales Invoice</button></li>
+          </ul>
+          <div class="d-flex align-items-center gap-3">
+            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 24 24' fill='%232a3b82'%3E%3Ccircle cx='12' cy='8' r='4' fill='%239ca3af'/%3E%3Cpath fill='%239ca3af' d='M12 14c-4 0-6 2-6 4v2h12v-2c0-2-2-4-6-4z'/%3E%3C/svg%3E" class="rounded-circle" width="38" height="38" alt="profile">
+          </div>
+        </nav>
+      </div>
+    </header>
 
-    <script>
-        // Account Heads and Sub-Accounts Data
-        const accountHeads = [
-            { id: "assets", name: "Assets" },
-            { id: "liabilities", name: "Liabilities" },
-            { id: "equity", name: "Shareholder's Equity" },
-            { id: "income", name: "Income" },
-            { id: "expense", name: "Expenses" }
-        ];
+    <div class="body-wrapper p-3">
+      <div class="container-fluid p-0">
+        <div class="card card-body py-3 mb-2 border-0 shadow-sm">
+          <div class="row align-items-center">
+            <div class="col-12">
+              <div class="d-sm-flex align-items-center justify-space-between">
+                <h4 class="mb-4 mb-sm-0 card-title"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a> Create New Voucher</h4>
+                <nav aria-label="breadcrumb" class="ms-auto">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">Accounts</a></li>
+                    <li class="breadcrumb-item active">Vouchers</li>
+                  </ol>
+                </nav>
+              </div>
+            </div>
+          </div>
+        </div>
 
-        const accounts = [
-            { id: "cash", name: "Cash in Hand", head: "assets", code: "1101", openingBalance: 125000, type: "debit" },
-            { id: "hdfc_bank", name: "HDFC Bank", head: "assets", code: "1102", openingBalance: 845000, type: "debit" },
-            { id: "sbi_bank", name: "SBI Bank", head: "assets", code: "1103", openingBalance: 425000, type: "debit" },
-            { id: "inventory", name: "Inventory", head: "assets", code: "1201", openingBalance: 565000, type: "debit" },
-            { id: "receivables", name: "Trade Receivables", head: "assets", code: "1301", openingBalance: 220000, type: "debit" },
-            { id: "fixed_assets", name: "Fixed Assets", head: "assets", code: "1401", openingBalance: 1500000, type: "debit" },
-            { id: "payables", name: "Trade Payables", head: "liabilities", code: "2101", openingBalance: 185000, type: "credit" },
-            { id: "borrowings", name: "Long Term Borrowings", head: "liabilities", code: "2201", openingBalance: 500000, type: "credit" },
-            { id: "share_capital", name: "Equity Share Capital", head: "equity", code: "3101", openingBalance: 1000000, type: "credit" },
-            { id: "reserves", name: "Reserves & Surplus", head: "equity", code: "3102", openingBalance: 425000, type: "credit" },
-            { id: "sales", name: "Sales Revenue", head: "income", code: "4101", openingBalance: 1250000, type: "credit" },
-            { id: "service_revenue", name: "Service Revenue", head: "income", code: "4102", openingBalance: 325000, type: "credit" },
-            { id: "cogs", name: "Cost of Goods Sold", head: "expense", code: "5101", openingBalance: 685000, type: "debit" },
-            { id: "salaries", name: "Salaries Expense", head: "expense", code: "5201", openingBalance: 125000, type: "debit" },
-            { id: "rent", name: "Rent Expense", head: "expense", code: "5202", openingBalance: 85000, type: "debit" }
-        ];
+        <div class="voucher-card">
+          <div class="relative-form">
+            <!-- Header with Issue Date + Voucher Number Badge on Right -->
+            <div class="header-row-bg">
+              <div class="badge-voucher" id="voucherBadge">VCH-2026-042</div>
+              <div class="issue-date-wrapper">
+                <span class="issue-date-label">Issue Date</span>
+                <input type="text" class="issue-date-input" id="issueDateInput" placeholder="Select date" value="2026-05-13">
+              </div>
+            </div>
 
-        // Comprehensive Ledger Transactions - Mapped correctly to account IDs
-        let ledgerTransactions = [
-            // Rent Expense transactions
-            { id: 1, date: "2024-04-05", voucherType: "Payment", voucherNo: "PMT-001", description: "Office rent payment for April", debit: 85000, credit: 0, accountId: "rent" },
-            { id: 2, date: "2024-05-05", voucherType: "Payment", voucherNo: "PMT-008", description: "Office rent payment for May", debit: 85000, credit: 0, accountId: "rent" },
-            // Salaries Expense transactions
-            { id: 3, date: "2024-04-10", voucherType: "Payment", voucherNo: "PMT-002", description: "Staff salaries for March", debit: 125000, credit: 0, accountId: "salaries" },
-            { id: 4, date: "2024-05-10", voucherType: "Payment", voucherNo: "PMT-009", description: "Staff salaries for April", debit: 125000, credit: 0, accountId: "salaries" },
-            // Sales Revenue transactions
-            { id: 5, date: "2024-04-15", voucherType: "Receipt", voucherNo: "REC-001", description: "Sales proceeds - Invoice INV-1001", debit: 0, credit: 250000, accountId: "sales" },
-            { id: 6, date: "2024-06-20", voucherType: "Receipt", voucherNo: "REC-004", description: "Sales invoice #INV-101", debit: 0, credit: 185000, accountId: "sales" },
-            // Inventory transactions
-            { id: 7, date: "2024-04-20", voucherType: "Purchase", voucherNo: "PO-001", description: "Raw material purchase", debit: 185000, credit: 0, accountId: "inventory" },
-            { id: 8, date: "2024-06-10", voucherType: "Purchase", voucherNo: "PO-002", description: "Raw materials - bulk order", debit: 125000, credit: 0, accountId: "inventory" },
-            // Payables transactions
-            { id: 9, date: "2024-04-25", voucherType: "Payment", voucherNo: "PMT-003", description: "Supplier payment - ABC Corp", debit: 95000, credit: 0, accountId: "payables" },
-            // Receivables transactions
-            { id: 10, date: "2024-05-05", voucherType: "Receipt", voucherNo: "REC-002", description: "Customer payment received - XYZ Ltd", debit: 0, credit: 125000, accountId: "receivables" },
-            // Fixed Assets transactions
-            { id: 11, date: "2024-05-12", voucherType: "Journal", voucherNo: "JRN-001", description: "Depreciation charged for equipment", debit: 25000, credit: 0, accountId: "fixed_assets" },
-            // HDFC Bank transactions
-            { id: 12, date: "2024-05-18", voucherType: "Payment", voucherNo: "PMT-004", description: "Bank charges & fees", debit: 5000, credit: 0, accountId: "hdfc_bank" },
-            // Service Revenue transactions
-            { id: 13, date: "2024-05-25", voucherType: "Receipt", voucherNo: "REC-003", description: "Consulting service income", debit: 0, credit: 75000, accountId: "service_revenue" },
-            // Borrowings transactions
-            { id: 14, date: "2024-06-15", voucherType: "Payment", voucherNo: "PMT-005", description: "Loan installment payment", debit: 50000, credit: 0, accountId: "borrowings" },
-            // Cash transactions
-            { id: 15, date: "2024-04-08", voucherType: "Receipt", voucherNo: "REC-005", description: "Cash sales", debit: 0, credit: 35000, accountId: "cash" },
-            // COGS transactions
-            { id: 16, date: "2024-04-30", voucherType: "Journal", voucherNo: "JRN-002", description: "Cost of goods sold adjustment", debit: 45000, credit: 0, accountId: "cogs" }
-        ];
+            <!-- Voucher Number + Recipient / Entity -->
+            <div class="two-col-grid">
+              <div class="field-group">
+                <label class="field-label">Voucher Number</label>
+                <input type="text" class="field-input" id="voucherNumberInput" placeholder="e.g., VCH-2026-001" value="">
+              </div>
+              <div class="field-group">
+                <label class="field-label">Recipient / Entity</label>
+                <input type="text" class="field-input" id="recipientInput" placeholder="Customer, Supplier, or Party name" value="">
+              </div>
+            </div>
 
-        function formatCurrency(amount) {
-            return new Intl.NumberFormat('en-IN', { style: 'currency', currency: 'INR', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
-        }
+            <!-- Description Field -->
+            <div class="description-section">
+              <label class="description-label">Description</label>
+              <textarea class="description-input" id="descriptionInput" placeholder="Enter voucher description, reference, or additional notes..."></textarea>
+            </div>
 
-        function formatDate(dateString) {
-            return new Date(dateString).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' });
-        }
+            <!-- Amount Section: Left side Amount in Words + Right side Amount Input -->
+            <div class="amount-wrapper">
+              <!-- LEFT SIDE: Amount in Words Display -->
+              <div class="amount-in-words-box">
+                <div class="amount-words-label">Amount in Words</div>
+                <div class="amount-words-value" id="amountInWordsDisplay">—</div>
+              </div>
+              
+              <!-- RIGHT SIDE: Amount Panel -->
+              <div class="amount-panel">
+                <span class="amount-label-top">Voucher Amount</span>
+                <input type="text" class="amount-input" id="amountInput" placeholder="₹ 0.00" value="">
+              </div>
+            </div>
 
-        function showToast(message, type = 'success') {
-            const toastDiv = document.getElementById('liveToastMsg');
-            const toastText = document.getElementById('toastText');
-            toastText.innerHTML = message;
-            toastDiv.style.display = 'block';
-            setTimeout(() => toastDiv.style.display = 'none', 2500);
-        }
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+              <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
+              <button type="button" class="btn-save" id="saveBtn">Save Voucher</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-        function populateAccountHeads() {
-            const headSelect = document.getElementById('accountHead');
-            headSelect.innerHTML = '<option value="">-- Select Account Head --</option>';
-            accountHeads.forEach(head => {
-                headSelect.innerHTML += `<option value="${head.id}">${head.name}</option>`;
-            });
+<!-- Toast Notification -->
+<div id="liveToastMsg" class="alert-toast" style="display: none;">
+  <i class="fas fa-check-circle me-2"></i> <span id="toastText">Action completed</span>
+</div>
 
-            document.getElementById('accountHead').addEventListener('change', function() {
-                const selectedHead = this.value;
-                const accountSelect = document.getElementById('accountSelect');
-                accountSelect.innerHTML = '<option value="">-- Select Account --</option>';
-                
-                const filteredAccounts = accounts.filter(acc => acc.head === selectedHead);
-                if (filteredAccounts.length === 0) {
-                    accountSelect.innerHTML = '<option value="">-- No accounts found --</option>';
-                } else {
-                    filteredAccounts.forEach(acc => {
-                        accountSelect.innerHTML += `<option value="${acc.id}" data-type="${acc.type}" data-code="${acc.code}">${acc.code} - ${acc.name}</option>`;
-                    });
-                }
-            });
-        }
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
-        function setDefaultDates() {
-            const today = new Date();
-            const currentYear = today.getFullYear();
-            let targetYear = currentYear;
-            if (today.getMonth() > 2) {
-                targetYear = currentYear + 1;
-            }
-            document.getElementById('fromDate').value = `${currentYear}-04-01`;
-            document.getElementById('toDate').value = `${targetYear}-03-31`;
-        }
-
-        function getOpeningBalance(accountId) {
-            const account = accounts.find(acc => acc.id === accountId);
-            return account ? account.openingBalance : 0;
-        }
-
-        function renderLedger() {
-            const accountId = document.getElementById('accountSelect').value;
-            const fromDate = document.getElementById('fromDate').value;
-            const toDate = document.getElementById('toDate').value;
-            const financialYear = document.getElementById('financialYear').value;
-            
-            if (!accountId) {
-                document.getElementById('ledgerContainer').innerHTML = `
-                    <div class="text-center py-5">
-                        <i class="fas fa-chart-line fa-3x text-muted mb-3"></i>
-                        <p class="text-muted">Please select an account to view ledger</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const account = accounts.find(acc => acc.id === accountId);
-            if (!account) {
-                document.getElementById('ledgerContainer').innerHTML = `
-                    <div class="text-center py-5">
-                        <i class="fas fa-exclamation-triangle fa-3x text-warning mb-3"></i>
-                        <p class="text-muted">Account not found</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            const openingBalance = getOpeningBalance(accountId);
-            
-            // Filter transactions for selected account and date range
-            let filteredTransactions = ledgerTransactions.filter(t => t.accountId === accountId);
-            
-            // Apply date range filter
-            if (fromDate) {
-                filteredTransactions = filteredTransactions.filter(t => t.date >= fromDate);
-            }
-            if (toDate) {
-                filteredTransactions = filteredTransactions.filter(t => t.date <= toDate);
-            }
-            
-            // Sort by date
-            filteredTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            // Calculate running balance
-            let runningBalance = openingBalance;
-            let totalDebit = 0;
-            let totalCredit = 0;
-            
-            const transactionsWithBalance = filteredTransactions.map(t => {
-                if (t.debit > 0) {
-                    runningBalance += t.debit;
-                    totalDebit += t.debit;
-                } else if (t.credit > 0) {
-                    runningBalance -= t.credit;
-                    totalCredit += t.credit;
-                }
-                return { ...t, runningBalance: runningBalance };
-            });
-            
-            const closingBalance = runningBalance;
-            
-            const container = document.getElementById('ledgerContainer');
-            const formattedFromDate = fromDate ? new Date(fromDate).toLocaleDateString('en-IN') : 'Start';
-            const formattedToDate = toDate ? new Date(toDate).toLocaleDateString('en-IN') : 'End';
-            
-            let html = `
-                <div class="ledger-card">
-                    <div class="ledger-header">
-                        <div class="d-flex justify-content-between align-items-center flex-wrap">
-                            <div>
-                                <h4>General Ledger</h4>
-                                <p> ${financialYear} | ${formattedFromDate} to ${formattedToDate}</p>
-                            </div>
-                            <div>
-                                <span class="badge bg-primary-subtle text-primary px-3 py-2 rounded-pill">
-                                    <i class="fas fa-rupee-sign me-1"></i> Amounts in INR
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="account-summary">
-                        <div class="summary-item">
-                            <span class="summary-label">Account Name</span>
-                            <span class="summary-value">${account.code} - ${account.name}</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Account Type</span>
-                            <span class="summary-value">${account.head.toUpperCase()}</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Opening Balance</span>
-                            <span class="summary-value ${account.type === 'debit' ? 'debit' : 'credit'}">${formatCurrency(openingBalance)} ${account.type === 'debit' ? 'Dr' : 'Cr'}</span>
-                        </div>
-                        <div class="summary-item">
-                            <span class="summary-label">Closing Balance</span>
-                            <span class="summary-value ${closingBalance > openingBalance ? 'debit' : 'credit'}">${formatCurrency(Math.abs(closingBalance))} ${closingBalance >= 0 ? 'Dr' : 'Cr'}</span>
-                        </div>
-                    </div>
-                    
-                    <div class="table-wrapper">
-                        <table class="ledger-table">
-                            <thead>
-                                <tr>
-                                    <th>S.No</th>
-                                    <th>Date</th>
-                                    <th>Voucher Type</th>
-                                    <th>Voucher No</th>
-                                    <th>Description</th>
-                                    <th style="text-align: right;">Debit (₹)</th>
-                                    <th style="text-align: right;">Credit (₹)</th>
-                                    <th style="text-align: right;">Balance (₹)</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr style="background: #f8fafc;">
-                                    <td colspan="7" style="font-weight: 600;">Opening Balance</td>
-                                    <td style="text-align: right; font-weight: 600;">${formatCurrency(openingBalance)} ${account.type === 'debit' ? 'Dr' : 'Cr'}</td>
-                                 </tr>
-            `;
-            
-            if (transactionsWithBalance.length === 0) {
-                html += `<tr><td colspan="8" class="text-center py-4 text-muted">No transactions found for the selected period</td></tr>`;
-            } else {
-                transactionsWithBalance.forEach((t, idx) => {
-                    html += `
-                        <tr>
-                            <td>${idx + 1}</td>
-                            <td>${formatDate(t.date)}</td>
-                            <td><span class="badge-voucher">${t.voucherType}</span></td>
-                            <td><a href="#" class="voucher-link" onclick="viewVoucher('${t.voucherNo}')">${t.voucherNo}</a></td>
-                            <td>${t.description}</td>
-                            <td style="text-align: right;" class="${t.debit > 0 ? 'debit-amount' : ''}">${t.debit > 0 ? formatCurrency(t.debit) : '-'}</td>
-                            <td style="text-align: right;" class="${t.credit > 0 ? 'credit-amount' : ''}">${t.credit > 0 ? formatCurrency(t.credit) : '-'}</td>
-                            <td style="text-align: right; font-weight: 500;">${formatCurrency(Math.abs(t.runningBalance))} ${t.runningBalance >= 0 ? 'Dr' : 'Cr'}</td>
-                         </tr>
-                    `;
-                });
-            }
-            
-            html += `
-                                <tr class="total-row">
-                                    <td colspan="5" style="font-weight: 800;">TOTAL</td>
-                                    <td style="text-align: right; font-weight: 800; color: #10b981;">${formatCurrency(totalDebit)}</td>
-                                    <td style="text-align: right; font-weight: 800; color: #ef4444;">${formatCurrency(totalCredit)}</td>
-                                    <td style="text-align: right; font-weight: 800;">${formatCurrency(Math.abs(closingBalance))} ${closingBalance >= 0 ? 'Dr' : 'Cr'}</td>
-                                 </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            `;
-            
-            container.innerHTML = html;
-            if (transactionsWithBalance.length > 0) {
-                showToast(`Ledger loaded for ${account.name} - ${transactionsWithBalance.length} transactions found`, 'success');
-            } else {
-                showToast(`No transactions found for ${account.name} in selected period`, 'info');
-            }
-        }
-        
-        function downloadLedger() {
-            const accountId = document.getElementById('accountSelect').value;
-            if (!accountId) {
-                showToast('Please select an account first', 'error');
-                return;
-            }
-            
-            const account = accounts.find(acc => acc.id === accountId);
-            const fromDate = document.getElementById('fromDate').value;
-            const toDate = document.getElementById('toDate').value;
-            const financialYear = document.getElementById('financialYear').value;
-            
-            let filteredTransactions = ledgerTransactions.filter(t => t.accountId === accountId);
-            if (fromDate) filteredTransactions = filteredTransactions.filter(t => t.date >= fromDate);
-            if (toDate) filteredTransactions = filteredTransactions.filter(t => t.date <= toDate);
-            filteredTransactions.sort((a, b) => new Date(a.date) - new Date(b.date));
-            
-            let csvContent = `"General Ledger Report"\n`;
-            csvContent += `"Account: ${account.code} - ${account.name}"\n`;
-            csvContent += `"Financial Year: ${financialYear}"\n`;
-            csvContent += `"Period: ${fromDate} to ${toDate}"\n\n`;
-            csvContent += `"S.No","Date","Voucher Type","Voucher No","Description","Debit (₹)","Credit (₹)","Balance (₹)"\n`;
-            
-            let runningBalance = getOpeningBalance(accountId);
-            
-            filteredTransactions.forEach((t, idx) => {
-                if (t.debit > 0) runningBalance += t.debit;
-                else if (t.credit > 0) runningBalance -= t.credit;
-                csvContent += `${idx + 1},"${t.date}","${t.voucherType}","${t.voucherNo}","${t.description}",${t.debit},${t.credit},${runningBalance}\n`;
-            });
-            
-            const blob = new Blob(["\uFEFF" + csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `General_Ledger_${account.code}_${fromDate}_to_${toDate}.csv`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            showToast('Ledger downloaded successfully', 'success');
-        }
-        
-        function viewVoucher(voucherNo) {
-            showToast(`Opening voucher ${voucherNo}`, 'info');
-        }
-        
-        // Event Listeners
-        document.getElementById('viewLedgerBtn').addEventListener('click', renderLedger);
-        document.getElementById('downloadLedgerBtn').addEventListener('click', downloadLedger);
-        
-        // Initialize
-        populateAccountHeads();
-        setDefaultDates();
-    </script>
+<script>
+  // ======================== NUMBER TO WORDS CONVERTER (Indian Rupees Format) ========================
+  function numberToWordsIndian(amount) {
+    if (amount === 0 || isNaN(amount) || amount === null) return '';
+    
+    const num = parseFloat(amount);
+    if (isNaN(num)) return '';
+    
+    const rupees = Math.floor(num);
+    const paise = Math.round((num - rupees) * 100);
+    
+    const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+    
+    function convertToWords(n) {
+      if (n === 0) return '';
+      if (n < 20) return ones[n];
+      if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + ones[n % 10] : '');
+      if (n < 1000) return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' ' + convertToWords(n % 100) : '');
+      if (n < 100000) return convertToWords(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertToWords(n % 1000) : '');
+      if (n < 10000000) return convertToWords(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convertToWords(n % 100000) : '');
+      return convertToWords(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 !== 0 ? ' ' + convertToWords(n % 10000000) : '');
+    }
+    
+    let rupeesWords = convertToWords(rupees);
+    let result = rupeesWords ? rupeesWords + ' Rupees' : '';
+    
+    if (paise > 0) {
+      const paiseWords = convertToWords(paise);
+      result += (result ? ' and ' : '') + paiseWords + ' Paise';
+    }
+    
+    return result + ' Only';
+  }
+  
+  // Update Amount in Words dynamically
+  function updateAmountInWords() {
+    const amountInput = document.getElementById('amountInput');
+    const amountWordsSpan = document.getElementById('amountInWordsDisplay');
+    let rawValue = amountInput.value;
+    let numericValue = parseFloat(rawValue.replace(/,/g, ''));
+    
+    if (isNaN(numericValue) || numericValue <= 0) {
+      amountWordsSpan.innerHTML = '—';
+      amountWordsSpan.classList.add('empty');
+    } else {
+      const words = numberToWordsIndian(numericValue);
+      amountWordsSpan.innerHTML = words;
+      amountWordsSpan.classList.remove('empty');
+    }
+  }
+  
+  // Format amount input helper with thousand separators (Indian numbering)
+  function formatAmountWithCommas(value) {
+    let raw = value.toString().replace(/[^0-9.-]/g, '');
+    if (raw === '' || raw === '-') return '';
+    let num = parseFloat(raw);
+    if (isNaN(num)) return '';
+    
+    let parts = raw.split('.');
+    let integerPart = parts[0];
+    let decimalPart = parts[1] ? '.' + parts[1].slice(0, 2) : '';
+    
+    let lastThree = integerPart.slice(-3);
+    let otherNumbers = integerPart.slice(0, -3);
+    if (otherNumbers !== '') {
+      lastThree = ',' + lastThree;
+    }
+    let formatted = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
+    return formatted + decimalPart;
+  }
+  
+  function handleAmountInput(e) {
+    let rawValue = e.target.value;
+    let numericRaw = rawValue.replace(/[^0-9.-]/g, '');
+    if (numericRaw === '') {
+      e.target.value = '';
+      updateAmountInWords();
+      return;
+    }
+    let num = parseFloat(numericRaw);
+    if (!isNaN(num)) {
+      e.target.value = numericRaw;
+    } else {
+      e.target.value = '';
+    }
+    updateAmountInWords();
+  }
+  
+  function formatAmountOnBlur() {
+    let val = amountInput.value.trim();
+    if (val === '') {
+      amountInput.value = '';
+      updateAmountInWords();
+      return;
+    }
+    let num = parseFloat(val);
+    if (!isNaN(num)) {
+      let formatted = formatAmountWithCommas(num.toFixed(2));
+      amountInput.value = formatted;
+    } else {
+      if (val === '') amountInput.value = '';
+    }
+    updateAmountInWords();
+  }
+  
+  function getRawAmountValue() {
+    let raw = amountInput.value;
+    if (!raw) return 0;
+    let cleaned = raw.replace(/,/g, '');
+    let num = parseFloat(cleaned);
+    return isNaN(num) ? 0 : num;
+  }
+  
+  // ======================== CALENDAR PLUGIN (Flatpickr) ========================
+  let flatpickrInstance = null;
+  function initCalendar() {
+    const dateInput = document.getElementById('issueDateInput');
+    if (dateInput && typeof flatpickr !== 'undefined') {
+      flatpickrInstance = flatpickr(dateInput, {
+        dateFormat: "Y-m-d",
+        defaultDate: "2026-05-13",
+        allowInput: true,
+        theme: "light",
+        position: "auto"
+      });
+    }
+  }
+  
+  // ======================== VOUCHER CRUD OPERATIONS ========================
+  function showToast(message, isError = false) {
+    const toastDiv = document.getElementById('liveToastMsg');
+    const toastTextSpan = document.getElementById('toastText');
+    toastTextSpan.innerText = message;
+    toastDiv.style.display = 'flex';
+    toastDiv.style.background = isError ? '#b91c1c' : '#1e293b';
+    setTimeout(() => {
+      toastDiv.style.display = 'none';
+      toastDiv.style.background = '#1e293b';
+    }, 2600);
+  }
+  
+  function generateVoucherNumber() {
+    const year = new Date().getFullYear();
+    const randomSeq = Math.floor(Math.random() * 900) + 100;
+    return `VCH-${year}-${randomSeq}`;
+  }
+  
+  // Update the badge with current voucher number
+  function updateVoucherBadge() {
+    const badge = document.getElementById('voucherBadge');
+    const voucherNumber = voucherNumberInput.value.trim();
+    if (badge) {
+      if (voucherNumber) {
+        badge.textContent = voucherNumber;
+      } else {
+        badge.textContent = 'Not Set';
+      }
+    }
+  }
+  
+  function resetFormFields() {
+    const today = new Date().toISOString().split('T')[0];
+    if (flatpickrInstance) {
+      flatpickrInstance.setDate(today);
+    } else {
+      document.getElementById('issueDateInput').value = today;
+    }
+    const newVoucherNo = generateVoucherNumber();
+    voucherNumberInput.value = newVoucherNo;
+    updateVoucherBadge();
+    recipientInput.value = '';
+    descriptionInput.value = '';
+    amountInput.value = '';
+    updateAmountInWords();
+    showToast('Form cleared, ready for new voucher', false);
+  }
+  
+  function collectVoucherData() {
+    const issueDate = document.getElementById('issueDateInput').value;
+    const voucherNumber = voucherNumberInput.value.trim();
+    const recipient = recipientInput.value.trim();
+    const description = descriptionInput.value.trim();
+    let rawAmount = getRawAmountValue();
+    
+    if (!issueDate) { showToast('Please select Issue Date', true); return null; }
+    if (!voucherNumber) { showToast('Voucher Number is required', true); return null; }
+    if (!recipient) { showToast('Recipient / Entity is required', true); return null; }
+    if (rawAmount === 0 || isNaN(rawAmount) || rawAmount <= 0) { showToast('Please enter a valid Voucher Amount greater than zero', true); return null; }
+    
+    return {
+      issueDate, voucherNumber, recipientEntity: recipient,
+      description, voucherAmount: rawAmount,
+      amountInWords: numberToWordsIndian(rawAmount),
+      createdOn: new Date().toISOString(), id: Date.now()
+    };
+  }
+  
+  function saveVoucherHandler() {
+    const voucherData = collectVoucherData();
+    if (!voucherData) return;
+    let existingVouchers = [];
+    try {
+      const stored = localStorage.getItem('fintle_vouchers_clean');
+      if (stored) existingVouchers = JSON.parse(stored);
+    } catch(e) { console.warn(e); }
+    existingVouchers.push(voucherData);
+    localStorage.setItem('fintle_vouchers_clean', JSON.stringify(existingVouchers));
+    showToast(`Voucher ${voucherData.voucherNumber} saved successfully!`, false);
+    setTimeout(() => {
+      if (confirm('Voucher saved! Create another? OK to clear form, Cancel to keep editing.')) resetFormFields();
+    }, 200);
+  }
+  
+  function cancelForm() {
+    if (confirm('Cancel voucher creation? All unsaved data will be lost.')) resetFormFields();
+  }
+  
+  // DOM Elements
+  const voucherNumberInput = document.getElementById('voucherNumberInput');
+  const recipientInput = document.getElementById('recipientInput');
+  const descriptionInput = document.getElementById('descriptionInput');
+  const amountInput = document.getElementById('amountInput');
+  const cancelBtn = document.getElementById('cancelBtn');
+  const saveBtn = document.getElementById('saveBtn');
+  
+  // Event Listeners
+  amountInput.addEventListener('input', handleAmountInput);
+  amountInput.addEventListener('blur', formatAmountOnBlur);
+  saveBtn.addEventListener('click', saveVoucherHandler);
+  cancelBtn.addEventListener('click', cancelForm);
+  
+  // Update badge when voucher number changes
+  voucherNumberInput.addEventListener('input', updateVoucherBadge);
+  
+  descriptionInput.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      e.preventDefault();
+      saveVoucherHandler();
+    }
+  });
+  
+  // Initialize
+  window.addEventListener('DOMContentLoaded', () => {
+    initCalendar();
+    if (!voucherNumberInput.value.trim()) {
+      voucherNumberInput.value = generateVoucherNumber();
+    }
+    updateVoucherBadge();
+    if (amountInput.value) formatAmountOnBlur();
+    else updateAmountInWords();
+    descriptionInput.placeholder = "Enter voucher description (e.g., Rent payment, Invoice settlement, etc.)";
+  });
+  
+  // Sidebar toggle for mobile
+  document.getElementById('headerCollapse')?.addEventListener('click', function() {
+    const sidebar = document.getElementById('fintleSidebarRoot');
+    if (sidebar.style.transform === 'translateX(0px)' || !sidebar.style.transform) sidebar.style.transform = 'translateX(-100%)';
+    else sidebar.style.transform = 'translateX(0px)';
+  });
+  
+  document.querySelectorAll('.has-sub .submenu-trigger-side').forEach(trigger => {
+    trigger.addEventListener('click', function(e) {
+      e.stopPropagation();
+      const parent = this.closest('.has-sub');
+      const submenu = parent.querySelector('.submenu-level');
+      if (submenu) { submenu.classList.toggle('show-sub'); parent.classList.toggle('open'); }
+    });
+  });
+  
+  document.getElementById('logoutActionBtn')?.addEventListener('click', (e) => { e.preventDefault(); showToast('Logged out (demo)'); });
+</script>
 </body>
-
 </html>
