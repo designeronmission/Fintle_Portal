@@ -2,47 +2,98 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
+
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fintle | Create Journal</title>
-  <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
+  <title>Fintle | Create Journal Entry</title>
+  <link rel="shortcut icon" type="image/png" href="#">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+  <!-- Flatpickr for date picker -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <link rel="stylesheet" href="assets/libs/css/custom.css" />
+
 
   <style>
-    .card-custom {
-      border: none;
+  
+    /* Voucher Design Styles */
+    .voucher-card {
+      width: 100%;
+      margin: 0 auto;
+      background: #ffffff;
       border-radius: 16px;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-      overflow: hidden;
-      margin-bottom: 24px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.02);
+      padding: 1.5rem 2rem 2rem 2rem;
+      transition: all 0.2s ease;
     }
 
-    .card-header-custom {
+    .header-row-bg {
+      background-color: #f0f4fa;
+      height: 60px;
+      width: 100%;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .badge-voucher {
+      background: #2a3b82;
+      color: white;
+      padding: 6px 20px;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+    }
+
+    .issue-date-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .issue-date-label {
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #3c4b5f;
+    }
+
+    .issue-date-input {
+      border: 1px solid #e2e8f0;
       background: white;
-      border-bottom: 1px solid #eef2f8;
-      padding: 1rem 1.5rem;
-      font-weight: 700;
-      font-size: 1rem;
+      border-radius: 8px;
+      padding: 8px 12px;
+      font-size: 0.85rem;
+      width: 160px;
+    }
+
+    .two-col-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .field-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .field-label {
+      font-weight: 600;
+      font-size: 0.85rem;
       color: #1e293b;
     }
 
-    .card-header-custom i {
-      color: #2a3b82;
-    }
-
-    .form-label {
-      font-weight: 700;
-      color: #242424;
-      margin-bottom: 6px;
-    }
-
-    .form-control,
-    .form-select {
+    .field-input, .form-control, .form-select {
       border-radius: 8px;
       border: 1px solid #e2e8f0;
       padding: 0.6rem 1rem;
@@ -50,8 +101,7 @@
       transition: all 0.2s;
     }
 
-    .form-control:focus,
-    .form-select:focus {
+    .field-input:focus, .form-control:focus, .form-select:focus {
       border-color: #2a3b82;
       box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.1);
       outline: none;
@@ -62,31 +112,39 @@
       color: #ef4444;
     }
 
-    .btn-primary {
-      background: #2a3b82;
-      border: none;
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
-      font-weight: 600;
+    .entries-table-wrapper {
+      overflow-x: auto;
+      margin: 1rem 0;
+      border: 1px solid #eef2f8;
+      border-radius: 12px;
+    }
+
+    .entries-table {
+      width: 100%;
+      border-collapse: collapse;
       font-size: 0.85rem;
     }
 
-    .btn-primary:hover {
-      background: #1f2e6e;
-    }
-
-    .btn-outline-secondary {
-      border-radius: 40px;
-      padding: 0.5rem 1.2rem;
+    .entries-table th {
+      background: #f8fafc;
+      padding: 14px 12px;
+      text-align: left;
       font-weight: 600;
-      font-size: 0.85rem;
+      color: #1e293b;
+      border-bottom: 1px solid #e2e8f0;
     }
 
-    .btn-add-item {
+    .entries-table td {
+      padding: 10px;
+      border-bottom: 1px solid #eef2f6;
+      vertical-align: middle;
+    }
+
+    .btn-add-entry {
       background: none;
       color: #2a3b82;
       border: 1px dashed #2a3b82;
-      padding: 8px 15px;
+      padding: 10px 15px;
       margin-top: 10px;
       cursor: pointer;
       width: 100%;
@@ -95,50 +153,11 @@
       transition: all 0.2s;
     }
 
-    .btn-add-item:hover {
+    .btn-add-entry:hover {
       background: #eef2ff;
     }
 
-    .items-table-wrapper {
-      overflow-x: auto;
-      margin-top: 15px;
-    }
-
-    .items-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.85rem;
-    }
-
-    .items-table th {
-      background: #f8fafc;
-      padding: 12px;
-      text-align: left;
-      font-weight: 600;
-      color: #1e293b;
-      border-bottom: 1px solid #e2e8f0;
-    }
-
-    .items-table td {
-      padding: 10px;
-      border-bottom: 1px solid #eef2f6;
-      vertical-align: middle;
-    }
-
-    .item-input {
-      width: 100%;
-      border: 1px solid #e2e8f0;
-      border-radius: 6px;
-      padding: 8px 10px;
-      font-size: 0.85rem;
-    }
-
-    .item-input:focus {
-      outline: none;
-      border-color: #2a3b82;
-    }
-
-    .remove-item-btn {
+    .remove-entry-btn {
       background: none;
       border: none;
       color: #ef4444;
@@ -148,25 +167,8 @@
       border-radius: 4px;
     }
 
-    .remove-item-btn:hover {
+    .remove-entry-btn:hover {
       background: #fee2e2;
-    }
-
-    .toast-notify {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      background: #1e293b;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 40px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      z-index: 1100;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
     }
 
     .summary-card {
@@ -180,7 +182,7 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 10px 0;
+      padding: 12px 0;
       border-bottom: 1px solid #e9edf2;
     }
 
@@ -202,25 +204,79 @@
 
     .summary-total {
       background: linear-gradient(135deg, #2a3b82 0%, #35448d 100%);
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 15px 20px;
       margin-top: 12px;
-      color: white;
     }
 
     .summary-total .summary-value {
       color: white;
-      font-size: 1.5rem;
+      font-size: 1.3rem;
       font-weight: 800;
     }
+
+    .action-buttons {
+      display: flex;
+      justify-content: flex-end;
+      gap: 16px;
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #eef2f8;
+    }
+
+    .btn-cancel {
+      background: white;
+      border: 1px solid #e2e8f0;
+      border-radius: 40px;
+      padding: 10px 28px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: #475569;
+      cursor: pointer;
+    }
+
+    .btn-cancel:hover {
+      background: #f8fafc;
+    }
+
+    .btn-save {
+      background: #2a3b82;
+      border: none;
+      border-radius: 40px;
+      padding: 10px 32px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      color: white;
+      cursor: pointer;
+    }
+
+    .btn-save:hover {
+      background: #1f2e6e;
+    }
+
+    .toast-notify {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      padding: 12px 24px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    }
+
+
   </style>
 </head>
 
 <body>
 
-  <div id="main-wrapper">
-
-              <aside class="fintle-side" id="fintleSidebarRoot">
+<div id="main-wrapper">
+        <aside class="fintle-side" id="fintleSidebarRoot">
         <!-- Header brand section -->
         <div class="side-header">
             <div class="brand-wrap">
@@ -283,7 +339,7 @@
 
                 <!-- SALES with submenu -->
                 <li class="menu-item has-sub" data-submenu-id="salesSub">
-                    <div class="nav-link-side submenu-trigger-side active">
+                    <div class="nav-link-side submenu-trigger-side">
                         <div class="trigger-wrap">
                             <span style="display: flex; align-items: center; gap: 12px;">
                                 <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
@@ -302,7 +358,7 @@
 
                 <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
                 <li class="menu-item has-sub open" data-submenu-id="accSub">
-                    <div class="nav-link-side submenu-trigger-side">
+                    <div class="nav-link-side submenu-trigger-side active">
                         <div class="trigger-wrap">
                             <span style="display: flex; align-items: center; gap: 12px;">
                                 <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
@@ -346,8 +402,8 @@
         </div>
     </aside>
 
-    <div class="page-wrapper">
-         <header class="topbar">
+  <div class="page-wrapper">
+       <header class="topbar">
         <div class="with-vertical">
           <nav class="navbar navbar-expand-lg p-0">
             <ul class="navbar-nav">
@@ -484,456 +540,350 @@
         </div>
       </header>
 
-      <div class="body-wrapper p-3">
-        <div class="container-fluid p-0">
-          <!-- Breadcrumb -->
-          <div class="card card-body py-3 mb-3">
+
+    <div class="body-wrapper p-3">
+      <div class="container-fluid p-0">
+          <div class="card card-body py-3 mb-2 border-0 shadow-sm" style="border-radius: 16px;">
             <div class="row align-items-center">
               <div class="col-12">
                 <div class="d-sm-flex align-items-center justify-content-between">
-                  <h4 class="mb-4 mb-sm-0 card-title"><span class="me-2"><a href="journals.html"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a></span>Create Journal Entry</h4>
-                  <nav aria-label="breadcrumb" class="ms-auto">
-                    <ol class="breadcrumb mb-0">
-                      <li class="breadcrumb-item d-flex align-items-center">
-                        <a class="text-muted text-decoration-none d-flex" href="index.html">
+                  <h4 class="mb-4 mb-sm-0 card-title fw-bold"><a href="journals.html" class="text-muted me-2"><i class="fas fa-arrow-left"></i></a>Create Journals</h4>
+                  <nav class="ms-auto"><ol class="breadcrumb mb-0">  <li class="breadcrumb-item"> <a class="text-muted text-decoration-none d-flex" href="index.html">
                           <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
-                        </a>
-                      </li>
-                      <li class="breadcrumb-item"><a href="journals.html">Journals</a></li>
-                      <li class="breadcrumb-item active" aria-current="page">Create Journal Entry</li>
-                    </ol>
-                  </nav>
+                        </a></li><li class="breadcrumb-item"><a href="journals.html">Journals</a></li><li class="breadcrumb-item active">Create Journals</li></ol></nav>
                 </div>
               </div>
             </div>
           </div>
 
-          <form id="journalForm">
-            <!-- Journal Details -->
-            <div class="card-custom">
-              <div class="card-header-custom"><i class="fas fa-clipboard-list me-2"></i> Journal Entry Details</div>
-              <div class="card-body p-4">
-                <div class="row g-4">
-                  <!-- Voucher No -->
-                  <div class="col-md-4">
-                    <label class="form-label required-field">Voucher No</label>
-                    <input type="text" class="form-control" id="voucherNo" placeholder="Auto-generated" readonly>
-                  </div>
+        <!-- Journal Form - Voucher Design -->
+        <div class="voucher-card">
+          <div class="header-row-bg">
+            <div class="badge-voucher" id="voucherBadge">JV-2026-001</div>
+            <div class="issue-date-wrapper">
+              <span class="issue-date-label">Journal Date</span>
+              <input type="text" class="issue-date-input" id="journalDate" placeholder="Select date">
+            </div>
+          </div>
 
-                  <!-- Date -->
-                  <div class="col-md-4">
-                    <label class="form-label required-field">Date</label>
-                    <input type="date" class="form-control" id="journalDate" required>
-                  </div>
+          <div class="two-col-grid">
+            <div class="field-group">
+              <label class="field-label required-field">Voucher No</label>
+              <input type="text" class="field-input" id="voucherNo" readonly>
+            </div>
+            <div class="field-group">
+              <label class="field-label required-field">JV Description</label>
+              <textarea class="field-input" id="description" rows="1" placeholder="Enter journal voucher description" style="resize: vertical;"></textarea>
+            </div>
+          </div>
 
+          <!-- Journal Entries Table -->
+          <div class="entries-table-wrapper">
+            <table class="entries-table" id="entriesTable">
+              <thead>
+                <tr>
+                  <th style="width:25%">Group</th>
+                  <th style="width:25%">Account</th>
+                  <th style="width:18%">Amount (₹)</th>
+                  <th style="width:15%">Type</th>
+                  <th style="width:12%">Narration</th>
+                  <th style="width:5%"></th>
+                </tr>
+              </thead>
+              <tbody id="entriesTableBody"></tbody>
+            </table>
+          </div>
+          <button type="button" class="btn-add-entry" id="addEntryBtn"><i class="fas fa-plus me-2"></i>Add New Entry</button>
 
-
-                  <!-- JV Description -->
-                  <div class="col-md-4">
-                    <label class="form-label required-field">JV Description</label>
-                    <textarea class="form-control" id="description" rows="2" placeholder="Enter journal voucher description" required></textarea>
+          <!-- Summary Section -->
+          <div class="row justify-content-end mt-4">
+            <div class="col-md-5">
+              <div class="summary-card">
+                <div class="summary-row">
+                  <span class="summary-label">Total Debit</span>
+                  <span class="summary-value" id="totalDebit">₹ 0.00</span>
+                </div>
+                <div class="summary-row">
+                  <span class="summary-label">Total Credit</span>
+                  <span class="summary-value" id="totalCredit">₹ 0.00</span>
+                </div>
+                <div class="summary-total">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="summary-label" style="color: rgba(255,255,255,0.9);">Difference</span>
+                    <span class="summary-value" id="difference" style="color: white;">₹ 0.00</span>
                   </div>
                 </div>
-              </div>
-
-                <div class="card-body px-4">
-                <div class="items-table-wrapper">
-                  <table class="items-table" id="entriesTable">
-                    <thead>
-                      <tr>
-                        <th style="width:20%">Group</th>
-                        <th style="width:25%">Account</th>
-                        <th style="width:15%">Amount ($)</th>
-                        <th style="width:15%">Type</th>
-                        <th style="width:20%">Description</th>
-                        <th style="width:5%"></th>
-                      </tr>
-                    </thead>
-                    <tbody id="entriesTableBody"></tbody>
-                  </table>
-                </div>
-                <button type="button" class="btn-add-item" id="addEntryBtn"><i class="fas fa-plus me-2"></i>Add New Entry</button>
-              </div>
-             <!-- Summary Section -->
-            <div class="row justify-content-end">
-              <div class="col-md-5">
-                <div class="summary-card">
-                  <div class="summary-row">
-                    <span class="summary-label">Total Debit</span>
-                    <span class="summary-value" id="totalDebit">$0.00</span>
-                  </div>
-                  <div class="summary-row">
-                    <span class="summary-label">Total Credit</span>
-                    <span class="summary-value" id="totalCredit">$0.00</span>
-                  </div>
-                  <div class="summary-total">
-                    <div class="d-flex justify-content-between align-items-center">
-                      <span class="summary-label" style="color: rgba(255,255,255,0.9);">Difference</span>
-                      <span class="summary-value" id="difference" style="color: white;">$0.00</span>
-                    </div>
-                  </div>
-                  <div id="balanceError" class="text-danger small mt-2" style="display: none;">
-                    <i class="fas fa-exclamation-triangle me-1"></i> Debit and Credit amounts must be equal!
-                  </div>
+                <div id="balanceError" class="text-danger small mt-2" style="display: none;">
+                  <i class="fas fa-exclamation-triangle me-1"></i> Debit and Credit amounts must be equal!
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Action Buttons -->
-            <div class="d-flex justify-content-end gap-3 mt-4 mb-5 me-4">
-              <button type="button" class="btn btn-outline-secondary rounded-pill px-4" id="cancelBtn">
-                <i class="fas fa-times me-2"></i>Cancel
-              </button>
-              <button type="reset" class="btn btn-outline-secondary rounded-pill px-4">
-                <i class="fas fa-undo-alt me-2"></i>Reset
-              </button>
-              <button type="submit" class="btn btn-primary rounded-pill px-5">
-                <i class="fas fa-save me-2"></i>Save Journal Entries
-              </button>
-            </div>
-            </div>
-
-
-          </form>
+          <!-- Action Buttons -->
+          <div class="action-buttons">
+            <button type="button" class="btn-cancel" id="cancelBtn"><i class="fas fa-times me-2"></i>Cancel</button>
+            <button type="button" class="btn-cancel" id="resetBtn"><i class="fas fa-undo-alt me-2"></i>Reset</button>
+            <button type="button" class="btn-save" id="saveBtn"><i class="fas fa-save me-2"></i>Save Journal Entry</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
+</div>
 
-  <!-- Success Modal -->
-  <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content">
-        <div class="modal-header bg-success text-white">
-          <h5 class="modal-title" id="successModalLabel"><i class="fas fa-check-circle me-2"></i>Success</h5>
-          <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <p class="mb-0" id="successMessage">Journal voucher created successfully!</p>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="viewJournalBtn">View Journal</button>
-        </div>
+<!-- Success Modal -->
+<div class="modal fade" id="successModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header bg-success text-white">
+        <h5 class="modal-title"><i class="fas fa-check-circle me-2"></i>Success</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <p id="successMessage">Journal voucher created successfully!</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
+</div>
 
-  <div id="liveToastMsg" class="toast-notify" style="display: none;">
-    <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
-  </div>
+<div id="liveToastMsg" class="toast-notify" style="display: none;">
+  <i class="fas fa-bell me-2"></i> <span id="toastText">Action</span>
+</div>
 
-  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/libs/js/simplebar.min.js"></script>
-  <script src="assets/libs/js/app.init.js"></script>
-  <script src="assets/libs/js/theme.js"></script>
-  <script src="assets/libs/js/app.min.js"></script>
-  <script src="assets/libs/js/sidebarmenu.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-  <script>
-    let entryCounter = 0;
-    let entryIdCounter = 1;
-    let journalCounter = 1;
+<script>
+  // Initialize Flatpickr
+  flatpickr("#journalDate", {
+    dateFormat: "Y-m-d",
+    defaultDate: new Date(),
+    allowInput: true
+  });
 
-    // Get today's date
-    const today = new Date().toISOString().split('T')[0];
-    document.getElementById('journalDate').value = today;
+  // Group and Account options
+  const groupOptions = {
+    'Assets': ['Cash on Hand', 'Bank Account', 'Sundry Debtors', 'Fixed Assets'],
+    'Liabilities': ['Sundry Creditors', 'Bank Loan', 'Outstanding Expenses'],
+    'Income': ['Sales Revenue', 'Interest Income', 'Commission Received'],
+    'Expenses': ['Salary Expense', 'Rent Expense', 'Utility Expense', 'Office Expenses']
+  };
 
-    // Set voucher number
-    document.getElementById('voucherNo').value = `JV-${new Date().getFullYear()}-${String(journalCounter).padStart(3, '0')}`;
+  let journalCounter = 1;
+  let entryIdCounter = 1;
 
-    // Group and Account options
-    const groupOptions = {
-      'Assets': ['Cash on Hand', 'Bank Account', 'Sundry Debtors', 'Fixed Assets'],
-      'Liabilities': ['Sundry Creditors', 'Bank Loan', 'Outstanding Expenses'],
-      'Income': ['Sales Revenue', 'Interest Income', 'Commission Received'],
-      'Expenses': ['Salary Expense', 'Rent Expense', 'Utility Expense', 'Office Expenses']
-    };
+  // Load existing journals to get next counter
+  function loadNextVoucherNumber() {
+    const existingJournals = JSON.parse(localStorage.getItem('fintle_journals') || '[]');
+    if (existingJournals.length > 0) {
+      const maxNum = Math.max(...existingJournals.map(j => {
+        const match = j.voucherNo?.match(/JV-\d+-(\d+)/);
+        return match ? parseInt(match[1]) : 0;
+      }), 0);
+      journalCounter = maxNum + 1;
+    }
+    const year = new Date().getFullYear();
+    const voucherNo = `JV-${year}-${String(journalCounter).padStart(3, '0')}`;
+    document.getElementById('voucherNo').value = voucherNo;
+    document.getElementById('voucherBadge').innerHTML = voucherNo;
+  }
 
-    function renderGroupOptions(selectElement, selectedValue = '') {
-      let html = '<option value="">Select Group</option>';
-      Object.keys(groupOptions).forEach(group => {
-        html += `<option value="${group}" ${selectedValue === group ? 'selected' : ''}>${group}</option>`;
+  function renderGroupOptions(selectEl, selected = '') {
+    let html = '<option value="">Select Group</option>';
+    Object.keys(groupOptions).forEach(group => {
+      html += `<option value="${group}" ${selected === group ? 'selected' : ''}>${group}</option>`;
+    });
+    selectEl.innerHTML = html;
+  }
+
+  function renderAccountOptions(selectEl, group, selected = '') {
+    let html = '<option value="">Select Account</option>';
+    if (group && groupOptions[group]) {
+      groupOptions[group].forEach(acc => {
+        html += `<option value="${acc}" ${selected === acc ? 'selected' : ''}>${acc}</option>`;
       });
-      selectElement.innerHTML = html;
     }
+    selectEl.innerHTML = html;
+  }
 
-    function renderAccountOptions(selectElement, group, selectedValue = '') {
-      let html = '<option value="">Select Account</option>';
-      if (group && groupOptions[group]) {
-        groupOptions[group].forEach(account => {
-          html += `<option value="${account}" ${selectedValue === account ? 'selected' : ''}>${account}</option>`;
-        });
-      }
-      selectElement.innerHTML = html;
-    }
+  function escapeHtml(str) {
+    if (!str) return '';
+    return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
+  }
 
-    // Add new entry row
-    function addEntryRow(group = '', account = '', amount = '', type = 'debit', description = '') {
-      const tbody = document.getElementById('entriesTableBody');
-      const rowId = entryIdCounter++;
-      const newRow = document.createElement('tr');
-      newRow.id = `row_${rowId}`;
-      
-      // Create group dropdown
-      const groupSelect = document.createElement('select');
-      groupSelect.className = 'form-select item-group';
-      groupSelect.style.width = '100%';
-      renderGroupOptions(groupSelect, group);
-      
-      // Create account dropdown
-      const accountSelect = document.createElement('select');
-      accountSelect.className = 'form-select item-account';
-      accountSelect.style.width = '100%';
-      renderAccountOptions(accountSelect, group, account);
-      
-      // Group change event to update accounts
-      groupSelect.addEventListener('change', function() {
-        renderAccountOptions(accountSelect, this.value, '');
-      });
-      
-      newRow.innerHTML = `
-        <td></td>
-        <td></td>
-        <td><input type="number" class="form-control item-amount" value="${amount}" step="0.01" placeholder="0.00" style="width:100%"></td>
-        <td>
-          <select class="form-select item-type" style="width:100%">
-            <option value="debit" ${type === 'debit' ? 'selected' : ''}>Debit</option>
-            <option value="credit" ${type === 'credit' ? 'selected' : ''}>Credit</option>
-          </select>
-        </td>
-        <td><input type="text" class="form-control item-description" value="${escapeHtml(description)}" placeholder="Optional description" style="width:100%"></td>
-        <td class="text-center"><button type="button" class="remove-item-btn" data-id="${rowId}"><i class="fas fa-trash-alt"></i></button></td>
-      `;
-      
-      // Replace the empty cells with the actual selects
-      newRow.cells[0].appendChild(groupSelect);
-      newRow.cells[1].appendChild(accountSelect);
-      
-      tbody.appendChild(newRow);
-      
-      // Add remove button event
-      newRow.querySelector('.remove-item-btn').addEventListener('click', () => {
-        newRow.remove();
-        calculateTotals();
-      });
-      
-      // Add event listeners for amount and type changes
-      const amountInput = newRow.querySelector('.item-amount');
-      const typeSelect = newRow.querySelector('.item-type');
-      amountInput.addEventListener('input', calculateTotals);
-      typeSelect.addEventListener('change', calculateTotals);
-      
-      calculateTotals();
-    }
+  function calculateTotals() {
+    let totalDebit = 0, totalCredit = 0;
+    document.querySelectorAll('#entriesTableBody tr').forEach(row => {
+      const amount = parseFloat(row.querySelector('.item-amount')?.value) || 0;
+      const type = row.querySelector('.item-type')?.value;
+      if (type === 'debit') totalDebit += amount;
+      else if (type === 'credit') totalCredit += amount;
+    });
+    const diff = totalDebit - totalCredit;
+    document.getElementById('totalDebit').innerHTML = `₹ ${totalDebit.toFixed(2)}`;
+    document.getElementById('totalCredit').innerHTML = `₹ ${totalCredit.toFixed(2)}`;
+    document.getElementById('difference').innerHTML = `₹ ${Math.abs(diff).toFixed(2)}`;
+    const balanceError = document.getElementById('balanceError');
+    balanceError.style.display = Math.abs(diff) > 0.01 ? 'block' : 'none';
+    return diff;
+  }
 
-    function calculateTotals() {
-      let totalDebit = 0;
-      let totalCredit = 0;
-      
-      document.querySelectorAll('#entriesTableBody tr').forEach(row => {
-        const amount = parseFloat(row.querySelector('.item-amount')?.value) || 0;
-        const type = row.querySelector('.item-type')?.value;
-        
-        if (type === 'debit') {
-          totalDebit += amount;
-        } else if (type === 'credit') {
-          totalCredit += amount;
-        }
-      });
-      
-      const difference = totalDebit - totalCredit;
-      
-      document.getElementById('totalDebit').innerHTML = `$${totalDebit.toFixed(2)}`;
-      document.getElementById('totalCredit').innerHTML = `$${totalCredit.toFixed(2)}`;
-      document.getElementById('difference').innerHTML = `$${Math.abs(difference).toFixed(2)}`;
-      
-      // Show/hide error message
-      const balanceError = document.getElementById('balanceError');
-      if (Math.abs(difference) > 0.01) {
-        balanceError.style.display = 'block';
-      } else {
-        balanceError.style.display = 'none';
-      }
-      
-      return difference;
-    }
+  function addEntryRow(group = '', account = '', amount = '', type = 'debit', narration = '') {
+    const tbody = document.getElementById('entriesTableBody');
+    const rowId = entryIdCounter++;
+    const newRow = document.createElement('tr');
+    newRow.id = `row_${rowId}`;
 
-    function escapeHtml(str) {
-      if (!str) return '';
-      return str.replace(/[&<>]/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[m]));
-    }
+    const groupSelect = document.createElement('select');
+    groupSelect.className = 'form-select item-group';
+    groupSelect.style.width = '100%';
+    renderGroupOptions(groupSelect, group);
 
-    function showToast(message, type = 'success') {
-      const toastDiv = document.getElementById('liveToastMsg');
-      const toastText = document.getElementById('toastText');
-      const icon = document.querySelector('#liveToastMsg i');
-      
-      if (type === 'success') {
-        icon.className = 'fas fa-check-circle me-2';
-        toastDiv.style.background = '#10b981';
-      } else if (type === 'error') {
-        icon.className = 'fas fa-exclamation-triangle me-2';
-        toastDiv.style.background = '#ef4444';
-      } else {
-        icon.className = 'fas fa-info-circle me-2';
-        toastDiv.style.background = '#1e293b';
-      }
-      
-      toastText.innerHTML = message;
-      toastDiv.style.display = 'flex';
-      setTimeout(() => {
-        toastDiv.style.display = 'none';
-      }, 3000);
-    }
+    const accountSelect = document.createElement('select');
+    accountSelect.className = 'form-select item-account';
+    accountSelect.style.width = '100%';
+    renderAccountOptions(accountSelect, group, account);
 
-    // Add entry button
-    document.getElementById('addEntryBtn').addEventListener('click', () => {
-      addEntryRow();
+    groupSelect.addEventListener('change', function() {
+      renderAccountOptions(accountSelect, this.value, '');
     });
 
-    // Initialize with 2 empty rows (typical journal entry needs at least 2 lines)
+    newRow.innerHTML = `
+      <td>
+      <td>
+      <td><input type="number" class="form-control item-amount" value="${amount}" step="0.01" placeholder="0.00"></td>
+      <td>
+        <select class="form-select item-type">
+          <option value="debit" ${type === 'debit' ? 'selected' : ''}>Debit</option>
+          <option value="credit" ${type === 'credit' ? 'selected' : ''}>Credit</option>
+        </select>
+      </td>
+      <td><input type="text" class="form-control item-narration" value="${escapeHtml(narration)}" placeholder="Narration"></td>
+      <td class="text-center"><button type="button" class="remove-entry-btn" data-id="${rowId}"><i class="fas fa-trash-alt"></i></button></td>
+    `;
+
+    newRow.cells[0].appendChild(groupSelect);
+    newRow.cells[1].appendChild(accountSelect);
+
+    const amountInput = newRow.querySelector('.item-amount');
+    const typeSelect = newRow.querySelector('.item-type');
+    amountInput.addEventListener('input', () => calculateTotals());
+    typeSelect.addEventListener('change', () => calculateTotals());
+    newRow.querySelector('.remove-entry-btn').addEventListener('click', () => {
+      newRow.remove();
+      calculateTotals();
+    });
+
+    tbody.appendChild(newRow);
+    calculateTotals();
+  }
+
+  function showToast(message, isError = false) {
+    const toast = document.getElementById('liveToastMsg');
+    const toastText = document.getElementById('toastText');
+    toastText.innerHTML = message;
+    toast.style.background = isError ? '#dc2626' : '#10b981';
+    toast.style.display = 'flex';
+    setTimeout(() => toast.style.display = 'none', 3000);
+  }
+
+  function resetForm() {
+    document.getElementById('journalDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('description').value = '';
+    document.getElementById('entriesTableBody').innerHTML = '';
+    entryIdCounter = 1;
     addEntryRow('', '', '', 'debit', '');
     addEntryRow('', '', '', 'credit', '');
+    calculateTotals();
+    showToast('Form reset', false);
+  }
 
-    // Form submission
-    document.getElementById('journalForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Validate required fields
-      const financialYear = document.getElementById('financialYear').value;
-      const journalDate = document.getElementById('journalDate').value;
-      const description = document.getElementById('description').value.trim();
-      
-      if (!financialYear) {
-        showToast('Please select financial year', 'error');
-        return;
-      }
-      
-      if (!journalDate) {
-        showToast('Please select date', 'error');
-        return;
-      }
-      
-      if (!description) {
-        showToast('Please enter journal description', 'error');
-        return;
-      }
-      
-      // Collect entries
-      const entries = [];
-      const rows = document.querySelectorAll('#entriesTableBody tr');
-      let hasValidEntries = false;
-      
-      rows.forEach(row => {
-        const group = row.querySelector('.item-group')?.value;
-        const account = row.querySelector('.item-account')?.value;
-        const amount = parseFloat(row.querySelector('.item-amount')?.value) || 0;
-        const type = row.querySelector('.item-type')?.value;
-        const entryDesc = row.querySelector('.item-description')?.value;
-        
-        if (group && account && amount > 0) {
-          hasValidEntries = true;
-          entries.push({
-            group: group,
-            account: account,
-            amount: amount,
-            type: type,
-            description: entryDesc || ''
-          });
-        }
-      });
-      
-      if (!hasValidEntries) {
-        showToast('Please add at least one valid journal entry', 'error');
-        return;
-      }
-      
-      // Check if debit equals credit
-      const difference = calculateTotals();
-      if (Math.abs(difference) > 0.01) {
-        showToast('Debit and Credit amounts must be equal', 'error');
-        return;
-      }
-      
-      // Generate voucher number if not set
-      const voucherNo = document.getElementById('voucherNo').value;
-      
-      // Collect form data
-      const formData = {
-        id: Date.now(),
-        voucherNo: voucherNo,
-        financialYear: financialYear,
-        date: journalDate,
-        description: description,
-        entries: entries,
-        totalDebit: parseFloat(document.getElementById('totalDebit').innerHTML.replace('$', '')),
-        totalCredit: parseFloat(document.getElementById('totalCredit').innerHTML.replace('$', '')),
-        status: 'Active',
-        createdOn: new Date().toLocaleString(),
-        updatedOn: new Date().toLocaleString(),
-        createdBy: 'Admin User',
-        lastUpdatedBy: 'Admin User'
-      };
-      
-      console.log('Journal Data:', formData);
-      
-      // Store in localStorage
-      let journals = JSON.parse(localStorage.getItem('journals') || '[]');
-      journals.push(formData);
-      localStorage.setItem('journals', JSON.stringify(journals));
-      
-      // Store voucher number for next
-      journalCounter++;
-      document.getElementById('voucherNo').value = `JV-${new Date().getFullYear()}-${String(journalCounter).padStart(3, '0')}`;
-      
-      // Show success modal
-      const successModal = new bootstrap.Modal(document.getElementById('successModal'));
-      document.getElementById('successMessage').innerHTML = `Journal Voucher ${voucherNo} created successfully!`;
-      successModal.show();
-      
-      // Reset form
-      this.reset();
-      document.getElementById('journalDate').value = today;
-      document.getElementById('entriesTableBody').innerHTML = '';
-      for (let i = 0; i < 2; i++) addEntryRow();
-    });
-    
-    // View Journal button in modal
-    document.getElementById('viewJournalBtn')?.addEventListener('click', function() {
-      window.location.href = 'journals.html';
-    });
-    
-    // Cancel button
-    document.getElementById('cancelBtn')?.addEventListener('click', function() {
-      if (confirm('Discard all changes?')) {
-        window.location.href = 'journals.html';
-      }
-    });
-    
-    // Reset form confirmation
-    document.querySelector('button[type="reset"]')?.addEventListener('click', function(e) {
-      if (confirm('Are you sure you want to reset all form fields?')) {
-        setTimeout(() => {
-          document.getElementById('journalDate').value = today;
-          document.getElementById('description').value = '';
-          document.getElementById('entriesTableBody').innerHTML = '';
-          for (let i = 0; i < 2; i++) addEntryRow();
-          showToast('Form has been reset', 'info');
-        }, 10);
-      } else {
-        e.preventDefault();
-      }
-    });
-    
-    // Logout function
-    function handleLogout() {
-      if (confirm('Are you sure you want to logout?')) {
-        window.location.href = 'login.html';
+  function saveJournal() {
+    const journalDate = document.getElementById('journalDate').value;
+    const description = document.getElementById('description').value.trim();
+    const voucherNo = document.getElementById('voucherNo').value;
+
+    if (!journalDate) { showToast('Please select journal date', true); return; }
+    if (!description) { showToast('Please enter journal description', true); return; }
+
+    const entries = [];
+    const rows = document.querySelectorAll('#entriesTableBody tr');
+    let hasValid = false;
+
+    for (let row of rows) {
+      const group = row.querySelector('.item-group')?.value;
+      const account = row.querySelector('.item-account')?.value;
+      const amount = parseFloat(row.querySelector('.item-amount')?.value) || 0;
+      const type = row.querySelector('.item-type')?.value;
+      const narration = row.querySelector('.item-narration')?.value || '';
+
+      if (group && account && amount > 0) {
+        hasValid = true;
+        entries.push({ group, account, amount, type, narration });
       }
     }
-  </script>
-</body>
 
+    if (!hasValid) { showToast('Please add at least one valid journal entry', true); return; }
+
+    const diff = calculateTotals();
+    if (Math.abs(diff) > 0.01) { showToast('Total Debit must equal Total Credit', true); return; }
+
+    const formData = {
+      id: Date.now(),
+      voucherNo: voucherNo,
+      date: journalDate,
+      description: description,
+      entries: entries,
+      totalDebit: parseFloat(document.getElementById('totalDebit').innerHTML.replace('₹', '').trim()),
+      totalCredit: parseFloat(document.getElementById('totalCredit').innerHTML.replace('₹', '').trim()),
+      status: 'Active',
+      createdOn: new Date().toLocaleString(),
+      createdBy: 'Admin User'
+    };
+
+    let journals = JSON.parse(localStorage.getItem('fintle_journals') || '[]');
+    journals.push(formData);
+    localStorage.setItem('fintle_journals', JSON.stringify(journals));
+
+    // Update for next voucher
+    journalCounter++;
+    const year = new Date().getFullYear();
+    const newVoucherNo = `JV-${year}-${String(journalCounter).padStart(3, '0')}`;
+    document.getElementById('voucherNo').value = newVoucherNo;
+    document.getElementById('voucherBadge').innerHTML = newVoucherNo;
+
+    document.getElementById('successMessage').innerHTML = `Journal Voucher ${voucherNo} created successfully!`;
+    new bootstrap.Modal(document.getElementById('successModal')).show();
+
+    // Reset form for new entry
+    document.getElementById('journalDate').value = new Date().toISOString().split('T')[0];
+    document.getElementById('description').value = '';
+    document.getElementById('entriesTableBody').innerHTML = '';
+    entryIdCounter = 1;
+    addEntryRow('', '', '', 'debit', '');
+    addEntryRow('', '', '', 'credit', '');
+    calculateTotals();
+    showToast(`Journal ${voucherNo} saved!`);
+  }
+
+  // Event Listeners
+  document.getElementById('addEntryBtn').addEventListener('click', () => addEntryRow());
+  document.getElementById('saveBtn').addEventListener('click', saveJournal);
+  document.getElementById('cancelBtn').addEventListener('click', () => {
+    if (confirm('Discard all changes?')) window.location.href = 'journals.html';
+  });
+  document.getElementById('resetBtn').addEventListener('click', () => {
+    if (confirm('Reset all form fields?')) resetForm();
+  });
+
+  // Initialize form
+  loadNextVoucherNumber();
+  resetForm();
+</script>
+</body>
 </html>
