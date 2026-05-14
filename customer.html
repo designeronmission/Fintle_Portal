@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Fintle | Customer</title>
@@ -57,7 +57,8 @@
       margin-bottom: 0;
       flex-wrap: wrap;
     }
-        /* Info text styling */
+
+    /* Info text styling */
     .pagination-info {
       background: #f8fafc;
       padding: 6px 14px;
@@ -139,7 +140,7 @@
       vertical-align: middle;
       border-bottom: 1px solid #eef2f6;
       white-space: nowrap;
-            color: black;
+      color: black;
     }
 
     .customer-table th:last-child,
@@ -427,130 +428,149 @@
   <div id="main-wrapper">
 
     <aside class="fintle-side" id="fintleSidebarRoot">
-        <!-- Header brand section -->
-        <div class="side-header">
-            <div class="brand-wrap">
-                <div class="brand-logo">
-                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
-                </div>
+      <!-- Header brand section -->
+      <div class="side-header">
+        <div class="brand-wrap">
+          <div class="brand-logo">
+            <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
+          </div>
+        </div>
+      </div>
+
+      <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
+      <div class="fintle-nav-scroll">
+        <ul class="fintle-menu-list" id="dynamicMenuList">
+          <!-- Dashboard item -->
+          <li class="menu-item">
+            <a href="index.html" class="nav-link-side" id="dashboardNav">
+              <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
+              <span class="menu-text">Dashboard</span>
+            </a>
+          </li>
+
+          <!-- Inbox -->
+          <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon
+                icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+
+          <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
+          <li class="menu-item has-sub" data-submenu-id="itemsSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
+                  <span class="menu-text">Items</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
             </div>
-        </div>
-
-        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
-        <div class="fintle-nav-scroll">
-            <ul class="fintle-menu-list" id="dynamicMenuList">
-                <!-- Dashboard item -->
-                <li class="menu-item">
-                    <a href="index.html" class="nav-link-side" id="dashboardNav">
-                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                        <span class="menu-text">Dashboard</span>
-                    </a>
-                </li>
-
-                <!-- Inbox -->
-               <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
-
-                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
-                <li class="menu-item has-sub" data-submenu-id="itemsSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                                <span class="menu-text">Items</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="itemsSub">
-                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
-                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
-                        <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
-                    </ul>
-                </li>
-
-                <!-- PURCHASE (open by default) -->
-                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
-                                <span class="menu-text">Purchase</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div> 
-
-                    <ul class="submenu-level" id="purchaseSub">
-                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
-                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
-                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
-                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
-                    </ul>
-                </li>
-
-                <!-- SALES with submenu -->
-                <li class="menu-item has-sub open" data-submenu-id="salesSub">
-                    <div class="nav-link-side submenu-trigger-side active">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                <span class="menu-text">Sales</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level show-sub" id="salesSub">
-                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
-                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
-                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
-                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
-                    </ul>
-                </li>
-
-                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
-                <li class="menu-item has-sub" data-submenu-id="accSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
-                                <span class="menu-text">Accounts</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="accSub">
-                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
-                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
-                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
-                         <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
-                        <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
-                        <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
-                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
-                    </ul>
-                </li>
-
-                <!-- Divider -->
-                <li class="menu-divider-custom"></li>
+            <ul class="submenu-level" id="itemsSub">
+              <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a>
+              </li>
+              <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC
+                  Codes</a></li>
+              <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span>
+                  Categories</a></li>
             </ul>
-        </div>
+          </li>
 
-        <!-- Footer section: settings & logout -->
-        <div class="side-footer">
-            <ul class="fintle-menu-list">
-                <li class="menu-item">
-                    <a href="#" class="nav-link-side">
-                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                        <span class="menu-text">Settings</span>
-                    </a>
-                </li>
-                <li class="menu-item logout-link">
-                    <a href="#" class="nav-link-side" id="logoutActionBtn">
-                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                        <span class="menu-text">Logout</span>
-                    </a>
-                </li>
+          <!-- PURCHASE (open by default) -->
+          <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
+                  <span class="menu-text">Purchase</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+
+            <ul class="submenu-level" id="purchaseSub">
+              <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span>
+                  Suppliers</a></li>
+              <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span>
+                  Purchase Order</a></li>
+              <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span>
+                  Purchase Bill</a></li>
+              <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span
+                    class="dot-marker"></span> Supplier Statement</a></li>
             </ul>
-        </div>
+          </li>
+
+          <!-- SALES with submenu -->
+          <li class="menu-item has-sub open" data-submenu-id="salesSub">
+            <div class="nav-link-side submenu-trigger-side active">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
+                  <span class="menu-text">Sales</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level show-sub" id="salesSub">
+              <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span>
+                  Customers</a></li>
+              <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span>
+                  Enquiries</a></li>
+              <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span>
+                  Estimates</a></li>
+              <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span>
+                  Invoices</a></li>
+            </ul>
+          </li>
+
+          <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
+          <li class="menu-item has-sub" data-submenu-id="accSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap">
+                <span style="display: flex; align-items: center; gap: 12px;">
+                  <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
+                  <span class="menu-text">Accounts</span>
+                </span>
+                <span class="dropdown-arrow">▶</span>
+              </div>
+            </div>
+            <ul class="submenu-level" id="accSub">
+              <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span>
+                  Account Master</a></li>
+              <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span>
+                  Journals</a></li>
+              <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span>
+                  Vouchers</a></li>
+              <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span>
+                  Bank Payments</a></li>
+              <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span>
+                  General Ledger</a></li>
+              <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span>
+                  Trial Balance</a></li>
+              <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span>
+                  Balance Sheet</a></li>
+            </ul>
+          </li>
+
+          <!-- Divider -->
+          <li class="menu-divider-custom"></li>
+        </ul>
+      </div>
+
+      <!-- Footer section: settings & logout -->
+      <div class="side-footer">
+        <ul class="fintle-menu-list">
+          <li class="menu-item">
+            <a href="#" class="nav-link-side">
+              <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
+              <span class="menu-text">Settings</span>
+            </a>
+          </li>
+          <li class="menu-item logout-link">
+            <a href="#" class="nav-link-side" id="logoutActionBtn">
+              <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
+              <span class="menu-text">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </div>
     </aside>
 
     <div class="page-wrapper">
@@ -561,7 +581,7 @@
               <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
                   id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
                     class="fs-6"></iconify-icon></a></li>
-            
+
               <li class="nav-item d-none d-lg-flex dropdown">
                 <div class="hover-dd"><button class="btn bg-primary-subtle text-primary dropdown-toggle"
                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;"
@@ -705,19 +725,21 @@
                           <iconify-icon icon="solar:home-2-line-duotone" class="fs-6"></iconify-icon>
                         </a>
                       </li>
+                      <li class="breadcrumb-item active">Customer</li>
                     </ol>
                   </nav>
                 </div>
               </div>
             </div>
           </div>
-          
+
           <!-- KPI CARDS -->
           <div class="dashboard-container col-lg-12">
             <div class="kpi-card-new col-lg-4">
               <div class="kpi-header">
                 <span class="kpi-label"> Total Customers</span>
-                <div class="icon-small bg-light-primary" style="background:#eef2ff;"><i class="fas fa-users text-primary"></i></div>
+                <div class="icon-small bg-light-primary" style="background:#eef2ff;"><i
+                    class="fas fa-users text-primary"></i></div>
               </div>
               <div class="kpi-amount-main" id="totalCustomersKPI">0</div>
               <div class="kpi-sub">Registered accounts</div>
@@ -754,27 +776,49 @@
                 <input type="text" id="globalSearchInput" placeholder="Search by name, email, phone or ID...">
               </div>
               <div class="tabs-centered">
-                <button class="customer-tab active" data-tab="all"><i class="fas fa-users"></i> All <span class="tab-count" id="countAll">0</span></button>
-                <button class="customer-tab" data-tab="toPay"><i class="fas fa-clock"></i> To Pay <span class="tab-count" id="countToPay">0</span></button>
-                <button class="customer-tab" data-tab="toCollect"><i class="fas fa-check-circle"></i> To Collect <span class="tab-count" id="countToCollect">0</span></button>
+                <button class="customer-tab active" data-tab="all"><i class="fas fa-users"></i> All <span
+                    class="tab-count" id="countAll">0</span></button>
+                <button class="customer-tab" data-tab="toPay"><i class="fas fa-clock"></i> To Pay <span
+                    class="tab-count" id="countToPay">0</span></button>
+                <button class="customer-tab" data-tab="toCollect"><i class="fas fa-check-circle"></i> To Collect <span
+                    class="tab-count" id="countToCollect">0</span></button>
               </div>
               <div class="btn-create-right">
-                <button class="btn btn-primary shadow-sm" onclick="location.href='create-customer.html'"><i class="fas fa-plus me-2"></i>New Customer</button>
+                <button class="btn btn-primary shadow-sm" onclick="location.href='create-customer.html'"><i
+                    class="fas fa-plus me-2"></i>New Customer</button>
               </div>
             </div>
 
             <div class="customer-table-wrapper">
               <table class="customer-table align-middle">
                 <thead>
-                  <tr><th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th><th>S.No</th><th>Customer ID</th><th>Customer Name</th><th>Phone</th><th>Email</th><th>Status</th><th>Outstanding Balance (₹)</th><th>Created On</th><th>Last Updated</th><th>Created By</th><th style="width:80px; position:sticky; right:0;">Action</th></tr>
+                  <tr>
+                    <th style="width:40px;"><input class="form-check-input" type="checkbox" id="selectAllCheckbox"></th>
+                    <th>S.No</th>
+                    <th>Customer ID</th>
+                    <th>Customer Name</th>
+                    <th>Phone</th>
+                    <th>Email</th>
+                    <th>Status</th>
+                    <th>Outstanding Balance (₹)</th>
+                    <th>Created On</th>
+                    <th>Last Updated</th>
+                    <th>Created By</th>
+                    <th style="width:80px; position:sticky; right:0;">Action</th>
+                  </tr>
                 </thead>
                 <tbody id="customerTableBody"></tbody>
-               </table>
+              </table>
             </div>
             <div class="pagination-container">
               <div class="d-flex flex-wrap justify-content-between align-items-center gap-3">
-                <div class="pagination-info"><i class="fas fa-table me-1 text-muted"></i><span>Showing <strong id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span><span class="mx-1 text-muted">of</span><strong id="totalRows">0</strong><span class="text-muted">Customers</span></div>
-                <nav><ul class="pagination" id="pagination"></ul></nav>
+                <div class="pagination-info"><i class="fas fa-table me-1 text-muted"></i><span>Showing <strong
+                      id="rowStart">0</strong> - <strong id="rowEnd">0</strong></span><span
+                    class="mx-1 text-muted">of</span><strong id="totalRows">0</strong><span
+                    class="text-muted">Customers</span></div>
+                <nav>
+                  <ul class="pagination" id="pagination"></ul>
+                </nav>
               </div>
             </div>
           </div>
@@ -784,7 +828,8 @@
   </div>
 
   <!-- Edit Customer Modal (Inline design, no external page) -->
-  <div class="modal fade edit-customer-modal" id="editCustomerModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal fade edit-customer-modal" id="editCustomerModal" tabindex="-1" aria-labelledby="editModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-md">
       <div class="modal-content">
         <div class="modal-header">
@@ -832,7 +877,8 @@
     </div>
   </div>
 
-  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg" style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
+  <div id="liveToastMsg" class="position-fixed bottom-0 end-0 m-3 p-3 bg-dark text-white rounded-pill shadow-lg"
+    style="display:none; z-index:9999;"><i class="fas fa-bell me-2"></i> <span id="toastText"></span></div>
 
   <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
   <script src="assets/libs/js/simplebar.min.js"></script>
@@ -860,7 +906,7 @@
 
     function showToast(msg) { const t = document.getElementById('liveToastMsg'); document.getElementById('toastText').innerHTML = msg; t.style.display = 'flex'; setTimeout(() => t.style.display = 'none', 2200); }
     function getStatusClass(status) { return status === 'Active' ? 'status-active' : 'status-inactive'; }
-    
+
     function filterCustomers() {
       let search = currentSearchTerm.toLowerCase().trim();
       return customers.filter(cust => {
@@ -877,9 +923,9 @@
       const toPayList = customers.filter(c => c.outstandingBalance > 0);
       const toCollectList = customers.filter(c => c.outstandingBalance < 0);
       document.getElementById('totalCustomersKPI').innerText = totalCustomers;
-      document.getElementById('toPayAmountKPI').innerHTML = `₹${toPayList.reduce((s,c)=>s+c.outstandingBalance,0).toLocaleString('en-IN')}`;
+      document.getElementById('toPayAmountKPI').innerHTML = `₹${toPayList.reduce((s, c) => s + c.outstandingBalance, 0).toLocaleString('en-IN')}`;
       document.getElementById('toPayCountKPI').innerText = toPayList.length;
-      document.getElementById('toCollectAmountKPI').innerHTML = `₹${toCollectList.reduce((s,c)=>s+Math.abs(c.outstandingBalance),0).toLocaleString('en-IN')}`;
+      document.getElementById('toCollectAmountKPI').innerHTML = `₹${toCollectList.reduce((s, c) => s + Math.abs(c.outstandingBalance), 0).toLocaleString('en-IN')}`;
       document.getElementById('toCollectCountKPI').innerText = toCollectList.length;
       document.getElementById('countAll').innerText = totalCustomers;
       document.getElementById('countToPay').innerText = toPayList.length;
@@ -902,14 +948,14 @@
       let total = filtered.length, totalPages = Math.ceil(total / rowsPerPage);
       if (currentPage > totalPages && totalPages > 0) currentPage = totalPages;
       if (currentPage < 1) currentPage = 1;
-      let start = (currentPage-1)*rowsPerPage, end = Math.min(start+rowsPerPage, total);
+      let start = (currentPage - 1) * rowsPerPage, end = Math.min(start + rowsPerPage, total);
       let pageData = filtered.slice(start, end);
       let tbody = document.getElementById('customerTableBody');
       tbody.innerHTML = '';
-      if(!pageData.length) { tbody.innerHTML='<tr><td colspan="12" class="text-center py-5">No customers found</td></tr>'; }
+      if (!pageData.length) { tbody.innerHTML = '<tr><td colspan="12" class="text-center py-5">No customers found</td></tr>'; }
       else {
         pageData.forEach((cust, idx) => {
-          let sno = start+idx+1;
+          let sno = start + idx + 1;
           tbody.innerHTML += `<tr>
             <td><input class="form-check-input row-checkbox" type="checkbox" data-id="${cust.id}"></td>
             <td>${sno}</td>
@@ -925,32 +971,32 @@
             <li><a class="dropdown-item text-danger" href="#" onclick="deleteCustomer(${cust.id})">Delete</a></li></ul></div></td></tr>`;
         });
       }
-      document.getElementById('rowStart').innerText = total ? start+1 : 0;
+      document.getElementById('rowStart').innerText = total ? start + 1 : 0;
       document.getElementById('rowEnd').innerText = end;
       document.getElementById('totalRows').innerText = total;
       let pagination = document.getElementById('pagination');
       pagination.innerHTML = '';
-      if(totalPages>1){
-        pagination.innerHTML += `<li class="page-item ${currentPage===1?'disabled':''}"><a class="page-link" href="#" onclick="changePage(${currentPage-1})">«</a></li>`;
-        for(let i=1;i<=totalPages;i++){
-          if(i===1 || i===totalPages || (i>=currentPage-2 && i<=currentPage+2))
-            pagination.innerHTML += `<li class="page-item ${currentPage===i?'active':''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
-          else if(i===currentPage-3 || i===currentPage+3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+      if (totalPages > 1) {
+        pagination.innerHTML += `<li class="page-item ${currentPage === 1 ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage - 1})">«</a></li>`;
+        for (let i = 1; i <= totalPages; i++) {
+          if (i === 1 || i === totalPages || (i >= currentPage - 2 && i <= currentPage + 2))
+            pagination.innerHTML += `<li class="page-item ${currentPage === i ? 'active' : ''}"><a class="page-link" href="#" onclick="changePage(${i})">${i}</a></li>`;
+          else if (i === currentPage - 3 || i === currentPage + 3) pagination.innerHTML += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
         }
-        pagination.innerHTML += `<li class="page-item ${currentPage===totalPages?'disabled':''}"><a class="page-link" href="#" onclick="changePage(${currentPage+1})">»</a></li>`;
+        pagination.innerHTML += `<li class="page-item ${currentPage === totalPages ? 'disabled' : ''}"><a class="page-link" href="#" onclick="changePage(${currentPage + 1})">»</a></li>`;
       }
-      document.querySelectorAll('.customer-link').forEach(el => el.addEventListener('click',(e)=>{ e.preventDefault(); viewCustomer(el.dataset.id); }));
+      document.querySelectorAll('.customer-link').forEach(el => el.addEventListener('click', (e) => { e.preventDefault(); viewCustomer(el.dataset.id); }));
       document.getElementById('selectAllCheckbox').onchange = (e) => document.querySelectorAll('.row-checkbox').forEach(cb => cb.checked = e.target.checked);
     }
 
-    function changePage(p) { let pages = Math.ceil(filterCustomers().length/rowsPerPage); if(p>=1 && p<=pages){ currentPage=p; renderTable(); } }
+    function changePage(p) { let pages = Math.ceil(filterCustomers().length / rowsPerPage); if (p >= 1 && p <= pages) { currentPage = p; renderTable(); } }
     window.changePage = changePage;
     window.viewCustomer = (cid) => window.location.href = `customer-detail.html?id=${cid}`;
-    
+
     // EDIT MODAL LOGIC (inline)
-    window.openEditModal = function(id) {
+    window.openEditModal = function (id) {
       const customer = customers.find(c => c.id === id);
-      if(customer){
+      if (customer) {
         document.getElementById('editCustomerInternalId').value = customer.id;
         document.getElementById('editCustomerIdField').value = customer.customerId;
         document.getElementById('editCustomerName').value = customer.name;
@@ -961,13 +1007,13 @@
         new bootstrap.Modal(document.getElementById('editCustomerModal')).show();
       } else showToast('Customer not found');
     };
-    
+
     document.getElementById('saveCustomerChangesBtn').addEventListener('click', () => {
       const id = parseInt(document.getElementById('editCustomerInternalId').value);
       const index = customers.findIndex(c => c.id === id);
-      if(index !== -1){
+      if (index !== -1) {
         const newName = document.getElementById('editCustomerName').value.trim();
-        if(!newName) { showToast('Name is required'); return; }
+        if (!newName) { showToast('Name is required'); return; }
         customers[index] = {
           ...customers[index],
           name: newName,
@@ -975,7 +1021,7 @@
           email: document.getElementById('editCustomerEmail').value.trim(),
           status: document.getElementById('editCustomerStatus').value,
           outstandingBalance: parseFloat(document.getElementById('editCustomerBalance').value) || 0,
-          lastUpdated: new Date().toISOString().slice(0,10)
+          lastUpdated: new Date().toISOString().slice(0, 10)
         };
         updateKPIs();
         renderTable();
@@ -983,25 +1029,25 @@
         bootstrap.Modal.getInstance(document.getElementById('editCustomerModal')).hide();
       } else showToast('Error updating customer');
     });
-    
-    window.deleteCustomer = function(id){
-      if(confirm('Permanently delete this customer?')){
+
+    window.deleteCustomer = function (id) {
+      if (confirm('Permanently delete this customer?')) {
         customers = customers.filter(c => c.id !== id);
         updateKPIs();
-        if(filterCustomers().length === 0 && currentPage>1) currentPage--;
+        if (filterCustomers().length === 0 && currentPage > 1) currentPage--;
         renderTable();
         showToast('Customer deleted');
       }
     };
-    
-    document.getElementById('globalSearchInput').addEventListener('input', function(){ currentSearchTerm=this.value; currentPage=1; renderTable(); });
-    document.querySelectorAll('.customer-tab').forEach(btn => btn.addEventListener('click',()=>{
-      document.querySelectorAll('.customer-tab').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active'); currentTab=btn.dataset.tab; currentPage=1; renderTable();
+
+    document.getElementById('globalSearchInput').addEventListener('input', function () { currentSearchTerm = this.value; currentPage = 1; renderTable(); });
+    document.querySelectorAll('.customer-tab').forEach(btn => btn.addEventListener('click', () => {
+      document.querySelectorAll('.customer-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active'); currentTab = btn.dataset.tab; currentPage = 1; renderTable();
     }));
     updateKPIs(); renderTable();
     window.handleLogout = () => showToast('Logged out (demo)');
   </script>
 </body>
 
-</html> 
+</html>

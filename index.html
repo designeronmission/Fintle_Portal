@@ -2,1968 +2,573 @@
 <html lang="en" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
 
 <head>
- <meta charset="UTF-8">
+  <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fintle | Index</title>
+  <title>Fintle | Financial Dashboard</title>
   <link rel="shortcut icon" type="image/png" href="assets/images/logo/fav-icon.png" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
+
   <link rel="stylesheet" href="assets/libs/css/styles.css" />
+  <style>
+    /* Modern Card Styles */
+    .card-modern {
+      background: white;
+      border-radius: 24px;
+      border: 1px solid #edf2f7;
+      transition: all 0.2s;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+    }
 
+    .card-modern:hover {
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+      transform: translateY(-2px);
+    }
 
+    .stat-card {
+      padding: 20px;
+      border-radius: 15px;
+      background: white;
+      border: 1px solid #edf2f7;
+      transition: all 0.2s;
+    }
+
+    .stat-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 18px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+    }
+
+    .trend-up {
+      color: #10b981;
+      background: #d1fae5;
+    }
+
+    .trend-down {
+      color: #ef4444;
+      background: #fee2e2;
+    }
+
+    /* Gradient Cards */
+    .gradient-card {
+      background: linear-gradient(135deg, #2a3b82 0%, #1e2a5c 100%);
+      color: white;
+      border-radius: 5px;
+      padding: 24px;
+    }
+
+    .gradient-card .btn-outline-light {
+      border-color: rgba(255, 255, 255, 0.3);
+      color: white;
+    }
+
+    .gradient-card .btn-outline-light:hover {
+      background: white;
+      color: #2a3b82;
+    }
+
+    /* Table Styles */
+    .table-modern {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0 8px;
+    }
+
+    .table-modern th {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: #64748b;
+      padding: 12px 16px;
+      background: transparent;
+    }
+
+    .table-modern td {
+      background: white;
+      padding: 16px;
+      border-radius: 16px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+      vertical-align: middle;
+    }
+
+    .badge-custom {
+      padding: 6px 12px;
+      border-radius: 40px;
+      font-size: 0.7rem;
+      font-weight: 600;
+    }
+
+    .badge-paid {
+      background: #d1fae5;
+      color: #065f46;
+    }
+
+    .badge-pending {
+      background: #fed7aa;
+      color: #9b2c1d;
+    }
+
+    .badge-overdue {
+      background: #fee2e2;
+      color: #b91c1c;
+    }
+
+    .progress-custom {
+      height: 6px;
+      border-radius: 10px;
+      background: #e2e8f0;
+    }
+
+    .progress-custom .progress-bar {
+      border-radius: 10px;
+      background: #2a3b82;
+    }
+
+    .font-kpi {
+      font-size: 28px;
+    }
+  </style>
 </head>
 
 <body>
 
-  <!-- Preloader -->
-  <div class="preloader">
-    <img src="assets/images/logo/fav-icon.png" alt="loader" class="lds-ripple img-fluid" />
-  </div>
-  
   <div id="main-wrapper">
-
-    <!-- SIDEBAR MENU - using class "fintle-side" -->
+    <!-- Sidebar -->
     <aside class="fintle-side" id="fintleSidebarRoot">
-        <!-- Header brand section -->
-        <div class="side-header">
-            <div class="brand-wrap">
-                <div class="brand-logo">
-                    <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle">
-                </div>
+      <div class="side-header">
+        <div class="brand-wrap">
+          <div class="brand-logo">
+            <img class="brand-img" src="assets/images/logo/fintle_logo.png" alt="Fintle"
+              onerror="this.src='https://placehold.co/120x40?text=Fintle'">
+          </div>
+        </div>
+      </div>
+      <div class="fintle-nav-scroll">
+        <ul class="fintle-menu-list">
+          <li class="menu-item"><a href="index.html" class="nav-link-side active"><iconify-icon
+                icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
+          <li class="menu-item"><a href="inbox.html" class="nav-link-side"><iconify-icon
+                icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
+          <li class="menu-item has-sub" data-submenu-id="itemsSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                    icon="solar:box-minimalistic-line-duotone"></iconify-icon><span
+                    class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div>
             </div>
-        </div>
-
-        <!-- SCROLLABLE NAVIGATION: scrollable area inside sidebar -->
-        <div class="fintle-nav-scroll">
-            <ul class="fintle-menu-list" id="dynamicMenuList">
-                <!-- Dashboard item -->
-                <li class="menu-item">
-                    <a href="index.html" class="nav-link-side active" id="dashboardNav">
-                        <iconify-icon icon="solar:atom-line-duotone"></iconify-icon>
-                        <span class="menu-text">Dashboard</span>
-                    </a>
-                </li>
-
-                <!-- Inbox -->
-               <li class="menu-item active"><a href="inbox.html" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
-
-                <!-- PRODUCTS / ITEMS with SUBMENU (collapsible) -->
-                <li class="menu-item has-sub" data-submenu-id="itemsSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon>
-                                <span class="menu-text">Items</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="itemsSub">
-                        <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a></li>
-                        <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li>
-                        <li class="sub-link-item"><a href="category.html" class="sub-link"><span class="dot-marker"></span> Categories</a></li>
-                    </ul>
-                </li>
-
-                <!-- PURCHASE (open by default) -->
-                <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon>
-                                <span class="menu-text">Purchase</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="purchaseSub">
-                        <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li>
-                        <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li>
-                        <li class="sub-link-item"><a href="purchase-bill.html" class="sub-link"><span class="dot-marker"></span> Purchase Bill</a></li>
-                        <li class="sub-link-item"><a href="supplier-statement.html" class="sub-link"><span class="dot-marker"></span> Supplier Statement</a></li>
-                    </ul>
-                </li>
-
-                <!-- SALES with submenu -->
-                <li class="menu-item has-sub" data-submenu-id="salesSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon>
-                                <span class="menu-text">Sales</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="salesSub">
-                        <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span> Customers</a></li>
-                        <li class="sub-link-item"><a href="enquiry.html" class="sub-link"><span class="dot-marker"></span> Enquiries</a></li>
-                        <li class="sub-link-item"><a href="Estimate.html" class="sub-link"><span class="dot-marker"></span> Estimates</a></li>
-                        <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span> Invoices</a></li>
-                    </ul>
-                </li>
-
-                <!-- ACCOUNTS with extended submenu (showcasing scroll) -->
-                <li class="menu-item has-sub" data-submenu-id="accSub">
-                    <div class="nav-link-side submenu-trigger-side">
-                        <div class="trigger-wrap">
-                            <span style="display: flex; align-items: center; gap: 12px;">
-                                <iconify-icon icon="solar:wallet-line-duotone"></iconify-icon>
-                                <span class="menu-text">Accounts</span>
-                            </span>
-                            <span class="dropdown-arrow">▶</span>
-                        </div>
-                    </div>
-                    <ul class="submenu-level" id="accSub">
-                        <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span> Account Master</a></li>
-                        <li class="sub-link-item"><a href="journals.html" class="sub-link"><span class="dot-marker"></span> Journals</a></li>
-                        <li class="sub-link-item"><a href="vouchers.html" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li>
-                         <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span> Bank Payments</a></li>
-                        <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li>
-                        <li class="sub-link-item"><a href="trial-balance.html" class="sub-link"><span class="dot-marker"></span> Trial Balance</a></li>
-                            <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span> Balance Sheet</a></li>
-                    </ul>
-                </li>
-
-                <!-- Divider -->
-                <li class="menu-divider-custom"></li>
+            <ul class="submenu-level" id="itemsSub">
+              <li class="sub-link-item"><a href="items.html" class="sub-link"><span class="dot-marker"></span> Item</a>
+              </li>
+              <li class="sub-link-item"><a href="hsn.html" class="sub-link"><span class="dot-marker"></span> HSN / SAC
+                  Codes</a></li>
             </ul>
-        </div>
-
-        <!-- Footer section: settings & logout -->
-        <div class="side-footer">
-            <ul class="fintle-menu-list">
-                <li class="menu-item">
-                    <a href="#" class="nav-link-side">
-                        <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                        <span class="menu-text">Settings</span>
-                    </a>
-                </li>
-                <li class="menu-item logout-link">
-                    <a href="#" class="nav-link-side" id="logoutActionBtn">
-                        <iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon>
-                        <span class="menu-text">Logout</span>
-                    </a>
-                </li>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="purchaseSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                    icon="solar:cart-large-line-duotone"></iconify-icon><span
+                    class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span></div>
+            </div>
+            <ul class="submenu-level" id="purchaseSub">
+              <li class="sub-link-item"><a href="supplier.html" class="sub-link"><span class="dot-marker"></span>
+                  Suppliers</a></li>
+              <li class="sub-link-item"><a href="purchase-order.html" class="sub-link"><span class="dot-marker"></span>
+                  Purchase Order</a></li>
             </ul>
-        </div>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="salesSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                    icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span><span
+                  class="dropdown-arrow">▶</span></div>
+            </div>
+            <ul class="submenu-level" id="salesSub">
+              <li class="sub-link-item"><a href="customer.html" class="sub-link"><span class="dot-marker"></span>
+                  Customers</a></li>
+              <li class="sub-link-item"><a href="invoice.html" class="sub-link"><span class="dot-marker"></span>
+                  Invoices</a></li>
+            </ul>
+          </li>
+          <li class="menu-item has-sub" data-submenu-id="accSub">
+            <div class="nav-link-side submenu-trigger-side">
+              <div class="trigger-wrap"><span style="display: flex; align-items: center; gap: 12px;"><iconify-icon
+                    icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span><span
+                  class="dropdown-arrow">▶</span></div>
+            </div>
+            <ul class="submenu-level" id="accSub">
+              <li class="sub-link-item"><a href="account-master.html" class="sub-link"><span class="dot-marker"></span>
+                  Account Master</a></li>
+              <li class="sub-link-item"><a href="bank-payments.html" class="sub-link"><span class="dot-marker"></span>
+                  Bank Payments</a></li>
+              <li class="sub-link-item"><a href="general-ledger.html" class="sub-link"><span class="dot-marker"></span>
+                  General Ledger</a></li>
+              <li class="sub-link-item"><a href="balance-sheet.html" class="sub-link"><span class="dot-marker"></span>
+                  Balance Sheet</a></li>
+            </ul>
+          </li>
+          <li class="menu-divider-custom"></li>
+        </ul>
+      </div>
+      <div class="side-footer">
+        <ul class="fintle-menu-list">
+          <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
+                icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li>
+          <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon
+                icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li>
+        </ul>
+      </div>
     </aside>
 
     <div class="page-wrapper">
-      <!-- Header Start -->
       <header class="topbar">
         <div class="with-vertical">
-          <!-- ---------------------------------- -->
-          <!-- Start Vertical Layout Header -->
-          <!-- ---------------------------------- -->
-<nav class="navbar navbar-expand-lg p-0">
+          <nav class="navbar p-0">
             <ul class="navbar-nav">
-              <li class="nav-item d-flex d-xl-none">
-                <a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler" id="headerCollapse"
-                  href="javascript:void(0)">
-                  <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-6"></iconify-icon>
-                </a>
-              </li>
-               
-              
-              <!-- Create Sales Invoice Button with Hover Mega Menu -->
-              <li class="nav-item d-none d-lg-flex dropdown">
-                <div class="hover-dd">
-                  
-                  <button class="btn bg-primary-subtle text-primary dropdown-toggle" onclick="location.href='create-invoice.html'"
-                     style="font-size: 13px; line-height: 1.5; display: inline-flex; align-items: center; gap: 6px;">
-                    <iconify-icon icon="solar:add-plus-line-duotone" class="fs-5"></iconify-icon>
-                    Create Sales Invoice
-                  </button>
-                  <div class="dropdown-menu dropdown-menu-nav dropdown-menu-animate-up py-0 overflow-hidden"
-                    aria-labelledby="drop2">
-                    <div class="position-relative">
-                      <div class="row">
-                        <div class="col-md-10">
-                          <div class="p-4 pb-3">
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="position-relative">
-                                  <a href="../main/app-chat.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:chat-line-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon> 
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0"> Create Party</h6>
-                                      <span class="fs-11 d-block text-body-color">Set up profiles for new customers or vendors.</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-invoice.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:bill-list-bold-duotone"
-                                        class="fs-7 text-secondary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Create Item</h6>
-                                      <span class="fs-11 d-block text-body-color">Register new products or services into your Item.</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-contact2.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:phone-calling-rounded-bold-duotone"
-                                        class="fs-7 text-warning"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Estimate</h6>
-                                      <span class="fs-11 d-block text-body-color">Issue price estimates to potential clients.</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-email.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:letter-bold-duotone"
-                                        class="fs-7 text-danger"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Payment In</h6>
-                                      <span class="fs-11 d-block text-body-color">Record money received from customers. </span>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="position-relative">
-                                  <a href="../main/page-user-profile.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:user-bold-duotone"
-                                        class="fs-7 text-success"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Sales Return</h6>
-                                      <span class="fs-11 d-block text-body-color">learn more information</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-calendar.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:calendar-minimalistic-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Delivery Challan</h6>
-                                      <span class="fs-11 d-block text-body-color">Document the dispatch of goods for delivery. </span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-contact.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:smartphone-2-bold-duotone"
-                                        class="fs-7 text-secondary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Purchase</h6>
-                                      <span class="fs-11 d-block text-body-color">Send official requests to suppliers for goods</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-notes.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:notes-bold-duotone"
-                                        class="fs-7 text-warning"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Purchase Return</h6>
-                                      <span class="fs-11 d-block text-body-color">To-do and Daily tasks</span>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-              
+              <li class="nav-item d-flex d-xl-none"><a class="nav-link nav-icon-hover-bg rounded-circle sidebartoggler"
+                  id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone"
+                    class="fs-6"></iconify-icon></a></li>
+              <li class="nav-item d-none d-lg-flex"><button class="btn bg-primary-subtle text-primary"
+                  onclick="location.href='create-invoice.html'" style="font-size:13px"><iconify-icon
+                    icon="solar:add-plus-line-duotone"></iconify-icon> Create Invoice</button></li>
             </ul>
-
-            <div class="d-block d-lg-none py-9 py-xl-0">
-              <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-            </div>
-            <a class="navbar-toggler p-0 border-0 nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-              data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-              aria-label="Toggle navigation">
-              <iconify-icon icon="solar:menu-dots-bold-duotone" class="fs-6"></iconify-icon>
-            </a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <div class="d-flex align-items-center justify-content-between">
-                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown">
-                    <a href="javascript:void(0)"
-                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
-                      aria-controls="offcanvasWithBothOptions">
-                      <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-
-                  <li class="nav-item d-block d-xl-none">
-                    <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-                      data-bs-toggle="modal" data-bs-target="#exampleModal">
-                      <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-                   <button type="button" class="btn btn-rounded btn-dark me-2"> Book a Demo</button>
-
-                  <!-- ------------------------------- -->
-                  <!-- start notification Dropdown -->
-                  <!-- ------------------------------- -->
-
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
-                    
-                    <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
-                      <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
-                      aria-labelledby="drop2">
-                   
-                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
-
-
-                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                        <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                      </div>
-                      <div class="message-body" data-simplebar>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
-                            <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6>
-                              <span class="d-block fs-2">9:30 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
-                            <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6>
-                              <span class="d-block fs-2">9:15 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
-                            <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Settings</h6>
-                              <span class="d-block fs-2">4:36 PM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">You can customize this template as
-                              you want</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-warning-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-warning">
-                            <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6>
-                              <span class="d-block fs-2">9:30 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
-                            <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6>
-                              <span class="d-block fs-2">9:15 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
-                            <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Settings</h6>
-                              <span class="d-block fs-2">4:36 PM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">You can customize this template as
-                              you want</span>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="py-6 px-7 mb-1">
-                        <button class="btn btn-primary w-100">See All Notifications</button>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- ------------------------------- -->
-                  <!-- end notification Dropdown -->
-                  <!-- ------------------------------- -->
-
-                  <!-- ------------------------------- -->
-                  <!-- start profile Dropdown -->
-                  <!-- ------------------------------- -->
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
-                      <div class="d-flex align-items-center gap-2 lh-base">
-                        <img src="assets/images/needs/profile.png" class="rounded-circle" width="35" height="35"
-                          alt="Fintle-img" />
-                      </div>
-                    </a>
-                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up"
-                      aria-labelledby="drop1">
-                      <div class="position-relative px-4 pt-3 pb-2">
-                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
-                          <img src="assets/images/needs/profile.png" class="rounded-circle" width="56" height="56"
-                            alt="Fintle-img" />
-                          <div>
-                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span>
-                            </h5>
-                            <p class="mb-0 text-dark">
-                              <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                data-cfemail="583c392e313c182f2a39282831203d34763b3735">[email&#160;protected]</a>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="message-body">
-                          <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Profile
-                          </a>
-                          <a href="../main/page-pricing.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Subscription
-                          </a>
-                          <a href="../main/app-invoice.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Invoice <span class="badge bg-danger-subtle text-danger rounded ms-8">4</span>
-                          </a>
-                          <a href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">
-                            Account Settings
-                          </a>
-                          <a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">
-                            Sign Out
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- ------------------------------- -->
-                  <!-- end profile Dropdown -->
-                  <!-- ------------------------------- -->
-                </ul>
-              </div>
-            </div>
+            <div class="d-flex align-items-center gap-3"><img src="assets/images/needs/profile.png"
+                class="rounded-circle" width="40" height="40" alt="profile" /></div>
           </nav>
-
-
-          <!-- ---------------------------------- -->
-          <!-- End Vertical Layout Header -->
-          <!-- ---------------------------------- -->
-
-          <!-- ------------------------------- -->
-          <!-- apps Dropdown in Small screen -->
-          <!-- ------------------------------- -->
-          <!--  Mobilenavbar -->
-          <div class="offcanvas offcanvas-start pt-0" data-bs-scroll="true" tabindex="-1" id="mobilenavbar"
-            aria-labelledby="offcanvasWithBothOptionsLabel">
-            <nav class="sidebar-nav scroll-sidebar">
-              <div class="offcanvas-header justify-content-between">
-                <a href="../main/index.html" class="text-nowrap logo-img">
-                  <img src="assets/images/logo/fintle_logo.png" alt="Logo" class="logo-image" />
-                </a>
-                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-              </div>
-              <div class="offcanvas-body pt-0" data-simplebar style="height: calc(100vh - 80px)">
-                <ul id="sidebarnav">
-                  <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow ms-0" href="javascript:void(0)" aria-expanded="false">
-                      <span>
-                        <iconify-icon icon="solar:slider-vertical-line-duotone" class="fs-7"></iconify-icon>
-                      </span>
-                      <span class="hide-menu">Apps</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level my-3 ps-3">
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-chat.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:chat-line-bold-duotone" class="fs-7 text-primary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Chat Application</h6>
-                            <span class="fs-11 d-block text-body-color">New messages arrived</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-invoice.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:bill-list-bold-duotone"
-                              class="fs-7 text-secondary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Invoice App</h6>
-                            <span class="fs-11 d-block text-body-color">Get latest invoice</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-contact2.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:phone-calling-rounded-bold-duotone"
-                              class="fs-7 text-warning"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Contact Application</h6>
-                            <span class="fs-11 d-block text-body-color">2 Unsaved Contacts</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-email.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:letter-bold-duotone" class="fs-7 text-danger"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Email App</h6>
-                            <span class="fs-11 d-block text-body-color">Get new emails</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/page-user-profile.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:user-bold-duotone" class="fs-7 text-success"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">User Profile</h6>
-                            <span class="fs-11 d-block text-body-color">learn more information</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-calendar.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:calendar-minimalistic-bold-duotone"
-                              class="fs-7 text-primary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Calendar App</h6>
-                            <span class="fs-11 d-block text-body-color">Get dates</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-contact.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:smartphone-2-bold-duotone"
-                              class="fs-7 text-secondary"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Contact List Table</h6>
-                            <span class="fs-11 d-block text-body-color">Add new contact</span>
-                          </div>
-                        </a>
-                      </li>
-                      <li class="sidebar-item py-2">
-                        <a href="../main/app-notes.html" class="d-flex align-items-center">
-                          <div
-                            class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                            <iconify-icon icon="solar:notes-bold-duotone" class="fs-7 text-warning"></iconify-icon>
-                          </div>
-                          <div>
-                            <h6 class="mb-0 bg-hover-primary">Notes Application</h6>
-                            <span class="fs-11 d-block text-body-color">To-do and Daily tasks</span>
-                          </div>
-                        </a>
-                      </li>
-                  </li>
-                </ul>
-              </div>
-            </nav>
-          </div>
-
-        </div>
-        <div class="app-header with-horizontal">
-          <nav class="navbar navbar-expand-xl container-fluid p-0">
-            <ul class="navbar-nav align-items-center">
-              <li class="nav-item d-flex d-xl-none">
-                <a class="nav-link sidebartoggler nav-icon-hover-bg rounded-circle" id="sidebarCollapse"
-                  href="javascript:void(0)">
-                  <iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-7"></iconify-icon>
-                </a>
-              </li>
-              <li class="nav-item d-none d-xl-flex align-items-center">
-                <a href="../main/index.html" class="text-nowrap nav-link">
-                  <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-                </a>
-              </li>
-              <li class="nav-item d-none d-xl-flex align-items-center nav-icon-hover-bg rounded-circle">
-                <a class="nav-link" href="javascript:void(0)" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  <iconify-icon icon="solar:magnifer-linear" class="fs-6"></iconify-icon>
-                </a>
-              </li>
-              <li class="nav-item d-none d-lg-flex align-items-center dropdown nav-icon-hover-bg rounded-circle">
-                <div class="hover-dd">
-                  <a class="nav-link" id="drop2" href="javascript:void(0)" aria-haspopup="true" aria-expanded="false">
-                    <iconify-icon icon="solar:widget-3-line-duotone" class="fs-6"></iconify-icon>
-                  </a>
-                  <div class="dropdown-menu dropdown-menu-nav dropdown-menu-animate-up py-0 overflow-hidden"
-                    aria-labelledby="drop2">
-                    <div class="position-relative">
-                      <div class="row">
-                        <div class="col-md-8">
-                          <div class="p-4 pb-3">
-
-                            <div class="row">
-                              <div class="col-md-6">
-                                <div class="position-relative">
-                                  <a href="../main/app-chat.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:chat-line-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Chat Application</h6>
-                                      <span class="fs-11 d-block text-body-color">New messages arrived</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-invoice.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:bill-list-bold-duotone"
-                                        class="fs-7 text-secondary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Invoice App</h6>
-                                      <span class="fs-11 d-block text-body-color">Get latest invoice</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-contact2.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:phone-calling-rounded-bold-duotone"
-                                        class="fs-7 text-warning"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Contact Application</h6>
-                                      <span class="fs-11 d-block text-body-color">2 Unsaved Contacts</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-email.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-danger-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:letter-bold-duotone"
-                                        class="fs-7 text-danger"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Email App</h6>
-                                      <span class="fs-11 d-block text-body-color">Get new emails</span>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                              <div class="col-md-6">
-                                <div class="position-relative">
-                                  <a href="../main/page-user-profile.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-success-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:user-bold-duotone"
-                                        class="fs-7 text-success"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">User Profile</h6>
-                                      <span class="fs-11 d-block text-body-color">learn more information</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-calendar.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-primary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:calendar-minimalistic-bold-duotone"
-                                        class="fs-7 text-primary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Calendar App</h6>
-                                      <span class="fs-11 d-block text-body-color">Get dates</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-contact.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-secondary-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:smartphone-2-bold-duotone"
-                                        class="fs-7 text-secondary"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Contact List Table</h6>
-                                      <span class="fs-11 d-block text-body-color">Add new contact</span>
-                                    </div>
-                                  </a>
-                                  <a href="../main/app-notes.html"
-                                    class="d-flex align-items-center pb-9 position-relative">
-                                    <div
-                                      class="bg-warning-subtle rounded round-48 me-3 d-flex align-items-center justify-content-center">
-                                      <iconify-icon icon="solar:notes-bold-duotone"
-                                        class="fs-7 text-warning"></iconify-icon>
-                                    </div>
-                                    <div>
-                                      <h6 class="mb-0">Notes Application</h6>
-                                      <span class="fs-11 d-block text-body-color">To-do and Daily tasks</span>
-                                    </div>
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="col-4 d-none d-lg-flex">
-                          <img src="../assets/images/backgrounds/mega-dd-bg.jpg" alt="mega-dd"
-                            class="img-fluid mega-dd-bg" />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </li>
-            </ul>
-            <div class="d-block d-xl-none">
-              <a href="../main/index.html" class="text-nowrap nav-link">
-                <img src="../assets/images/logos/logo.svg" alt="Fintle-img" />
-              </a>
-            </div>
-            <a class="navbar-toggler nav-icon-hover p-0 border-0 nav-icon-hover-bg rounded-circle"
-              href="javascript:void(0)" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav"
-              aria-expanded="false" aria-label="Toggle navigation">
-              <span class="p-2">
-                <i class="ti ti-dots fs-7"></i>
-              </span>
-            </a>
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-              <div class="d-flex align-items-center justify-content-between px-0 px-xl-8">
-                <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
-                  <li class="nav-item dropdown">
-                    <a href="javascript:void(0)"
-                      class="nav-link nav-icon-hover-bg rounded-circle d-flex d-lg-none align-items-center justify-content-center"
-                      type="button" data-bs-toggle="offcanvas" data-bs-target="#mobilenavbar"
-                      aria-controls="offcanvasWithBothOptions">
-                      <iconify-icon icon="solar:sort-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item">
-                    <a class="nav-link nav-icon-hover-bg rounded-circle moon dark-layout" href="javascript:void(0)">
-                      <iconify-icon icon="solar:moon-line-duotone" class="moon fs-6"></iconify-icon>
-                    </a>
-                    <a class="nav-link nav-icon-hover-bg rounded-circle sun light-layout" href="javascript:void(0)"
-                      style="display: none">
-                      <iconify-icon icon="solar:sun-2-line-duotone" class="sun fs-6"></iconify-icon>
-                    </a>
-                  </li>
-                  <li class="nav-item d-block d-xl-none">
-                    <a class="nav-link nav-icon-hover-bg rounded-circle" href="javascript:void(0)"
-                      data-bs-toggle="modal" data-bs-target="#exampleModal">
-                      <iconify-icon icon="solar:magnifer-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                  </li>
-
-                  <!-- ------------------------------- -->
-                  <!-- start notification Dropdown -->
-                  <!-- ------------------------------- -->
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
-                    <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
-                      <iconify-icon icon="solar:bell-bing-line-duotone" class="fs-6"></iconify-icon>
-                    </a>
-                    <div class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up"
-                      aria-labelledby="drop2">
-                      <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                        <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                        <span class="badge text-bg-primary rounded-4 px-3 py-1 lh-sm">5 new</span>
-                      </div>
-                      <div class="message-body" data-simplebar>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-danger-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-danger">
-                            <iconify-icon icon="solar:widget-3-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6>
-                              <span class="d-block fs-2">9:30 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
-                            <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6>
-                              <span class="d-block fs-2">9:15 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
-                            <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Settings</h6>
-                              <span class="d-block fs-2">4:36 PM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">You can customize this template as
-                              you want</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-warning-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-warning">
-                            <iconify-icon icon="solar:widget-4-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Launch Admin</h6>
-                              <span class="d-block fs-2">9:30 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just see the my new admin!</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-primary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-primary">
-                            <iconify-icon icon="solar:calendar-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Event today</h6>
-                              <span class="d-block fs-2">9:15 AM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">Just a reminder that you have
-                              event</span>
-                          </div>
-                        </a>
-                        <a href="javascript:void(0)" class="py-6 px-7 d-flex align-items-center dropdown-item gap-3">
-                          <span
-                            class="flex-shrink-0 bg-secondary-subtle rounded-circle round d-flex align-items-center justify-content-center fs-6 text-secondary">
-                            <iconify-icon icon="solar:settings-line-duotone"></iconify-icon>
-                          </span>
-                          <div class="w-75">
-                            <div class="d-flex align-items-center justify-content-between">
-                              <h6 class="mb-1 fw-semibold">Settings</h6>
-                              <span class="d-block fs-2">4:36 PM</span>
-                            </div>
-                            <span class="d-block text-truncate text-truncate fs-11">You can customize this template as
-                              you want</span>
-                          </div>
-                        </a>
-                      </div>
-                      <div class="py-6 px-7 mb-1">
-                        <button class="btn btn-primary w-100">See All Notifications</button>
-                      </div>
-
-                    </div>
-                  </li>
-                  <!-- ------------------------------- -->
-                  <!-- end notification Dropdown -->
-                  <!-- ------------------------------- -->
-
-                  <!-- ------------------------------- -->
-                  <!-- start language Dropdown -->
-                  <!-- ------------------------------- -->
-                  <li class="nav-item dropdown nav-icon-hover-bg rounded-circle">
-                    <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown"
-                      aria-expanded="false">
-                      <img src="../assets/images/flag/icon-flag-en.svg" alt="Fintle-img" width="20px" height="20px"
-                        class="rounded-circle object-fit-cover round-20" />
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                      <div class="message-body">
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
-                          <div class="position-relative">
-                            <img src="../assets/images/flag/icon-flag-en.svg" alt="Fintle-img" width="20px"
-                              height="20px" class="rounded-circle object-fit-cover round-20" />
-                          </div>
-                          <p class="mb-0 fs-3">English (UK)</p>
-                        </a>
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
-                          <div class="position-relative">
-                            <img src="../assets/images/flag/icon-flag-cn.svg" alt="Fintle-img" width="20px"
-                              height="20px" class="rounded-circle object-fit-cover round-20" />
-                          </div>
-                          <p class="mb-0 fs-3">中国人 (Chinese)</p>
-                        </a>
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
-                          <div class="position-relative">
-                            <img src="../assets/images/flag/icon-flag-fr.svg" alt="Fintle-img" width="20px"
-                              height="20px" class="rounded-circle object-fit-cover round-20" />
-                          </div>
-                          <p class="mb-0 fs-3">français (French)</p>
-                        </a>
-                        <a href="javascript:void(0)" class="d-flex align-items-center gap-2 py-3 px-4 dropdown-item">
-                          <div class="position-relative">
-                            <img src="../assets/images/flag/icon-flag-sa.svg" alt="Fintle-img" width="20px"
-                              height="20px" class="rounded-circle object-fit-cover round-20" />
-                          </div>
-                          <p class="mb-0 fs-3">عربي (Arabic)</p>
-                        </a>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- ------------------------------- -->
-                  <!-- end language Dropdown -->
-                  <!-- ------------------------------- -->
-
-                  <!-- ------------------------------- -->
-                  <!-- start profile Dropdown -->
-                  <!-- ------------------------------- -->
-                  <li class="nav-item dropdown">
-                    <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
-                      <div class="d-flex align-items-center gap-2 lh-base">
-                        <img src="../assets/images/profile/user-1.jpg" class="rounded-circle" width="35" height="35"
-                          alt="Fintle-img" />
-                        <iconify-icon icon="solar:alt-arrow-down-bold" class="fs-2"></iconify-icon>
-                      </div>
-                    </a>
-                    <div class="dropdown-menu profile-dropdown dropdown-menu-end dropdown-menu-animate-up"
-                      aria-labelledby="drop1">
-                      <div class="position-relative px-4 pt-3 pb-2">
-                        <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
-                          <img src="../assets/images/profile/user-1.jpg" class="rounded-circle" width="56" height="56"
-                            alt="Fintle-img" />
-                          <div>
-                            <h5 class="mb-0 fs-12">David McMichael <span class="text-success fs-11">Pro</span>
-                            </h5>
-                            <p class="mb-0 text-dark">
-                              <a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                data-cfemail="442025322d200433362534342d3c21286a272b29">[email&#160;protected]</a>
-                            </p>
-                          </div>
-                        </div>
-                        <div class="message-body">
-                          <a href="../main/page-user-profile.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Profile
-                          </a>
-                          <a href="../main/page-pricing.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Subscription
-                          </a>
-                          <a href="../main/app-invoice.html" class="p-2 dropdown-item h6 rounded-1">
-                            My Invoice <span class="badge bg-danger-subtle text-danger rounded ms-8">4</span>
-                          </a>
-                          <a href="../main/page-account-settings.html" class="p-2 dropdown-item h6 rounded-1">
-                            Account Settings
-                          </a>
-                          <a href="../main/authentication-login2.html" class="p-2 dropdown-item h6 rounded-1">
-                            Sign Out
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </li>
-                  <!-- ------------------------------- -->
-                  <!-- end profile Dropdown -->
-                  <!-- ------------------------------- -->
-                </ul>
-              </div>
-            </div>
-          </nav>
-
         </div>
       </header>
-      <!-- Header End -->
 
+      <div class="body-wrapper p-3">
+        <div class="container-fluid p-0">
+          <!-- Welcome Banner -->
+          <div class="gradient-card mb-4">
+            <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+              <div>
+                <h3 class="text-white mb-2">Welcome back, David</h3>
+                <p class="text-white-50 mb-0">Here's what's happening with your business today.</p>
+              </div>
+              <button class="btn btn-outline-light rounded-pill px-4" onclick="location.href='bank-payments.html'">View
+                Reports →</button>
+            </div>
+          </div>
 
-      <aside class="left-sidebar with-horizontal">
-        <!-- ... keep existing left-sidebar content ... -->
-      </aside>
-
-      <div class="body-wrapper">
-        <div class="container-fluid">
-          <div class="row">
-            <div class="col-lg-12">
-              <div class="card">
-
-                <div class="card-body p-4 pb-0" data-simplebar="">
-                  <div class="d-flex flex-wrap gap-3 mb-9 align-items-center"> <span
-                      class="d-flex align-items-center justify-content-center round-48 flex-shrink-0 bg-primary-subtle rounded">
-                      <iconify-icon icon="solar:chart-linear" class="fs-7 text-primary"></iconify-icon>
-                    </span>
-                    <h5 class="card-title fw-semibold mb-0"> Business Overview</h5>
-                  </div>
-
-                  <div class="row flex-nowrap">
-                    <div class="col">
-                      <div class="card primary-gradient">
-                        <div class="card-body text-center px-9 pb-4">
-                          <div class="d-flex align-items-center justify-content-center round-48 rounded text-bg-primary flex-shrink-0 mb-3 mx-auto">
-                          <iconify-icon icon="solar:dollar-minimalistic-linear" class="fs-7 text-white"></iconify-icon>
-                          </div>
-                          <h6 class="fw-normal fs-3 mb-1">To Collect</h6>
-                          <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1"> $319,775 </h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card warning-gradient">
-                        <div class="card-body text-center px-9 pb-4">
-                          <div
-                            class="d-flex align-items-center justify-content-center round-48 rounded text-bg-warning flex-shrink-0 mb-3 mx-auto">
-                            <iconify-icon icon="solar:recive-twice-square-linear"
-                              class="fs-7 text-white"></iconify-icon>
-                          </div>
-                          <h6 class="fw-normal fs-3 mb-1">To Pay</h6>
-                          <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1">
-                            $181,165</h4>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="col">
-                      <div class="card secondary-gradient">
-                        <div class="card-body text-center px-9 pb-4">
-                          <div
-                            class="d-flex align-items-center justify-content-center round-48 rounded text-bg-secondary flex-shrink-0 mb-3 mx-auto">
-                            <iconify-icon icon="ic:outline-backpack" class="fs-7 text-white"></iconify-icon>
-                          </div>
-                          <h6 class="fw-normal fs-3 mb-1">Total Cash</h6>
-                          <h4 class="mb-1 d-flex align-items-center justify-content-center gap-1">
-                            $355,447</h4>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
+          <!-- KPI Cards Row -->
+          <div class="row g-4 mb-4">
+            <div class="col-xl-3 col-md-6">
+              <div class="stat-card d-flex align-items-center justify-content-between">
+                <div><span class="text-muted text-uppercase small fw-bold">Total Revenue</span>
+                  <h2 class="mt-2 mb-1 fw-bold font-kpi">$124,550</h2><span class="text-success small"><i
+                      class="fas fa-arrow-up me-1"></i>+12.5%</span>
                 </div>
-
+                <div class="stat-icon bg-primary-subtle text-primary"><i class="fas fa-chart-line fs-4"></i></div>
               </div>
             </div>
-                        <div class="col-xxl-4 col-md-6">
-              <div class="card">
-                <div class="card-body p-4">
-                  <h4 class="card-title">Overdue Invoices</h4>
-                  <p class="card-subtitle mb-7 pb-8">5 items overdue</p>
-                  <div class="position-relative">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">INV167</h6>
-                          <p class="fs-3 mb-0">ncompany</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$6,235</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-                         
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">INV156</h6>
-                          <p class="fs-3 mb-0">paye</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$345</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">INV1534</h6>
-                          <p class="fs-3 mb-0">Moneyz</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$2,235</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-7 pb-8">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">INV1324</h6>
-                          <p class="fs-3 mb-0">Your Company</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$32</h6>
-                    </div>
-                  </div>
-                  <button class="btn btn-primary w-100">View all Invoice</button>
+            <div class="col-xl-3 col-md-6">
+              <div class="stat-card d-flex align-items-center justify-content-between">
+                <div><span class="text-muted text-uppercase small fw-bold">Total Expenses</span>
+                  <h2 class="mt-2 mb-1 fw-bold font-kpi">$68,420</h2><span class="text-danger small"><i
+                      class="fas fa-arrow-up me-1"></i>+5.2%</span>
                 </div>
+                <div class="stat-icon bg-danger-subtle text-danger"><i class="fas fa-shopping-cart fs-4"></i></div>
               </div>
             </div>
-
-             <div class="col-xxl-4 col-md-6">
-              <div class="card">
-                <div class="card-body p-4">
-                  <h4 class="card-title">Overdue Purchase Bills</h4>
-                  <p class="card-subtitle mb-7 pb-8">5 items overdue</p>
-                  <div class="position-relative">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.889 2s.043.051.111.147c.281.39 1 1.52 1 2.852c0 .84-.383 1.598-1 2.142A3.52 3.52 0 0 1 18.667 8a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59A3.52 3.52 0 0 1 3 7.14C2.383 6.597 2 5.838 2 5c0-1.332.719-2.461 1-2.852c.069-.096.111-.147.111-.147zm-2.222 7.999c.812 0 1.61-.18 2.333-.51v10.507h1V22h-5.5v-8h-9v8H2v-2.004h1V9.49a5.6 5.6 0 0 0 2.333.509c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 12 10c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 18.667 10"  style="color: #6662b9;"/><path fill="currentColor" d="M9.5 22v-6h5v6z"/></svg>
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">PB73</h6>
-                          <p class="fs-3 mb-0">John</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">₹7,240.00</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.889 2s.043.051.111.147c.281.39 1 1.52 1 2.852c0 .84-.383 1.598-1 2.142A3.52 3.52 0 0 1 18.667 8a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59A3.52 3.52 0 0 1 3 7.14C2.383 6.597 2 5.838 2 5c0-1.332.719-2.461 1-2.852c.069-.096.111-.147.111-.147zm-2.222 7.999c.812 0 1.61-.18 2.333-.51v10.507h1V22h-5.5v-8h-9v8H2v-2.004h1V9.49a5.6 5.6 0 0 0 2.333.509c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 12 10c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 18.667 10"  style="color: #6662b9;"/><path fill="currentColor" d="M9.5 22v-6h5v6z"/></svg>
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">PB72</h6>
-                          <p class="fs-3 mb-0">Jason</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$345</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.889 2s.043.051.111.147c.281.39 1 1.52 1 2.852c0 .84-.383 1.598-1 2.142A3.52 3.52 0 0 1 18.667 8a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59A3.52 3.52 0 0 1 3 7.14C2.383 6.597 2 5.838 2 5c0-1.332.719-2.461 1-2.852c.069-.096.111-.147.111-.147zm-2.222 7.999c.812 0 1.61-.18 2.333-.51v10.507h1V22h-5.5v-8h-9v8H2v-2.004h1V9.49a5.6 5.6 0 0 0 2.333.509c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 12 10c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 18.667 10"  style="color: #6662b9;"/><path fill="currentColor" d="M9.5 22v-6h5v6z"/></svg>
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">PB8329</h6>
-                          <p class="fs-3 mb-0">Fiz</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$2,235</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-7 pb-8">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-  
-                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M20.889 2s.043.051.111.147c.281.39 1 1.52 1 2.852c0 .84-.383 1.598-1 2.142A3.52 3.52 0 0 1 18.667 8a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59a3.57 3.57 0 0 1-1.984-.59c-.819-.546-1.35-1.422-1.35-2.41c0 .988-.53 1.864-1.35 2.41c-.554.37-1.24.59-1.983.59A3.52 3.52 0 0 1 3 7.14C2.383 6.597 2 5.838 2 5c0-1.332.719-2.461 1-2.852c.069-.096.111-.147.111-.147zm-2.222 7.999c.812 0 1.61-.18 2.333-.51v10.507h1V22h-5.5v-8h-9v8H2v-2.004h1V9.49a5.6 5.6 0 0 0 2.333.509c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 12 10c1.21 0 2.392-.4 3.333-1.099A5.63 5.63 0 0 0 18.667 10"  style="color: #6662b9;"/><path fill="currentColor" d="M9.5 22v-6h5v6z"/></svg>
-
-                        </div>
-                        <div>
-                          <h6 class="mb-1 fs-4 fw-semibold">PB8934</h6>
-                          <p class="fs-3 mb-0">Cena</p>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$32</h6>
-                    </div>
-                  </div>
-                  <button class="btn btn-primary w-100">View all Bills</button>
+            <div class="col-xl-3 col-md-6">
+              <div class="stat-card d-flex align-items-center justify-content-between">
+                <div><span class="text-muted text-uppercase small fw-bold">Net Profit</span>
+                  <h2 class="mt-2 mb-1 fw-bold font-kpi">$56,130</h2><span class="text-success small"><i
+                      class="fas fa-arrow-up me-1"></i>+18.3%</span>
                 </div>
+                <div class="stat-icon bg-success-subtle text-success"><i class="fas fa-wallet fs-4"></i></div>
               </div>
             </div>
-
-                         <div class="col-xxl-4 col-md-6">
-              <div class="card">
-                <div class="card-body p-4">
-                  <h4 class="card-title">Purchase Bills you Owe</h4>
-                  <p class="card-subtitle mb-7 pb-8">5 items overdue</p>
-                  <div class="position-relative">
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-                        </div>
-                        <div class="mt-2">
-                          <h6 class="mb-0 fs-4 fw-semibold">Coming Due</h6>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">₹2,000.00</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-                        </div>
-                        <div class="mt-2">
-                          <h6 class="mb-0 fs-4 fw-semibold">1-30 days overdue</h6>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$345</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-4">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-                        </div>
-                        <div class="mt-2">
-                          <h6 class="mb-0 fs-4 fw-semibold">31-60 days overdue</h6>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$2,235</h6>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-7 pb-8">
-                      <div class="d-flex">
-                        <div class="p-8 bg-primary-subtle rounded-1 d-flex align-items-center justify-content-center me-6">
-  
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M2 2v2h2v18.08l3.466-2.772l2.284 2.03l2.25-2l2.25 2l2.284-2.03L20 22.08V4h2V2zm14 7H8V7h8zm-7 4v-2h6v2z" style="color: #6662b9;"/></svg>
-
-                        </div>
-                       <div class="mt-2">
-                          <h6 class="mb-0 fs-4 fw-semibold">61-90 days overdue</h6>
-                        </div>
-                      </div>
-                      <h6 class="mb-0 fw-bolder mb-1 lh-base text-danger">$32</h6>
-                    </div>
-                  </div>
-                  <button class="btn btn-primary w-100">View all Bills</button>
+            <div class="col-xl-3 col-md-6">
+              <div class="stat-card d-flex align-items-center justify-content-between">
+                <div><span class="text-muted text-uppercase small fw-bold">Pending Invoices</span>
+                  <h2 class="mt-2 mb-1 fw-bold font-kpi">24</h2><span class="text-warning small"><i
+                      class="fas fa-clock me-1"></i>$42,300</span>
                 </div>
+                <div class="stat-icon bg-warning-subtle text-warning"><i class="fas fa-file-invoice fs-4"></i></div>
               </div>
             </div>
+          </div>
 
-
-            <div class="col-lg-4">
-              <div class="col-lg-12">
-                <div class="card">
-                  <div class="card-body">
-                    <div class="d-flex align-items-start justify-content-between mb-3">
-                      <div>
-                        <h5 class="card-title fw-semibold">Invoices payable to you</h5>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between pb-6 border-bottom">
-                      <div>
-                        <span class="text-muted fw-medium">Coming Due </span>
-                      </div>
-                      <div class="text-end">
-                        <h6 class="fw-bolder mb-1 lh-base">₹200.00</h6>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between py-6 border-bottom">
-                      <div>
-                        <span class="text-muted fw-medium">1-30 days overdue</span>
-                      </div>
-                      <div class="text-end">
-                        <h6 class="fw-bolder mb-1 lh-base">$1,100.00</h6>
-                      </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between py-6 border-bottom">
-                      <div>
-                        <span class="text-muted fw-medium">31-60 days overdue</span>
-                      </div>
-                      <div class="text-end">
-                        <h6 class="fw-bolder mb-1 lh-base">$6,400.50</h6>
-                      </div>
-                    </div>
-
-                    <div class="d-flex align-items-center justify-content-between pt-6">
-                      <div>
-                        <span class="text-muted fw-medium">> 90 days overdue</span>
-                      </div>
-                      <div class="text-end">
-                        <h6 class="fw-bolder mb-1 lh-base text-danger">$21,100.50</h6>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
+          <!-- Charts & Quick Actions Row -->
+          <div class="row g-4 mb-4">
             <div class="col-lg-8">
-              <!-- -------------------------------------------- -->
-              <!-- Revenue by Product -->
-              <!-- -------------------------------------------- -->
-              <div class="card mb-lg-0">
-                <div class="card-body">
-                  <div class="d-flex flex-wrap gap-3 mb-9 justify-content-between align-items-center">
-                    <h5 class="card-title fw-semibold mb-0">Recent Invoices & Bills</h5>
-                    <div class="cta gap-2 d-flex">
-                      <button type="button" onclick="location.href='create-invoice.html'" class="btn btn-outline-primary"> New Invoice </button>
-                      <button type="button" class="btn btn-outline-primary"> New Bills </button>
-                    </div>
-                  </div>
-
-                  <div class="table-responsive mb-4">
-                    <ul class="nav nav-tabs theme-tab gap-3 flex-nowrap" role="tablist">
-                      <li class="nav-item">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#app" role="tab">
-                          <div class="hstack gap-2">
-                            <iconify-icon icon="solar:widget-linear" class="fs-4"></iconify-icon>
-                            <span>Invoices</span>
-                          </div>
-
-                        </a>
-                      </li>
-                      <li class="nav-item">
-                        <a class="nav-link" data-bs-toggle="tab" href="#mobile" role="tab">
-                          <div class="hstack gap-2">
-                            <iconify-icon icon="solar:smartphone-line-duotone" class="fs-4"></iconify-icon>
-                            <span>Purchase Bills</span>
-                          </div>
-                        </a>
-                      </li>
-
-
-                    </ul>
-                  </div>
-                  <div class="tab-content mb-n3">
-                    <div class="tab-pane active" id="app" role="tabpanel">
-                      <div class="table-responsive" data-simplebar>
-                        <table class="table text-nowrap align-middle table-custom mb-0 last-items-borderless">
-                          <thead>
-                            <tr>
-                              <th scope="col" class="fw-normal ps-0">Invoice
-                              </th>
-                              <th scope="col" class="fw-normal">Customer</th>
-                              <th scope="col" class="fw-normal">Status</th>
-                              <th scope="col" class="fw-normal">Amount</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <div>
-                                    <h6 class="mb-0">INV167</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>ncompany</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">₹67,200</span>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <div>
-                                    <h6 class="mb-0">INV147</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>TSC</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-warning-subtle text-warning">Pending</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">₹13,220</span>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <div>
-                                    <h6 class="mb-0">INV169</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>Logist</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-danger-subtle text-danger">Overdue</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">₹67,200</span>
-                              </td>
-                            </tr>
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="mobile" role="tabpanel">
-                      <div class="table-responsive" data-simplebar>
-                        <table class="table text-nowrap align-middle table-custom mb-0 last-items-borderless">
-                          <thead>
-                            <tr>
-                              <th scope="col" class="fw-normal ps-0">Bill
-                              </th>
-                              <th scope="col" class="fw-normal">Supplier </th>
-                              <th scope="col" class="fw-normal">Amount</th>
-                              <th scope="col" class="fw-normal">Due</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <div>
-                                    <h6 class="mb-0">PB73</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>John</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$5,000 </span>
-                              </td>
-                              <td>
-                                <span class="badge bg-warning-subtle text-warning"> Overdue </span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <div>
-                                    <h6 class="mb-0">PB33</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>Smith</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$1,340 </span>
-                              </td>
-                              <td>
-                                <span class="badge bg-warning-subtle text-warning"> Overdue </span>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <div>
-                                    <h6 class="mb-0">PB76</h6>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>Charles</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$1,200 </span>
-                              </td>
-                              <td>
-                                <span class="badge bg-warning-subtle text-warning"> Overdue </span>
-                              </td>
-                            </tr>
-
-
-
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div class="tab-pane" id="saas" role="tabpanel">
-                      <div class="table-responsive" data-simplebar>
-                        <table class="table text-nowrap align-middle table-custom mb-0 last-items-borderless">
-                          <thead>
-                            <tr>
-                              <th scope="col" class="fw-normal ps-0">Assigned
-                              </th>
-                              <th scope="col" class="fw-normal">Progress</th>
-                              <th scope="col" class="fw-normal">Priority</th>
-                              <th scope="col" class="fw-normal">Budget</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-2.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Web App Project</h6>
-                                    <span>Mathew Flintoff</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-warning-subtle text-warning">Medium</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-1.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Minecraf App</h6>
-                                    <span>Jason Roy</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-success-subtle text-success">Low</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-3.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Modernize Dashboard</h6>
-                                    <span>Anil Kumar</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-secondary-subtle text-secondary">Very
-                                  High</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-4.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Dashboard Co</h6>
-                                    <span>George Cruize</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-danger-subtle text-danger">High</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-
-                    <div class="tab-pane" id="other" role="tabpanel">
-                      <div class="table-responsive" data-simplebar>
-                        <table class="table text-nowrap align-middle table-custom mb-0 last-items-borderless">
-                          <thead>
-                            <tr>
-                              <th scope="col" class="fw-normal ps-0">Assigned
-                              </th>
-                              <th scope="col" class="fw-normal">Progress</th>
-                              <th scope="col" class="fw-normal">Priority</th>
-                              <th scope="col" class="fw-normal">Budget</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-1.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Minecraf App</h6>
-                                    <span>Jason Roy</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-success-subtle text-success">Low</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-3.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Modernize Dashboard</h6>
-                                    <span>Anil Kumar</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-secondary-subtle text-secondary">Very
-                                  High</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-2.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Web App Project</h6>
-                                    <span>Mathew Flintoff</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-warning-subtle text-warning">Medium</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-
-                            <tr>
-                              <td class="ps-0">
-                                <div class="d-flex align-items-center gap-6">
-                                  <img src="../assets/images/products/dash-prd-4.jpg" alt="prd1" width="48"
-                                    class="rounded" />
-                                  <div>
-                                    <h6 class="mb-0">Dashboard Co</h6>
-                                    <span>George Cruize</span>
-                                  </div>
-                                </div>
-                              </td>
-                              <td>
-                                <span>73.2%</span>
-                              </td>
-                              <td>
-                                <span class="badge bg-danger-subtle text-danger">High</span>
-                              </td>
-                              <td>
-                                <span class="text-dark-light">$3.5k</span>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                  </div>
-
-
+              <div class="card-modern p-4 h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="fw-bold mb-0">Revenue Overview</h5>
+                  <div class="d-flex gap-2"><span class="badge bg-primary-subtle text-primary px-3 py-1">This
+                      Year</span></div>
                 </div>
+                <div style="height: 280px;" id="revenueChart"></div>
               </div>
             </div>
-
-
-
-
-            <div class="col-lg-12 mt-4">
-              <!-- -------------------------------------------- -->
-              <!-- Revenue Forecast -->
-              <!-- -------------------------------------------- -->
-              <div class="card">
-                <div class="card-body pb-4">
-                  <div class="d-md-flex align-items-center justify-content-between mb-4">
-                    <div class="hstack align-items-center gap-3">
-                      <span
-                        class="d-flex align-items-center justify-content-center round-48 bg-primary-subtle rounded flex-shrink-0">
-                        <iconify-icon icon="solar:layers-linear" class="fs-7 text-primary"></iconify-icon>
-                      </span>
-                      <div>
-                        <h5 class="card-title">Revenue Forecast 2026</h5>
-                        <p class="card-subtitle mb-0">Overview of Profit</p>
-                      </div>
+            <div class="col-lg-4">
+              <div class="card-modern p-4 h-100">
+                <h5 class="fw-bold mb-3">Quick Actions</h5>
+                <div class="d-grid gap-3">
+                  <button class="btn btn-outline-primary rounded-3 py-3 text-start d-flex align-items-center gap-3"
+                    onclick="location.href='create-invoice.html'"><i class="fas fa-plus-circle fs-5"></i>
+                    <div><strong>Create Invoice</strong><br><small class="text-muted">Generate new sales invoice</small>
                     </div>
-
-                    <div class="hstack gap-9 mt-4 mt-md-0">
-                      <div class="d-flex align-items-center gap-2">
-                        <span class="d-block flex-shrink-0 round-8 bg-primary rounded-circle"></span>
-                        <span class="text-nowrap text-muted">2026</span>
-                      </div>
-                      <div class="d-flex align-items-center gap-2">
-                        <span class="d-block flex-shrink-0 round-8 bg-danger rounded-circle"></span>
-                        <span class="text-nowrap text-muted">2025</span>
-                      </div>
-                      <div class="d-flex align-items-center gap-2">
-                        <span class="d-block flex-shrink-0 round-8 bg-secondary rounded-circle"></span>
-                        <span class="text-nowrap text-muted">2024</span>
-                      </div>
+                  </button>
+                  <button class="btn btn-outline-primary rounded-3 py-3 text-start d-flex align-items-center gap-3"
+                    onclick="location.href='bank-payments.html'"><i class="fas fa-credit-card fs-5"></i>
+                    <div><strong>Record Payment</strong><br><small class="text-muted">Log incoming or outgoing
+                        payment</small></div>
+                  </button>
+                  <button class="btn btn-outline-primary rounded-3 py-3 text-start d-flex align-items-center gap-3"
+                    onclick="location.href='account-master.html'"><i class="fas fa-chart-pie fs-5"></i>
+                    <div><strong>View Ledger</strong><br><small class="text-muted">Account summary & reports</small>
                     </div>
+                  </button>
+                </div>
+                <hr class="my-4">
+                <div class="bg-light p-3 rounded-3">
+                  <div class="d-flex justify-content-between"><span>Cash Flow</span><strong>+$28,450</strong></div>
+                  <div class="progress-custom mt-2">
+                    <div class="progress-bar" style="width: 78%"></div>
                   </div>
-                  <div style="height: 285px;" class="me-n7">
-                    <div id="revenue-forecast"></div>
+                  <div class="d-flex justify-content-between mt-3"><span>Budget Used</span><strong>64%</strong></div>
+                  <div class="progress-custom mt-2">
+                    <div class="progress-bar" style="width: 64%"></div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
+          <!-- Recent Invoices & Bills -->
+          <div class="row g-4">
+            <div class="col-lg-6">
+              <div class="card-modern p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="fw-bold mb-0">Recent Invoices</h5>
+                  <a href="invoice.html" class="text-primary small">View All →</a>
+                </div>
+                <div class="table-responsive">
+                  <table class="table-modern">
+                    <thead>
+                      <tr>
+                        <th>Invoice #</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="rounded-start">INV-2025-001</td>
+                        <td>TechSolutions Inc.</td>
+                        <td>$12,450</td>
+                        <td><span class="badge-custom badge-paid"><i class="fas fa-check-circle me-1"></i> Paid</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="rounded-start">INV-2025-002</td>
+                        <td>Global Retail Ltd.</td>
+                        <td>$8,230</td>
+                        <td><span class="badge-custom badge-pending"><i class="fas fa-hourglass-half me-1"></i>
+                            Pending</span></td>
+                      </tr>
+                      <tr>
+                        <td class="rounded-start">INV-2025-003</td>
+                        <td>Creative Agency</td>
+                        <td>$4,500</td>
+                        <td><span class="badge-custom badge-overdue"><i class="fas fa-exclamation-triangle me-1"></i>
+                            Overdue</span></td>
+                      </tr>
+                      <tr>
+                        <td class="rounded-start">INV-2025-004</td>
+                        <td>Digital Solutions</td>
+                        <td>$15,200</td>
+                        <td><span class="badge-custom badge-paid">Paid</span></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card-modern p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                  <h5 class="fw-bold mb-0">Upcoming Bills</h5>
+                  <a href="purchase-bill.html" class="text-primary small">View All →</a>
+                </div>
+                <div class="table-responsive">
+                  <table class="table-modern">
+                    <thead>
+                      <tr>
+                        <th>Bill #</th>
+                        <th>Supplier</th>
+                        <th>Due Date</th>
+                        <th>Amount</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td class="rounded-start">PO-2409</td>
+                        <td>Office Supplies Co.</td>
+                        <td>May 20, 2025</td>
+                        <td>$3,250</td>
+                      </tr>
+                      <tr>
+                        <td class="rounded-start">PO-2410</td>
+                        <td>IT Solutions</td>
+                        <td>May 25, 2025</td>
+                        <td>$7,800</td>
+                      </tr>
+                      <tr>
+                        <td class="rounded-start">PO-2411</td>
+                        <td>Marketing Hub</td>
+                        <td>Jun 05, 2025</td>
+                        <td>$2,100</td>
+                      </tr>
+                      <tr>
+                        <td class="rounded-start">PO-2412</td>
+                        <td>Logistics Pro</td>
+                        <td>Jun 12, 2025</td>
+                        <td>$4,650</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Cash Flow & Recent Activities -->
+          <div class="row g-4 mt-2">
+            <div class="col-lg-7">
+              <div class="card-modern p-4">
+                <h5 class="fw-bold mb-4">Cash Flow Forecast</h5>
+                <div style="height: 240px;" id="cashFlowChart"></div>
+              </div>
+            </div>
+            <div class="col-lg-5">
+              <div class="card-modern p-4">
+                <h5 class="fw-bold mb-4">Recent Activities</h5>
+                <div class="d-flex flex-column gap-3 mt-4">
+                  <div class="d-flex gap-3 mb-2">
+                    <div class="rounded-circle bg-primary-subtle p-2"
+                      style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><i
+                        class="fas fa-receipt text-primary"></i></div>
+                    <div><strong>Invoice INV-2025-002 paid</strong><br><small class="text-muted">2 hours ago</small>
+                    </div>
+                  </div>
+                  <div class="d-flex gap-3 mb-2">
+                    <div class="rounded-circle bg-success-subtle p-2"
+                      style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><i
+                        class="fas fa-user-plus text-success"></i></div>
+                    <div><strong>New customer registered</strong><br><small class="text-muted">Yesterday, 3:45
+                        PM</small></div>
+                  </div>
+                  <div class="d-flex gap-3 mb-2">
+                    <div class="rounded-circle bg-warning-subtle p-2"
+                      style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><i
+                        class="fas fa-chart-line text-warning"></i></div>
+                    <div><strong>Monthly report generated</strong><br><small class="text-muted">May 15, 2025</small>
+                    </div>
+                  </div>
+                  <div class="d-flex gap-3 mb-2">
+                    <div class="rounded-circle bg-danger-subtle p-2"
+                      style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;"><i
+                        class="fas fa-exclamation-triangle text-danger"></i></div>
+                    <div><strong>Payment reminder sent to 3 clients</strong><br><small class="text-muted">May 14,
+                        2025</small></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Footer Stats -->
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="card-modern p-4">
+                <div class="row text-center">
+                  <div class="col-md-3 border-end">
+                    <h5 class="fw-bold text-primary">$124.5K</h5><small class="text-muted">Total Revenue YTD</small>
+                  </div>
+                  <div class="col-md-3 border-end">
+                    <h5 class="fw-bold text-success">$56.1K</h5><small class="text-muted">Net Profit</small>
+                  </div>
+                  <div class="col-md-3 border-end">
+                    <h5 class="fw-bold text-warning">89%</h5><small class="text-muted">Collection Rate</small>
+                  </div>
+                  <div class="col-md-3">
+                    <h5 class="fw-bold text-info">32</h5><small class="text-muted">Active Customers</small>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
-      <div class="offcanvas customizer offcanvas-end" tabindex="-1" id="offcanvasExample"
-        aria-labelledby="offcanvasExampleLabel">
-        <div class="d-flex align-items-center justify-content-between p-3 border-bottom">
-          <h4 class="offcanvas-title fw-semibold" id="offcanvasExampleLabel">
-            Settings
-          </h4>
-          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body" data-simplebar style="height: calc(100vh - 80px)">
-          <h6 class="fw-semibold fs-4 mb-2">Theme</h6>
-
-          <div class="d-flex flex-row gap-3 customizer-box" role="group">
-            <input type="radio" class="btn-check light-layout" name="theme-layout" id="light-layout"
-              autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="light-layout">
-              <i class="icon ti ti-brightness-up fs-7 me-2"></i>Light
-            </label>
-
-            <input type="radio" class="btn-check dark-layout" name="theme-layout" id="dark-layout" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="dark-layout">
-              <i class="icon ti ti-moon fs-7 me-2"></i>Dark
-            </label>
-          </div>
-
-          <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Direction</h6>
-          <div class="d-flex flex-row gap-3 customizer-box" role="group">
-            <input type="radio" class="btn-check" name="direction-l" id="ltr-layout" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="ltr-layout">
-              <i class="icon ti ti-text-direction-ltr fs-7 me-2"></i>LTR
-            </label>
-
-            <input type="radio" class="btn-check" name="direction-l" id="rtl-layout" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="rtl-layout">
-              <i class="icon ti ti-text-direction-rtl fs-7 me-2"></i>RTL
-            </label>
-          </div>
-
-          <h6 class="mt-5 fw-semibold fs-4 mb-2">Theme Colors</h6>
-
-          <div class="d-flex flex-row flex-wrap gap-3 customizer-box color-pallete" role="group">
-            <input type="radio" class="btn-check" name="color-theme-layout" id="Blue_Theme" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2 d-flex align-items-center justify-content-center"
-              onclick="handleColorTheme('Blue_Theme')" for="Blue_Theme" data-bs-toggle="tooltip" data-bs-placement="top"
-              data-bs-title="BLUE_THEME">
-              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-1">
-                <i class="ti ti-check text-white d-flex icon fs-5"></i>
-              </div>
-            </label>
-
-            <input type="radio" class="btn-check" name="color-theme-layout" id="Aqua_Theme" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2 d-flex align-items-center justify-content-center"
-              onclick="handleColorTheme('Aqua_Theme')" for="Aqua_Theme" data-bs-toggle="tooltip" data-bs-placement="top"
-              data-bs-title="AQUA_THEME">
-              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-2">
-                <i class="ti ti-check text-white d-flex icon fs-5"></i>
-              </div>
-            </label>
-
-            <input type="radio" class="btn-check" name="color-theme-layout" id="Purple_Theme" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2 d-flex align-items-center justify-content-center"
-              onclick="handleColorTheme('Purple_Theme')" for="Purple_Theme" data-bs-toggle="tooltip"
-              data-bs-placement="top" data-bs-title="PURPLE_THEME">
-              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-3">
-                <i class="ti ti-check text-white d-flex icon fs-5"></i>
-              </div>
-            </label>
-
-            <input type="radio" class="btn-check" name="color-theme-layout" id="green-theme-layout"
-              autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2 d-flex align-items-center justify-content-center"
-              onclick="handleColorTheme('Green_Theme')" for="green-theme-layout" data-bs-toggle="tooltip"
-              data-bs-placement="top" data-bs-title="GREEN_THEME">
-              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-4">
-                <i class="ti ti-check text-white d-flex icon fs-5"></i>
-              </div>
-            </label>
-
-            <input type="radio" class="btn-check" name="color-theme-layout" id="cyan-theme-layout" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2 d-flex align-items-center justify-content-center"
-              onclick="handleColorTheme('Cyan_Theme')" for="cyan-theme-layout" data-bs-toggle="tooltip"
-              data-bs-placement="top" data-bs-title="CYAN_THEME">
-              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-5">
-                <i class="ti ti-check text-white d-flex icon fs-5"></i>
-              </div>
-            </label>
-
-            <input type="radio" class="btn-check" name="color-theme-layout" id="orange-theme-layout"
-              autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2 d-flex align-items-center justify-content-center"
-              onclick="handleColorTheme('Orange_Theme')" for="orange-theme-layout" data-bs-toggle="tooltip"
-              data-bs-placement="top" data-bs-title="ORANGE_THEME">
-              <div class="color-box rounded-circle d-flex align-items-center justify-content-center skin-6">
-                <i class="ti ti-check text-white d-flex icon fs-5"></i>
-              </div>
-            </label>
-          </div>
-
-          <h6 class="mt-5 fw-semibold fs-4 mb-2">Layout Type</h6>
-          <div class="d-flex flex-row gap-3 customizer-box" role="group">
-            <div>
-              <input type="radio" class="btn-check" name="page-layout" id="vertical-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary rounded-2" for="vertical-layout">
-                <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Vertical
-              </label>
-            </div>
-            <div>
-              <input type="radio" class="btn-check" name="page-layout" id="horizontal-layout" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary rounded-2" for="horizontal-layout">
-                <i class="icon ti ti-layout-navbar fs-7 me-2"></i>Horizontal
-              </label>
-            </div>
-          </div>
-
-          <h6 class="mt-5 fw-semibold fs-4 mb-2">Container Option</h6>
-
-          <div class="d-flex flex-row gap-3 customizer-box" role="group">
-            <input type="radio" class="btn-check" name="layout" id="boxed-layout" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="boxed-layout">
-              <i class="icon ti ti-layout-distribute-vertical fs-7 me-2"></i>Boxed
-            </label>
-
-            <input type="radio" class="btn-check" name="layout" id="full-layout" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="full-layout">
-              <i class="icon ti ti-layout-distribute-horizontal fs-7 me-2"></i>Full
-            </label>
-          </div>
-
-          <h6 class="fw-semibold fs-4 mb-2 mt-5">Sidebar Type</h6>
-          <div class="d-flex flex-row gap-3 customizer-box" role="group">
-            <a href="javascript:void(0)" class="fullsidebar">
-              <input type="radio" class="btn-check" name="sidebar-type" id="full-sidebar" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary rounded-2" for="full-sidebar">
-                <i class="icon ti ti-layout-sidebar-right fs-7 me-2"></i>Full
-              </label>
-            </a>
-            <div>
-              <input type="radio" class="btn-check" name="sidebar-type" id="mini-sidebar" autocomplete="off" />
-              <label class="btn p-9 btn-outline-primary rounded-2" for="mini-sidebar">
-                <i class="icon ti ti-layout-sidebar fs-7 me-2"></i>Collapse
-              </label>
-            </div>
-          </div>
-
-          <h6 class="mt-5 fw-semibold fs-4 mb-2">Card With</h6>
-
-          <div class="d-flex flex-row gap-3 customizer-box" role="group">
-            <input type="radio" class="btn-check" name="card-layout" id="card-with-border" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="card-with-border">
-              <i class="icon ti ti-border-outer fs-7 me-2"></i>Border
-            </label>
-
-            <input type="radio" class="btn-check" name="card-layout" id="card-without-border" autocomplete="off" />
-            <label class="btn p-9 btn-outline-primary rounded-2" for="card-without-border">
-              <i class="icon ti ti-border-none fs-7 me-2"></i>Shadow
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
-      <script>
-        function handleColorTheme(e) {
-          document.documentElement.setAttribute("data-color-theme", e);
-        }
-      </script>
-
     </div>
-
   </div>
 
-
-  
-  <!-- Import Js Files -->
-  <script src="assets/libs/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/libs/js/simplebar.min.js"></script>
-  <script src="assets/libs/js/app.init.js"></script>
-  <script src="assets/libs/js/theme.js"></script>
-  <script src="assets/libs/js/app.min.js"></script>
-  <script src="assets/libs/js/sidebarmenu.js"></script>
-
-    <script src="assets/libs/js/apexcharts.min.js"></script>
-  <script src="assets/libs/js/dashboard1.js"></script>
-  <script src="assets/libs/js/index.global.min.js"></script>
-  <script defer src="https://static.cloudflareinsights.com/beacon.min.js/v8c78df7c7c0f484497ecbca7046644da1771523124516"
-    integrity="sha512-8DS7rgIrAmghBFwoOTujcf6D9rXvH8xm8JQ1Ja01h9QX8EzXldiszufYa4IFfKdLUKTTrnSFXLDkUEOTrZQ8Qg=="
-    data-cf-beacon='{"version":"2024.11.0","token":"3be9301eaa1743d584a13be558225a58","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}'
-    crossorigin="anonymous"></script>
-
-  <!-- solar icons -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
 
-  <!-- highlight.js (code view) -->
-  <script src="../assets/js/highlights/highlight.min.js"></script>
+  <script>
+    // Revenue Chart
+    var revenueOptions = {
+      series: [{ name: 'Revenue', data: [31, 40, 28, 51, 42, 65, 58] }],
+      chart: { type: 'area', height: 280, toolbar: { show: false }, zoom: { enabled: false }, sparkline: { enabled: false } },
+      colors: ['#2a3b82'],
+      fill: { type: 'gradient', gradient: { shadeIntensity: 1, opacityFrom: 0.3, opacityTo: 0.1 } },
+      dataLabels: { enabled: false },
+      stroke: { curve: 'smooth', width: 3 },
+      xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'], labels: { style: { colors: '#64748b' } } },
+      yaxis: { labels: { formatter: (val) => '$' + val + 'k' } },
+      grid: { borderColor: '#eef2f6' },
+      tooltip: { theme: 'light' }
+    };
+    var revenueChart = new ApexCharts(document.querySelector("#revenueChart"), revenueOptions);
+    revenueChart.render();
 
+    // Cash Flow Chart
+    var cashFlowOptions = {
+      series: [{ name: 'Income', data: [44, 55, 41, 67, 22, 43] }, { name: 'Expenses', data: [13, 23, 20, 8, 13, 27] }],
+      chart: { type: 'bar', height: 240, toolbar: { show: false }, stacked: false },
+      colors: ['#2a3b82', '#ef4444'],
+      plotOptions: { bar: { horizontal: false, columnWidth: '55%', borderRadius: 8 } },
+      dataLabels: { enabled: false },
+      stroke: { show: true, width: 2, colors: ['transparent'] },
+      xaxis: { categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'], labels: { style: { colors: '#64748b' } } },
+      yaxis: { title: { text: 'Amount (k$)' }, labels: { formatter: (val) => '$' + val + 'k' } },
+      fill: { opacity: 1 },
+      tooltip: { y: { formatter: (val) => '$' + val + 'k' } },
+      grid: { borderColor: '#eef2f6' }
+    };
+    var cashFlowChart = new ApexCharts(document.querySelector("#cashFlowChart"), cashFlowOptions);
+    cashFlowChart.render();
+
+    // Sidebar toggle
+    document.getElementById('headerCollapse')?.addEventListener('click', function () {
+      const sidebar = document.getElementById('fintleSidebarRoot');
+      if (sidebar.style.transform === 'translateX(0px)' || !sidebar.style.transform) sidebar.style.transform = 'translateX(-100%)';
+      else sidebar.style.transform = 'translateX(0px)';
+    });
+
+    // Submenu handlers
+    document.querySelectorAll('.has-sub .submenu-trigger-side').forEach(trigger => {
+      trigger.addEventListener('click', function (e) {
+        e.stopPropagation();
+        const parent = this.closest('.has-sub');
+        const submenu = parent.querySelector('.submenu-level');
+        if (submenu) { submenu.classList.toggle('show-sub'); parent.classList.toggle('open'); }
+      });
+    });
+  </script>
 </body>
 
 </html>

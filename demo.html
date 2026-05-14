@@ -1,944 +1,286 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fintle | Create Voucher</title>
-  <link rel="shortcut icon" type="image/png" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%232a3b82'/%3E%3Ctext x='50' y='67' font-size='50' text-anchor='middle' fill='white' font-weight='bold'%3EF%3C/text%3E%3C/svg%3E">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.css">
-  <!-- Flatpickr Calendar Plugin CSS -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-
-  <style>
-    /* Sidebar Styles - Modern Fintle Design */
-    .fintle-side {
-      position: fixed;
-      left: 0;
-      top: 0;
-      width: 280px;
-      height: 100vh;
-      background: #ffffff;
-      border-right: 1px solid #eef2f8;
-      display: flex;
-      flex-direction: column;
-      z-index: 1030;
-      transition: all 0.2s ease;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.02);
-    }
-
-    .side-header {
-      padding: 24px 24px 20px 24px;
-      border-bottom: 1px solid #eef2f8;
-    }
-
-    .brand-wrap {
-      display: flex;
-      align-items: center;
-    }
-
-    .brand-logo img {
-      height: 36px;
-      width: auto;
-    }
-
-    .fintle-nav-scroll {
-      flex: 1;
-      overflow-y: auto;
-      padding: 16px 12px;
-    }
-
-    .fintle-menu-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .menu-item {
-      margin-bottom: 4px;
-    }
-
-    .nav-link-side {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 16px;
-      border-radius: 14px;
-      color: #334155;
-      font-weight: 500;
-      font-size: 0.9rem;
-      transition: all 0.2s;
-      cursor: pointer;
-      text-decoration: none;
-    }
-
-    .nav-link-side .trigger-wrap {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      width: 100%;
-    }
-
-    .nav-link-side span:first-child {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .nav-link-side iconify-icon {
-      font-size: 1.3rem;
-    }
-
-    .nav-link-side:hover {
-      background: #f1f5f9;
-      color: #1e293b;
-    }
-
-    .menu-item.active .nav-link-side {
-      background: #2a3b82;
-      color: white;
-    }
-
-    .dropdown-arrow {
-      font-size: 10px;
-      transition: transform 0.2s;
-      color: #94a3b8;
-    }
-
-    .has-sub.open .dropdown-arrow {
-      transform: rotate(90deg);
-    }
-
-    .submenu-level {
-      list-style: none;
-      padding-left: 28px;
-      margin-top: 6px;
-      margin-bottom: 8px;
-      display: none;
-    }
-
-    .submenu-level.show-sub {
-      display: block;
-    }
-
-    .sub-link-item {
-      margin-bottom: 4px;
-    }
-
-    .sub-link {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 8px 12px;
-      border-radius: 12px;
-      color: #475569;
-      font-size: 0.85rem;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .sub-link:hover {
-      background: #f8fafc;
-      color: #2a3b82;
-    }
-
-    .dot-marker {
-      width: 6px;
-      height: 6px;
-      background-color: #cbd5e1;
-      border-radius: 50%;
-      display: inline-block;
-    }
-
-    .side-footer {
-      padding: 20px 16px 28px;
-      border-top: 1px solid #eef2f8;
-    }
-
-    .logout-link .nav-link-side {
-      color: #ef4444;
-    }
-
-    .page-wrapper {
-      margin-left: 280px;
-      min-height: 100vh;
-      background: #f5f7fb;
-    }
-
-    /* Topbar */
-    .topbar {
-      background: white;
-      padding: 0 24px;
-      border-bottom: 1px solid #eef2f8;
-      height: 70px;
-      display: flex;
-      align-items: center;
-    }
-
-    .navbar-nav {
-      width: 100%;
-    }
-
-    .btn-primary-subtle {
-      background: #eef2ff;
-      color: #2a3b82;
-    }
-
-    .btn-primary-subtle:hover {
-      background: #e0e7ff;
-    }
-
-    /* Main card container */
-    .voucher-card {
-      max-width: 1200px;
-      width: 100%;
-      margin: 0 auto;
-      background: #ffffff;
-      border-radius: 6px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.05), 0 4px 8px rgba(0, 0, 0, 0.02);
-      padding: 1.5rem 2rem 2rem 2rem;
-      transition: all 0.2s ease;
-    }
-
-    .relative-form {
-      position: relative;
-      width: 100%;
-      min-height: 460px;
-      margin-top: 0.5rem;
-    }
-
-    /* Header / Issue Date row */
-    .header-row-bg {
-      background-color: #f0f4fa;
-      height: 60px;
-      width: 100%;
-      border-radius: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1rem;
-      margin-bottom: 2rem;
-      position: relative;
-    }
-
-    .badge-voucher {
-      background: #2a3b82;
-      color: white;
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 0.8rem;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-    }
-
-    .issue-date-wrapper {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      background: transparent;
-    }
-
-    .issue-date-label {
-      font-weight: 500;
-      font-size: 0.9rem;
-      color: #3c4b5f;
-      letter-spacing: 0.2px;
-    }
-
-    .issue-date-input {
-      border: 1px solid #e2e8f0;
-      background: white;
-      border-radius: 10px;
-      padding: 8px 12px;
-      font-family: 'Inter', monospace;
-      font-size: 0.85rem;
-      color: #1e293b;
-      width: 180px;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .issue-date-input:focus {
-      outline: none;
-      border-color: #2a3b82;
-      box-shadow: 0 0 0 2px rgba(42, 59, 130, 0.1);
-    }
-
-    /* Flatpickr calendar customization */
-    .flatpickr-calendar {
-      font-family: 'Inter', sans-serif;
-      border-radius: 16px;
-      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.1);
-    }
-
-    .flatpickr-day.selected {
-      background: #2a3b82;
-      border-color: #2a3b82;
-    }
-
-    /* Two column layout */
-    .two-col-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1.8rem;
-      margin-bottom: 2rem;
-    }
-
-    .field-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-
-    .field-label {
-      font-weight: 500;
-      font-size: 0.85rem;
-      color: #475569;
-      letter-spacing: 0.2px;
-    }
-
-    .field-input {
-      border: 1px solid #e2e8f0;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      background: white;
-      transition: all 0.2s;
-      width: 100%;
-    }
-
-    .field-input:focus,
-    .description-input:focus,
-    .amount-input:focus {
-      outline: none;
-      border-color: #2a3b82;
-      box-shadow: 0 0 0 3px rgba(42, 59, 130, 0.08);
-    }
-
-    /* description area */
-    .description-section {
-      margin-bottom: 2rem;
-    }
-
-    .description-label {
-      font-weight: 500;
-      font-size: 0.85rem;
-      color: #475569;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .description-input {
-      width: 100%;
-      border: 1px solid #e2e8f0;
-      border-radius: 5px;
-      padding: 12px 16px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      resize: vertical;
-      background: white;
-      min-height: 85px;
-      line-height: 1.45;
-    }
-
-    /* Amount Section - Left side Amount in Words + Right side Amount Input */
-    .amount-wrapper {
-      display: flex;
-      gap: 1.5rem;
-      margin-top: 0.5rem;
-      align-items: flex-start;
-      flex-wrap: wrap;
-    }
-
-    .amount-in-words-box {
-      flex: 1;
-      background: #f8fafc;
-      border-radius: 12px;
-      padding: 0.9rem 1.2rem;
-      border: 1px solid #eef2f8;
-      min-height: 85px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-
-    .amount-words-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      font-weight: 600;
-      color: #5b6e8c;
-      margin-bottom: 8px;
-    }
-
-    .amount-words-value {
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: #1e293b;
-      line-height: 1.4;
-      word-break: break-word;
-    }
-
-    .amount-words-value.empty {
-      color: #94a3b8;
-      font-style: italic;
-    }
-
-    .amount-panel {
-      background-color: #f0f4fa;
-      border-radius: 5px;
-      padding: 0.7rem 1.2rem 0.9rem 1.2rem;
-      width: 320px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .amount-label-top {
-      font-weight: 500;
-      font-size: 0.85rem;
-      margin-bottom: 5px;
-      color: #4b5565;
-      letter-spacing: 0.3px;
-    }
-
-    .amount-input {
-      border: 1px solid white;
-      background: white;
-      border-radius: 4px;
-      padding: 10px 14px;
-      font-size: 1rem;
-      font-weight: 600;
-      font-family: 'Inter', monospace;
-      color: #0f172a;
-      width: 100%;
-      transition: all 0.2s;
-    }
-
-    .amount-input:focus {
-      border-color: #2a3b82;
-    }
-
-    /* Buttons row */
-    .action-buttons {
-      display: flex;
-      justify-content: flex-end;
-      gap: 16px;
-      margin-top: 2rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid #eef2f8;
-    }
-
-    .btn-cancel {
-      background: white;
-      border: 1px solid #e2e8f0;
-      border-radius: 40px;
-      padding: 10px 28px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      color: #475569;
-      transition: 0.2s;
-      cursor: pointer;
-    }
-
-    .btn-cancel:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-    }
-
-    .btn-save {
-      background: #2a3b82;
-      border: none;
-      border-radius: 40px;
-      padding: 10px 32px;
-      font-weight: 600;
-      font-size: 0.85rem;
-      color: white;
-      transition: all 0.2s;
-      cursor: pointer;
-    }
-
-    .btn-save:hover {
-      background: #1f2e6e;
-      transform: translateY(-1px);
-      box-shadow: 0 6px 14px rgba(42, 59, 130, 0.2);
-    }
-
-    /* toast notification */
-    .alert-toast {
-      position: fixed;
-      bottom: 28px;
-      right: 28px;
-      background: #1e293b;
-      color: white;
-      padding: 12px 24px;
-      border-radius: 60px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      z-index: 1100;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
-      font-family: 'Inter', sans-serif;
-    }
-
-    /* responsiveness */
-    @media (max-width: 992px) {
-      .fintle-side {
-        transform: translateX(-100%);
-      }
-      .page-wrapper {
-        margin-left: 0;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .voucher-card {
-        padding: 1.2rem;
-      }
-      .two-col-grid {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
-      .amount-wrapper {
-        flex-direction: column;
-      }
-      .amount-panel {
-        width: 100%;
-      }
-      .header-row-bg {
-        flex-direction: column;
-        height: auto;
-        padding: 12px;
-        gap: 10px;
-      }
-    }
-
-    .field-input[type="text"],
-    .field-input[type="date"] {
-      font-size: 0.9rem;
-    }
-
-    ::placeholder {
-      color: #b9c2d0;
-      font-weight: 400;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Fintle</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lato', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 375px;
+            height: 812px;
+            background-color: #ffffff;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .illustration-container {
+            width: 100%;
+            max-width: 312px;
+            height: 312px;
+            position: relative;
+            margin-bottom: 40px;
+            background-color: #f8f9fc;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .illustration {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+
+        .illustration svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .content {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            color: #172862;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        .subtitle {
+            font-size: 15px;
+            font-weight: 400;
+            color: #666666;
+            line-height: 1.6;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .pagination {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 50px;
+        }
+
+        .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #e1e6f6;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: #172862;
+        }
+
+        .button-container {
+            width: 100%;
+            max-width: 333px;
+            height: 70px;
+            background-color: #e1e6f6;
+            border-radius: 190px;
+            position: relative;
+            display: flex;
+            padding: 5px;
+        }
+
+        .btn {
+            flex: 1;
+            height: 60px;
+            border: none;
+            border-radius: 190px;
+            font-family: 'Lato', sans-serif;
+            font-size: 17px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-signin {
+            background-color: #172862;
+            color: #ffffff;
+            margin-right: 5px;
+        }
+
+        .btn-signin:hover {
+            background-color: #0f1d45;
+        }
+
+        .btn-signup {
+            background-color: transparent;
+            color: #172862;
+        }
+
+        .btn-signup:hover {
+            background-color: rgba(23, 40, 98, 0.05);
+        }
+
+        @media (max-width: 375px) {
+            .container {
+                height: auto;
+            }
+        }
+    </style>
 </head>
-
 <body>
+    <div class="container">
+        <div class="illustration-container">
+            <div class="illustration">
+                <svg viewBox="0 0 280 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Calendar Icon -->
+                    <rect x="20" y="40" width="50" height="45" rx="4" stroke="#263238" stroke-width="2" fill="none"/>
+                    <line x1="30" y1="35" x2="30" y2="45" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="40" y1="35" x2="40" y2="45" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="50" y1="35" x2="50" y2="45" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <line x1="60" y1="35" x2="60" y2="45" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    
+                    <!-- Grid lines for calendar -->
+                    <line x1="25" y1="52" x2="65" y2="52" stroke="#263238" stroke-width="1"/>
+                    <line x1="25" y1="60" x2="65" y2="60" stroke="#263238" stroke-width="1"/>
+                    <line x1="25" y1="68" x2="65" y2="68" stroke="#263238" stroke-width="1"/>
+                    <line x1="25" y1="76" x2="65" y2="76" stroke="#263238" stroke-width="1"/>
+                    <line x1="33" y1="48" x2="33" y2="82" stroke="#263238" stroke-width="1"/>
+                    <line x1="41" y1="48" x2="41" y2="82" stroke="#263238" stroke-width="1"/>
+                    <line x1="49" y1="48" x2="49" y2="82" stroke="#263238" stroke-width="1"/>
+                    <line x1="57" y1="48" x2="57" y2="82" stroke="#263238" stroke-width="1"/>
 
-<div id="main-wrapper">
-  <aside class="fintle-side" id="fintleSidebarRoot">
-    <div class="side-header">
-      <div class="brand-wrap">
-        <div class="brand-logo">
-          <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 50'%3E%3Ctext x='10' y='35' font-family='Arial' font-size='28' fill='%232a3b82' font-weight='bold'%3EFintle%3C/text%3E%3C/svg%3E" alt="Fintle" style="height: 32px;">
+                    <!-- Clipboard with Dollar Sign -->
+                    <rect x="100" y="30" width="80" height="100" rx="6" fill="#ffffff" stroke="#263238" stroke-width="2.5"/>
+                    <rect x="120" y="25" width="40" height="12" rx="6" fill="#8B8D97"/>
+                    <circle cx="140" cy="70" r="20" fill="#172862"/>
+                    <text x="140" y="80" text-anchor="middle" fill="white" font-size="24" font-weight="bold" font-family="Arial">$</text>
+                    <line x1="110" y1="95" x2="130" y2="95" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="150" y1="95" x2="170" y2="95" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="110" y1="102" x2="170" y2="102" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="110" y1="109" x2="170" y2="109" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="110" y1="116" x2="145" y2="116" stroke="#263238" stroke-width="1.5"/>
+
+                    <!-- Receipt/Paper with Magnifying Glass -->
+                    <rect x="35" y="140" width="60" height="80" rx="4" fill="#ffffff" stroke="#263238" stroke-width="2"/>
+                    <line x1="45" y1="150" x2="75" y2="150" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="45" y1="157" x2="75" y2="157" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="45" y1="164" x2="75" y2="164" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="45" y1="171" x2="75" y2="171" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="45" y1="178" x2="70" y2="178" stroke="#263238" stroke-width="1.5"/>
+                    
+                    <!-- Magnifying Glass -->
+                    <circle cx="70" cy="195" r="18" fill="none" stroke="#263238" stroke-width="3"/>
+                    <line x1="83" y1="208" x2="95" y2="220" stroke="#263238" stroke-width="3" stroke-linecap="round"/>
+
+                    <!-- Calculator -->
+                    <rect x="120" y="155" width="70" height="90" rx="6" fill="#ffffff" stroke="#263238" stroke-width="2.5"/>
+                    <rect x="127" y="162" width="56" height="20" rx="3" fill="#e1e6f6"/>
+                    <g fill="#263238">
+                        <rect x="130" y="190" width="12" height="10" rx="2"/>
+                        <rect x="147" y="190" width="12" height="10" rx="2"/>
+                        <rect x="164" y="190" width="12" height="10" rx="2"/>
+                        <rect x="130" y="205" width="12" height="10" rx="2"/>
+                        <rect x="147" y="205" width="12" height="10" rx="2"/>
+                        <rect x="164" y="205" width="12" height="10" rx="2"/>
+                        <rect x="130" y="220" width="12" height="10" rx="2"/>
+                        <rect x="147" y="220" width="12" height="10" rx="2"/>
+                        <rect x="164" y="220" width="12" height="10" rx="2"/>
+                        <rect x="130" y="230" width="12" height="10" rx="2"/>
+                    </g>
+
+                    <!-- Stacked Coins -->
+                    <g>
+                        <ellipse cx="90" cy="238" rx="18" ry="6" fill="#4a5568"/>
+                        <rect x="72" y="232" width="36" height="6" fill="#4a5568"/>
+                        <ellipse cx="90" cy="232" rx="18" ry="6" fill="#5a6678"/>
+                        <ellipse cx="90" cy="226" rx="18" ry="6" fill="#4a5568"/>
+                        <rect x="72" y="220" width="36" height="6" fill="#4a5568"/>
+                        <ellipse cx="90" cy="220" rx="18" ry="6" fill="#5a6678"/>
+                        <ellipse cx="90" cy="214" rx="18" ry="6" fill="#4a5568"/>
+                        <rect x="72" y="208" width="36" height="6" fill="#4a5568"/>
+                        <ellipse cx="90" cy="208" rx="18" ry="6" fill="#5a6678"/>
+                    </g>
+
+                    <!-- Person Left (with laptop) -->
+                    <circle cx="35" cy="175" r="8" fill="#FFC1A6"/>
+                    <path d="M35 183 L35 210" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M35 195 L28 205" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M35 195 L42 205" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M35 210 L28 225" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M35 210 L42 225" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="25" y="200" width="22" height="14" rx="1" fill="#263238"/>
+                    <line x1="27" y1="204" x2="45" y2="204" stroke="#e1e6f6" stroke-width="0.5"/>
+                    <line x1="27" y1="207" x2="45" y2="207" stroke="#e1e6f6" stroke-width="0.5"/>
+                    <line x1="27" y1="210" x2="45" y2="210" stroke="#e1e6f6" stroke-width="0.5"/>
+
+                    <!-- Person Right (with documents) -->
+                    <circle cx="245" cy="175" r="8" fill="#FFC1A6"/>
+                    <path d="M245 183 L245 210" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M245 195 L238 205" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M245 195 L252 205" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M245 210 L238 225" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <path d="M245 210 L252 225" stroke="#263238" stroke-width="2" stroke-linecap="round"/>
+                    <rect x="235" y="195" width="14" height="18" rx="1" fill="#ffffff" stroke="#263238" stroke-width="1.5"/>
+                    <line x1="238" y1="199" x2="246" y2="199" stroke="#263238" stroke-width="1"/>
+                    <line x1="238" y1="202" x2="246" y2="202" stroke="#263238" stroke-width="1"/>
+                    <line x1="238" y1="205" x2="246" y2="205" stroke="#263238" stroke-width="1"/>
+                    <line x1="238" y1="208" x2="246" y2="208" stroke="#263238" stroke-width="1"/>
+
+                    <!-- Decorative circles/targets -->
+                    <circle cx="230" cy="75" r="28" fill="none" stroke="#e1e6f6" stroke-width="6" opacity="0.4"/>
+                    <circle cx="230" cy="75" r="18" fill="none" stroke="#d0d5f0" stroke-width="4" opacity="0.5"/>
+                    
+                    <!-- Chart bars background -->
+                    <rect x="210" y="55" width="8" height="25" fill="#e1e6f6" opacity="0.3"/>
+                    <rect x="220" y="45" width="8" height="35" fill="#e1e6f6" opacity="0.3"/>
+                    <rect x="230" y="50" width="8" height="30" fill="#e1e6f6" opacity="0.3"/>
+                    <rect x="240" y="40" width="8" height="40" fill="#e1e6f6" opacity="0.3"/>
+                </svg>
+            </div>
         </div>
-      </div>
-    </div>
-    <div class="fintle-nav-scroll">
-      <ul class="fintle-menu-list">
-        <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:atom-line-duotone"></iconify-icon><span class="menu-text">Dashboard</span></a></li>
-        <li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:inbox-line-duotone"></iconify-icon><span class="menu-text">Inbox</span></a></li>
-        <li class="menu-item has-sub" data-submenu-id="itemsSub">
-          <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span><iconify-icon icon="solar:box-minimalistic-line-duotone"></iconify-icon><span class="menu-text">Items</span></span><span class="dropdown-arrow">▶</span></div></div>
-          <ul class="submenu-level" id="itemsSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Item</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span>HSN / SAC Codes</a></li></ul>
-        </li>
-        <li class="menu-item has-sub" data-submenu-id="purchaseSub">
-          <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span><iconify-icon icon="solar:cart-large-line-duotone"></iconify-icon><span class="menu-text">Purchase</span></span><span class="dropdown-arrow">▶</span></div></div>
-          <ul class="submenu-level" id="purchaseSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Suppliers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Purchase Order</a></li></ul>
-        </li>
-        <li class="menu-item has-sub" data-submenu-id="salesSub">
-          <div class="nav-link-side submenu-trigger-side"><div class="trigger-wrap"><span><iconify-icon icon="solar:chart-2-line-duotone"></iconify-icon><span class="menu-text">Sales</span></span><span class="dropdown-arrow">▶</span></div></div>
-          <ul class="submenu-level" id="salesSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Customers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Invoices</a></li></ul>
-        </li>
-        <li class="menu-item has-sub open" data-submenu-id="accSub">
-          <div class="nav-link-side submenu-trigger-side active"><div class="trigger-wrap"><span><iconify-icon icon="solar:wallet-line-duotone"></iconify-icon><span class="menu-text">Accounts</span></span><span class="dropdown-arrow">▶</span></div></div>
-          <ul class="submenu-level show-sub" id="accSub"><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Account Master</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Journals</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> Vouchers</a></li><li class="sub-link-item"><a href="#" class="sub-link"><span class="dot-marker"></span> General Ledger</a></li></ul>
-        </li>
-      </ul>
-    </div>
-    <div class="side-footer">
-      <ul class="fintle-menu-list"><li class="menu-item"><a href="#" class="nav-link-side"><iconify-icon icon="solar:settings-line-duotone"></iconify-icon><span class="menu-text">Settings</span></a></li><li class="menu-item logout-link"><a href="#" class="nav-link-side" id="logoutActionBtn"><iconify-icon icon="solar:logout-2-line-duotone"></iconify-icon><span class="menu-text">Logout</span></a></li></ul>
-    </div>
-  </aside>
 
-  <div class="page-wrapper">
-    <header class="topbar">
-      <div class="with-vertical w-100">
-        <nav class="navbar navbar-expand-lg p-0 w-100">
-          <ul class="navbar-nav me-auto">
-            <li class="nav-item d-flex d-xl-none"><a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)"><iconify-icon icon="solar:hamburger-menu-line-duotone" class="fs-5"></iconify-icon></a></li>
-            <li class="nav-item d-none d-lg-flex"><button class="btn bg-primary-subtle text-primary dropdown-toggle" style="font-size:13px" onclick="alert('Create sales invoice demo')"><iconify-icon icon="solar:add-plus-line-duotone"></iconify-icon> Create Sales Invoice</button></li>
-          </ul>
-          <div class="d-flex align-items-center gap-3">
-            <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='35' viewBox='0 0 24 24' fill='%232a3b82'%3E%3Ccircle cx='12' cy='8' r='4' fill='%239ca3af'/%3E%3Cpath fill='%239ca3af' d='M12 14c-4 0-6 2-6 4v2h12v-2c0-2-2-4-6-4z'/%3E%3C/svg%3E" class="rounded-circle" width="38" height="38" alt="profile">
-          </div>
-        </nav>
-      </div>
-    </header>
-
-    <div class="body-wrapper p-3">
-      <div class="container-fluid p-0">
-        <div class="card card-body py-3 mb-2 border-0 shadow-sm">
-          <div class="row align-items-center">
-            <div class="col-12">
-              <div class="d-sm-flex align-items-center justify-space-between">
-                <h4 class="mb-4 mb-sm-0 card-title"><a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="m9 18l-6-6l6-6l1.4 1.4L6.8 11H21v2H6.8l3.6 3.6z"/></svg></a> Create New Voucher</h4>
-                <nav aria-label="breadcrumb" class="ms-auto">
-                  <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#">Accounts</a></li>
-                    <li class="breadcrumb-item active">Vouchers</li>
-                  </ol>
-                </nav>
-              </div>
-            </div>
-          </div>
+        <div class="content">
+            <h1>Welcome to Fintle</h1>
+            <p class="subtitle">Your smart accounting companion to create bills, track sales, and manage purchase reports</p>
         </div>
 
-        <div class="voucher-card">
-          <div class="relative-form">
-            <!-- Header with Issue Date + Voucher Number Badge on Right -->
-            <div class="header-row-bg">
-              <div class="badge-voucher" id="voucherBadge">VCH-2026-042</div>
-              <div class="issue-date-wrapper">
-                <span class="issue-date-label">Issue Date</span>
-                <input type="text" class="issue-date-input" id="issueDateInput" placeholder="Select date" value="2026-05-13">
-              </div>
-            </div>
-
-            <!-- Voucher Number + Recipient / Entity -->
-            <div class="two-col-grid">
-              <div class="field-group">
-                <label class="field-label">Voucher Number</label>
-                <input type="text" class="field-input" id="voucherNumberInput" placeholder="e.g., VCH-2026-001" value="">
-              </div>
-              <div class="field-group">
-                <label class="field-label">Recipient / Entity</label>
-                <input type="text" class="field-input" id="recipientInput" placeholder="Customer, Supplier, or Party name" value="">
-              </div>
-            </div>
-
-            <!-- Description Field -->
-            <div class="description-section">
-              <label class="description-label">Description</label>
-              <textarea class="description-input" id="descriptionInput" placeholder="Enter voucher description, reference, or additional notes..."></textarea>
-            </div>
-
-            <!-- Amount Section: Left side Amount in Words + Right side Amount Input -->
-            <div class="amount-wrapper">
-              <!-- LEFT SIDE: Amount in Words Display -->
-              <div class="amount-in-words-box">
-                <div class="amount-words-label">Amount in Words</div>
-                <div class="amount-words-value" id="amountInWordsDisplay">—</div>
-              </div>
-              
-              <!-- RIGHT SIDE: Amount Panel -->
-              <div class="amount-panel">
-                <span class="amount-label-top">Voucher Amount</span>
-                <input type="text" class="amount-input" id="amountInput" placeholder="₹ 0.00" value="">
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="action-buttons">
-              <button type="button" class="btn-cancel" id="cancelBtn">Cancel</button>
-              <button type="button" class="btn-save" id="saveBtn">Save Voucher</button>
-            </div>
-          </div>
+        <div class="pagination">
+            <div class="dot active"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
         </div>
-      </div>
+
+        <div class="button-container">
+            <button class="btn btn-signin" onclick="alert('Sign In clicked')">Sign In</button>
+            <button class="btn btn-signup" onclick="alert('Sign Up clicked')">Sign Up</button>
+        </div>
     </div>
-  </div>
-</div>
-
-<!-- Toast Notification -->
-<div id="liveToastMsg" class="alert-toast" style="display: none;">
-  <i class="fas fa-check-circle me-2"></i> <span id="toastText">Action completed</span>
-</div>
-
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-
-<script>
-  // ======================== NUMBER TO WORDS CONVERTER (Indian Rupees Format) ========================
-  function numberToWordsIndian(amount) {
-    if (amount === 0 || isNaN(amount) || amount === null) return '';
-    
-    const num = parseFloat(amount);
-    if (isNaN(num)) return '';
-    
-    const rupees = Math.floor(num);
-    const paise = Math.round((num - rupees) * 100);
-    
-    const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
-    const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
-    
-    function convertToWords(n) {
-      if (n === 0) return '';
-      if (n < 20) return ones[n];
-      if (n < 100) return tens[Math.floor(n / 10)] + (n % 10 !== 0 ? ' ' + ones[n % 10] : '');
-      if (n < 1000) return ones[Math.floor(n / 100)] + ' Hundred' + (n % 100 !== 0 ? ' ' + convertToWords(n % 100) : '');
-      if (n < 100000) return convertToWords(Math.floor(n / 1000)) + ' Thousand' + (n % 1000 !== 0 ? ' ' + convertToWords(n % 1000) : '');
-      if (n < 10000000) return convertToWords(Math.floor(n / 100000)) + ' Lakh' + (n % 100000 !== 0 ? ' ' + convertToWords(n % 100000) : '');
-      return convertToWords(Math.floor(n / 10000000)) + ' Crore' + (n % 10000000 !== 0 ? ' ' + convertToWords(n % 10000000) : '');
-    }
-    
-    let rupeesWords = convertToWords(rupees);
-    let result = rupeesWords ? rupeesWords + ' Rupees' : '';
-    
-    if (paise > 0) {
-      const paiseWords = convertToWords(paise);
-      result += (result ? ' and ' : '') + paiseWords + ' Paise';
-    }
-    
-    return result + ' Only';
-  }
-  
-  // Update Amount in Words dynamically
-  function updateAmountInWords() {
-    const amountInput = document.getElementById('amountInput');
-    const amountWordsSpan = document.getElementById('amountInWordsDisplay');
-    let rawValue = amountInput.value;
-    let numericValue = parseFloat(rawValue.replace(/,/g, ''));
-    
-    if (isNaN(numericValue) || numericValue <= 0) {
-      amountWordsSpan.innerHTML = '—';
-      amountWordsSpan.classList.add('empty');
-    } else {
-      const words = numberToWordsIndian(numericValue);
-      amountWordsSpan.innerHTML = words;
-      amountWordsSpan.classList.remove('empty');
-    }
-  }
-  
-  // Format amount input helper with thousand separators (Indian numbering)
-  function formatAmountWithCommas(value) {
-    let raw = value.toString().replace(/[^0-9.-]/g, '');
-    if (raw === '' || raw === '-') return '';
-    let num = parseFloat(raw);
-    if (isNaN(num)) return '';
-    
-    let parts = raw.split('.');
-    let integerPart = parts[0];
-    let decimalPart = parts[1] ? '.' + parts[1].slice(0, 2) : '';
-    
-    let lastThree = integerPart.slice(-3);
-    let otherNumbers = integerPart.slice(0, -3);
-    if (otherNumbers !== '') {
-      lastThree = ',' + lastThree;
-    }
-    let formatted = otherNumbers.replace(/\B(?=(\d{2})+(?!\d))/g, ",") + lastThree;
-    return formatted + decimalPart;
-  }
-  
-  function handleAmountInput(e) {
-    let rawValue = e.target.value;
-    let numericRaw = rawValue.replace(/[^0-9.-]/g, '');
-    if (numericRaw === '') {
-      e.target.value = '';
-      updateAmountInWords();
-      return;
-    }
-    let num = parseFloat(numericRaw);
-    if (!isNaN(num)) {
-      e.target.value = numericRaw;
-    } else {
-      e.target.value = '';
-    }
-    updateAmountInWords();
-  }
-  
-  function formatAmountOnBlur() {
-    let val = amountInput.value.trim();
-    if (val === '') {
-      amountInput.value = '';
-      updateAmountInWords();
-      return;
-    }
-    let num = parseFloat(val);
-    if (!isNaN(num)) {
-      let formatted = formatAmountWithCommas(num.toFixed(2));
-      amountInput.value = formatted;
-    } else {
-      if (val === '') amountInput.value = '';
-    }
-    updateAmountInWords();
-  }
-  
-  function getRawAmountValue() {
-    let raw = amountInput.value;
-    if (!raw) return 0;
-    let cleaned = raw.replace(/,/g, '');
-    let num = parseFloat(cleaned);
-    return isNaN(num) ? 0 : num;
-  }
-  
-  // ======================== CALENDAR PLUGIN (Flatpickr) ========================
-  let flatpickrInstance = null;
-  function initCalendar() {
-    const dateInput = document.getElementById('issueDateInput');
-    if (dateInput && typeof flatpickr !== 'undefined') {
-      flatpickrInstance = flatpickr(dateInput, {
-        dateFormat: "Y-m-d",
-        defaultDate: "2026-05-13",
-        allowInput: true,
-        theme: "light",
-        position: "auto"
-      });
-    }
-  }
-  
-  // ======================== VOUCHER CRUD OPERATIONS ========================
-  function showToast(message, isError = false) {
-    const toastDiv = document.getElementById('liveToastMsg');
-    const toastTextSpan = document.getElementById('toastText');
-    toastTextSpan.innerText = message;
-    toastDiv.style.display = 'flex';
-    toastDiv.style.background = isError ? '#b91c1c' : '#1e293b';
-    setTimeout(() => {
-      toastDiv.style.display = 'none';
-      toastDiv.style.background = '#1e293b';
-    }, 2600);
-  }
-  
-  function generateVoucherNumber() {
-    const year = new Date().getFullYear();
-    const randomSeq = Math.floor(Math.random() * 900) + 100;
-    return `VCH-${year}-${randomSeq}`;
-  }
-  
-  // Update the badge with current voucher number
-  function updateVoucherBadge() {
-    const badge = document.getElementById('voucherBadge');
-    const voucherNumber = voucherNumberInput.value.trim();
-    if (badge) {
-      if (voucherNumber) {
-        badge.textContent = voucherNumber;
-      } else {
-        badge.textContent = 'Not Set';
-      }
-    }
-  }
-  
-  function resetFormFields() {
-    const today = new Date().toISOString().split('T')[0];
-    if (flatpickrInstance) {
-      flatpickrInstance.setDate(today);
-    } else {
-      document.getElementById('issueDateInput').value = today;
-    }
-    const newVoucherNo = generateVoucherNumber();
-    voucherNumberInput.value = newVoucherNo;
-    updateVoucherBadge();
-    recipientInput.value = '';
-    descriptionInput.value = '';
-    amountInput.value = '';
-    updateAmountInWords();
-    showToast('Form cleared, ready for new voucher', false);
-  }
-  
-  function collectVoucherData() {
-    const issueDate = document.getElementById('issueDateInput').value;
-    const voucherNumber = voucherNumberInput.value.trim();
-    const recipient = recipientInput.value.trim();
-    const description = descriptionInput.value.trim();
-    let rawAmount = getRawAmountValue();
-    
-    if (!issueDate) { showToast('Please select Issue Date', true); return null; }
-    if (!voucherNumber) { showToast('Voucher Number is required', true); return null; }
-    if (!recipient) { showToast('Recipient / Entity is required', true); return null; }
-    if (rawAmount === 0 || isNaN(rawAmount) || rawAmount <= 0) { showToast('Please enter a valid Voucher Amount greater than zero', true); return null; }
-    
-    return {
-      issueDate, voucherNumber, recipientEntity: recipient,
-      description, voucherAmount: rawAmount,
-      amountInWords: numberToWordsIndian(rawAmount),
-      createdOn: new Date().toISOString(), id: Date.now()
-    };
-  }
-  
-  function saveVoucherHandler() {
-    const voucherData = collectVoucherData();
-    if (!voucherData) return;
-    let existingVouchers = [];
-    try {
-      const stored = localStorage.getItem('fintle_vouchers_clean');
-      if (stored) existingVouchers = JSON.parse(stored);
-    } catch(e) { console.warn(e); }
-    existingVouchers.push(voucherData);
-    localStorage.setItem('fintle_vouchers_clean', JSON.stringify(existingVouchers));
-    showToast(`Voucher ${voucherData.voucherNumber} saved successfully!`, false);
-    setTimeout(() => {
-      if (confirm('Voucher saved! Create another? OK to clear form, Cancel to keep editing.')) resetFormFields();
-    }, 200);
-  }
-  
-  function cancelForm() {
-    if (confirm('Cancel voucher creation? All unsaved data will be lost.')) resetFormFields();
-  }
-  
-  // DOM Elements
-  const voucherNumberInput = document.getElementById('voucherNumberInput');
-  const recipientInput = document.getElementById('recipientInput');
-  const descriptionInput = document.getElementById('descriptionInput');
-  const amountInput = document.getElementById('amountInput');
-  const cancelBtn = document.getElementById('cancelBtn');
-  const saveBtn = document.getElementById('saveBtn');
-  
-  // Event Listeners
-  amountInput.addEventListener('input', handleAmountInput);
-  amountInput.addEventListener('blur', formatAmountOnBlur);
-  saveBtn.addEventListener('click', saveVoucherHandler);
-  cancelBtn.addEventListener('click', cancelForm);
-  
-  // Update badge when voucher number changes
-  voucherNumberInput.addEventListener('input', updateVoucherBadge);
-  
-  descriptionInput.addEventListener('keydown', (e) => {
-    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
-      e.preventDefault();
-      saveVoucherHandler();
-    }
-  });
-  
-  // Initialize
-  window.addEventListener('DOMContentLoaded', () => {
-    initCalendar();
-    if (!voucherNumberInput.value.trim()) {
-      voucherNumberInput.value = generateVoucherNumber();
-    }
-    updateVoucherBadge();
-    if (amountInput.value) formatAmountOnBlur();
-    else updateAmountInWords();
-    descriptionInput.placeholder = "Enter voucher description (e.g., Rent payment, Invoice settlement, etc.)";
-  });
-  
-  // Sidebar toggle for mobile
-  document.getElementById('headerCollapse')?.addEventListener('click', function() {
-    const sidebar = document.getElementById('fintleSidebarRoot');
-    if (sidebar.style.transform === 'translateX(0px)' || !sidebar.style.transform) sidebar.style.transform = 'translateX(-100%)';
-    else sidebar.style.transform = 'translateX(0px)';
-  });
-  
-  document.querySelectorAll('.has-sub .submenu-trigger-side').forEach(trigger => {
-    trigger.addEventListener('click', function(e) {
-      e.stopPropagation();
-      const parent = this.closest('.has-sub');
-      const submenu = parent.querySelector('.submenu-level');
-      if (submenu) { submenu.classList.toggle('show-sub'); parent.classList.toggle('open'); }
-    });
-  });
-  
-  document.getElementById('logoutActionBtn')?.addEventListener('click', (e) => { e.preventDefault(); showToast('Logged out (demo)'); });
-</script>
 </body>
 </html>
