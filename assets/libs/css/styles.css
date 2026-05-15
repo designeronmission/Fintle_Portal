@@ -17169,7 +17169,7 @@
 }
 
 [data-bs-theme=dark] body .text-muted {
-    color: #68757a !important
+    color: #b1b1b1 !important
 }
 
 [data-bs-theme=dark] .table-primary {
@@ -40740,7 +40740,7 @@ label {
 }
 
 body .text-muted {
-    color: #526b7a !important
+    color: #b1b1b1 !important
 }
 
 .form-select {
